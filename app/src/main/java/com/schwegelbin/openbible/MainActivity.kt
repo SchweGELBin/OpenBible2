@@ -9,7 +9,10 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
@@ -22,7 +25,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.schwegelbin.openbible.ui.theme.OpenBibleTheme
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
@@ -45,7 +50,10 @@ data class Chapter(
 data class Book(val chapters: List<Chapter>)
 
 @Serializable
-data class Bible(val books: List<Book>)
+data class Bible(
+    val books: List<Book>,
+    val translation: String
+)
 
 enum class Screen(val title: String) {
     Home("Home"),
@@ -150,8 +158,33 @@ fun ReadScreen(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
     ) {
-        Text(getTitle(context = context, abbrev = "schlachter", book = 18, chapter = 118).toString())
-        Text(getChapter(context = context, abbrev = "schlachter", book = 18, chapter = 118).toString())
+        ElevatedCard(
+            elevation = CardDefaults.cardElevation(
+                defaultElevation = 6.dp
+            ),
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            Text(
+                text = getTitle(context = context, abbrev = "schlachter", book = 42, chapter = 2).toString(),
+                modifier = Modifier.padding(16.dp),
+                textAlign = TextAlign.Center
+            )
+        }
+        ElevatedCard(
+            elevation = CardDefaults.cardElevation(
+                defaultElevation = 6.dp
+            ),
+            modifier = Modifier
+                .verticalScroll(state = rememberScrollState(), enabled = true)
+                .fillMaxWidth()
+        ) {
+            Text(
+                text = getChapter(context = context, abbrev = "schlachter", book = 42, chapter = 2).toString(),
+                modifier = Modifier.padding(16.dp),
+                textAlign = TextAlign.Justify
+            )
+        }
     }
 
 }
@@ -277,15 +310,16 @@ private fun getTitle(context: Context, abbrev: String, book: Int, chapter: Int):
     val withUnknownKeys = Json { ignoreUnknownKeys = true; }
     var json = File(path).readText()
     var bible = withUnknownKeys.decodeFromString<Bible>(json)
+    val translation = bible.translation
     val title = bible.books[book].chapters[chapter].name
-    return "${abbrev}\n${title}"
+    return "${translation} | ${title}"
 }
 
 private fun downloadFile(context: Context, url: String, name: String) {
     val request = DownloadManager.Request(Uri.parse(url)).apply {
         setTitle("Downloading $name")
         setDescription("Downloading $name")
-        setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+        setNotificationVisibility(DownloadManager.Request.VISIBILITY_HIDDEN)
         setDestinationInExternalFilesDir(context, "", name)
     }
     val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
