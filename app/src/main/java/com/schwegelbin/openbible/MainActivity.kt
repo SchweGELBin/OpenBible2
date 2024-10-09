@@ -31,7 +31,7 @@ import java.io.File
 
 @Serializable
 data class Verse(
-    val verse: String,
+    val verse: Int,
     val text: String
 )
 
@@ -146,14 +146,16 @@ fun HomeScreen(modifier: Modifier = Modifier) {
 
 @Composable
 fun ReadScreen(modifier: Modifier = Modifier) {
-    Text(text = "Read Screen", modifier = modifier)
-    /*
+    //Text(text = "Read Screen", modifier = modifier)
+
     val context = LocalContext.current
-    Column {
-        Text(getChapter(context = context, abbrev = "schlachter", book = 18, chapter = 118).toString())
+    Column(
+        modifier = modifier
+    ) {
+        Text(getTitle(context = context, abbrev = "schlachter", book = 18, chapter = 118).toString())
         Text(getChapter(context = context, abbrev = "schlachter", book = 18, chapter = 118).toString())
     }
-    */
+
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -260,9 +262,10 @@ private fun checkUpdate(context: Context, abbrev: String): Boolean {
 private fun getChapter(context: Context, abbrev: String, book: Int, chapter: Int): String? {
     val dir = context.getExternalFilesDir("")
     val path = "${dir}/${abbrev}.json"
+    val withUnknownKeys = Json { ignoreUnknownKeys = true; }
     var text = ""
     var json = File(path).readText()
-    var bible = Json.decodeFromString<Bible>(json)
+    var bible = withUnknownKeys.decodeFromString<Bible>(json)
     val verses = bible.books[book].chapters[chapter].verses
     verses.forEach { verse ->
         text += "${verse.verse} ${verse.text}\n"
@@ -273,8 +276,9 @@ private fun getChapter(context: Context, abbrev: String, book: Int, chapter: Int
 private fun getTitle(context: Context, abbrev: String, book: Int, chapter: Int): String? {
     val dir = context.getExternalFilesDir("")
     val path = "${dir}/${abbrev}.json"
+    val withUnknownKeys = Json { ignoreUnknownKeys = true; }
     var json = File(path).readText()
-    var bible = Json.decodeFromString<Bible>(json)
+    var bible = withUnknownKeys.decodeFromString<Bible>(json)
     val title = bible.books[book].chapters[chapter].name
     return "${abbrev}\n${title}"
 }
