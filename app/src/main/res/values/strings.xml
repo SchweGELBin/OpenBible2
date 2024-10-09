@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">OpenBible</string>
+    <string name="change_accent">Change Accent Color</string>
+    <string name="change_locale">Change Language</string>
+    <string name="change_theme">Change Theme</string>
+    <string name="choose_book_chapter">Choose Book and Chapter</string>
+    <string name="close">Close</string>
+    <string name="download_translation">Download Translation</string>
+    <string name="screen_home">Home</string>
+    <string name="screen_read">Read</string>
+    <string name="settings">Settings</string>
+    <string name="update_index">Update Index</string>
 </resources>

@@ -7,6 +7,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -60,6 +61,10 @@ enum class Screen(val title: String) {
     Read("Read")
 }
 
+var selectedBook = 42
+var selectedChapter = 2
+
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,7 +78,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainApp() {
     OpenBibleTheme {
-        Surface(modifier = Modifier.fillMaxSize()){
+        Surface(modifier = Modifier.fillMaxSize()) {
             App()
         }
     }
@@ -92,14 +97,14 @@ fun App() {
     val currentScreen = remember { mutableStateOf(Screen.Home) }
     val showSettings = remember { mutableStateOf(false) }
 
-    if (showSettings.value){
+    if (showSettings.value) {
         SettingsScreen(onClose = { showSettings.value = false })
     } else {
         Scaffold(
             topBar = {
                 TopAppBar(
                     colors = TopAppBarDefaults.topAppBarColors(
-                      titleContentColor = MaterialTheme.colorScheme.primary
+                        titleContentColor = MaterialTheme.colorScheme.primary
                     ),
                     title = { Text(stringResource(R.string.app_name)) },
                     actions = {
@@ -118,8 +123,14 @@ fun App() {
                         NavigationBarItem(
                             icon = {
                                 when (screen) {
-                                    Screen.Home -> Icon(Icons.Filled.Home, contentDescription = "Home")
-                                    Screen.Read -> Icon(Icons.Filled.Star, contentDescription = "Read")
+                                    Screen.Home -> Icon(
+                                        Icons.Filled.Home,
+                                        contentDescription = stringResource(R.string.screen_home)
+                                    )
+                                    Screen.Read -> Icon(
+                                        Icons.Filled.Star,
+                                        contentDescription = stringResource(R.string.screen_read)
+                                    )
                                     else -> {}
                                 }
                             },
@@ -146,9 +157,12 @@ fun App() {
 
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier) {
-    Column {
-        Text(text = "Home Screen", modifier = modifier)
-        TranslationButton()
+    Column(
+        modifier = modifier.padding(20.dp),
+        verticalArrangement = Arrangement.spacedBy(15.dp)
+    ) {
+        TranslationCard()
+        SelectCard()
     }
 }
 
@@ -156,17 +170,22 @@ fun HomeScreen(modifier: Modifier = Modifier) {
 fun ReadScreen(modifier: Modifier = Modifier) {
     val context = LocalContext.current
     Column(
-        modifier = modifier
+        modifier = modifier.padding(10.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         ElevatedCard(
             elevation = CardDefaults.cardElevation(
                 defaultElevation = 6.dp
             ),
-            modifier = Modifier
-                .fillMaxWidth()
+            modifier = Modifier.fillMaxWidth()
         ) {
             Text(
-                text = getTitle(context = context, abbrev = "schlachter", book = 42, chapter = 2).toString(),
+                text = getTitle(
+                    context = context,
+                    abbrev = "schlachter",
+                    book = selectedBook,
+                    chapter = selectedChapter
+                ).toString(),
                 modifier = Modifier.padding(16.dp),
                 textAlign = TextAlign.Center
             )
@@ -180,7 +199,12 @@ fun ReadScreen(modifier: Modifier = Modifier) {
                 .fillMaxWidth()
         ) {
             Text(
-                text = getChapter(context = context, abbrev = "schlachter", book = 42, chapter = 2).toString(),
+                text = getChapter(
+                    context = context,
+                    abbrev = "schlachter",
+                    book = selectedBook,
+                    chapter = selectedChapter
+                ).toString(),
                 modifier = Modifier.padding(16.dp),
                 textAlign = TextAlign.Justify
             )
@@ -195,21 +219,25 @@ fun SettingsScreen(onClose: () -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Settings") },
+                title = { Text(stringResource(R.string.settings)) },
                 navigationIcon = {
-                    IconButton(onClick = { onClose() }){
+                    IconButton(onClick = { onClose() }) {
                         Icon(
                             imageVector = Icons.Filled.Close,
-                            contentDescription = "Close"
+                            contentDescription = stringResource(R.string.close)
                         )
                     }
                 }
             )
         }
     ) { innerPadding ->
-        Column {
-            Text("Settings Screen", modifier = Modifier.padding(innerPadding))
+        Column(
+            modifier = Modifier.padding(innerPadding)
+        ) {
             IndexButton()
+            LocaleButton()
+            ThemeButton()
+            AccentButton()
         }
     }
 }
@@ -225,18 +253,75 @@ fun IndexButton() {
     val context = LocalContext.current
     Button(onClick = {
         saveIndex(context)
-    }){
-        Text("Update Index")
+    }) {
+        Text(stringResource(R.string.update_index))
     }
 }
 
 @Composable
-fun TranslationButton() {
-    val context = LocalContext.current
+fun LocaleButton() {
     Button(onClick = {
-        downloadTranslation(context, "schlachter")
-    }){
-        Text("Download Schlachter Translation")
+        //TODO: Open Dialog to change locale/language
+    }) {
+        Text(stringResource(R.string.change_locale))
+    }
+}
+
+@Composable
+fun ThemeButton() {
+    Button(onClick = {
+        //TODO: Open Dialog to change theme (Light/Dark/Amoled)
+    }) {
+        Text(stringResource(R.string.change_theme))
+    }
+}
+
+@Composable
+fun AccentButton() {
+    Button(onClick = {
+        //TODO: Open Dialog to change accent color (System/Red/Blue/...)
+    }) {
+        Text(stringResource(R.string.change_accent))
+    }
+}
+
+@Composable
+fun TranslationCard() {
+    val context = LocalContext.current
+    ElevatedCard(
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 6.dp
+        ),
+        modifier = Modifier
+            .fillMaxWidth(),
+        onClick = {
+            // TODO: Open Dialog to chose translation
+            downloadTranslation(context, "schlachter")
+        }
+    ) {
+        Text(
+            text = stringResource(R.string.download_translation),
+            modifier = Modifier.padding(16.dp)
+        )
+    }
+}
+
+@Composable
+fun SelectCard() {
+    ElevatedCard(
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 6.dp
+        ),
+        modifier = Modifier
+            .fillMaxWidth(),
+        onClick = {
+            // TODO: Open Dialog to chose a book and chapter
+        }
+    ) {
+        Text(
+            text = stringResource(R.string.choose_book_chapter),
+            modifier = Modifier.padding(16.dp)
+        )
     }
 }
 
