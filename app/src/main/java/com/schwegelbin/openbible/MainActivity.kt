@@ -146,8 +146,6 @@ fun HomeScreen(modifier: Modifier = Modifier) {
 
 @Composable
 fun ReadScreen(modifier: Modifier = Modifier) {
-    //Text(text = "Read Screen", modifier = modifier)
-
     val context = LocalContext.current
     Column(
         modifier = modifier
