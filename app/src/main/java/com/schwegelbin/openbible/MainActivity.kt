@@ -140,13 +140,13 @@ fun App() {
 fun HomeScreen(modifier: Modifier = Modifier) {
     Column {
         Text(text = "Home Screen", modifier = modifier)
-        TranslationButton();
+        TranslationButton()
     }
 }
 
 @Composable
 fun ReadScreen(modifier: Modifier = Modifier) {
-    Text(text = "Read Screen".toString(), modifier = modifier)
+    Text(text = "Read Screen", modifier = modifier)
     /*
     val context = LocalContext.current
     Column {
