@@ -8,9 +8,18 @@ All notable changes to this project will be documented in this file.
 
 - Download checksum
 
+### 🐛 Bug Fixes
+
+- Serialization error
+
+### 📚 Documentation
+
+- Add changelog
+
 ### 🎨 Styling
 
 - Format
+- Cleanup
 
 ### ⚙️ Miscellaneous Tasks
 
