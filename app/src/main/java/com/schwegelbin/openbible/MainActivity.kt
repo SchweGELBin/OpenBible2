@@ -9,10 +9,8 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -62,7 +60,8 @@ data class Bible(
 @Serializable
 data class Translation(
     val translation: String,
-    val abbreviation: String
+    val abbreviation: String,
+    val lang: String
 )
 
 
@@ -138,10 +137,12 @@ fun App() {
                                         Icons.Filled.Home,
                                         contentDescription = stringResource(R.string.screen_home)
                                     )
+
                                     Screen.Read -> Icon(
                                         Icons.Filled.Star,
                                         contentDescription = stringResource(R.string.screen_read)
                                     )
+
                                     else -> {}
                                 }
                             },
@@ -320,18 +321,20 @@ fun TranslationCard() {
     }
 
     if (showDialog.value) {
-        Dialog(onDismissRequest = { showDialog.value = false }) {
+        Dialog(
+            onDismissRequest = { showDialog.value = false }
+        ) {
             Surface(
                 modifier = Modifier.verticalScroll(state = rememberScrollState(), enabled = true)
             ) {
                 Column(
-                    modifier = Modifier.padding(16.dp)
+                    modifier = Modifier.padding(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
                     Text(
                         text = stringResource(R.string.download_translation),
                         style = MaterialTheme.typography.titleLarge
                     )
-                    Spacer(modifier = Modifier.height(8.dp))
 
                     translationItems.forEach { (abbreviation, translation) ->
                         TextButton(
@@ -344,7 +347,6 @@ fun TranslationCard() {
                         }
                     }
 
-                    Spacer(modifier = Modifier.height(8.dp))
                     TextButton(
                         onClick = {
                             showDialog.value = false
@@ -363,20 +365,52 @@ fun TranslationCard() {
 
 @Composable
 fun SelectCard() {
+    var showDialog = remember { mutableStateOf(false) }
+
     ElevatedCard(
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 6.dp
-        ),
-        modifier = Modifier
-            .fillMaxWidth(),
+        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+        modifier = Modifier.fillMaxWidth(),
         onClick = {
-            // TODO: Open Dialog to chose a book and chapter
+            showDialog.value = true
         }
     ) {
         Text(
             text = stringResource(R.string.choose_chapter),
             modifier = Modifier.padding(16.dp)
         )
+    }
+
+    if (showDialog.value) {
+        Dialog(
+            onDismissRequest = { showDialog.value = false }
+        ) {
+            Surface(
+                modifier = Modifier.verticalScroll(state = rememberScrollState(), enabled = true)
+            ) {
+                Column(
+                    modifier = Modifier.padding(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(10.dp)
+                ) {
+                    Text(
+                        text = "TODO: Select Translation, Book and Chapter",
+                        style = MaterialTheme.typography.titleLarge
+                    )
+
+                    //TODO: Select Translation, Book and Chapter
+
+                    TextButton(
+                        onClick = {
+                            showDialog.value = false
+                        }
+                    ) {
+                        Text(
+                            text = stringResource(R.string.close),
+                            style = MaterialTheme.typography.bodyLarge
+                        )
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -424,13 +458,13 @@ private fun downloadTranslation(context: Context, abbrev: String) {
     )
     var checksum = getChecksum(context, abbrev).toString()
     val dir = context.getExternalFilesDir("Checksums")
-    val path = "${dir}/${abbrev}.sum"
+    val path = "${dir}/${abbrev}"
     File(path).writeText(checksum)
 }
 
 private fun checkUpdate(context: Context, abbrev: String): Boolean {
     val dir = context.getExternalFilesDir("Checksums")
-    val path = "${dir}/${abbrev}.sum"
+    val path = "${dir}/${abbrev}"
     if (!File(path).exists()) return true
     var latest = getChecksum(context, abbrev)
     var current = File(path).readText()
@@ -462,7 +496,13 @@ private fun getTitle(context: Context, abbrev: String, book: Int, chapter: Int):
     return "$translation | $title"
 }
 
-private fun downloadFile(context: Context, url: String, name: String, relPath: String = "", replace: Boolean = true) {
+private fun downloadFile(
+    context: Context,
+    url: String,
+    name: String,
+    relPath: String = "",
+    replace: Boolean = true
+) {
     if (replace) {
         var dir = context.getExternalFilesDir(relPath)
         var path = "${dir}/${name}"
