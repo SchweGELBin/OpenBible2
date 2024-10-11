@@ -302,10 +302,6 @@ fun AccentButton() {
 fun TranslationCard() {
     val context = LocalContext.current
     var showDialog = remember { mutableStateOf(false) }
-    val translationMap = remember { getTranslations(context) }
-    val translationItems = translationMap.values.map {
-        it.abbreviation to it.translation
-    }
 
     ElevatedCard(
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
@@ -321,6 +317,11 @@ fun TranslationCard() {
     }
 
     if (showDialog.value) {
+        val translationMap = remember { getTranslations(context) }
+        val translationItems = translationMap?.values?.map {
+            it.abbreviation to it.translation
+        }
+
         Dialog(
             onDismissRequest = { showDialog.value = false }
         ) {
@@ -336,7 +337,7 @@ fun TranslationCard() {
                         style = MaterialTheme.typography.titleLarge
                     )
 
-                    translationItems.forEach { (abbreviation, translation) ->
+                    translationItems?.forEach { (abbreviation, translation) ->
                         TextButton(
                             onClick = {
                                 downloadTranslation(context, abbreviation)
@@ -432,9 +433,12 @@ private fun saveChecksum(context: Context) {
     )
 }
 
-private fun getTranslations(context: Context): Map<String, Translation> {
+private fun getTranslations(context: Context): Map<String, Translation>? {
     val dir = context.getExternalFilesDir("Index")
     val path = "${dir}/translations.json"
+    if (!File(path).exists()) {
+        return null
+    }
     val json = File(path).readText()
     val withUnknownKeys = Json { ignoreUnknownKeys = true; }
     val translations: Map<String, Translation> = withUnknownKeys.decodeFromString(json)
@@ -506,7 +510,7 @@ private fun downloadFile(
     if (replace) {
         var dir = context.getExternalFilesDir(relPath)
         var path = "${dir}/${name}"
-        File(path).delete()
+        if (File(path).exists()) File(path).delete()
     }
     val request = DownloadManager.Request(Uri.parse(url)).apply {
         setTitle("Downloading $name")
