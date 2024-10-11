@@ -302,7 +302,6 @@ fun TranslationCard() {
     val context = LocalContext.current
     var showDialog = remember { mutableStateOf(false) }
     val translationMap = remember { getTranslations(context) }
-    val translationName = translationMap.keys.toList()
     val translationItems = translationMap.values.map {
         it.abbreviation to it.translation
     }

@@ -2,13 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.1.0] - 2024-10-09
+## [0.1.0] - 2024-10-11
 
 ### 🚀 Features
 
 - Download checksum
 - Improve Read Screen UI
 - Add translation(de) and todos
+- Improve file structure
+- Choose, which translation to download
 
 ### 🐛 Bug Fixes
 
@@ -17,6 +19,7 @@ All notable changes to this project will be documented in this file.
 ### 📚 Documentation
 
 - Add changelog
+- Update changelog
 - Update changelog
 
 ### 🎨 Styling
