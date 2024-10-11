@@ -9,8 +9,10 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -29,6 +31,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import com.schwegelbin.openbible.ui.theme.OpenBibleTheme
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
@@ -55,6 +58,13 @@ data class Bible(
     val books: List<Book>,
     val translation: String
 )
+
+@Serializable
+data class Translation(
+    val translation: String,
+    val abbreviation: String
+)
+
 
 enum class Screen(val title: String) {
     Home("Home"),
@@ -89,8 +99,7 @@ fun MainApp() {
 @Composable
 fun App() {
     val context = LocalContext.current
-    val dir = context.getExternalFilesDir("")
-    val path = "${dir}/Index"
+    val path = context.getExternalFilesDir("Index")
     if (!File("${path}/translations.json").exists() || !File("${path}/checksum.json").exists()) {
         saveIndex(context)
         saveChecksum(context)
@@ -291,21 +300,65 @@ fun AccentButton() {
 @Composable
 fun TranslationCard() {
     val context = LocalContext.current
+    var showDialog = remember { mutableStateOf(false) }
+    val translationMap = remember { getTranslations(context) }
+    val translationName = translationMap.keys.toList()
+    val translationItems = translationMap.values.map {
+        it.abbreviation to it.translation
+    }
+
     ElevatedCard(
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 6.dp
-        ),
-        modifier = Modifier
-            .fillMaxWidth(),
+        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+        modifier = Modifier.fillMaxWidth(),
         onClick = {
-            // TODO: Open Dialog to chose translation
-            downloadTranslation(context, "schlachter")
+            showDialog.value = true
         }
     ) {
         Text(
             text = stringResource(R.string.download_translation),
             modifier = Modifier.padding(16.dp)
         )
+    }
+
+    if (showDialog.value) {
+        Dialog(onDismissRequest = { showDialog.value = false }) {
+            Surface(
+                modifier = Modifier.verticalScroll(state = rememberScrollState(), enabled = true)
+            ) {
+                Column(
+                    modifier = Modifier.padding(16.dp)
+                ) {
+                    Text(
+                        text = stringResource(R.string.download_translation),
+                        style = MaterialTheme.typography.titleLarge
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    translationItems.forEach { (abbreviation, translation) ->
+                        TextButton(
+                            onClick = {
+                                downloadTranslation(context, abbreviation)
+                                showDialog.value = false
+                            }
+                        ) {
+                            Text("$abbreviation | $translation")
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(8.dp))
+                    TextButton(
+                        onClick = {
+                            showDialog.value = false
+                        }
+                    ) {
+                        Text(
+                            text = stringResource(R.string.close),
+                            style = MaterialTheme.typography.bodyLarge
+                        )
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -322,7 +375,7 @@ fun SelectCard() {
         }
     ) {
         Text(
-            text = stringResource(R.string.choose_book_chapter),
+            text = stringResource(R.string.choose_chapter),
             modifier = Modifier.padding(16.dp)
         )
     }
@@ -344,6 +397,15 @@ private fun saveChecksum(context: Context) {
         name = "checksum.json",
         relPath = "Index"
     )
+}
+
+private fun getTranslations(context: Context): Map<String, Translation> {
+    val dir = context.getExternalFilesDir("Index")
+    val path = "${dir}/translations.json"
+    val json = File(path).readText()
+    val withUnknownKeys = Json { ignoreUnknownKeys = true; }
+    val translations: Map<String, Translation> = withUnknownKeys.decodeFromString(json)
+    return translations
 }
 
 private fun getChecksum(context: Context, abbrev: String): String? {
