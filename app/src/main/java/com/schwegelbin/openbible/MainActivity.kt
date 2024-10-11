@@ -63,6 +63,7 @@ enum class Screen(val title: String) {
 
 var selectedBook = 42
 var selectedChapter = 2
+var selectedTranslation = "schlachter"
 
 
 class MainActivity : ComponentActivity() {
@@ -88,7 +89,8 @@ fun MainApp() {
 @Composable
 fun App() {
     val context = LocalContext.current
-    val path = context.getExternalFilesDir("")
+    val dir = context.getExternalFilesDir("")
+    val path = "${dir}/Index"
     if (!File("${path}/translations.json").exists() || !File("${path}/checksum.json").exists()) {
         saveIndex(context)
         saveChecksum(context)
@@ -182,7 +184,7 @@ fun ReadScreen(modifier: Modifier = Modifier) {
             Text(
                 text = getTitle(
                     context = context,
-                    abbrev = "schlachter",
+                    abbrev = selectedTranslation,
                     book = selectedBook,
                     chapter = selectedChapter
                 ).toString(),
@@ -201,7 +203,7 @@ fun ReadScreen(modifier: Modifier = Modifier) {
             Text(
                 text = getChapter(
                     context = context,
-                    abbrev = "schlachter",
+                    abbrev = selectedTranslation,
                     book = selectedBook,
                     chapter = selectedChapter
                 ).toString(),
@@ -253,6 +255,7 @@ fun IndexButton() {
     val context = LocalContext.current
     Button(onClick = {
         saveIndex(context)
+        saveChecksum(context)
     }) {
         Text(stringResource(R.string.update_index))
     }
@@ -329,23 +332,22 @@ private fun saveIndex(context: Context) {
     downloadFile(
         context = context,
         url = "https://api.getbible.net/v2/translations.json",
-        name = "translations.json"
+        name = "translations.json",
+        relPath = "Index"
     )
 }
 
 private fun saveChecksum(context: Context) {
-    val dir = context.getExternalFilesDir("")
-    val path = "${dir}/checksum.json"
-    File(path).delete()
     downloadFile(
         context = context,
         url = "https://api.getbible.net/v2/checksum.json",
-        name = "checksum.json"
+        name = "checksum.json",
+        relPath = "Index"
     )
 }
 
 private fun getChecksum(context: Context, abbrev: String): String? {
-    val dir = context.getExternalFilesDir("")
+    val dir = context.getExternalFilesDir("Index")
     var path = "${dir}/checksum.json"
     var json = File(path).readText()
     var obj = Json.decodeFromString<JsonObject>(json)
@@ -353,21 +355,20 @@ private fun getChecksum(context: Context, abbrev: String): String? {
 }
 
 private fun downloadTranslation(context: Context, abbrev: String) {
-    val dir = context.getExternalFilesDir("")
-    var path = "${dir}/${abbrev}.json"
-    File(path).delete()
     downloadFile(
         context = context,
-        url = String.format("https://api.getbible.net/v2/%s.json", abbrev),
-        name = String.format("%s.json", abbrev)
+        url = "https://api.getbible.net/v2/${abbrev}.json",
+        name = "${abbrev}.json",
+        relPath = "Translations"
     )
-    path = "${dir}/${abbrev}.sum"
     var checksum = getChecksum(context, abbrev).toString()
+    val dir = context.getExternalFilesDir("Checksums")
+    val path = "${dir}/${abbrev}.sum"
     File(path).writeText(checksum)
 }
 
 private fun checkUpdate(context: Context, abbrev: String): Boolean {
-    val dir = context.getExternalFilesDir("")
+    val dir = context.getExternalFilesDir("Checksums")
     val path = "${dir}/${abbrev}.sum"
     if (!File(path).exists()) return true
     var latest = getChecksum(context, abbrev)
@@ -376,7 +377,7 @@ private fun checkUpdate(context: Context, abbrev: String): Boolean {
 }
 
 private fun getChapter(context: Context, abbrev: String, book: Int, chapter: Int): String? {
-    val dir = context.getExternalFilesDir("")
+    val dir = context.getExternalFilesDir("Translations")
     val path = "${dir}/${abbrev}.json"
     val withUnknownKeys = Json { ignoreUnknownKeys = true; }
     var text = ""
@@ -390,22 +391,27 @@ private fun getChapter(context: Context, abbrev: String, book: Int, chapter: Int
 }
 
 private fun getTitle(context: Context, abbrev: String, book: Int, chapter: Int): String? {
-    val dir = context.getExternalFilesDir("")
+    val dir = context.getExternalFilesDir("Translations")
     val path = "${dir}/${abbrev}.json"
     val withUnknownKeys = Json { ignoreUnknownKeys = true; }
     var json = File(path).readText()
     var bible = withUnknownKeys.decodeFromString<Bible>(json)
     val translation = bible.translation
     val title = bible.books[book].chapters[chapter].name
-    return "${translation} | ${title}"
+    return "$translation | $title"
 }
 
-private fun downloadFile(context: Context, url: String, name: String) {
+private fun downloadFile(context: Context, url: String, name: String, relPath: String = "", replace: Boolean = true) {
+    if (replace) {
+        var dir = context.getExternalFilesDir(relPath)
+        var path = "${dir}/${name}"
+        File(path).delete()
+    }
     val request = DownloadManager.Request(Uri.parse(url)).apply {
         setTitle("Downloading $name")
         setDescription("Downloading $name")
         setNotificationVisibility(DownloadManager.Request.VISIBILITY_HIDDEN)
-        setDestinationInExternalFilesDir(context, "", name)
+        setDestinationInExternalFilesDir(context, relPath, name)
     }
     val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
     downloadManager.enqueue(request)
