@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.1.0] - 2024-10-11
+## [0.1.0] - 2024-10-12
 
 ### 🚀 Features
 
@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file.
 - Improve file structure
 - Choose, which translation to download
 - Add select dialog
+- Choose translation, book and chapter
 
 ### 🐛 Bug Fixes
 
@@ -24,11 +25,14 @@ All notable changes to this project will be documented in this file.
 - Update changelog
 - Update changelog
 - Update changelog
+- Update changelog
 
 ### 🎨 Styling
 
 - Format
 - Cleanup
+- Format and cleanup
+- Add custom app icon
 
 ### ⚙️ Miscellaneous Tasks
 
@@ -37,6 +41,7 @@ All notable changes to this project will be documented in this file.
 
 ### Build
 
+- Update apk
 - Update apk
 - Update apk
 
