@@ -35,6 +35,8 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import java.io.File
+import kotlin.io.path.Path
+import kotlin.io.path.listDirectoryEntries
 
 @Serializable
 data class Verse(
@@ -44,12 +46,16 @@ data class Verse(
 
 @Serializable
 data class Chapter(
+    val chapter: Int,
     val name: String,
     val verses: List<Verse>
 )
 
 @Serializable
-data class Book(val chapters: List<Chapter>)
+data class Book(
+    val name: String,
+    val chapters: List<Chapter>
+)
 
 @Serializable
 data class Bible(
@@ -68,6 +74,12 @@ data class Translation(
 enum class Screen(val title: String) {
     Home("Home"),
     Read("Read")
+}
+
+enum class SelectMode() {
+    Translation,
+    Book,
+    Chapter
 }
 
 var selectedBook = 42
@@ -174,7 +186,9 @@ fun HomeScreen(modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.spacedBy(15.dp)
     ) {
         TranslationCard()
-        SelectCard()
+        SelectCard(SelectMode.Translation)
+        SelectCard(SelectMode.Book)
+        SelectCard(SelectMode.Chapter)
     }
 }
 
@@ -365,8 +379,10 @@ fun TranslationCard() {
 }
 
 @Composable
-fun SelectCard() {
+fun SelectCard(selectMode: SelectMode) {
+    val context = LocalContext.current
     var showDialog = remember { mutableStateOf(false) }
+    val translationMap = remember { getTranslations(context) }
 
     ElevatedCard(
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
@@ -375,10 +391,26 @@ fun SelectCard() {
             showDialog.value = true
         }
     ) {
-        Text(
-            text = stringResource(R.string.choose_chapter),
-            modifier = Modifier.padding(16.dp)
-        )
+        when (selectMode) {
+            SelectMode.Translation -> {
+                Text(
+                    text = stringResource(R.string.choose_translation),
+                    modifier = Modifier.padding(16.dp)
+                )
+            }
+            SelectMode.Book -> {
+                Text(
+                    text = stringResource(R.string.choose_book),
+                    modifier = Modifier.padding(16.dp)
+                )
+            }
+            SelectMode.Chapter -> {
+                Text(
+                    text = stringResource(R.string.choose_chapter),
+                    modifier = Modifier.padding(16.dp)
+                )
+            }
+        }
     }
 
     if (showDialog.value) {
@@ -392,12 +424,63 @@ fun SelectCard() {
                     modifier = Modifier.padding(16.dp),
                     verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
-                    Text(
-                        text = "TODO: Select Translation, Book and Chapter",
-                        style = MaterialTheme.typography.titleLarge
-                    )
-
-                    //TODO: Select Translation, Book and Chapter
+                    when (selectMode) {
+                        SelectMode.Translation -> {
+                            Text(
+                                text = stringResource(R.string.choose_translation),
+                                style = MaterialTheme.typography.titleLarge
+                            )
+                            val translationList = Path(context.getExternalFilesDir("Checksums").toString()).listDirectoryEntries()
+                            translationList.forEach { abbreviation ->
+                                val abbrev = abbreviation.fileName.toString()
+                                val name = translationMap?.get(abbrev)?.translation
+                                TextButton(
+                                    onClick = {
+                                        selectedTranslation = abbrev
+                                        showDialog.value = false
+                                    }
+                                ) {
+                                    Text("$abbrev | $name")
+                                }
+                            }
+                        }
+                        SelectMode.Book -> {
+                            Text(
+                                text = stringResource(R.string.choose_book),
+                                style = MaterialTheme.typography.titleLarge
+                            )
+                            val names = getBookNames(context, selectedTranslation)
+                            for (i in 0..65) {
+                                val name = names[i]
+                                TextButton(
+                                    onClick = {
+                                        selectedBook = i
+                                        showDialog.value = false
+                                    }
+                                ) {
+                                    Text(name)
+                                }
+                            }
+                        }
+                        SelectMode.Chapter -> {
+                            Text(
+                                text = stringResource(R.string.choose_chapter),
+                                style = MaterialTheme.typography.titleLarge
+                            )
+                            val num = getChapterNumber(context, selectedTranslation, selectedBook)
+                            for (i in 0..num) {
+                                val name = (i+1).toString()
+                                TextButton(
+                                    onClick = {
+                                        selectedChapter = i
+                                        showDialog.value = false
+                                    }
+                                ) {
+                                    Text(name)
+                                }
+                            }
+                        }
+                    }
 
                     TextButton(
                         onClick = {
@@ -447,10 +530,32 @@ private fun getTranslations(context: Context): Map<String, Translation>? {
 
 private fun getChecksum(context: Context, abbrev: String): String? {
     val dir = context.getExternalFilesDir("Index")
-    var path = "${dir}/checksum.json"
+    val path = "${dir}/checksum.json"
     var json = File(path).readText()
     var obj = Json.decodeFromString<JsonObject>(json)
     return obj[abbrev].toString()
+}
+
+private fun getChapterNumber(context: Context, abbrev: String, book: Int): Int {
+    val dir = context.getExternalFilesDir("Translations")
+    val path = "${dir}/${abbrev}.json"
+    val json = File(path).readText()
+    val withUnknownKeys = Json { ignoreUnknownKeys = true; }
+    val obj = withUnknownKeys.decodeFromString<Bible>(json)
+    return obj.books[book].chapters.size-1
+}
+
+private fun getBookNames(context: Context, abbrev: String): Array<String> {
+    val dir = context.getExternalFilesDir("Translations")
+    val path = "${dir}/${abbrev}.json"
+    val json = File(path).readText()
+    val withUnknownKeys = Json { ignoreUnknownKeys = true; }
+    val obj = withUnknownKeys.decodeFromString<Bible>(json)
+    var arr = Array<String>(66){""}
+    for (i in 0..65) {
+        arr[i] = obj.books[i].name
+    }
+    return arr
 }
 
 private fun downloadTranslation(context: Context, abbrev: String) {

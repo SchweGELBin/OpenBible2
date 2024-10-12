@@ -3,7 +3,9 @@
     <string name="change_accent">Primärfarbe ändern</string>
     <string name="change_locale">Sprache ändern</string>
     <string name="change_theme">Themen ändern</string>
-    <string name="choose_chapter">Kapitel aussuchen</string>
+    <string name="choose_book">Buch wählen</string>
+    <string name="choose_chapter">Kapitel wählen</string>
+    <string name="choose_translation">Übersetzung wählen</string>
     <string name="close">Schließen</string>
     <string name="download_translation">Übersetzung herunterladen</string>
     <string name="screen_home">Start</string>
