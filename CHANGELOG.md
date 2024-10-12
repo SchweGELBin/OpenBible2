@@ -26,6 +26,7 @@ All notable changes to this project will be documented in this file.
 - Update changelog
 - Update changelog
 - Update changelog
+- Update changelog
 
 ### 🎨 Styling
 
@@ -33,6 +34,7 @@ All notable changes to this project will be documented in this file.
 - Cleanup
 - Format and cleanup
 - Add custom app icon
+- Update app icon
 
 ### ⚙️ Miscellaneous Tasks
 
@@ -41,6 +43,7 @@ All notable changes to this project will be documented in this file.
 
 ### Build
 
+- Update apk
 - Update apk
 - Update apk
 - Update apk
