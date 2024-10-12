@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
@@ -339,7 +340,8 @@ fun TranslationCard() {
             onDismissRequest = { showDialog.value = false }
         ) {
             Surface(
-                modifier = Modifier.verticalScroll(state = rememberScrollState(), enabled = true)
+                modifier = Modifier.verticalScroll(state = rememberScrollState(), enabled = true),
+                shape = RoundedCornerShape(size = 40.dp)
             ) {
                 Column(
                     modifier = Modifier.padding(16.dp),
@@ -419,7 +421,8 @@ fun SelectCard(selectMode: SelectMode) {
             onDismissRequest = { showDialog.value = false }
         ) {
             Surface(
-                modifier = Modifier.verticalScroll(state = rememberScrollState(), enabled = true)
+                modifier = Modifier.verticalScroll(state = rememberScrollState(), enabled = true),
+                shape = RoundedCornerShape(size = 40.dp)
             ) {
                 Column(
                     modifier = Modifier.padding(16.dp),
