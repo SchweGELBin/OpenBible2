@@ -46,7 +46,6 @@ data class Verse(
 
 @Serializable
 data class Chapter(
-    val chapter: Int,
     val name: String,
     val verses: List<Verse>
 )
@@ -398,12 +397,14 @@ fun SelectCard(selectMode: SelectMode) {
                     modifier = Modifier.padding(16.dp)
                 )
             }
+
             SelectMode.Book -> {
                 Text(
                     text = stringResource(R.string.choose_book),
                     modifier = Modifier.padding(16.dp)
                 )
             }
+
             SelectMode.Chapter -> {
                 Text(
                     text = stringResource(R.string.choose_chapter),
@@ -430,7 +431,9 @@ fun SelectCard(selectMode: SelectMode) {
                                 text = stringResource(R.string.choose_translation),
                                 style = MaterialTheme.typography.titleLarge
                             )
-                            val translationList = Path(context.getExternalFilesDir("Checksums").toString()).listDirectoryEntries()
+                            val translationList = Path(
+                                context.getExternalFilesDir("Checksums").toString()
+                            ).listDirectoryEntries()
                             translationList.forEach { abbreviation ->
                                 val abbrev = abbreviation.fileName.toString()
                                 val name = translationMap?.get(abbrev)?.translation
@@ -444,6 +447,7 @@ fun SelectCard(selectMode: SelectMode) {
                                 }
                             }
                         }
+
                         SelectMode.Book -> {
                             Text(
                                 text = stringResource(R.string.choose_book),
@@ -462,6 +466,7 @@ fun SelectCard(selectMode: SelectMode) {
                                 }
                             }
                         }
+
                         SelectMode.Chapter -> {
                             Text(
                                 text = stringResource(R.string.choose_chapter),
@@ -469,7 +474,7 @@ fun SelectCard(selectMode: SelectMode) {
                             )
                             val num = getChapterNumber(context, selectedTranslation, selectedBook)
                             for (i in 0..num) {
-                                val name = (i+1).toString()
+                                val name = (i + 1).toString()
                                 TextButton(
                                     onClick = {
                                         selectedChapter = i
@@ -542,7 +547,7 @@ private fun getChapterNumber(context: Context, abbrev: String, book: Int): Int {
     val json = File(path).readText()
     val withUnknownKeys = Json { ignoreUnknownKeys = true; }
     val obj = withUnknownKeys.decodeFromString<Bible>(json)
-    return obj.books[book].chapters.size-1
+    return obj.books[book].chapters.size - 1
 }
 
 private fun getBookNames(context: Context, abbrev: String): Array<String> {
@@ -551,7 +556,7 @@ private fun getBookNames(context: Context, abbrev: String): Array<String> {
     val json = File(path).readText()
     val withUnknownKeys = Json { ignoreUnknownKeys = true; }
     val obj = withUnknownKeys.decodeFromString<Bible>(json)
-    var arr = Array<String>(66){""}
+    var arr = Array<String>(66) { "" }
     for (i in 0..65) {
         arr[i] = obj.books[i].name
     }
