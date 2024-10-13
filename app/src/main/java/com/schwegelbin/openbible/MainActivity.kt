@@ -25,6 +25,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -39,6 +40,7 @@ import java.io.File
 import kotlin.io.path.Path
 import kotlin.io.path.listDirectoryEntries
 
+// Json Serializable data
 @Serializable
 data class Verse(
     val verse: Int,
@@ -71,6 +73,7 @@ data class Translation(
 )
 
 
+// Enums
 enum class Screen(val title: String) {
     Home("Home"),
     Read("Read")
@@ -82,6 +85,7 @@ enum class SelectMode() {
     Chapter
 }
 
+// Default Global Variables
 var selectedBook = 42
 var selectedChapter = 2
 var selectedTranslation = "schlachter"
@@ -110,11 +114,7 @@ fun MainApp() {
 @Composable
 fun App() {
     val context = LocalContext.current
-    val path = context.getExternalFilesDir("Index")
-    if (!File("${path}/translations.json").exists() || !File("${path}/checksum.json").exists()) {
-        saveIndex(context)
-        saveChecksum(context)
-    }
+    getDefaultFiles(context)
 
     val currentScreen = remember { mutableStateOf(Screen.Home) }
     val showSettings = remember { mutableStateOf(false) }
@@ -340,7 +340,6 @@ fun TranslationCard() {
             onDismissRequest = { showDialog.value = false }
         ) {
             Surface(
-                modifier = Modifier.verticalScroll(state = rememberScrollState(), enabled = true),
                 shape = RoundedCornerShape(size = 40.dp)
             ) {
                 Column(
@@ -352,26 +351,20 @@ fun TranslationCard() {
                         style = MaterialTheme.typography.titleLarge
                     )
 
-                    translationItems?.forEach { (abbreviation, translation) ->
-                        TextButton(
-                            onClick = {
-                                downloadTranslation(context, abbreviation)
-                                showDialog.value = false
-                            }
-                        ) {
-                            Text("$abbreviation | $translation")
-                        }
-                    }
-
-                    TextButton(
-                        onClick = {
-                            showDialog.value = false
-                        }
+                    Card(
+                        modifier = Modifier.verticalScroll(state = rememberScrollState(), enabled = true),
+                        colors = CardDefaults.cardColors(containerColor = Color.Transparent)
                     ) {
-                        Text(
-                            text = stringResource(R.string.close),
-                            style = MaterialTheme.typography.bodyLarge
-                        )
+                        translationItems?.forEach { (abbreviation, translation) ->
+                            TextButton(
+                                onClick = {
+                                    downloadTranslation(context, abbreviation)
+                                    showDialog.value = false
+                                }
+                            ) {
+                                Text("$abbreviation | $translation")
+                            }
+                        }
                     }
                 }
             }
@@ -420,8 +413,8 @@ fun SelectCard(selectMode: SelectMode) {
             onDismissRequest = { showDialog.value = false }
         ) {
             Surface(
-                modifier = Modifier.verticalScroll(state = rememberScrollState(), enabled = true),
-                shape = RoundedCornerShape(size = 40.dp)
+                shape = RoundedCornerShape(size = 40.dp),
+                modifier = Modifier.fillMaxWidth()
             ) {
                 Column(
                     modifier = Modifier.padding(16.dp),
@@ -437,16 +430,22 @@ fun SelectCard(selectMode: SelectMode) {
                                 context.getExternalFilesDir("Checksums").toString()
                             ).listDirectoryEntries()
                             val translationMap = getTranslations(context)
-                            translationList.forEach { abbreviation ->
-                                val abbrev = abbreviation.fileName.toString()
-                                val name = translationMap?.get(abbrev)?.translation
-                                TextButton(
-                                    onClick = {
-                                        selectedTranslation = abbrev
-                                        showDialog.value = false
+
+                            Card(
+                                modifier = Modifier.verticalScroll(state = rememberScrollState(), enabled = true),
+                                colors = CardDefaults.cardColors(containerColor = Color.Transparent)
+                            ) {
+                                translationList.forEach { abbreviation ->
+                                    val abbrev = abbreviation.fileName.toString()
+                                    val name = translationMap?.get(abbrev)?.translation
+                                    TextButton(
+                                        onClick = {
+                                            selectedTranslation = abbrev
+                                            showDialog.value = false
+                                        }
+                                    ) {
+                                        Text("$abbrev | $name")
                                     }
-                                ) {
-                                    Text("$abbrev | $name")
                                 }
                             }
                         }
@@ -457,15 +456,21 @@ fun SelectCard(selectMode: SelectMode) {
                                 style = MaterialTheme.typography.titleLarge
                             )
                             val names = getBookNames(context, selectedTranslation)
-                            for (i in 0..names.size-1) {
-                                val name = names[i]
-                                TextButton(
-                                    onClick = {
-                                        selectedBook = i
-                                        showDialog.value = false
+
+                            Card(
+                                modifier = Modifier.verticalScroll(state = rememberScrollState(), enabled = true),
+                                colors = CardDefaults.cardColors(containerColor = Color.Transparent)
+                            ) {
+                                for (i in 0..names.size - 1) {
+                                    val name = names[i]
+                                    TextButton(
+                                        onClick = {
+                                            selectedBook = i
+                                            showDialog.value = false
+                                        }
+                                    ) {
+                                        Text(name)
                                     }
-                                ) {
-                                    Text(name)
                                 }
                             }
                         }
@@ -476,29 +481,24 @@ fun SelectCard(selectMode: SelectMode) {
                                 style = MaterialTheme.typography.titleLarge
                             )
                             val num = getChapterNumber(context, selectedTranslation, selectedBook)
-                            for (i in 0..num) {
-                                val name = (i + 1).toString()
-                                TextButton(
-                                    onClick = {
-                                        selectedChapter = i
-                                        showDialog.value = false
+
+                            Card(
+                                modifier = Modifier.verticalScroll(state = rememberScrollState(), enabled = true),
+                                colors = CardDefaults.cardColors(containerColor = Color.Transparent)
+                            ) {
+                                for (i in 0..num) {
+                                    val name = (i + 1).toString()
+                                    TextButton(
+                                        onClick = {
+                                            selectedChapter = i
+                                            showDialog.value = false
+                                        }
+                                    ) {
+                                        Text(name)
                                     }
-                                ) {
-                                    Text(name)
                                 }
                             }
                         }
-                    }
-
-                    TextButton(
-                        onClick = {
-                            showDialog.value = false
-                        }
-                    ) {
-                        Text(
-                            text = stringResource(R.string.close),
-                            style = MaterialTheme.typography.bodyLarge
-                        )
                     }
                 }
             }
@@ -612,6 +612,17 @@ private fun getTitle(context: Context, abbrev: String, book: Int, chapter: Int):
     val translation = bible.translation
     val title = bible.books[book].chapters[chapter].name
     return "$translation | $title"
+}
+
+private fun getDefaultFiles(context: Context, defaultTranslation: String = selectedTranslation) {
+    selectedTranslation = defaultTranslation
+    var path = context.getExternalFilesDir("Index")
+    if (!File("${path}/translations.json").exists() || !File("${path}/checksum.json").exists()) {
+        saveIndex(context)
+        saveChecksum(context)
+    }
+    path = context.getExternalFilesDir("Translations")
+    if (!File("${path}/${defaultTranslation}").exists()) downloadTranslation(context, defaultTranslation)
 }
 
 private fun downloadFile(
