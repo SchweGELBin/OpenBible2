@@ -38,6 +38,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import java.io.File
 import kotlin.io.path.Path
+import kotlin.io.path.exists
 import kotlin.io.path.listDirectoryEntries
 
 // Json Serializable data
@@ -316,12 +317,13 @@ fun AccentButton() {
 fun TranslationCard() {
     val context = LocalContext.current
     var showDialog = remember { mutableStateOf(false) }
+    val indexPath = "${context.getExternalFilesDir("Index")}/translations.json"
 
     ElevatedCard(
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
         modifier = Modifier.fillMaxWidth(),
         onClick = {
-            showDialog.value = true
+            if (File(indexPath).exists()) showDialog.value = true
         }
     ) {
         Text(
@@ -376,12 +378,13 @@ fun TranslationCard() {
 fun SelectCard(selectMode: SelectMode) {
     val context = LocalContext.current
     var showDialog = remember { mutableStateOf(false) }
+    val translationPath = "${context.getExternalFilesDir("Translations")}/${selectedTranslation}.json"
 
     ElevatedCard(
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
         modifier = Modifier.fillMaxWidth(),
         onClick = {
-            showDialog.value = true
+            if (Path(translationPath).exists()) showDialog.value = true
         }
     ) {
         when (selectMode) {
@@ -596,11 +599,13 @@ private fun getChapter(context: Context, abbrev: String, book: Int, chapter: Int
     val path = "${dir}/${abbrev}.json"
     val withUnknownKeys = Json { ignoreUnknownKeys = true; }
     var text = ""
-    var json = File(path).readText()
-    var bible = withUnknownKeys.decodeFromString<Bible>(json)
-    val verses = bible.books[book].chapters[chapter].verses
-    verses.forEach { verse ->
-        text += "${verse.verse} ${verse.text}\n"
+    if (File(path).exists()) {
+        var json = File(path).readText()
+        var bible = withUnknownKeys.decodeFromString<Bible>(json)
+        val verses = bible.books[book].chapters[chapter].verses
+        verses.forEach { verse ->
+            text += "${verse.verse} ${verse.text}\n"
+        }
     }
     return text
 }
@@ -609,6 +614,7 @@ private fun getTitle(context: Context, abbrev: String, book: Int, chapter: Int):
     val dir = context.getExternalFilesDir("Translations")
     val path = "${dir}/${abbrev}.json"
     val withUnknownKeys = Json { ignoreUnknownKeys = true; }
+    if (!File(path).exists()) return "ERROR"
     var json = File(path).readText()
     var bible = withUnknownKeys.decodeFromString<Bible>(json)
     val translation = bible.translation
@@ -624,7 +630,7 @@ private fun getDefaultFiles(context: Context, defaultTranslation: String = selec
         saveChecksum(context)
     }
     path = context.getExternalFilesDir("Translations")
-    if (!File("${path}/${defaultTranslation}").exists()) downloadTranslation(context, defaultTranslation)
+    if (!File("${path}/${defaultTranslation}.json").exists()) downloadTranslation(context, defaultTranslation)
 }
 
 private fun downloadFile(
