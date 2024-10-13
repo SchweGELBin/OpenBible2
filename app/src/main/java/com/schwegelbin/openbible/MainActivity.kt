@@ -539,9 +539,11 @@ private fun getTranslations(context: Context): Map<String, Translation>? {
 private fun getChecksum(context: Context, abbrev: String): String? {
     val dir = context.getExternalFilesDir("Index")
     val path = "${dir}/checksum.json"
-    var json = File(path).readText()
-    var obj = Json.decodeFromString<JsonObject>(json)
-    return obj[abbrev].toString()
+    if (File(path).exists()) {
+        var json = File(path).readText()
+        var obj = Json.decodeFromString<JsonObject>(json)
+        return obj[abbrev].toString()
+    } else return "unknown"
 }
 
 private fun getChapterNumber(context: Context, abbrev: String, book: Int): Int {
