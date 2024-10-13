@@ -21,10 +21,12 @@ All notable changes to this project will be documented in this file.
 - Crash because of not checking book number
 - Default translation
 - Crash when checksum not found
+- Crashes with unloaded files
 
 ### 📚 Documentation
 
 - Add changelog
+- Update changelog
 - Update changelog
 - Update changelog
 - Update changelog
@@ -48,6 +50,7 @@ All notable changes to this project will be documented in this file.
 
 ### Build
 
+- Update apk
 - Update apk
 - Update apk
 - Update apk
