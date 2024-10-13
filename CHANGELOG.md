@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.1.0] - 2024-10-12
+## [0.1.0] - 2024-10-13
 
 ### 🚀 Features
 
@@ -18,10 +18,13 @@ All notable changes to this project will be documented in this file.
 
 - Serialization error
 - Crash at first time launch
+- Crash because of not checking book number
+- Default translation
 
 ### 📚 Documentation
 
 - Add changelog
+- Update changelog
 - Update changelog
 - Update changelog
 - Update changelog
@@ -43,6 +46,7 @@ All notable changes to this project will be documented in this file.
 
 ### Build
 
+- Update apk
 - Update apk
 - Update apk
 - Update apk
