@@ -383,7 +383,6 @@ fun TranslationCard() {
 fun SelectCard(selectMode: SelectMode) {
     val context = LocalContext.current
     var showDialog = remember { mutableStateOf(false) }
-    val translationMap = remember { getTranslations(context) }
 
     ElevatedCard(
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
@@ -437,6 +436,7 @@ fun SelectCard(selectMode: SelectMode) {
                             val translationList = Path(
                                 context.getExternalFilesDir("Checksums").toString()
                             ).listDirectoryEntries()
+                            val translationMap = getTranslations(context)
                             translationList.forEach { abbreviation ->
                                 val abbrev = abbreviation.fileName.toString()
                                 val name = translationMap?.get(abbrev)?.translation
@@ -457,7 +457,7 @@ fun SelectCard(selectMode: SelectMode) {
                                 style = MaterialTheme.typography.titleLarge
                             )
                             val names = getBookNames(context, selectedTranslation)
-                            for (i in 0..65) {
+                            for (i in 0..names.size-1) {
                                 val name = names[i]
                                 TextButton(
                                     onClick = {
@@ -559,8 +559,9 @@ private fun getBookNames(context: Context, abbrev: String): Array<String> {
     val json = File(path).readText()
     val withUnknownKeys = Json { ignoreUnknownKeys = true; }
     val obj = withUnknownKeys.decodeFromString<Bible>(json)
-    var arr = Array<String>(66) { "" }
-    for (i in 0..65) {
+    val num = obj.books.size
+    var arr = Array<String>(num) { "" }
+    for (i in 0..num-1) {
         arr[i] = obj.books[i].name
     }
     return arr
