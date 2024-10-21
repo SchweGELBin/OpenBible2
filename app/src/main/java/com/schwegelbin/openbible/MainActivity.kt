@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.schwegelbin.openbible.ui.theme.OpenBibleTheme
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import java.io.File
@@ -207,7 +208,7 @@ fun ReadScreen(modifier: Modifier = Modifier) {
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(
-                text = getTitle(context = context).toString(),
+                text = getTitle(context).toString(),
                 modifier = Modifier.padding(16.dp),
                 textAlign = TextAlign.Center
             )
@@ -634,10 +635,12 @@ private fun getChapter(
     var text = ""
     if (File(path).exists()) {
         var json = File(path).readText()
-        var bible = withUnknownKeys.decodeFromString<Bible>(json)
-        val verses = bible.books[book].chapters[chapter].verses
-        verses.forEach { verse ->
-            text += "${verse.verse} ${verse.text}\n"
+        var bible = try { withUnknownKeys.decodeFromString<Bible>(json) } catch (_: SerializationException) { null }
+        if (bible != null) {
+            val verses = bible.books[book].chapters[chapter].verses
+            verses.forEach { verse ->
+                text += "${verse.verse} ${verse.text}\n"
+            }
         }
     }
     return text
@@ -652,12 +655,16 @@ private fun getTitle(
     val dir = context.getExternalFilesDir("Translations")
     val path = "${dir}/${abbrev}.json"
     val withUnknownKeys = Json { ignoreUnknownKeys = true; }
-    if (!File(path).exists()) return "ERROR"
-    var json = File(path).readText()
-    var bible = withUnknownKeys.decodeFromString<Bible>(json)
-    val translation = bible.translation
-    val title = bible.books[book].chapters[chapter].name
-    return "$translation | $title"
+    if (File(path).exists()) {
+        var json = File(path).readText()
+        var bible = try { withUnknownKeys.decodeFromString<Bible>(json) } catch (_: SerializationException) { null }
+        if (bible != null) {
+            val translation = bible.translation
+            val title = bible.books[book].chapters[chapter].name
+            return "$translation | $title"
+        }
+    }
+    return "ERROR"
 }
 
 private fun getDefaultFiles(context: Context, defaultTranslation: String = selectedTranslation) {
