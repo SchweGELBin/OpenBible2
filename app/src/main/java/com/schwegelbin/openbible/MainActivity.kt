@@ -207,12 +207,7 @@ fun ReadScreen(modifier: Modifier = Modifier) {
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(
-                text = getTitle(
-                    context = context,
-                    abbrev = selectedTranslation,
-                    book = selectedBook,
-                    chapter = selectedChapter
-                ).toString(),
+                text = getTitle(context = context).toString(),
                 modifier = Modifier.padding(16.dp),
                 textAlign = TextAlign.Center
             )
@@ -226,12 +221,7 @@ fun ReadScreen(modifier: Modifier = Modifier) {
                 .fillMaxWidth()
         ) {
             Text(
-                text = getChapter(
-                    context = context,
-                    abbrev = selectedTranslation,
-                    book = selectedBook,
-                    chapter = selectedChapter
-                ).toString(),
+                text = getChapter(context).toString(),
                 modifier = Modifier.padding(16.dp),
                 textAlign = TextAlign.Justify
             )
@@ -289,7 +279,7 @@ fun IndexButton() {
 @Composable
 fun LocaleButton() {
     Button(onClick = {
-        //TODO: Open Dialog to change locale/language
+        //TODO: Open Dialog to change locale/language (System/English/...)
     }) {
         Text(stringResource(R.string.change_locale))
     }
@@ -298,7 +288,7 @@ fun LocaleButton() {
 @Composable
 fun ThemeButton() {
     Button(onClick = {
-        //TODO: Open Dialog to change theme (Light/Dark/Amoled)
+        //TODO: Open Dialog to change theme (System/Light/Dark/Amoled)
     }) {
         Text(stringResource(R.string.change_theme))
     }
@@ -354,7 +344,10 @@ fun TranslationCard() {
                     )
 
                     Card(
-                        modifier = Modifier.verticalScroll(state = rememberScrollState(), enabled = true),
+                        modifier = Modifier.verticalScroll(
+                            state = rememberScrollState(),
+                            enabled = true
+                        ),
                         colors = CardDefaults.cardColors(containerColor = Color.Transparent)
                     ) {
                         translationItems?.forEach { (abbreviation, translation) ->
@@ -378,7 +371,8 @@ fun TranslationCard() {
 fun SelectCard(selectMode: SelectMode) {
     val context = LocalContext.current
     var showDialog = remember { mutableStateOf(false) }
-    val translationPath = "${context.getExternalFilesDir("Translations")}/${selectedTranslation}.json"
+    val translationPath =
+        "${context.getExternalFilesDir("Translations")}/${selectedTranslation}.json"
 
     ElevatedCard(
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
@@ -435,7 +429,10 @@ fun SelectCard(selectMode: SelectMode) {
                             val translationMap = getTranslations(context)
 
                             Card(
-                                modifier = Modifier.verticalScroll(state = rememberScrollState(), enabled = true),
+                                modifier = Modifier.verticalScroll(
+                                    state = rememberScrollState(),
+                                    enabled = true
+                                ),
                                 colors = CardDefaults.cardColors(containerColor = Color.Transparent)
                             ) {
                                 translationList.forEach { abbreviation ->
@@ -445,6 +442,14 @@ fun SelectCard(selectMode: SelectMode) {
                                         onClick = {
                                             selectedTranslation = abbrev
                                             showDialog.value = false
+
+                                            if (selectedBook > getBookNumber(context)) {
+                                                selectedBook = 0;
+                                                selectedChapter = 0;
+                                            }
+                                            if (selectedChapter > getChapterNumber(context)) {
+                                                selectedChapter = 0;
+                                            }
                                         }
                                     ) {
                                         Text("$abbrev | $name")
@@ -461,7 +466,10 @@ fun SelectCard(selectMode: SelectMode) {
                             val names = getBookNames(context, selectedTranslation)
 
                             Card(
-                                modifier = Modifier.verticalScroll(state = rememberScrollState(), enabled = true),
+                                modifier = Modifier.verticalScroll(
+                                    state = rememberScrollState(),
+                                    enabled = true
+                                ),
                                 colors = CardDefaults.cardColors(containerColor = Color.Transparent)
                             ) {
                                 for (i in 0..names.size - 1) {
@@ -470,6 +478,10 @@ fun SelectCard(selectMode: SelectMode) {
                                         onClick = {
                                             selectedBook = i
                                             showDialog.value = false
+
+                                            if (selectedChapter > getChapterNumber(context)) {
+                                                selectedChapter = 0;
+                                            }
                                         }
                                     ) {
                                         Text(name)
@@ -483,10 +495,13 @@ fun SelectCard(selectMode: SelectMode) {
                                 text = stringResource(R.string.choose_chapter),
                                 style = MaterialTheme.typography.titleLarge
                             )
-                            val num = getChapterNumber(context, selectedTranslation, selectedBook)
+                            val num = getChapterNumber(context)
 
                             Card(
-                                modifier = Modifier.verticalScroll(state = rememberScrollState(), enabled = true),
+                                modifier = Modifier.verticalScroll(
+                                    state = rememberScrollState(),
+                                    enabled = true
+                                ),
                                 colors = CardDefaults.cardColors(containerColor = Color.Transparent)
                             ) {
                                 for (i in 0..num) {
@@ -549,7 +564,11 @@ private fun getChecksum(context: Context, abbrev: String): String? {
     } else return "unknown"
 }
 
-private fun getChapterNumber(context: Context, abbrev: String, book: Int): Int {
+private fun getChapterNumber(
+    context: Context,
+    abbrev: String = selectedTranslation,
+    book: Int = selectedBook
+): Int {
     val dir = context.getExternalFilesDir("Translations")
     val path = "${dir}/${abbrev}.json"
     val json = File(path).readText()
@@ -558,7 +577,16 @@ private fun getChapterNumber(context: Context, abbrev: String, book: Int): Int {
     return obj.books[book].chapters.size - 1
 }
 
-private fun getBookNames(context: Context, abbrev: String): Array<String> {
+private fun getBookNumber(context: Context, abbrev: String = selectedTranslation): Int {
+    val dir = context.getExternalFilesDir("Translations")
+    val path = "${dir}/${abbrev}.json"
+    val json = File(path).readText()
+    val withUnknownKeys = Json { ignoreUnknownKeys = true; }
+    val obj = withUnknownKeys.decodeFromString<Bible>(json)
+    return obj.books.size - 1
+}
+
+private fun getBookNames(context: Context, abbrev: String = selectedTranslation): Array<String> {
     val dir = context.getExternalFilesDir("Translations")
     val path = "${dir}/${abbrev}.json"
     val json = File(path).readText()
@@ -566,7 +594,7 @@ private fun getBookNames(context: Context, abbrev: String): Array<String> {
     val obj = withUnknownKeys.decodeFromString<Bible>(json)
     val num = obj.books.size
     var arr = Array<String>(num) { "" }
-    for (i in 0..num-1) {
+    for (i in 0..num - 1) {
         arr[i] = obj.books[i].name
     }
     return arr
@@ -594,7 +622,12 @@ private fun checkUpdate(context: Context, abbrev: String): Boolean {
     return latest != current
 }
 
-private fun getChapter(context: Context, abbrev: String, book: Int, chapter: Int): String? {
+private fun getChapter(
+    context: Context,
+    abbrev: String = selectedTranslation,
+    book: Int = selectedBook,
+    chapter: Int = selectedChapter
+): String? {
     val dir = context.getExternalFilesDir("Translations")
     val path = "${dir}/${abbrev}.json"
     val withUnknownKeys = Json { ignoreUnknownKeys = true; }
@@ -610,7 +643,12 @@ private fun getChapter(context: Context, abbrev: String, book: Int, chapter: Int
     return text
 }
 
-private fun getTitle(context: Context, abbrev: String, book: Int, chapter: Int): String? {
+private fun getTitle(
+    context: Context,
+    abbrev: String = selectedTranslation,
+    book: Int = selectedBook,
+    chapter: Int = selectedChapter
+): String? {
     val dir = context.getExternalFilesDir("Translations")
     val path = "${dir}/${abbrev}.json"
     val withUnknownKeys = Json { ignoreUnknownKeys = true; }
@@ -630,7 +668,10 @@ private fun getDefaultFiles(context: Context, defaultTranslation: String = selec
         saveChecksum(context)
     }
     path = context.getExternalFilesDir("Translations")
-    if (!File("${path}/${defaultTranslation}.json").exists()) downloadTranslation(context, defaultTranslation)
+    if (!File("${path}/${defaultTranslation}.json").exists()) downloadTranslation(
+        context,
+        defaultTranslation
+    )
 }
 
 private fun downloadFile(
