@@ -9,6 +9,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -97,18 +98,14 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContent {
-            MainApp()
-        }
+        setContent { MainApp() }
     }
 }
 
 @Composable
 fun MainApp() {
     OpenBibleTheme {
-        Surface(modifier = Modifier.fillMaxSize()) {
-            App()
-        }
+        Surface(modifier = Modifier.fillMaxSize()) { App() }
     }
 }
 
@@ -127,9 +124,7 @@ fun App() {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    colors = TopAppBarDefaults.topAppBarColors(
-                        titleContentColor = MaterialTheme.colorScheme.primary
-                    ),
+                    colors = TopAppBarDefaults.topAppBarColors(titleContentColor = MaterialTheme.colorScheme.primary),
                     title = { Text(stringResource(R.string.app_name)) },
                     actions = {
                         IconButton(onClick = { showSettings.value = true }) {
@@ -202,9 +197,7 @@ fun ReadScreen(modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         ElevatedCard(
-            elevation = CardDefaults.cardElevation(
-                defaultElevation = 6.dp
-            ),
+            elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(
@@ -214,9 +207,7 @@ fun ReadScreen(modifier: Modifier = Modifier) {
             )
         }
         ElevatedCard(
-            elevation = CardDefaults.cardElevation(
-                defaultElevation = 6.dp
-            ),
+            elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
             modifier = Modifier
                 .verticalScroll(state = rememberScrollState(), enabled = true)
                 .fillMaxWidth()
@@ -249,9 +240,7 @@ fun SettingsScreen(onClose: () -> Unit) {
             )
         }
     ) { innerPadding ->
-        Column(
-            modifier = Modifier.padding(innerPadding)
-        ) {
+        Column(modifier = Modifier.padding(innerPadding)) {
             IndexButton()
             LocaleButton()
             ThemeButton()
@@ -269,39 +258,31 @@ fun DefaultPreview() {
 @Composable
 fun IndexButton() {
     val context = LocalContext.current
-    Button(onClick = {
+    TextButton(onClick = {
         saveIndex(context)
         saveChecksum(context)
-    }) {
-        Text(stringResource(R.string.update_index))
-    }
+    }) { Text(stringResource(R.string.update_index)) }
 }
 
 @Composable
 fun LocaleButton() {
-    Button(onClick = {
+    TextButton(onClick = {
         //TODO: Open Dialog to change locale/language (System/English/...)
-    }) {
-        Text(stringResource(R.string.change_locale))
-    }
+    }) { Text(stringResource(R.string.change_locale)) }
 }
 
 @Composable
 fun ThemeButton() {
-    Button(onClick = {
+    TextButton(onClick = {
         //TODO: Open Dialog to change theme (System/Light/Dark/Amoled)
-    }) {
-        Text(stringResource(R.string.change_theme))
-    }
+    }) { Text(stringResource(R.string.change_theme)) }
 }
 
 @Composable
 fun AccentButton() {
-    Button(onClick = {
+    TextButton(onClick = {
         //TODO: Open Dialog to change accent color (System/Red/Blue/...)
-    }) {
-        Text(stringResource(R.string.change_accent))
-    }
+    }) { Text(stringResource(R.string.change_accent)) }
 }
 
 @Composable
@@ -313,9 +294,7 @@ fun TranslationCard() {
     ElevatedCard(
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
         modifier = Modifier.fillMaxWidth(),
-        onClick = {
-            if (File(indexPath).exists()) showDialog.value = true
-        }
+        onClick = { if (File(indexPath).exists()) showDialog.value = true }
     ) {
         Text(
             text = stringResource(R.string.download_translation),
@@ -329,36 +308,32 @@ fun TranslationCard() {
             it.abbreviation to it.translation
         }
 
-        Dialog(
-            onDismissRequest = { showDialog.value = false }
-        ) {
-            Surface(
-                shape = RoundedCornerShape(size = 40.dp)
-            ) {
+        Dialog(onDismissRequest = { showDialog.value = false }) {
+            Surface(shape = RoundedCornerShape(size = 40.dp)) {
                 Column(
                     modifier = Modifier.padding(16.dp),
                     verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
                     Text(
                         text = stringResource(R.string.download_translation),
-                        style = MaterialTheme.typography.titleLarge
+                        style = MaterialTheme.typography.titleLarge,
+                        modifier = Modifier.fillMaxWidth(),
+                        textAlign = TextAlign.Center
                     )
 
                     Card(
-                        modifier = Modifier.verticalScroll(
-                            state = rememberScrollState(),
-                            enabled = true
-                        ),
+                        modifier = Modifier.verticalScroll(rememberScrollState()),
                         colors = CardDefaults.cardColors(containerColor = Color.Transparent)
                     ) {
                         translationItems?.forEach { (abbreviation, translation) ->
-                            TextButton(
-                                onClick = {
-                                    downloadTranslation(context, abbreviation)
-                                    showDialog.value = false
-                                }
-                            ) {
-                                Text("$abbreviation | $translation")
+                            TextButton(onClick = {
+                                downloadTranslation(context, abbreviation)
+                                showDialog.value = false
+                            }) {
+                                Text(
+                                    text = "$abbreviation | $translation",
+                                    modifier = Modifier.fillMaxWidth()
+                                )
                             }
                         }
                     }
@@ -422,7 +397,9 @@ fun SelectCard(selectMode: SelectMode) {
                         SelectMode.Translation -> {
                             Text(
                                 text = stringResource(R.string.choose_translation),
-                                style = MaterialTheme.typography.titleLarge
+                                style = MaterialTheme.typography.titleLarge,
+                                modifier = Modifier.fillMaxWidth(),
+                                textAlign = TextAlign.Center
                             )
                             val translationList = Path(
                                 context.getExternalFilesDir("Checksums").toString()
@@ -430,30 +407,28 @@ fun SelectCard(selectMode: SelectMode) {
                             val translationMap = getTranslations(context)
 
                             Card(
-                                modifier = Modifier.verticalScroll(
-                                    state = rememberScrollState(),
-                                    enabled = true
-                                ),
+                                modifier = Modifier.verticalScroll(rememberScrollState()),
                                 colors = CardDefaults.cardColors(containerColor = Color.Transparent)
                             ) {
                                 translationList.forEach { abbreviation ->
                                     val abbrev = abbreviation.fileName.toString()
                                     val name = translationMap?.get(abbrev)?.translation
-                                    TextButton(
-                                        onClick = {
-                                            selectedTranslation = abbrev
-                                            showDialog.value = false
+                                    TextButton(onClick = {
+                                        selectedTranslation = abbrev
+                                        showDialog.value = false
 
-                                            if (selectedBook > getBookNumber(context)) {
-                                                selectedBook = 0;
-                                                selectedChapter = 0;
-                                            }
-                                            if (selectedChapter > getChapterNumber(context)) {
-                                                selectedChapter = 0;
-                                            }
+                                        if (selectedBook > getBookNumber(context)) {
+                                            selectedBook = 0
+                                            selectedChapter = 0
                                         }
-                                    ) {
-                                        Text("$abbrev | $name")
+                                        if (selectedChapter > getChapterNumber(context)) {
+                                            selectedChapter = 0
+                                        }
+                                    }) {
+                                        Text(
+                                            text = "$abbrev | $name",
+                                            modifier = Modifier.fillMaxWidth()
+                                        )
                                     }
                                 }
                             }
@@ -462,30 +437,36 @@ fun SelectCard(selectMode: SelectMode) {
                         SelectMode.Book -> {
                             Text(
                                 text = stringResource(R.string.choose_book),
-                                style = MaterialTheme.typography.titleLarge
+                                style = MaterialTheme.typography.titleLarge,
+                                modifier = Modifier.fillMaxWidth(),
+                                textAlign = TextAlign.Center
                             )
                             val names = getBookNames(context, selectedTranslation)
+                            val num = names.size - 1
+                            val buttonsPerRow = 3
+                            val length = 7
 
                             Card(
-                                modifier = Modifier.verticalScroll(
-                                    state = rememberScrollState(),
-                                    enabled = true
-                                ),
+                                modifier = Modifier.verticalScroll(rememberScrollState()),
                                 colors = CardDefaults.cardColors(containerColor = Color.Transparent)
                             ) {
-                                for (i in 0..names.size - 1) {
-                                    val name = names[i]
-                                    TextButton(
-                                        onClick = {
-                                            selectedBook = i
-                                            showDialog.value = false
-
-                                            if (selectedChapter > getChapterNumber(context)) {
-                                                selectedChapter = 0;
+                                for (i in 0..num step buttonsPerRow) {
+                                    Row(
+                                        modifier = Modifier.fillMaxWidth(),
+                                        horizontalArrangement = Arrangement.SpaceBetween
+                                    ) {
+                                        for (j in 0..buttonsPerRow - 1) {
+                                            if (i+j <= num) {
+                                                var name = names[i+j].toString()
+                                                if (name.length > length) name = name.substring(0, length-1).trim() + "."
+                                                while (name.length < length) name += " "
+                                                TextButton(onClick = {
+                                                    selectedBook = i + j
+                                                    showDialog.value = false
+                                                    if (selectedChapter > getChapterNumber(context)) selectedChapter = 0
+                                                }) { Text((name)) }
                                             }
                                         }
-                                    ) {
-                                        Text(name)
                                     }
                                 }
                             }
@@ -494,26 +475,31 @@ fun SelectCard(selectMode: SelectMode) {
                         SelectMode.Chapter -> {
                             Text(
                                 text = stringResource(R.string.choose_chapter),
-                                style = MaterialTheme.typography.titleLarge
+                                style = MaterialTheme.typography.titleLarge,
+                                modifier = Modifier.fillMaxWidth(),
+                                textAlign = TextAlign.Center
                             )
                             val num = getChapterNumber(context)
+                            val buttonsPerRow = 4
 
                             Card(
-                                modifier = Modifier.verticalScroll(
-                                    state = rememberScrollState(),
-                                    enabled = true
-                                ),
+                                modifier = Modifier.verticalScroll(rememberScrollState()),
                                 colors = CardDefaults.cardColors(containerColor = Color.Transparent)
                             ) {
-                                for (i in 0..num) {
-                                    val name = (i + 1).toString()
-                                    TextButton(
-                                        onClick = {
-                                            selectedChapter = i
-                                            showDialog.value = false
-                                        }
+                                for (i in 0..num step buttonsPerRow) {
+                                    Row(
+                                        modifier = Modifier.fillMaxWidth(),
+                                        horizontalArrangement = Arrangement.SpaceBetween
                                     ) {
-                                        Text(name)
+                                        for (j in 0..buttonsPerRow - 1) {
+                                            if (i+j <= num) {
+                                                val name = (i+j+1).toString()
+                                                TextButton(onClick = {
+                                                    selectedChapter = i + j
+                                                    showDialog.value = false
+                                                }) { Text((name)) }
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -546,9 +532,7 @@ private fun saveChecksum(context: Context) {
 private fun getTranslations(context: Context): Map<String, Translation>? {
     val dir = context.getExternalFilesDir("Index")
     val path = "${dir}/translations.json"
-    if (!File(path).exists()) {
-        return null
-    }
+    if (!File(path).exists()) return null
     val json = File(path).readText()
     val withUnknownKeys = Json { ignoreUnknownKeys = true; }
     val translations: Map<String, Translation> = withUnknownKeys.decodeFromString(json)
@@ -558,11 +542,10 @@ private fun getTranslations(context: Context): Map<String, Translation>? {
 private fun getChecksum(context: Context, abbrev: String): String? {
     val dir = context.getExternalFilesDir("Index")
     val path = "${dir}/checksum.json"
-    if (File(path).exists()) {
-        var json = File(path).readText()
-        var obj = Json.decodeFromString<JsonObject>(json)
-        return obj[abbrev].toString()
-    } else return "unknown"
+    if (!File(path).exists()) return "unknown"
+    var json = File(path).readText()
+    var obj = Json.decodeFromString<JsonObject>(json)
+    return obj[abbrev].toString()
 }
 
 private fun getChapterNumber(
@@ -572,31 +555,28 @@ private fun getChapterNumber(
 ): Int {
     val dir = context.getExternalFilesDir("Translations")
     val path = "${dir}/${abbrev}.json"
-    val json = File(path).readText()
-    val withUnknownKeys = Json { ignoreUnknownKeys = true; }
-    val obj = withUnknownKeys.decodeFromString<Bible>(json)
-    return obj.books[book].chapters.size - 1
+    val bible = deserializeBible(path)
+    if (bible == null) return 0
+    return bible.books[book].chapters.size - 1
 }
 
 private fun getBookNumber(context: Context, abbrev: String = selectedTranslation): Int {
     val dir = context.getExternalFilesDir("Translations")
     val path = "${dir}/${abbrev}.json"
-    val json = File(path).readText()
-    val withUnknownKeys = Json { ignoreUnknownKeys = true; }
-    val obj = withUnknownKeys.decodeFromString<Bible>(json)
-    return obj.books.size - 1
+    val bible = deserializeBible(path)
+    if (bible == null) return 0
+    return bible.books.size - 1
 }
 
 private fun getBookNames(context: Context, abbrev: String = selectedTranslation): Array<String> {
     val dir = context.getExternalFilesDir("Translations")
     val path = "${dir}/${abbrev}.json"
-    val json = File(path).readText()
-    val withUnknownKeys = Json { ignoreUnknownKeys = true; }
-    val obj = withUnknownKeys.decodeFromString<Bible>(json)
-    val num = obj.books.size
+    val bible = deserializeBible(path)
+    if (bible == null) return Array<String>(1) { "ERROR" }
+    val num = bible.books.size
     var arr = Array<String>(num) { "" }
     for (i in 0..num - 1) {
-        arr[i] = obj.books[i].name
+        arr[i] = bible.books[i].name
     }
     return arr
 }
@@ -631,17 +611,12 @@ private fun getChapter(
 ): String? {
     val dir = context.getExternalFilesDir("Translations")
     val path = "${dir}/${abbrev}.json"
-    val withUnknownKeys = Json { ignoreUnknownKeys = true; }
     var text = ""
-    if (File(path).exists()) {
-        var json = File(path).readText()
-        var bible = try { withUnknownKeys.decodeFromString<Bible>(json) } catch (_: SerializationException) { null }
-        if (bible != null) {
-            val verses = bible.books[book].chapters[chapter].verses
-            verses.forEach { verse ->
-                text += "${verse.verse} ${verse.text}\n"
-            }
-        }
+    val bible = deserializeBible(path)
+    if (bible == null) return text
+    val verses = bible.books[book].chapters[chapter].verses
+    verses.forEach { verse ->
+        text += "${verse.verse} ${verse.text}\n"
     }
     return text
 }
@@ -654,17 +629,11 @@ private fun getTitle(
 ): String? {
     val dir = context.getExternalFilesDir("Translations")
     val path = "${dir}/${abbrev}.json"
-    val withUnknownKeys = Json { ignoreUnknownKeys = true; }
-    if (File(path).exists()) {
-        var json = File(path).readText()
-        var bible = try { withUnknownKeys.decodeFromString<Bible>(json) } catch (_: SerializationException) { null }
-        if (bible != null) {
-            val translation = bible.translation
-            val title = bible.books[book].chapters[chapter].name
-            return "$translation | $title"
-        }
-    }
-    return "ERROR"
+    val bible = deserializeBible(path)
+    if (bible == null) return "ERROR"
+    val translation = bible.translation
+    val title = bible.books[book].chapters[chapter].name
+    return "$translation | $title"
 }
 
 private fun getDefaultFiles(context: Context, defaultTranslation: String = selectedTranslation) {
@@ -675,10 +644,26 @@ private fun getDefaultFiles(context: Context, defaultTranslation: String = selec
         saveChecksum(context)
     }
     path = context.getExternalFilesDir("Translations")
-    if (!File("${path}/${defaultTranslation}.json").exists()) downloadTranslation(
-        context,
-        defaultTranslation
-    )
+    if (!File("${path}/${defaultTranslation}.json").exists()) {
+        downloadTranslation(
+            context,
+            defaultTranslation
+        )
+    }
+}
+
+private fun deserializeBible(path: String): Bible? {
+    if (!File(path).exists()) return null
+
+    val json = File(path).readText()
+    val withUnknownKeys = Json { ignoreUnknownKeys = true; }
+    var bible = try {
+        withUnknownKeys.decodeFromString<Bible>(json)
+    } catch (_: SerializationException) {
+        null
+    }
+
+    return bible
 }
 
 private fun downloadFile(
