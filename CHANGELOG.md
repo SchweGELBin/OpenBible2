@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.1.0] - 2024-10-13
+## [0.1.0] - 2024-10-21
 
 ### 🚀 Features
 
@@ -13,6 +13,7 @@ All notable changes to this project will be documented in this file.
 - Choose, which translation to download
 - Add select dialog
 - Choose translation, book and chapter
+- *(ui)* Select books and chapters from a table
 
 ### 🐛 Bug Fixes
 
@@ -22,6 +23,8 @@ All notable changes to this project will be documented in this file.
 - Default translation
 - Crash when checksum not found
 - Crashes with unloaded files
+- Overflow of old selected Items to new ones
+- Crash when using a downloading file
 
 ### 📚 Documentation
 
@@ -34,6 +37,8 @@ All notable changes to this project will be documented in this file.
 - Update changelog
 - Update changelog
 - Update changelog
+- Update changelog
+- Fix wrong name of compose
 
 ### 🎨 Styling
 
@@ -50,6 +55,7 @@ All notable changes to this project will be documented in this file.
 
 ### Build
 
+- Update apk
 - Update apk
 - Update apk
 - Update apk
