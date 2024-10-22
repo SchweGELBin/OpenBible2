@@ -14,6 +14,8 @@ All notable changes to this project will be documented in this file.
 - Add select dialog
 - Choose translation, book and chapter
 - *(ui)* Select books and chapters from a table
+- *(ui)* Improve settings screen, add about section
+- Save last selection
 
 ### 🐛 Bug Fixes
 
@@ -45,6 +47,7 @@ All notable changes to this project will be documented in this file.
 - Update changelog
 - Fix wrong name of compose
 - Update changelog
+- Update changelog
 
 ### ⚡ Performance
 
@@ -57,14 +60,17 @@ All notable changes to this project will be documented in this file.
 - Format and cleanup
 - Add custom app icon
 - Update app icon
+- Cleanup
 
 ### ⚙️ Miscellaneous Tasks
 
 - Init
 - Add license
+- Remove todos
 
 ### Build
 
+- Update apk
 - Update apk
 - Update apk
 - Update apk
