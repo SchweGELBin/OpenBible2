@@ -38,59 +38,53 @@ fun App() {
     if (showSettings.value) {
         SettingsScreen(onClose = { showSettings.value = false })
     } else {
-        Scaffold(
-            topBar = {
-                TopAppBar(
-                    colors = TopAppBarDefaults.topAppBarColors(titleContentColor = MaterialTheme.colorScheme.primary),
-                    title = { Text(stringResource(R.string.app_name)) },
-                    actions = {
-                        IconButton(onClick = { showSettings.value = true }) {
-                            Icon(
-                                imageVector = Icons.Filled.Settings,
-                                contentDescription = stringResource(R.string.settings)
-                            )
-                        }
-                    }
-                )
-            },
-            bottomBar = {
-                NavigationBar {
-                    Screen.entries.forEach { screen ->
-                        var label = ""
-                        NavigationBarItem(
-                            icon = {
-                                when (screen) {
-                                    Screen.Home -> {
-                                        Icon(
-                                            Icons.Filled.Home,
-                                            contentDescription = stringResource(R.string.screen_home)
-                                        )
-                                        label = stringResource(R.string.screen_home)
-                                    }
-
-                                    Screen.Read -> {
-                                        Icon(
-                                            Icons.Filled.Star,
-                                            contentDescription = stringResource(R.string.screen_read)
-                                        )
-                                        label = stringResource(R.string.screen_read)
-                                    }
-
-                                    else -> {}
-                                }
-                            },
-                            label = { Text(label) },
-                            selected = currentScreen.value == screen,
-                            onClick = { currentScreen.value = screen },
-                            colors = NavigationBarItemDefaults.colors(
-                                selectedIconColor = MaterialTheme.colorScheme.primary,
-                                unselectedIconColor = MaterialTheme.colorScheme.onSurface
-                            )
+        Scaffold(topBar = {
+            TopAppBar(colors = TopAppBarDefaults.topAppBarColors(titleContentColor = MaterialTheme.colorScheme.primary),
+                title = { Text(stringResource(R.string.app_name)) },
+                actions = {
+                    IconButton(onClick = { showSettings.value = true }) {
+                        Icon(
+                            imageVector = Icons.Filled.Settings,
+                            contentDescription = stringResource(R.string.settings)
                         )
                     }
+                })
+        }, bottomBar = {
+            NavigationBar {
+                Screen.entries.forEach { screen ->
+                    var label = ""
+                    NavigationBarItem(icon = {
+                        when (screen) {
+                            Screen.Home -> {
+                                Icon(
+                                    Icons.Filled.Home,
+                                    contentDescription = stringResource(R.string.screen_home)
+                                )
+                                label = stringResource(R.string.screen_home)
+                            }
+
+                            Screen.Read -> {
+                                Icon(
+                                    Icons.Filled.Star,
+                                    contentDescription = stringResource(R.string.screen_read)
+                                )
+                                label = stringResource(R.string.screen_read)
+                            }
+
+                            else -> {}
+                        }
+                    },
+                        label = { Text(label) },
+                        selected = currentScreen.value == screen,
+                        onClick = { currentScreen.value = screen },
+                        colors = NavigationBarItemDefaults.colors(
+                            selectedIconColor = MaterialTheme.colorScheme.primary,
+                            unselectedIconColor = MaterialTheme.colorScheme.onSurface
+                        )
+                    )
                 }
             }
-        ) { innerPadding ->
+        }) { innerPadding ->
             when (currentScreen.value) {
                 Screen.Home -> HomeScreen(modifier = Modifier.padding(innerPadding))
                 Screen.Read -> ReadScreen(modifier = Modifier.padding(innerPadding))

@@ -74,3 +74,12 @@ fun downloadFile(
     val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
     downloadManager.enqueue(request)
 }
+
+fun saveSelection(context: Context) {
+    val sharedPref = context.getSharedPreferences("selection", Context.MODE_PRIVATE)
+    val editor = sharedPref.edit()
+    editor.putString("translation", selectedTranslation)
+    editor.putInt("book", selectedBook)
+    editor.putInt("chapter", selectedChapter)
+    editor.apply()
+}

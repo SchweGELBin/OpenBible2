@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -29,26 +28,28 @@ import com.schwegelbin.openbible.logic.saveIndex
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(onClose: () -> Unit) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(stringResource(R.string.settings)) },
-                navigationIcon = {
-                    IconButton(onClick = { onClose() }) {
-                        Icon(
-                            imageVector = Icons.Filled.Close,
-                            contentDescription = stringResource(R.string.close)
-                        )
-                    }
-                }
-            )
-        }
-    ) { innerPadding ->
-        Column(modifier = Modifier.padding(innerPadding).padding(horizontal = 12.dp, vertical = 24.dp)) {
+    Scaffold(topBar = {
+        TopAppBar(title = { Text(stringResource(R.string.settings)) }, navigationIcon = {
+            IconButton(onClick = { onClose() }) {
+                Icon(
+                    imageVector = Icons.Filled.Close,
+                    contentDescription = stringResource(R.string.close)
+                )
+            }
+        })
+    }) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .padding(innerPadding)
+                .padding(horizontal = 12.dp, vertical = 24.dp)
+        ) {
             Text(text = stringResource(R.string.index), style = MaterialTheme.typography.titleLarge)
             IndexButton()
             HorizontalDivider(modifier = Modifier.padding(12.dp))
-            Text(text = stringResource(R.string.about_us), style = MaterialTheme.typography.titleLarge)
+            Text(
+                text = stringResource(R.string.about_us),
+                style = MaterialTheme.typography.titleLarge
+            )
             RepoButton()
         }
     }
@@ -67,7 +68,8 @@ fun IndexButton() {
 fun RepoButton() {
     val context = LocalContext.current
     OutlinedButton(onClick = {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/SchweGELBin/OpenBible2"))
+        val intent =
+            Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/SchweGELBin/OpenBible2"))
         startActivity(context, intent, null)
     }) { Text(stringResource(R.string.source_repo)) }
 }

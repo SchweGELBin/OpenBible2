@@ -31,6 +31,7 @@ import com.schwegelbin.openbible.logic.downloadTranslation
 import com.schwegelbin.openbible.logic.getBookNames
 import com.schwegelbin.openbible.logic.getCount
 import com.schwegelbin.openbible.logic.getTranslations
+import com.schwegelbin.openbible.logic.saveSelection
 import com.schwegelbin.openbible.logic.selectedBook
 import com.schwegelbin.openbible.logic.selectedChapter
 import com.schwegelbin.openbible.logic.selectedTranslation
@@ -173,8 +174,8 @@ fun SelectCard(selectMode: SelectMode) {
                                     TextButton(onClick = {
                                         selectedTranslation = abbrev
                                         showDialog.value = false
-                                        val (bookCount, chapterCount) = getCount(context)
 
+                                        val (bookCount, chapterCount) = getCount(context)
                                         if (selectedBook > bookCount) {
                                             selectedBook = 0
                                             selectedChapter = 0
@@ -182,6 +183,7 @@ fun SelectCard(selectMode: SelectMode) {
                                         if (selectedChapter > chapterCount) {
                                             selectedChapter = 0
                                         }
+                                        saveSelection(context)
                                     }) {
                                         Text(
                                             text = "$abbrev | $name",
@@ -222,9 +224,11 @@ fun SelectCard(selectMode: SelectMode) {
                                                 TextButton(onClick = {
                                                     selectedBook = i + j
                                                     showDialog.value = false
+
                                                     val (_, chapterCount) = getCount(context)
                                                     if (selectedChapter > chapterCount) selectedChapter =
                                                         0
+                                                    saveSelection(context)
                                                 }) { Text((name)) }
                                             }
                                         }
@@ -258,6 +262,7 @@ fun SelectCard(selectMode: SelectMode) {
                                                 TextButton(onClick = {
                                                     selectedChapter = i + j
                                                     showDialog.value = false
+                                                    saveSelection(context)
                                                 }) { Text((name)) }
                                             }
                                         }

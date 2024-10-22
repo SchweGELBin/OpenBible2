@@ -50,7 +50,10 @@ fun getChapter(
     val dir = context.getExternalFilesDir("Translations")
     val path = "${dir}/${abbrev}.json"
     val bible = deserializeBible(path)
-    if (bible == null) return Pair(first = "ERROR", second = "Please try again\nCheck your internet connection")
+    if (bible == null) return Pair(
+        first = "ERROR",
+        second = "Please try again\nCheck your internet connection"
+    )
     val translation = bible.translation
     val title = bible.books[book].chapters[chapter].name
     var text = ""
@@ -61,17 +64,20 @@ fun getChapter(
     return Pair("$translation | $title", text)
 }
 
-fun getDefaultFiles(context: Context, defaultTranslation: String = selectedTranslation) {
-    selectedTranslation = defaultTranslation
+fun getDefaultFiles(context: Context) {
+    val sharedPref = context.getSharedPreferences("selection", Context.MODE_PRIVATE)
+    selectedTranslation = sharedPref.getString("translation", selectedTranslation).toString()
+    selectedBook = sharedPref.getInt("book", selectedBook)
+    selectedChapter = sharedPref.getInt("chapter", selectedChapter)
     var path = context.getExternalFilesDir("Index")
     if (!File("${path}/translations.json").exists() || !File("${path}/checksum.json").exists()) {
         saveIndex(context)
         saveChecksum(context)
     }
     path = context.getExternalFilesDir("Translations")
-    if (!File("${path}/${defaultTranslation}.json").exists()) {
+    if (!File("${path}/${selectedTranslation}.json").exists()) {
         downloadTranslation(
-            context, defaultTranslation
+            context, selectedTranslation
         )
     }
 }
