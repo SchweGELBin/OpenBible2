@@ -10,7 +10,7 @@ fun getTranslations(context: Context): Map<String, Translation>? {
     return map
 }
 
-fun getChecksum(context: Context, abbrev: String): String? {
+fun getChecksum(context: Context, abbrev: String): String {
     val dir = context.getExternalFilesDir("Index")
     val path = "${dir}/checksum.json"
     val obj = deserialize(path)
@@ -50,7 +50,7 @@ fun getChapter(
     val dir = context.getExternalFilesDir("Translations")
     val path = "${dir}/${abbrev}.json"
     val bible = deserializeBible(path)
-    if (bible == null) return Pair(first = "ERROR", second = "Please try again")
+    if (bible == null) return Pair(first = "ERROR", second = "Please try again\nCheck your internet connection")
     val translation = bible.translation
     val title = bible.books[book].chapters[chapter].name
     var text = ""

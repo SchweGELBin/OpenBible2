@@ -42,7 +42,7 @@ fun downloadTranslation(context: Context, abbrev: String) {
         name = "${abbrev}.json",
         relPath = "Translations"
     )
-    val checksum = getChecksum(context, abbrev).toString()
+    val checksum = getChecksum(context, abbrev)
     val dir = context.getExternalFilesDir("Checksums")
     val path = "${dir}/${abbrev}"
     File(path).writeText(checksum)
@@ -63,7 +63,7 @@ fun downloadFile(
     if (replace) {
         val dir = context.getExternalFilesDir(relPath)
         val path = "${dir}/${name}"
-        if (File(path).exists()) File(path).delete()
+        File(path).delete()
     }
     val request = DownloadManager.Request(Uri.parse(url)).apply {
         setTitle("Downloading $name")
