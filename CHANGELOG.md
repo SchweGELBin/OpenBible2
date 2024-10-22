@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.1.0] - 2024-10-21
+## [0.1.0] - 2024-10-22
 
 ### 🚀 Features
 
@@ -25,6 +25,11 @@ All notable changes to this project will be documented in this file.
 - Crashes with unloaded files
 - Overflow of old selected Items to new ones
 - Crash when using a downloading file
+- First time launch without internet
+
+### 🚜 Refactor
+
+- Change file structure, delete example tests
 
 ### 📚 Documentation
 
@@ -39,6 +44,11 @@ All notable changes to this project will be documented in this file.
 - Update changelog
 - Update changelog
 - Fix wrong name of compose
+- Update changelog
+
+### ⚡ Performance
+
+- Split mainactivity, optimize code
 
 ### 🎨 Styling
 
