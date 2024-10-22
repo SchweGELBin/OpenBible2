@@ -39,9 +39,6 @@ fun SettingsScreen(onClose: () -> Unit) {
     ) { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding)) {
             IndexButton()
-            LocaleButton()
-            ThemeButton()
-            AccentButton()
         }
     }
 }
@@ -53,25 +50,4 @@ fun IndexButton() {
         saveIndex(context)
         saveChecksum(context)
     }) { Text(stringResource(R.string.update_index)) }
-}
-
-@Composable
-fun LocaleButton() {
-    TextButton(onClick = {
-        //TODO: Open Dialog to change locale/language (System/English/...)
-    }) { Text(stringResource(R.string.change_locale)) }
-}
-
-@Composable
-fun ThemeButton() {
-    TextButton(onClick = {
-        //TODO: Open Dialog to change theme (System/Light/Dark/Amoled)
-    }) { Text(stringResource(R.string.change_theme)) }
-}
-
-@Composable
-fun AccentButton() {
-    TextButton(onClick = {
-        //TODO: Open Dialog to change accent color (System/Red/Blue/...)
-    }) { Text(stringResource(R.string.change_accent)) }
 }
