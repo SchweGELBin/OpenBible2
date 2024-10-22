@@ -50,10 +50,7 @@ fun getChapter(
     val dir = context.getExternalFilesDir("Translations")
     val path = "${dir}/${abbrev}.json"
     val bible = deserializeBible(path)
-    if (bible == null) return Pair(
-        first = "ERROR",
-        second = "Please try again\nCheck your internet connection"
-    )
+    if (bible == null) return Pair("ERROR", "Please try again\nCheck your internet connection")
     val translation = bible.translation
     val title = bible.books[book].chapters[chapter].name
     var text = ""
