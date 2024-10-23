@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.1] - 2024-10-23
+
+### 📚 Documentation
+
+- Update readme
+
+### Build
+
+- Add aab
+
 ## [0.1.0] - 2024-10-22
 
 ### 🚀 Features
@@ -46,6 +56,7 @@ All notable changes to this project will be documented in this file.
 - Update changelog
 - Update changelog
 - Fix wrong name of compose
+- Update changelog
 - Update changelog
 - Update changelog
 
