@@ -1,6 +1,8 @@
 # OpenBible
 OpenBible provides the `bible` as a simple Android App.
 
+# [German README](./README_DE.md)
+
 ## Description
 OpenBible lets you download the bible in multiple translations.
 You can choose a downloaded translation and select a book and chapter of it.
