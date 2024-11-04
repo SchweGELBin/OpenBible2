@@ -18,3 +18,8 @@ It follows your system theme (dark/light mode, language and material design) to 
 ## How does it work?
 It is written in [Jetpack Compose](https://developer.android.com/compose) and uses [Material You](https://m3.material.io) as its Design.
 It downloads and works with json files, provided by the [GETBIBLE API](https://getbible.net/docs) and the [CrossWire SWORD](https://www.crosswire.org/sword) project.
+
+## Screenshots
+| ![](./res/screenshots/screenshot_screen_home.png) | ![](./res/screenshots/screenshot_screen_read.png) | ![](./res/screenshots/screenshot_screen_settings.png) |
+|---------------------------------------------------|---------------------------------------------------|-------------------------------------------------------|
+| ![](./res/screenshots/screenshot_choose_translation.png) | ![](./res/screenshots/screenshot_choose_book.png) | ![](./res/screenshots/screenshot_choose_chapter.png) |

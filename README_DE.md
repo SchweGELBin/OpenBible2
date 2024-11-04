@@ -18,3 +18,8 @@ Es folgt Ihrem System-Design (Hell-/Dunkelmodus, Sprache und Material Design), u
 ## Wie funktioniert es?
 Die App ist in [Jetpack Compose](https://developer.android.com/compose) geschrieben und nutzt [Material You](https://m3.material.io) in der Gestaltung.
 Sie lädt json Dateien, welche von der [GETBIBLE API](https://getbible.net/docs) und dem [SWORD Projekt](https://www.crosswire.org/sword) von Crosswire zur Verfügung gestellt werden, herunter und arbeitet mit diesen.
+
+## Blidschirmfotos
+| ![](./res/screenshots/screenshot_screen_home.png) | ![](./res/screenshots/screenshot_screen_read.png) | ![](./res/screenshots/screenshot_screen_settings.png) |
+|---------------------------------------------------|---------------------------------------------------|-------------------------------------------------------|
+| ![](./res/screenshots/screenshot_choose_translation.png) | ![](./res/screenshots/screenshot_choose_book.png) | ![](./res/screenshots/screenshot_choose_chapter.png) |
