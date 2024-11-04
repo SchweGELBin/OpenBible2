@@ -1,7 +1,12 @@
 # OpenBible
-OpenBible stellt die `Bibel` als einfache Android App zur Verfügung.
+![GitHub License](https://img.shields.io/github/license/SchweGELBin/OpenBible2)
+![GitHub Release](https://img.shields.io/github/v/release/SchweGELBin/OpenBible2)
 
-# [English README](./README.md)
+<a href="https://play.google.com/store/apps/details?id=com.schwegelbin.openbible"><img src="https://play.google.com/intl/en_us/badges/images/generic/de_badge_web_generic.png" height="60"></a>
+
+[English](./README.md)
+
+OpenBible stellt die `Bibel` als einfache Android App zur Verfügung.
 
 ## Beschreibung
 OpenBible lässt Sie die Bibel in mehreren Übersetzungen herunterladen.
