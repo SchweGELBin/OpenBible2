@@ -2,10 +2,32 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.3] - 2024-11-04
+
+### 📚 Documentation
+
+- *(readme)* Add description
+- *(readme)* Add german translation
+- *(readme)* Link german translation
+- *(readme)* Update german translation
+- Add badges to readme
+- Add icon, feature graphic and screenshots
+- *(readme)* Add screenshots
+
+### ⚙️ Miscellaneous Tasks
+
+- Remove app/release from repo
+- Bump to 0.1.3
+
+### Build
+
+- Remove dependenciesInfo from apk/bundle
+
 ## [0.1.2] - 2024-10-23
 
 ### ⚙️ Miscellaneous Tasks
 
+- Release 0.1.2
 - Release 0.1.2
 
 ## [0.1.1] - 2024-10-23
