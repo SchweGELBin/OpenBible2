@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.4] - 2024-11-05
+
+### 📚 Documentation
+
+- *(readme)* Add izzyondroid badges
+
+### ⚙️ Miscellaneous Tasks
+
+- Drop jdk 22 -> 21
+- Initial fastlane data from IzzyOnDroid
+- Restructure repository
+
 ## [0.1.3] - 2024-11-04
 
 ### 📚 Documentation
@@ -13,6 +25,7 @@ All notable changes to this project will be documented in this file.
 - Add badges to readme
 - Add icon, feature graphic and screenshots
 - *(readme)* Add screenshots
+- *(changelog)* Update
 
 ### ⚙️ Miscellaneous Tasks
 
