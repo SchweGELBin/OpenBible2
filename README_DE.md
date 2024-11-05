@@ -8,7 +8,7 @@
 
 [English](./README.md)
 
-OpenBible stellt die `Bibel` als einfache Android App zur Verfügung.
+OpenBible stellt die `Bibel` als einfache Android App zur Verfügung
 
 ## Beschreibung
 OpenBible lässt Sie die Bibel in mehreren Übersetzungen herunterladen.
@@ -22,6 +22,6 @@ Die App ist in [Jetpack Compose](https://developer.android.com/compose) geschrie
 Sie lädt json Dateien, welche von der [GETBIBLE API](https://getbible.net/docs) und dem [SWORD Projekt](https://www.crosswire.org/sword) von Crosswire zur Verfügung gestellt werden, herunter und arbeitet mit diesen.
 
 ## Blidschirmfotos
-| ![](./res/screenshots/screenshot_screen_home.png) | ![](./res/screenshots/screenshot_screen_read.png) | ![](./res/screenshots/screenshot_screen_settings.png) |
-|---------------------------------------------------|---------------------------------------------------|-------------------------------------------------------|
-| ![](./res/screenshots/screenshot_choose_translation.png) | ![](./res/screenshots/screenshot_choose_book.png) | ![](./res/screenshots/screenshot_choose_chapter.png) |
+| ![](./fastlane/metadata/android/en-US/images/phoneScreenshots/01.png) | ![](./fastlane/metadata/android/en-US/images/phoneScreenshots/02.png) | ![](./fastlane/metadata/android/en-US/images/phoneScreenshots/03.png) |
+|-----------------------------------------------------------------------|-----------------------------------------------------------------------|-----------------------------------------------------------------------|
+| ![](./fastlane/metadata/android/en-US/images/phoneScreenshots/05.png) | ![](./fastlane/metadata/android/en-US/images/phoneScreenshots/06.png) | ![](./fastlane/metadata/android/en-US/images/phoneScreenshots/07.png) |
