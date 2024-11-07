@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.0] - 2024-11-07
+
+### 🚀 Features
+
+- Update read icon
+- Colorize title
+
+### 🚜 Refactor
+
+- Remove duplication
+
+### 📚 Documentation
+
+- *(readme)* Add OpenAPK badge
+- *(readme)* Update german translation
+- *(readme)* Update german translation
+- *(readme)* Sync description with fastlane
+- *(readme)* Update german translation
+
+### 🎨 Styling
+
+- Reformat code
+
+### ⚙️ Miscellaneous Tasks
+
+- Update dependencies
+- *(metadata)* Update screenshots
+
 ## [0.1.4] - 2024-11-05
 
 ### 📚 Documentation
@@ -13,6 +41,7 @@ All notable changes to this project will be documented in this file.
 - Drop jdk 22 -> 21
 - Initial fastlane data from IzzyOnDroid
 - Restructure repository
+- Bump to 0.1.4
 
 ## [0.1.3] - 2024-11-04
 

@@ -1,0 +1,2 @@
+Update Main Screen UI (Title and Read Icon)
+Update Dependencies
