@@ -85,9 +85,10 @@ fun App() {
                 }
             }
         }) { innerPadding ->
+            val mod = Modifier.padding((innerPadding))
             when (currentScreen.value) {
-                Screen.Home -> HomeScreen(modifier = Modifier.padding(innerPadding))
-                Screen.Read -> ReadScreen(modifier = Modifier.padding(innerPadding))
+                Screen.Home -> HomeScreen(mod)
+                Screen.Read -> ReadScreen(mod)
                 else -> {}
             }
         }
