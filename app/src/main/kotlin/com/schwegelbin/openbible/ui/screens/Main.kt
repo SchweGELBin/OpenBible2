@@ -2,9 +2,9 @@ package com.schwegelbin.openbible.ui.screens
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -15,12 +15,10 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
@@ -39,12 +37,21 @@ fun App() {
     val currentScreen = remember { mutableStateOf(Screen.Home) }
     val showSettings = remember { mutableStateOf(false) }
 
-    val appName = stringResource(R.string.app_name).split(Regex("(?=[A-Z])")).filter { it.isNotEmpty() }
+    val appName =
+        stringResource(R.string.app_name).split(Regex("(?=[A-Z])")).filter { it.isNotEmpty() }
     val title = buildAnnotatedString {
         appName.forEachIndexed { index, value ->
             if (index == 1) withStyle(SpanStyle(MaterialTheme.colorScheme.primary)) { append(value) }
-            else if (index == 2) withStyle(SpanStyle(MaterialTheme.colorScheme.secondary)) { append(value) }
-            else if (index == 3) withStyle(SpanStyle(MaterialTheme.colorScheme.tertiary)) { append(value) }
+            else if (index == 2) withStyle(SpanStyle(MaterialTheme.colorScheme.secondary)) {
+                append(
+                    value
+                )
+            }
+            else if (index == 3) withStyle(SpanStyle(MaterialTheme.colorScheme.tertiary)) {
+                append(
+                    value
+                )
+            }
             else append(value)
         }
     }
@@ -67,27 +74,28 @@ fun App() {
             NavigationBar {
                 Screen.entries.forEach { screen ->
                     var label = ""
-                    NavigationBarItem(icon = {
-                        when (screen) {
-                            Screen.Home -> {
-                                Icon(
-                                    Icons.Filled.Home,
-                                    contentDescription = stringResource(R.string.screen_home)
-                                )
-                                label = stringResource(R.string.screen_home)
-                            }
+                    NavigationBarItem(
+                        icon = {
+                            when (screen) {
+                                Screen.Home -> {
+                                    Icon(
+                                        Icons.Filled.Home,
+                                        contentDescription = stringResource(R.string.screen_home)
+                                    )
+                                    label = stringResource(R.string.screen_home)
+                                }
 
-                            Screen.Read -> {
-                                Icon(
-                                    Icons.AutoMirrored.Filled.MenuBook,
-                                    contentDescription = stringResource(R.string.screen_read)
-                                )
-                                label = stringResource(R.string.screen_read)
-                            }
+                                Screen.Read -> {
+                                    Icon(
+                                        Icons.AutoMirrored.Filled.MenuBook,
+                                        contentDescription = stringResource(R.string.screen_read)
+                                    )
+                                    label = stringResource(R.string.screen_read)
+                                }
 
-                            else -> {}
-                        }
-                    },
+                                else -> {}
+                            }
+                        },
                         label = { Text(label) },
                         selected = currentScreen.value == screen,
                         onClick = { currentScreen.value = screen },
