@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.1] - 2024-11-07
+
+### ⚡ Performance
+
+- Enable minify and shrink
+
 ## [0.2.0] - 2024-11-07
 
 ### 🚀 Features
@@ -30,6 +36,7 @@ All notable changes to this project will be documented in this file.
 - Update dependencies
 - *(metadata)* Update screenshots
 - Bump to 0.1.5
+- Bump to 0.2.0
 
 ## [0.1.4] - 2024-11-05
 
