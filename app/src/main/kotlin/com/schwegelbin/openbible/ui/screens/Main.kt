@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -65,7 +65,7 @@ fun App() {
 
                             Screen.Read -> {
                                 Icon(
-                                    Icons.Filled.Star,
+                                    Icons.AutoMirrored.Filled.MenuBook,
                                     contentDescription = stringResource(R.string.screen_read)
                                 )
                                 label = stringResource(R.string.screen_read)
