@@ -61,6 +61,21 @@ fun getChapter(
     return Pair("$translation | $title", text)
 }
 
+fun getSelectionNames(
+    context: Context,
+    abbrev: String = selectedTranslation,
+    book: Int = selectedBook,
+    chapter: Int = selectedChapter
+): Triple<String, String, String> {
+    val dir = context.getExternalFilesDir("Translations")
+    val path = "${dir}/${abbrev}.json"
+    val bible = deserializeBible(path)
+    if (bible == null) return Triple("ERROR", "ERROR", "ERROR")
+    val translation = bible.translation
+    val book = bible.books[book].name
+    return Triple(translation, book, (chapter + 1).toString())
+}
+
 fun getDefaultFiles(context: Context) {
     val sharedPref = context.getSharedPreferences("selection", Context.MODE_PRIVATE)
     selectedTranslation = sharedPref.getString("translation", selectedTranslation).toString()

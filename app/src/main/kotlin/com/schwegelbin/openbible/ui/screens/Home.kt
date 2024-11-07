@@ -58,11 +58,13 @@ fun TranslationCard() {
     var showDialog = remember { mutableStateOf(false) }
     val indexPath = "${context.getExternalFilesDir("Index")}/translations.json"
 
-    ElevatedCard(elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+    ElevatedCard(
+        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
         modifier = Modifier.fillMaxWidth(),
         onClick = { if (File(indexPath).exists()) showDialog.value = true }) {
         Text(
-            text = stringResource(R.string.download_translation), modifier = Modifier.padding(16.dp)
+            text = stringResource(R.string.download_translation),
+            modifier = Modifier.padding(16.dp)
         )
     }
 
@@ -114,7 +116,8 @@ fun SelectCard(selectMode: SelectMode) {
     val translationPath =
         "${context.getExternalFilesDir("Translations")}/${selectedTranslation}.json"
 
-    ElevatedCard(elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+    ElevatedCard(
+        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
         modifier = Modifier.fillMaxWidth(),
         onClick = {
             if (Path(translationPath).exists()) showDialog.value = true
@@ -122,21 +125,22 @@ fun SelectCard(selectMode: SelectMode) {
         when (selectMode) {
             SelectMode.Translation -> {
                 Text(
-                    text = stringResource(R.string.choose_translation),
-                    modifier = Modifier.padding(16.dp)
+                    modifier = Modifier.padding(16.dp),
+                    text = stringResource(R.string.choose_translation)
                 )
             }
 
             SelectMode.Book -> {
                 Text(
-                    text = stringResource(R.string.choose_book), modifier = Modifier.padding(16.dp)
+                    modifier = Modifier.padding(16.dp),
+                    text = stringResource(R.string.choose_book)
                 )
             }
 
             SelectMode.Chapter -> {
                 Text(
-                    text = stringResource(R.string.choose_chapter),
-                    modifier = Modifier.padding(16.dp)
+                    modifier = Modifier.padding(16.dp),
+                    text = stringResource(R.string.choose_chapter)
                 )
             }
         }
