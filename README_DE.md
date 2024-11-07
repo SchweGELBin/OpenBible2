@@ -9,7 +9,7 @@
 
 [English](./README.md)
 
-<!-- ./fastlane/metadata/android/en-US/short_description.txt -->
+<!-- ./fastlane/metadata/android/de/short_description.txt -->
 OpenBible stellt die Bibel als einfache Android App zur Verfügung
 
 ## Beschreibung
