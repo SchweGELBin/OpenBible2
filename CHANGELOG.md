@@ -29,6 +29,7 @@ All notable changes to this project will be documented in this file.
 
 - Update dependencies
 - *(metadata)* Update screenshots
+- Bump to 0.1.5
 
 ## [0.1.4] - 2024-11-05
 
