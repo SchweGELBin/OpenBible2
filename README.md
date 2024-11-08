@@ -1,4 +1,5 @@
 # OpenBible
+![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/SchweGELBin/OpenBible2/total)
 ![GitHub License](https://img.shields.io/github/license/SchweGELBin/OpenBible2)
 ![GitHub Release](https://img.shields.io/github/v/release/SchweGELBin/OpenBible2)
 ![IzzyOnDroid Release](https://img.shields.io/endpoint?url=https://apt.izzysoft.de/fdroid/api/v1/shield/com.schwegelbin.openbible)
