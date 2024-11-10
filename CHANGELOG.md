@@ -2,11 +2,27 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.0] - 2024-11-10
+
+### 🚀 Features
+
+- Use adaptive icon
+
+### 📚 Documentation
+
+- *(readme)* Add download badge
+- *(readme)* Add links to badges
+- Capitalize `Bible`
+
 ## [0.2.1] - 2024-11-07
 
 ### ⚡ Performance
 
 - Enable minify and shrink
+
+### ⚙️ Miscellaneous Tasks
+
+- Bump to 0.2.1
 
 ## [0.2.0] - 2024-11-07
 
