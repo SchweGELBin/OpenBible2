@@ -3,6 +3,7 @@ package com.schwegelbin.openbible.ui.screens
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
@@ -13,16 +14,27 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SegmentedButton
+import androidx.compose.material3.SegmentedButtonDefaults
+import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.startActivity
 import com.schwegelbin.openbible.R
+import com.schwegelbin.openbible.logic.SchemeOption
+import com.schwegelbin.openbible.logic.ThemeOption
+import com.schwegelbin.openbible.logic.getColorScheme
+import com.schwegelbin.openbible.logic.getColorSchemeInt
 import com.schwegelbin.openbible.logic.saveChecksum
+import com.schwegelbin.openbible.logic.saveColorScheme
 import com.schwegelbin.openbible.logic.saveIndex
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -43,13 +55,19 @@ fun SettingsScreen(onClose: () -> Unit) {
                 .padding(innerPadding)
                 .padding(horizontal = 12.dp, vertical = 24.dp)
         ) {
-            Text(text = stringResource(R.string.index), style = MaterialTheme.typography.titleLarge)
+            Text(stringResource(R.string.index), style = MaterialTheme.typography.titleLarge)
             IndexButton()
+
             HorizontalDivider(modifier = Modifier.padding(12.dp))
-            Text(
-                text = stringResource(R.string.about_us),
-                style = MaterialTheme.typography.titleLarge
-            )
+            Text("Color Theme", style = MaterialTheme.typography.titleLarge)
+            ThemeButton()
+
+            Spacer(Modifier.padding(12.dp))
+            Text("Color Scheme", style = MaterialTheme.typography.titleLarge)
+            SchemeButton()
+
+            HorizontalDivider(modifier = Modifier.padding(12.dp))
+            Text(stringResource(R.string.about_us), style = MaterialTheme.typography.titleLarge)
             RepoButton()
         }
     }
@@ -62,6 +80,67 @@ fun IndexButton() {
         saveIndex(context)
         saveChecksum(context)
     }) { Text(stringResource(R.string.update_index)) }
+}
+
+@Composable
+fun ThemeButton() {
+    val context = LocalContext.current
+    var selectedIndex = remember { mutableIntStateOf(getColorSchemeInt(context, true)) }
+    val options = ThemeOption.entries
+
+    SingleChoiceSegmentedButtonRow {
+        options.forEachIndexed { index, option ->
+            val label = when(option) {
+                ThemeOption.System -> stringResource(R.string.theme_system)
+                ThemeOption.Dark -> stringResource(R.string.theme_dark)
+                ThemeOption.Light -> stringResource(R.string.theme_light)
+                ThemeOption.Amoled -> stringResource(R.string.theme_amoled)
+                else -> ""
+            }
+            SegmentedButton(
+                shape = SegmentedButtonDefaults.itemShape(index = index, count = options.size),
+                onClick = {
+                    selectedIndex.intValue = index
+                    if (option == ThemeOption.Amoled) {
+                        saveColorScheme(context, theme = option, scheme = SchemeOption.Static)
+                    } else {
+                        saveColorScheme(context, theme = option, scheme = null)
+                    }
+                },
+                selected = index == selectedIndex.intValue
+            ) { Text(label) }
+        }
+    }
+}
+
+@Composable
+fun SchemeButton() {
+    val context = LocalContext.current
+    var selectedIndex = remember { mutableIntStateOf(getColorSchemeInt(context, false)) }
+    val options = SchemeOption.entries
+
+    SingleChoiceSegmentedButtonRow {
+        options.forEachIndexed { index, option ->
+            val label = when(option) {
+                SchemeOption.Static -> stringResource(R.string.scheme_static)
+                SchemeOption.Dynamic -> stringResource(R.string.scheme_dynamic)
+                else -> ""
+            }
+            SegmentedButton(
+                shape = SegmentedButtonDefaults.itemShape(index = index, count = options.size),
+                onClick = {
+                    selectedIndex.intValue = index
+                    saveColorScheme(context, theme = null, scheme = option)
+                    if (option == SchemeOption.Dynamic) {
+                        saveColorScheme(context, theme = ThemeOption.System, scheme = option)
+                    } else {
+                        saveColorScheme(context, theme = null, scheme = option)
+                    }
+                },
+                selected = index == selectedIndex.intValue
+            ) { Text(label) }
+        }
+    }
 }
 
 @Composable

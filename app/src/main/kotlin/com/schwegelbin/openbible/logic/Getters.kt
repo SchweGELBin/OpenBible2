@@ -1,6 +1,8 @@
 package com.schwegelbin.openbible.logic
 
 import android.content.Context
+import androidx.compose.foundation.isSystemInDarkTheme
+import com.schwegelbin.openbible.ui.screens.SchemeButton
 import java.io.File
 
 fun getTranslations(context: Context): Map<String, Translation>? {
@@ -92,4 +94,62 @@ fun getDefaultFiles(context: Context) {
             context, selectedTranslation
         )
     }
+}
+
+fun getColorScheme(context: Context): Pair<ThemeOption, SchemeOption> {
+    val sharedPref = context.getSharedPreferences("colorscheme", Context.MODE_PRIVATE)
+    val themeStr = sharedPref.getString("theme", "System")
+    val schemeStr = sharedPref.getString("scheme", "Dynamic")
+
+    val theme = when(themeStr) {
+        ThemeOption.System.toString() -> ThemeOption.System
+        ThemeOption.Light.toString() -> ThemeOption.Light
+        ThemeOption.Dark.toString() -> ThemeOption.Dark
+        ThemeOption.Amoled.toString() -> ThemeOption.Amoled
+        else -> ThemeOption.System
+    }
+
+    val scheme = when(schemeStr) {
+        SchemeOption.Dynamic.toString() -> SchemeOption.Dynamic
+        SchemeOption.Static.toString() -> SchemeOption.Static
+        else -> SchemeOption.Static
+    }
+
+    return Pair(theme, scheme)
+}
+
+fun getColorSchemeInt(context: Context, isTheme: Boolean): Int {
+    val (theme, scheme) = getColorScheme(context)
+    if (isTheme) return when(theme) {
+        ThemeOption.System -> 0
+        ThemeOption.Light -> 1
+        ThemeOption.Dark -> 2
+        ThemeOption.Amoled -> 3
+        else -> 0
+    }
+    return when(scheme) {
+        SchemeOption.Dynamic -> 0
+        SchemeOption.Static -> 1
+        else -> 0
+    }
+}
+
+fun getMainThemeOptions(context: Context): Triple<Boolean?, Boolean, Boolean> {
+    val (theme, scheme) = getColorScheme(context)
+
+    val darkTheme = when (theme) {
+        ThemeOption.System -> null
+        ThemeOption.Light -> false
+        ThemeOption.Dark -> true
+        ThemeOption.Amoled -> true
+        else -> null
+    }
+    val dynamicColor = when (scheme) {
+        SchemeOption.Dynamic -> true
+        SchemeOption.Static -> false
+        else -> true
+    }
+    val amoled = theme == ThemeOption.Amoled
+
+    return Triple(darkTheme, dynamicColor, amoled)
 }

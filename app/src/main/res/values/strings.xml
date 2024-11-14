@@ -7,9 +7,15 @@
     <string name="close">Close</string>
     <string name="download_translation">Download Translation</string>
     <string name="index">Index</string>
+    <string name="scheme_dynamic">Dynamic</string>
+    <string name="scheme_static">Static</string>
     <string name="screen_home">Home</string>
     <string name="screen_read">Read</string>
     <string name="settings">Settings</string>
     <string name="source_repo">GitHub</string>
+    <string name="theme_amoled">Amoled</string>
+    <string name="theme_dark">Dark</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_system">System</string>
     <string name="update_index">Update Index</string>
 </resources>

@@ -13,6 +13,14 @@ enum class SelectMode() {
     Translation, Book, Chapter
 }
 
+enum class ThemeOption() {
+    System, Light, Dark, Amoled
+}
+
+enum class SchemeOption() {
+    Dynamic, Static
+}
+
 var selectedBook = 42
 var selectedChapter = 2
 var selectedTranslation = "schlachter"
@@ -81,5 +89,13 @@ fun saveSelection(context: Context) {
     editor.putString("translation", selectedTranslation)
     editor.putInt("book", selectedBook)
     editor.putInt("chapter", selectedChapter)
+    editor.apply()
+}
+
+fun saveColorScheme(context: Context, theme: ThemeOption?, scheme: SchemeOption?) {
+    val sharedPref = context.getSharedPreferences("colorscheme", Context.MODE_PRIVATE)
+    val editor = sharedPref.edit()
+    if (theme != null) editor.putString("theme", theme.toString())
+    if (scheme != null) editor.putString("scheme", scheme.toString())
     editor.apply()
 }
