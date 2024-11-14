@@ -1,8 +1,6 @@
 package com.schwegelbin.openbible.logic
 
 import android.content.Context
-import androidx.compose.foundation.isSystemInDarkTheme
-import com.schwegelbin.openbible.ui.screens.SchemeButton
 import java.io.File
 
 fun getTranslations(context: Context): Map<String, Translation>? {
@@ -101,7 +99,7 @@ fun getColorScheme(context: Context): Pair<ThemeOption, SchemeOption> {
     val themeStr = sharedPref.getString("theme", "System")
     val schemeStr = sharedPref.getString("scheme", "Dynamic")
 
-    val theme = when(themeStr) {
+    val theme = when (themeStr) {
         ThemeOption.System.toString() -> ThemeOption.System
         ThemeOption.Light.toString() -> ThemeOption.Light
         ThemeOption.Dark.toString() -> ThemeOption.Dark
@@ -109,7 +107,7 @@ fun getColorScheme(context: Context): Pair<ThemeOption, SchemeOption> {
         else -> ThemeOption.System
     }
 
-    val scheme = when(schemeStr) {
+    val scheme = when (schemeStr) {
         SchemeOption.Dynamic.toString() -> SchemeOption.Dynamic
         SchemeOption.Static.toString() -> SchemeOption.Static
         else -> SchemeOption.Static
@@ -120,14 +118,14 @@ fun getColorScheme(context: Context): Pair<ThemeOption, SchemeOption> {
 
 fun getColorSchemeInt(context: Context, isTheme: Boolean): Int {
     val (theme, scheme) = getColorScheme(context)
-    if (isTheme) return when(theme) {
+    if (isTheme) return when (theme) {
         ThemeOption.System -> 0
         ThemeOption.Light -> 1
         ThemeOption.Dark -> 2
         ThemeOption.Amoled -> 3
         else -> 0
     }
-    return when(scheme) {
+    return when (scheme) {
         SchemeOption.Dynamic -> 0
         SchemeOption.Static -> 1
         else -> 0

@@ -21,7 +21,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -31,7 +30,6 @@ import androidx.core.content.ContextCompat.startActivity
 import com.schwegelbin.openbible.R
 import com.schwegelbin.openbible.logic.SchemeOption
 import com.schwegelbin.openbible.logic.ThemeOption
-import com.schwegelbin.openbible.logic.getColorScheme
 import com.schwegelbin.openbible.logic.getColorSchemeInt
 import com.schwegelbin.openbible.logic.saveChecksum
 import com.schwegelbin.openbible.logic.saveColorScheme
@@ -90,7 +88,7 @@ fun ThemeButton() {
 
     SingleChoiceSegmentedButtonRow {
         options.forEachIndexed { index, option ->
-            val label = when(option) {
+            val label = when (option) {
                 ThemeOption.System -> stringResource(R.string.theme_system)
                 ThemeOption.Dark -> stringResource(R.string.theme_dark)
                 ThemeOption.Light -> stringResource(R.string.theme_light)
@@ -121,7 +119,7 @@ fun SchemeButton() {
 
     SingleChoiceSegmentedButtonRow {
         options.forEachIndexed { index, option ->
-            val label = when(option) {
+            val label = when (option) {
                 SchemeOption.Static -> stringResource(R.string.scheme_static)
                 SchemeOption.Dynamic -> stringResource(R.string.scheme_dynamic)
                 else -> ""
