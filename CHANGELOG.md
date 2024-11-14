@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.0] - 2024-11-14
+
+### 🚀 Features
+
+- Change color scheme
+- Selectable text
+
+### 📚 Documentation
+
+- Remove OpenAPK badge
+
+### 🎨 Styling
+
+- Format code
+
+### ⚙️ Miscellaneous Tasks
+
+- Update dependencies
+
 ## [0.3.0] - 2024-11-10
 
 ### 🚀 Features
@@ -13,6 +32,10 @@ All notable changes to this project will be documented in this file.
 - *(readme)* Add download badge
 - *(readme)* Add links to badges
 - Capitalize `Bible`
+
+### ⚙️ Miscellaneous Tasks
+
+- Bump to 0.3.0
 
 ## [0.2.1] - 2024-11-07
 
