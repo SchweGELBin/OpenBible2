@@ -23,7 +23,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -72,7 +71,10 @@ fun SettingsScreen(onClose: () -> Unit) {
             SchemeButton()
 
             HorizontalDivider(Modifier.padding(12.dp))
-            Text(stringResource(R.string.bible_text_alignment), style = MaterialTheme.typography.titleLarge)
+            Text(
+                stringResource(R.string.bible_text_alignment),
+                style = MaterialTheme.typography.titleLarge
+            )
             ReadTextAlignmentButton()
 
             HorizontalDivider(Modifier.padding(12.dp))

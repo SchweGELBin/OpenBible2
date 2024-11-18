@@ -55,6 +55,7 @@ fun ReadScreen(modifier: Modifier = Modifier) {
                         )
                     }
                 }
+
                 ReadTextAlignment.Justify -> {
                     Text(
                         text = chapter,

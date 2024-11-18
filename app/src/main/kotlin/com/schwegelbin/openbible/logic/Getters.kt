@@ -1,7 +1,6 @@
 package com.schwegelbin.openbible.logic
 
 import android.content.Context
-import androidx.annotation.RequiresPermission
 import java.io.File
 
 fun getTranslations(context: Context): Map<String, Translation>? {
