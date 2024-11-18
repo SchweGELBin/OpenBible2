@@ -21,6 +21,10 @@ enum class SchemeOption() {
     Dynamic, Static
 }
 
+enum class ReadTextAlignment() {
+    Start, Justify
+}
+
 var selectedBook = 42
 var selectedChapter = 2
 var selectedTranslation = "schlachter"
@@ -97,5 +101,12 @@ fun saveColorScheme(context: Context, theme: ThemeOption?, scheme: SchemeOption?
     val editor = sharedPref.edit()
     if (theme != null) editor.putString("theme", theme.toString())
     if (scheme != null) editor.putString("scheme", scheme.toString())
+    editor.apply()
+}
+
+fun saveReadTextStyle(context: Context, textAlignment: ReadTextAlignment) {
+    val sharedPref = context.getSharedPreferences("readTextStyle", Context.MODE_PRIVATE)
+    val editor = sharedPref.edit()
+    editor.putString("textAlignment", textAlignment.toString())
     editor.apply()
 }

@@ -1,6 +1,7 @@
 package com.schwegelbin.openbible.logic
 
 import android.content.Context
+import androidx.annotation.RequiresPermission
 import java.io.File
 
 fun getTranslations(context: Context): Map<String, Translation>? {
@@ -58,6 +59,7 @@ fun getChapter(
     verses.forEach { verse ->
         text += "${verse.verse} ${verse.text}\n"
     }
+    text = text.substring(0, text.length - 1)
     return Pair("$translation | $title", text)
 }
 
@@ -114,6 +116,28 @@ fun getColorScheme(context: Context): Pair<ThemeOption, SchemeOption> {
     }
 
     return Pair(theme, scheme)
+}
+
+fun getReadTextAlignment(context: Context): ReadTextAlignment {
+    val sharedPref = context.getSharedPreferences("readTextStyle", Context.MODE_PRIVATE)
+    val textAlignmentStr = sharedPref.getString("textAlignment", "Start")
+
+    val textAlignment = when (textAlignmentStr) {
+        ReadTextAlignment.Start.toString() -> ReadTextAlignment.Start
+        ReadTextAlignment.Justify.toString() -> ReadTextAlignment.Justify
+        else -> ReadTextAlignment.Start
+    }
+
+    return textAlignment
+}
+
+fun getReadTextAlignmentInt(context: Context): Int {
+    val textAlignment = getReadTextAlignment(context)
+    return when (textAlignment) {
+        ReadTextAlignment.Start -> 0
+        ReadTextAlignment.Justify -> 1
+        else -> 0
+    }
 }
 
 fun getColorSchemeInt(context: Context, isTheme: Boolean): Int {

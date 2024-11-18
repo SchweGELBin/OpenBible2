@@ -1,10 +1,15 @@
 <resources>
     <string name="about_us">About us</string>
+    <string name="alignment_start">Start</string>
+    <string name="alignment_justify">Justify</string>
     <string name="app_name">OpenBible</string>
+    <string name="bible_text_alignment">Bible Text Alignment</string>
     <string name="choose_book">Choose Book</string>
     <string name="choose_chapter">Choose Chapter</string>
     <string name="choose_translation">Choose Translation</string>
     <string name="close">Close</string>
+    <string name="color_scheme">Color Scheme</string>
+    <string name="color_theme">Color Theme</string>
     <string name="download_translation">Download Translation</string>
     <string name="index">Index</string>
     <string name="scheme_dynamic">Dynamic</string>

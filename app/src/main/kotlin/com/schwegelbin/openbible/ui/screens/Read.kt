@@ -11,18 +11,22 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.schwegelbin.openbible.logic.ReadTextAlignment
 import com.schwegelbin.openbible.logic.getChapter
+import com.schwegelbin.openbible.logic.getReadTextAlignment
 
 @Composable
 fun ReadScreen(modifier: Modifier = Modifier) {
     val context = LocalContext.current
     val (title, chapter) = getChapter(context)
+    val textAlignment = getReadTextAlignment(context)
     Column(
-        modifier = modifier.padding(10.dp),
+        modifier = modifier.padding(start = 8.dp, end = 8.dp, bottom = 8.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         ElevatedCard(
@@ -31,8 +35,9 @@ fun ReadScreen(modifier: Modifier = Modifier) {
         ) {
             Text(
                 text = title,
-                modifier = Modifier.padding(16.dp),
-                textAlign = TextAlign.Center
+                modifier = Modifier
+                    .padding(8.dp)
+                    .align(Alignment.CenterHorizontally)
             )
         }
         ElevatedCard(
@@ -41,12 +46,22 @@ fun ReadScreen(modifier: Modifier = Modifier) {
                 .verticalScroll(state = rememberScrollState(), enabled = true)
                 .fillMaxWidth()
         ) {
-            SelectionContainer {
-                Text(
-                    text = chapter,
-                    modifier = Modifier.padding(16.dp),
-                    textAlign = TextAlign.Justify
-                )
+            when (textAlignment) {
+                ReadTextAlignment.Start -> {
+                    SelectionContainer {
+                        Text(
+                            text = chapter,
+                            modifier = Modifier.padding(8.dp)
+                        )
+                    }
+                }
+                ReadTextAlignment.Justify -> {
+                    Text(
+                        text = chapter,
+                        modifier = Modifier.padding(8.dp),
+                        textAlign = TextAlign.Justify
+                    )
+                }
             }
         }
     }

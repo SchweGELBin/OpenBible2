@@ -43,7 +43,10 @@ import kotlin.io.path.listDirectoryEntries
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier) {
     Column(
-        modifier = modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(15.dp)
+        modifier = modifier
+            .padding(horizontal = 20.dp)
+            .verticalScroll(state = rememberScrollState(), enabled = true),
+        verticalArrangement = Arrangement.spacedBy(15.dp)
     ) {
         TranslationCard()
         SelectCard(SelectMode.Translation)

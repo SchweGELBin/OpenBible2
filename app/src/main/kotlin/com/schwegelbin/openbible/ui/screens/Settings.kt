@@ -5,6 +5,8 @@ import android.net.Uri
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -21,6 +23,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -28,12 +31,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.startActivity
 import com.schwegelbin.openbible.R
+import com.schwegelbin.openbible.logic.ReadTextAlignment
 import com.schwegelbin.openbible.logic.SchemeOption
 import com.schwegelbin.openbible.logic.ThemeOption
 import com.schwegelbin.openbible.logic.getColorSchemeInt
+import com.schwegelbin.openbible.logic.getReadTextAlignmentInt
 import com.schwegelbin.openbible.logic.saveChecksum
 import com.schwegelbin.openbible.logic.saveColorScheme
 import com.schwegelbin.openbible.logic.saveIndex
+import com.schwegelbin.openbible.logic.saveReadTextStyle
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -51,20 +57,25 @@ fun SettingsScreen(onClose: () -> Unit) {
         Column(
             modifier = Modifier
                 .padding(innerPadding)
-                .padding(horizontal = 12.dp, vertical = 24.dp)
+                .padding(horizontal = 20.dp)
+                .verticalScroll(state = rememberScrollState(), enabled = true)
         ) {
             Text(stringResource(R.string.index), style = MaterialTheme.typography.titleLarge)
             IndexButton()
 
-            HorizontalDivider(modifier = Modifier.padding(12.dp))
-            Text("Color Theme", style = MaterialTheme.typography.titleLarge)
+            HorizontalDivider(Modifier.padding(12.dp))
+            Text(stringResource(R.string.color_theme), style = MaterialTheme.typography.titleLarge)
             ThemeButton()
 
             Spacer(Modifier.padding(12.dp))
-            Text("Color Scheme", style = MaterialTheme.typography.titleLarge)
+            Text(stringResource(R.string.color_scheme), style = MaterialTheme.typography.titleLarge)
             SchemeButton()
 
-            HorizontalDivider(modifier = Modifier.padding(12.dp))
+            HorizontalDivider(Modifier.padding(12.dp))
+            Text(stringResource(R.string.bible_text_alignment), style = MaterialTheme.typography.titleLarge)
+            ReadTextAlignmentButton()
+
+            HorizontalDivider(Modifier.padding(12.dp))
             Text(stringResource(R.string.about_us), style = MaterialTheme.typography.titleLarge)
             RepoButton()
         }
@@ -78,6 +89,31 @@ fun IndexButton() {
         saveIndex(context)
         saveChecksum(context)
     }) { Text(stringResource(R.string.update_index)) }
+}
+
+@Composable
+fun ReadTextAlignmentButton() {
+    val context = LocalContext.current
+    var selectedIndex = remember { mutableIntStateOf(getReadTextAlignmentInt(context)) }
+    val options = ReadTextAlignment.entries
+
+    SingleChoiceSegmentedButtonRow {
+        options.forEachIndexed { index, option ->
+            val label = when (option) {
+                ReadTextAlignment.Start -> stringResource(R.string.alignment_start)
+                ReadTextAlignment.Justify -> stringResource(R.string.alignment_justify)
+                else -> ""
+            }
+            SegmentedButton(
+                shape = SegmentedButtonDefaults.itemShape(index = index, count = options.size),
+                onClick = {
+                    selectedIndex.intValue = index
+                    saveReadTextStyle(context, option)
+                },
+                selected = index == selectedIndex.intValue
+            ) { Text(label) }
+        }
+    }
 }
 
 @Composable
