@@ -73,7 +73,7 @@ fun App() {
                     }
                 })
         }, bottomBar = {
-            NavigationBar(Modifier.height(72.dp)) {
+            NavigationBar {
                 Screen.entries.forEach { screen ->
                     var label = ""
                     NavigationBarItem(
