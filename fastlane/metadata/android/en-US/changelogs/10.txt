@@ -1,0 +1,2 @@
+Option to change the Bible text alignment
+Adjusted UI (paddings, widths etc.)

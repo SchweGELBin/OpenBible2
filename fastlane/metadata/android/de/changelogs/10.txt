@@ -1,0 +1,2 @@
+Option zum Anpassen der Bibeltextausrichtung
+Angepasste UI (Positionierung, Groessen etc.)

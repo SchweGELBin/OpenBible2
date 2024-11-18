@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.5.0] - 2024-11-18
+
+### 🚀 Features
+
+- Select text style (alignment)
+
+### 🎨 Styling
+
+- Reformat code
+- Adjust button widths in settings
+- Remove custom NavBar size
+
+### ⚙️ Miscellaneous Tasks
+
+- *(metadata)* Update screenshots
+- Add androidx.navigation dependency
+
 ## [0.4.0] - 2024-11-14
 
 ### 🚀 Features
@@ -20,6 +37,7 @@ All notable changes to this project will be documented in this file.
 ### ⚙️ Miscellaneous Tasks
 
 - Update dependencies
+- Bump to 0.4.0
 
 ## [0.3.0] - 2024-11-10
 
