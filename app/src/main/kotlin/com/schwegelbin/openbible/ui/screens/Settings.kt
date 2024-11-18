@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -99,7 +100,7 @@ fun ReadTextAlignmentButton() {
     var selectedIndex = remember { mutableIntStateOf(getReadTextAlignmentInt(context)) }
     val options = ReadTextAlignment.entries
 
-    SingleChoiceSegmentedButtonRow {
+    SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
         options.forEachIndexed { index, option ->
             val label = when (option) {
                 ReadTextAlignment.Start -> stringResource(R.string.alignment_start)
@@ -124,7 +125,7 @@ fun ThemeButton() {
     var selectedIndex = remember { mutableIntStateOf(getColorSchemeInt(context, true)) }
     val options = ThemeOption.entries
 
-    SingleChoiceSegmentedButtonRow {
+    SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
         options.forEachIndexed { index, option ->
             val label = when (option) {
                 ThemeOption.System -> stringResource(R.string.theme_system)
@@ -155,7 +156,7 @@ fun SchemeButton() {
     var selectedIndex = remember { mutableIntStateOf(getColorSchemeInt(context, false)) }
     val options = SchemeOption.entries
 
-    SingleChoiceSegmentedButtonRow {
+    SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
         options.forEachIndexed { index, option ->
             val label = when (option) {
                 SchemeOption.Static -> stringResource(R.string.scheme_static)
