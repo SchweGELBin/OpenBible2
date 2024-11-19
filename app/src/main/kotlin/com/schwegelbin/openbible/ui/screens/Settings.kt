@@ -139,7 +139,10 @@ fun ThemeButton(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
                 shape = SegmentedButtonDefaults.itemShape(index = index, count = options.size),
                 onClick = {
                     selectedIndex.intValue = index
-                    val (darkTheme, dynamicColor, amoled) = getMainThemeOptions(context, themeOption = option)
+                    val (darkTheme, dynamicColor, amoled) = getMainThemeOptions(
+                        context,
+                        themeOption = option
+                    )
                     onThemeChange(darkTheme, dynamicColor, amoled)
                     saveColorScheme(context, theme = option)
                 },
@@ -166,7 +169,10 @@ fun SchemeButton(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
                 shape = SegmentedButtonDefaults.itemShape(index = index, count = options.size),
                 onClick = {
                     selectedIndex.intValue = index
-                    val (darkTheme, dynamicColor, amoled) = getMainThemeOptions(context, schemeOption = option)
+                    val (darkTheme, dynamicColor, amoled) = getMainThemeOptions(
+                        context,
+                        schemeOption = option
+                    )
                     onThemeChange(darkTheme, dynamicColor, amoled)
                     saveColorScheme(context, scheme = option)
                 },

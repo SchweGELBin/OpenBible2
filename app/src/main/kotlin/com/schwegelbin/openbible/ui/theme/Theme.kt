@@ -47,7 +47,8 @@ fun OpenBibleTheme(
 
     if (dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
         val context = LocalContext.current
-        colorScheme = if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+        colorScheme =
+            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         if (amoled) colorScheme = colorScheme.copy(
             background = AmoledColorScheme.background,
             surface = AmoledColorScheme.surface,

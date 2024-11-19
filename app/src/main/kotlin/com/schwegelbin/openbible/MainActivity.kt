@@ -46,7 +46,8 @@ fun MainApp() {
         Surface(modifier = Modifier.fillMaxSize()) {
             App(
                 onThemeChange = { newDarkTheme, newDynamicColor, newAmoled ->
-                    if (newDarkTheme != null) isDarkTheme.value = newDarkTheme else isDarkTheme.value = systemDarkTheme
+                    if (newDarkTheme != null) isDarkTheme.value =
+                        newDarkTheme else isDarkTheme.value = systemDarkTheme
                     if (newDynamicColor != null) isDynamicColor.value = newDynamicColor
                     if (newAmoled != null) isAmoled.value = newAmoled
                 }
