@@ -1,6 +1,5 @@
 package com.schwegelbin.openbible.ui.screens
 
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.MenuBook
@@ -25,14 +24,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.unit.dp
 import com.schwegelbin.openbible.R
 import com.schwegelbin.openbible.logic.Screen
 import com.schwegelbin.openbible.logic.getDefaultFiles
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun App() {
+fun App(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
     val context = LocalContext.current
     getDefaultFiles(context)
 
@@ -59,7 +57,7 @@ fun App() {
     }
 
     if (showSettings.value) {
-        SettingsScreen(onClose = { showSettings.value = false })
+        SettingsScreen(onClose = { showSettings.value = false }, onThemeChange = onThemeChange)
     } else {
         Scaffold(topBar = {
             TopAppBar(

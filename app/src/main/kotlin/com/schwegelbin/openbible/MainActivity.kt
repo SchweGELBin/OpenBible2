@@ -8,6 +8,8 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,12 +30,27 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainApp() {
     val context = LocalContext.current
+    val systemDarkTheme = isSystemInDarkTheme()
     var (darkTheme, dynamicColor, amoled) = getMainThemeOptions(context)
-    if (darkTheme == null) darkTheme = isSystemInDarkTheme()
+    if (darkTheme == null) darkTheme = systemDarkTheme
 
-    OpenBibleTheme(darkTheme = darkTheme, dynamicColor = dynamicColor, amoled = amoled) {
+    var isDarkTheme = remember { mutableStateOf(darkTheme) }
+    var isDynamicColor = remember { mutableStateOf(dynamicColor) }
+    var isAmoled = remember { mutableStateOf(amoled) }
+
+    OpenBibleTheme(
+        darkTheme = isDarkTheme.value,
+        dynamicColor = isDynamicColor.value,
+        amoled = isAmoled.value
+    ) {
         Surface(modifier = Modifier.fillMaxSize()) {
-            App()
+            App(
+                onThemeChange = { newDarkTheme, newDynamicColor, newAmoled ->
+                    if (newDarkTheme != null) isDarkTheme.value = newDarkTheme else isDarkTheme.value = systemDarkTheme
+                    if (newDynamicColor != null) isDynamicColor.value = newDynamicColor
+                    if (newAmoled != null) isAmoled.value = newAmoled
+                }
+            )
         }
     }
 }

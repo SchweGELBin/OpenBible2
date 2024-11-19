@@ -96,7 +96,11 @@ fun saveSelection(context: Context) {
     editor.apply()
 }
 
-fun saveColorScheme(context: Context, theme: ThemeOption?, scheme: SchemeOption?) {
+fun saveColorScheme(
+    context: Context,
+    theme: ThemeOption? = null,
+    scheme: SchemeOption? = null
+) {
     val sharedPref = context.getSharedPreferences("colorscheme", Context.MODE_PRIVATE)
     val editor = sharedPref.edit()
     if (theme != null) editor.putString("theme", theme.toString())

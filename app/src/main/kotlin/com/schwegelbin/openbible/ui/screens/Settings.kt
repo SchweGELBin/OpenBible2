@@ -35,6 +35,7 @@ import com.schwegelbin.openbible.logic.ReadTextAlignment
 import com.schwegelbin.openbible.logic.SchemeOption
 import com.schwegelbin.openbible.logic.ThemeOption
 import com.schwegelbin.openbible.logic.getColorSchemeInt
+import com.schwegelbin.openbible.logic.getMainThemeOptions
 import com.schwegelbin.openbible.logic.getReadTextAlignmentInt
 import com.schwegelbin.openbible.logic.saveChecksum
 import com.schwegelbin.openbible.logic.saveColorScheme
@@ -43,7 +44,7 @@ import com.schwegelbin.openbible.logic.saveReadTextStyle
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsScreen(onClose: () -> Unit) {
+fun SettingsScreen(onClose: () -> Unit, onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
     Scaffold(topBar = {
         TopAppBar(title = { Text(stringResource(R.string.settings)) }, navigationIcon = {
             IconButton(onClick = { onClose() }) {
@@ -65,11 +66,11 @@ fun SettingsScreen(onClose: () -> Unit) {
 
             HorizontalDivider(Modifier.padding(12.dp))
             Text(stringResource(R.string.color_theme), style = MaterialTheme.typography.titleLarge)
-            ThemeButton()
+            ThemeButton(onThemeChange)
 
             Spacer(Modifier.padding(12.dp))
             Text(stringResource(R.string.color_scheme), style = MaterialTheme.typography.titleLarge)
-            SchemeButton()
+            SchemeButton(onThemeChange)
 
             HorizontalDivider(Modifier.padding(12.dp))
             Text(
@@ -120,7 +121,7 @@ fun ReadTextAlignmentButton() {
 }
 
 @Composable
-fun ThemeButton() {
+fun ThemeButton(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
     val context = LocalContext.current
     var selectedIndex = remember { mutableIntStateOf(getColorSchemeInt(context, true)) }
     val options = ThemeOption.entries
@@ -138,11 +139,9 @@ fun ThemeButton() {
                 shape = SegmentedButtonDefaults.itemShape(index = index, count = options.size),
                 onClick = {
                     selectedIndex.intValue = index
-                    if (option == ThemeOption.Amoled) {
-                        saveColorScheme(context, theme = option, scheme = SchemeOption.Static)
-                    } else {
-                        saveColorScheme(context, theme = option, scheme = null)
-                    }
+                    val (darkTheme, dynamicColor, amoled) = getMainThemeOptions(context, themeOption = option)
+                    onThemeChange(darkTheme, dynamicColor, amoled)
+                    saveColorScheme(context, theme = option)
                 },
                 selected = index == selectedIndex.intValue
             ) { Text(label) }
@@ -151,7 +150,7 @@ fun ThemeButton() {
 }
 
 @Composable
-fun SchemeButton() {
+fun SchemeButton(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
     val context = LocalContext.current
     var selectedIndex = remember { mutableIntStateOf(getColorSchemeInt(context, false)) }
     val options = SchemeOption.entries
@@ -167,12 +166,9 @@ fun SchemeButton() {
                 shape = SegmentedButtonDefaults.itemShape(index = index, count = options.size),
                 onClick = {
                     selectedIndex.intValue = index
-                    saveColorScheme(context, theme = null, scheme = option)
-                    if (option == SchemeOption.Dynamic) {
-                        saveColorScheme(context, theme = ThemeOption.System, scheme = option)
-                    } else {
-                        saveColorScheme(context, theme = null, scheme = option)
-                    }
+                    val (darkTheme, dynamicColor, amoled) = getMainThemeOptions(context, schemeOption = option)
+                    onThemeChange(darkTheme, dynamicColor, amoled)
+                    saveColorScheme(context, scheme = option)
                 },
                 selected = index == selectedIndex.intValue
             ) { Text(label) }

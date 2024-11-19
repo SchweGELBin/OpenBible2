@@ -155,8 +155,15 @@ fun getColorSchemeInt(context: Context, isTheme: Boolean): Int {
     }
 }
 
-fun getMainThemeOptions(context: Context): Triple<Boolean?, Boolean, Boolean> {
-    val (theme, scheme) = getColorScheme(context)
+fun getMainThemeOptions(
+    context: Context,
+    themeOption: ThemeOption? = null,
+    schemeOption: SchemeOption? = null
+): Triple<Boolean?, Boolean, Boolean> {
+    var (theme, scheme) = getColorScheme(context)
+
+    if (themeOption != null) theme = themeOption
+    if (schemeOption != null) scheme = schemeOption
 
     val darkTheme = when (theme) {
         ThemeOption.System -> null
