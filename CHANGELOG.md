@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.6.0] - 2024-11-19
+
+### 🚀 Features
+
+- Recompose on theme change
+
+### 🎨 Styling
+
+- Reformat code
+
 ## [0.5.0] - 2024-11-18
 
 ### 🚀 Features
@@ -18,6 +28,7 @@ All notable changes to this project will be documented in this file.
 
 - *(metadata)* Update screenshots
 - Add androidx.navigation dependency
+- Bump to 0.5.0
 
 ## [0.4.0] - 2024-11-14
 

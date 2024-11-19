@@ -1,0 +1,2 @@
+Automatisches Neuladen des Farbschemas bei Aenderungen
+Das Amoled-Theme unterstuetzt nun dynamische Farben

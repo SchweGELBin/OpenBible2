@@ -1,0 +1,2 @@
+Automatically reload color scheme on change
+Amoled theme now supports dynamic colors
