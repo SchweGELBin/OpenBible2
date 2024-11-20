@@ -12,6 +12,10 @@ All notable changes to this project will be documented in this file.
 
 - Reformat code
 
+### ⚙️ Miscellaneous Tasks
+
+- Bump to 0.6.0
+
 ## [0.5.0] - 2024-11-18
 
 ### 🚀 Features
