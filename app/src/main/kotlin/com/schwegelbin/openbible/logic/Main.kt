@@ -101,16 +101,16 @@ fun saveColorScheme(
     theme: ThemeOption? = null,
     scheme: SchemeOption? = null
 ) {
-    val sharedPref = context.getSharedPreferences("colorscheme", Context.MODE_PRIVATE)
+    val sharedPref = context.getSharedPreferences("options", Context.MODE_PRIVATE)
     val editor = sharedPref.edit()
     if (theme != null) editor.putString("theme", theme.toString())
     if (scheme != null) editor.putString("scheme", scheme.toString())
     editor.apply()
 }
 
-fun saveReadTextStyle(context: Context, textAlignment: ReadTextAlignment) {
-    val sharedPref = context.getSharedPreferences("readTextStyle", Context.MODE_PRIVATE)
+fun saveTextStyle(context: Context, alignment: ReadTextAlignment) {
+    val sharedPref = context.getSharedPreferences("options", Context.MODE_PRIVATE)
     val editor = sharedPref.edit()
-    editor.putString("textAlignment", textAlignment.toString())
+    editor.putString("alignment", alignment.toString())
     editor.apply()
 }

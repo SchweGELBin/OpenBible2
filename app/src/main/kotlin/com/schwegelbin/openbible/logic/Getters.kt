@@ -96,7 +96,7 @@ fun getDefaultFiles(context: Context) {
 }
 
 fun getColorScheme(context: Context): Pair<ThemeOption, SchemeOption> {
-    val sharedPref = context.getSharedPreferences("colorscheme", Context.MODE_PRIVATE)
+    val sharedPref = context.getSharedPreferences("options", Context.MODE_PRIVATE)
     val themeStr = sharedPref.getString("theme", "System")
     val schemeStr = sharedPref.getString("scheme", "Dynamic")
 
@@ -117,8 +117,8 @@ fun getColorScheme(context: Context): Pair<ThemeOption, SchemeOption> {
     return Pair(theme, scheme)
 }
 
-fun getReadTextAlignment(context: Context): ReadTextAlignment {
-    val sharedPref = context.getSharedPreferences("readTextStyle", Context.MODE_PRIVATE)
+fun getTextAlignment(context: Context): ReadTextAlignment {
+    val sharedPref = context.getSharedPreferences("options", Context.MODE_PRIVATE)
     val textAlignmentStr = sharedPref.getString("textAlignment", "Start")
 
     val textAlignment = when (textAlignmentStr) {
@@ -130,8 +130,8 @@ fun getReadTextAlignment(context: Context): ReadTextAlignment {
     return textAlignment
 }
 
-fun getReadTextAlignmentInt(context: Context): Int {
-    val textAlignment = getReadTextAlignment(context)
+fun getTextAlignmentInt(context: Context): Int {
+    val textAlignment = getTextAlignment(context)
     return when (textAlignment) {
         ReadTextAlignment.Start -> 0
         ReadTextAlignment.Justify -> 1

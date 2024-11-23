@@ -36,11 +36,11 @@ import com.schwegelbin.openbible.logic.SchemeOption
 import com.schwegelbin.openbible.logic.ThemeOption
 import com.schwegelbin.openbible.logic.getColorSchemeInt
 import com.schwegelbin.openbible.logic.getMainThemeOptions
-import com.schwegelbin.openbible.logic.getReadTextAlignmentInt
+import com.schwegelbin.openbible.logic.getTextAlignmentInt
 import com.schwegelbin.openbible.logic.saveChecksum
 import com.schwegelbin.openbible.logic.saveColorScheme
 import com.schwegelbin.openbible.logic.saveIndex
-import com.schwegelbin.openbible.logic.saveReadTextStyle
+import com.schwegelbin.openbible.logic.saveTextStyle
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -98,7 +98,7 @@ fun IndexButton() {
 @Composable
 fun ReadTextAlignmentButton() {
     val context = LocalContext.current
-    var selectedIndex = remember { mutableIntStateOf(getReadTextAlignmentInt(context)) }
+    var selectedIndex = remember { mutableIntStateOf(getTextAlignmentInt(context)) }
     val options = ReadTextAlignment.entries
 
     SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
@@ -112,7 +112,7 @@ fun ReadTextAlignmentButton() {
                 shape = SegmentedButtonDefaults.itemShape(index = index, count = options.size),
                 onClick = {
                     selectedIndex.intValue = index
-                    saveReadTextStyle(context, option)
+                    saveTextStyle(context, option)
                 },
                 selected = index == selectedIndex.intValue
             ) { Text(label) }
