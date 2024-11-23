@@ -25,6 +25,10 @@ enum class ReadTextAlignment() {
     Start, Justify
 }
 
+const val defaultTranslation = "schlachter"
+const val defaultBook = 42
+const val defaultChapter = 2
+
 fun saveIndex(context: Context) {
     downloadFile(
         context = context,

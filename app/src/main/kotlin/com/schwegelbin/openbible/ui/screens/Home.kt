@@ -114,7 +114,8 @@ fun TranslationCard() {
 fun SelectCard(selectMode: SelectMode) {
     val context = LocalContext.current
     var showDialog = remember { mutableStateOf(false) }
-    var (translation, book, chapter) = getSelection(context)
+    val selection = remember { mutableStateOf(getSelection(context)) }
+    var (translation, book, chapter) = selection.value
     val translationPath =
         "${context.getExternalFilesDir("Translations")}/${translation}.json"
 

@@ -80,8 +80,8 @@ fun getSelectionNames(
 }
 
 fun getDefaultFiles(context: Context) {
-    val (translation, _, _) = getSelection(context)
     var path = context.getExternalFilesDir("Index")
+    val translation = defaultTranslation
     if (!File("${path}/translations.json").exists() || !File("${path}/checksum.json").exists()) {
         saveIndex(context)
         saveChecksum(context)
@@ -131,11 +131,9 @@ fun getTextAlignment(context: Context): ReadTextAlignment {
 
 fun getSelection(context: Context): Triple<String, Int, Int> {
     val sharedPref = context.getSharedPreferences("selection", Context.MODE_PRIVATE)
-    var translation = sharedPref.getString("translation", "schlachter")
-    val book = sharedPref.getInt("book", 42)
-    val chapter = sharedPref.getInt("chapter", 2)
-
-    if (translation == null) translation = "schlachter"
+    var translation = sharedPref.getString("translation", defaultTranslation).toString()
+    val book = sharedPref.getInt("book", defaultBook)
+    val chapter = sharedPref.getInt("chapter", defaultChapter)
 
     return Triple(translation, book, chapter)
 }
