@@ -1,0 +1,2 @@
+Refactor Code
+Show/Hide verse numbers

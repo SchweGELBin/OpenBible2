@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.7.0] - 2024-11-23
+
+### 🚀 Features
+
+- Show/hide verse number
+
+### 🚜 Refactor
+
+- Combine shared prefs
+- Remove global variables
+
+### ⚡ Performance
+
+- Remember selection, add default selection vars
+
+### 🎨 Styling
+
+- Reformat code
+- Reformat
+
+## [0.6.1] - 2024-11-20
+
+### ⚙️ Miscellaneous Tasks
+
+- Bump to 0.6.1
+
 ## [0.6.0] - 2024-11-19
 
 ### 🚀 Features
