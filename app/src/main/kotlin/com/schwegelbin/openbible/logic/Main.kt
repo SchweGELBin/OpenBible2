@@ -25,10 +25,6 @@ enum class ReadTextAlignment() {
     Start, Justify
 }
 
-var selectedBook = 42
-var selectedChapter = 2
-var selectedTranslation = "schlachter"
-
 fun saveIndex(context: Context) {
     downloadFile(
         context = context,
@@ -87,12 +83,17 @@ fun downloadFile(
     downloadManager.enqueue(request)
 }
 
-fun saveSelection(context: Context) {
+fun saveSelection(
+    context: Context,
+    translation: String,
+    book: Int,
+    chapter: Int
+) {
     val sharedPref = context.getSharedPreferences("selection", Context.MODE_PRIVATE)
     val editor = sharedPref.edit()
-    editor.putString("translation", selectedTranslation)
-    editor.putInt("book", selectedBook)
-    editor.putInt("chapter", selectedChapter)
+    editor.putString("translation", translation)
+    editor.putInt("book", book)
+    editor.putInt("chapter", chapter)
     editor.apply()
 }
 
@@ -111,6 +112,6 @@ fun saveColorScheme(
 fun saveTextStyle(context: Context, alignment: ReadTextAlignment) {
     val sharedPref = context.getSharedPreferences("options", Context.MODE_PRIVATE)
     val editor = sharedPref.edit()
-    editor.putString("alignment", alignment.toString())
+    editor.putString("textAlignment", alignment.toString())
     editor.apply()
 }

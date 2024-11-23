@@ -19,7 +19,9 @@ fun getChecksum(context: Context, abbrev: String): String {
 }
 
 fun getCount(
-    context: Context, abbrev: String = selectedTranslation, book: Int = selectedBook
+    context: Context,
+    abbrev: String,
+    book: Int
 ): Pair<Int, Int> {
     val dir = context.getExternalFilesDir("Translations")
     val path = "${dir}/${abbrev}.json"
@@ -28,7 +30,7 @@ fun getCount(
     return Pair(bible.books.size - 1, bible.books[book].chapters.size - 1)
 }
 
-fun getBookNames(context: Context, abbrev: String = selectedTranslation): Array<String> {
+fun getBookNames(context: Context, abbrev: String): Array<String> {
     val dir = context.getExternalFilesDir("Translations")
     val path = "${dir}/${abbrev}.json"
     val bible = deserializeBible(path)
@@ -43,9 +45,9 @@ fun getBookNames(context: Context, abbrev: String = selectedTranslation): Array<
 
 fun getChapter(
     context: Context,
-    abbrev: String = selectedTranslation,
-    book: Int = selectedBook,
-    chapter: Int = selectedChapter
+    abbrev: String,
+    book: Int,
+    chapter: Int
 ): Pair<String, String> {
     val dir = context.getExternalFilesDir("Translations")
     val path = "${dir}/${abbrev}.json"
@@ -64,9 +66,9 @@ fun getChapter(
 
 fun getSelectionNames(
     context: Context,
-    abbrev: String = selectedTranslation,
-    book: Int = selectedBook,
-    chapter: Int = selectedChapter
+    abbrev: String,
+    book: Int,
+    chapter: Int
 ): Triple<String, String, String> {
     val dir = context.getExternalFilesDir("Translations")
     val path = "${dir}/${abbrev}.json"
@@ -78,19 +80,16 @@ fun getSelectionNames(
 }
 
 fun getDefaultFiles(context: Context) {
-    val sharedPref = context.getSharedPreferences("selection", Context.MODE_PRIVATE)
-    selectedTranslation = sharedPref.getString("translation", selectedTranslation).toString()
-    selectedBook = sharedPref.getInt("book", selectedBook)
-    selectedChapter = sharedPref.getInt("chapter", selectedChapter)
+    val (translation, _, _) = getSelection(context)
     var path = context.getExternalFilesDir("Index")
     if (!File("${path}/translations.json").exists() || !File("${path}/checksum.json").exists()) {
         saveIndex(context)
         saveChecksum(context)
     }
     path = context.getExternalFilesDir("Translations")
-    if (!File("${path}/${selectedTranslation}.json").exists()) {
+    if (!File("${path}/${translation}.json").exists()) {
         downloadTranslation(
-            context, selectedTranslation
+            context, translation
         )
     }
 }
@@ -128,6 +127,17 @@ fun getTextAlignment(context: Context): ReadTextAlignment {
     }
 
     return textAlignment
+}
+
+fun getSelection(context: Context): Triple<String, Int, Int> {
+    val sharedPref = context.getSharedPreferences("selection", Context.MODE_PRIVATE)
+    var translation = sharedPref.getString("translation", "schlachter")
+    val book = sharedPref.getInt("book", 42)
+    val chapter = sharedPref.getInt("chapter", 2)
+
+    if (translation == null) translation = "schlachter"
+
+    return Triple(translation, book, chapter)
 }
 
 fun getTextAlignmentInt(context: Context): Int {

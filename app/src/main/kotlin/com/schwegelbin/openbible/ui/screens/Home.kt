@@ -30,11 +30,9 @@ import com.schwegelbin.openbible.logic.SelectMode
 import com.schwegelbin.openbible.logic.downloadTranslation
 import com.schwegelbin.openbible.logic.getBookNames
 import com.schwegelbin.openbible.logic.getCount
+import com.schwegelbin.openbible.logic.getSelection
 import com.schwegelbin.openbible.logic.getTranslations
 import com.schwegelbin.openbible.logic.saveSelection
-import com.schwegelbin.openbible.logic.selectedBook
-import com.schwegelbin.openbible.logic.selectedChapter
-import com.schwegelbin.openbible.logic.selectedTranslation
 import java.io.File
 import kotlin.io.path.Path
 import kotlin.io.path.exists
@@ -116,8 +114,9 @@ fun TranslationCard() {
 fun SelectCard(selectMode: SelectMode) {
     val context = LocalContext.current
     var showDialog = remember { mutableStateOf(false) }
+    var (translation, book, chapter) = getSelection(context)
     val translationPath =
-        "${context.getExternalFilesDir("Translations")}/${selectedTranslation}.json"
+        "${context.getExternalFilesDir("Translations")}/${translation}.json"
 
     ElevatedCard(
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
@@ -179,18 +178,18 @@ fun SelectCard(selectMode: SelectMode) {
                                     val abbrev = abbreviation.fileName.toString()
                                     val name = translationMap?.get(abbrev)?.translation
                                     TextButton(onClick = {
-                                        selectedTranslation = abbrev
+                                        translation = abbrev
                                         showDialog.value = false
 
-                                        val (bookCount, chapterCount) = getCount(context)
-                                        if (selectedBook > bookCount) {
-                                            selectedBook = 0
-                                            selectedChapter = 0
+                                        val (bookCount, chapterCount) = getCount(context, translation, book)
+                                        if (book > bookCount) {
+                                            book = 0
+                                            chapter = 0
                                         }
-                                        if (selectedChapter > chapterCount) {
-                                            selectedChapter = 0
+                                        if (chapter > chapterCount) {
+                                            chapter = 0
                                         }
-                                        saveSelection(context)
+                                        saveSelection(context, translation, book, chapter)
                                     }) {
                                         Text(
                                             text = "$abbrev | $name",
@@ -208,7 +207,7 @@ fun SelectCard(selectMode: SelectMode) {
                                 modifier = Modifier.fillMaxWidth(),
                                 textAlign = TextAlign.Center
                             )
-                            val names = getBookNames(context, selectedTranslation)
+                            val names = getBookNames(context, translation)
                             val num = names.size - 1
                             val buttonsPerRow = 3
                             val length = 7
@@ -229,13 +228,13 @@ fun SelectCard(selectMode: SelectMode) {
                                                     name.substring(0, length - 1).trim() + "."
                                                 while (name.length < length) name += " "
                                                 TextButton(onClick = {
-                                                    selectedBook = i + j
+                                                    book = i + j
                                                     showDialog.value = false
 
-                                                    val (_, chapterCount) = getCount(context)
-                                                    if (selectedChapter > chapterCount) selectedChapter =
+                                                    val (_, chapterCount) = getCount(context, translation, book)
+                                                    if (chapter > chapterCount) chapter =
                                                         0
-                                                    saveSelection(context)
+                                                    saveSelection(context, translation, book, chapter)
                                                 }) { Text((name)) }
                                             }
                                         }
@@ -251,7 +250,7 @@ fun SelectCard(selectMode: SelectMode) {
                                 modifier = Modifier.fillMaxWidth(),
                                 textAlign = TextAlign.Center
                             )
-                            val (_, num) = getCount(context)
+                            val (_, num) = getCount(context, translation, book)
                             val buttonsPerRow = 4
 
                             Card(
@@ -267,9 +266,9 @@ fun SelectCard(selectMode: SelectMode) {
                                             if (i + j <= num) {
                                                 val name = (i + j + 1).toString()
                                                 TextButton(onClick = {
-                                                    selectedChapter = i + j
+                                                    chapter = i + j
                                                     showDialog.value = false
-                                                    saveSelection(context)
+                                                    saveSelection(context, translation, book, chapter)
                                                 }) { Text((name)) }
                                             }
                                         }
