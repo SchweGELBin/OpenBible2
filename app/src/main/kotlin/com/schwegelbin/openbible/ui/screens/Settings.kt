@@ -4,7 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -85,7 +84,11 @@ fun SettingsScreen(onClose: () -> Unit, onThemeChange: (Boolean?, Boolean?, Bool
             Text(stringResource(R.string.alignment), style = styleMedium)
             ReadTextAlignmentButton()
             Row {
-                Text(stringResource(R.string.show_verse_number), style = styleLarge, modifier = Modifier.padding(top = 15.dp))
+                Text(
+                    stringResource(R.string.show_verse_number),
+                    style = styleMedium,
+                    modifier = Modifier.padding(top = 15.dp)
+                )
                 val isChecked = remember { mutableStateOf(getShowVerseNumbers(context)) }
                 Checkbox(checked = isChecked.value, onCheckedChange = {
                     isChecked.value = it
