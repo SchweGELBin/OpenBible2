@@ -182,7 +182,11 @@ fun SelectCard(selectMode: SelectMode) {
                                         translation = abbrev
                                         showDialog.value = false
 
-                                        val (bookCount, chapterCount) = getCount(context, translation, book)
+                                        val (bookCount, chapterCount) = getCount(
+                                            context,
+                                            translation,
+                                            book
+                                        )
                                         if (book > bookCount) {
                                             book = 0
                                             chapter = 0
@@ -232,10 +236,19 @@ fun SelectCard(selectMode: SelectMode) {
                                                     book = i + j
                                                     showDialog.value = false
 
-                                                    val (_, chapterCount) = getCount(context, translation, book)
+                                                    val (_, chapterCount) = getCount(
+                                                        context,
+                                                        translation,
+                                                        book
+                                                    )
                                                     if (chapter > chapterCount) chapter =
                                                         0
-                                                    saveSelection(context, translation, book, chapter)
+                                                    saveSelection(
+                                                        context,
+                                                        translation,
+                                                        book,
+                                                        chapter
+                                                    )
                                                 }) { Text((name)) }
                                             }
                                         }
@@ -269,7 +282,12 @@ fun SelectCard(selectMode: SelectMode) {
                                                 TextButton(onClick = {
                                                     chapter = i + j
                                                     showDialog.value = false
-                                                    saveSelection(context, translation, book, chapter)
+                                                    saveSelection(
+                                                        context,
+                                                        translation,
+                                                        book,
+                                                        chapter
+                                                    )
                                                 }) { Text((name)) }
                                             }
                                         }
