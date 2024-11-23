@@ -119,3 +119,10 @@ fun saveTextStyle(context: Context, alignment: ReadTextAlignment) {
     editor.putString("textAlignment", alignment.toString())
     editor.apply()
 }
+
+fun saveShowVerseNumbers(context: Context, shown: Boolean) {
+    val sharedPref = context.getSharedPreferences("options", Context.MODE_PRIVATE)
+    val editor = sharedPref.edit()
+    editor.putBoolean("showVerseNumbers", shown)
+    editor.apply()
+}

@@ -47,7 +47,8 @@ fun getChapter(
     context: Context,
     abbrev: String,
     book: Int,
-    chapter: Int
+    chapter: Int,
+    showVerseNumbers: Boolean
 ): Pair<String, String> {
     val dir = context.getExternalFilesDir("Translations")
     val path = "${dir}/${abbrev}.json"
@@ -58,9 +59,10 @@ fun getChapter(
     var text = ""
     val verses = bible.books[book].chapters[chapter].verses
     verses.forEach { verse ->
-        text += "${verse.verse} ${verse.text}\n"
+        text += if (showVerseNumbers) "${verse.verse} ${verse.text}".trim() + "\n"
+        else verse.text
     }
-    text = text.substring(0, text.length - 1)
+    if (showVerseNumbers) text = text.substring(0, text.length - 1)
     return Pair("$translation | $title", text)
 }
 
@@ -127,6 +129,12 @@ fun getTextAlignment(context: Context): ReadTextAlignment {
     }
 
     return textAlignment
+}
+
+fun getShowVerseNumbers(context: Context): Boolean {
+    val sharedPref = context.getSharedPreferences("options", Context.MODE_PRIVATE)
+    val shown = sharedPref.getBoolean("showVerseNumbers", true)
+    return shown
 }
 
 fun getSelection(context: Context): Triple<String, Int, Int> {

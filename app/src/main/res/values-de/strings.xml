@@ -1,13 +1,15 @@
 <resources>
     <string name="about_us">Über uns</string>
+    <string name="alignment">Ausrichtung</string>
     <string name="alignment_start">Start</string>
     <string name="alignment_justify">Blocksatz</string>
     <string name="app_name">OpenBible</string>
-    <string name="bible_text_alignment">Bibeltext Ausrichtung</string>
+    <string name="bible_text">Bible Text</string>
     <string name="choose_book">Buch wählen</string>
     <string name="choose_chapter">Kapitel wählen</string>
     <string name="choose_translation">Übersetzung wählen</string>
     <string name="close">Schließen</string>
+    <string name="colors">Farben</string>
     <string name="color_scheme">Farbschema</string>
     <string name="color_theme">Farbthema</string>
     <string name="download_translation">Übersetzung herunterladen</string>
@@ -17,6 +19,7 @@
     <string name="screen_home">Start</string>
     <string name="screen_read">Lesen</string>
     <string name="settings">Einstellungen</string>
+    <string name="show_verse_number">Zeige Versnummer</string>
     <string name="source_repo">GitHub</string>
     <string name="theme_amoled">Amoled</string>
     <string name="theme_dark">Dunkel</string>

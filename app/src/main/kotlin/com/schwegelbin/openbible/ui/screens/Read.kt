@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import com.schwegelbin.openbible.logic.ReadTextAlignment
 import com.schwegelbin.openbible.logic.getChapter
 import com.schwegelbin.openbible.logic.getSelection
+import com.schwegelbin.openbible.logic.getShowVerseNumbers
 import com.schwegelbin.openbible.logic.getTextAlignment
 
 @Composable
@@ -28,7 +29,8 @@ fun ReadScreen(modifier: Modifier = Modifier) {
     val context = LocalContext.current
     val selection = remember { mutableStateOf(getSelection(context)) }
     val (translation, book, chapter) = selection.value
-    val (title, text) = getChapter(context, translation, book, chapter)
+    val showVerseNumbers = remember { mutableStateOf(getShowVerseNumbers(context)) }
+    val (title, text) = getChapter(context, translation, book, chapter, showVerseNumbers.value)
     val textAlignment = getTextAlignment(context)
     Column(
         modifier = modifier.padding(start = 8.dp, end = 8.dp, bottom = 8.dp),
