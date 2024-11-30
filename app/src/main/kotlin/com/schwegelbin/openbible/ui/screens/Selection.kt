@@ -265,3 +265,37 @@ fun TranslationButton() {
         }
     }
 }
+
+@Composable
+fun TranslationCard(onNavigateToRead: () -> Unit) {
+    val context = LocalContext.current
+
+    val translationMap = remember { getTranslations(context) }
+    val translationItems = translationMap?.values?.map {
+        it.abbreviation to it.translation
+    }
+
+    Text(
+        text = stringResource(R.string.download_translation),
+        style = MaterialTheme.typography.titleLarge,
+        modifier = Modifier.fillMaxWidth(),
+        textAlign = TextAlign.Center
+    )
+
+    Card(
+        modifier = Modifier.verticalScroll(rememberScrollState()),
+        colors = CardDefaults.cardColors(containerColor = Color.Transparent)
+    ) {
+        translationItems?.forEach { (abbreviation, translation) ->
+            TextButton(onClick = {
+                downloadTranslation(context, abbreviation)
+                onNavigateToRead()
+            }) {
+                Text(
+                    text = "$abbreviation | $translation",
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+        }
+    }
+}
