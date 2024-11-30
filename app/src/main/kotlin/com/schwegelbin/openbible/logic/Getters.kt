@@ -1,7 +1,11 @@
 package com.schwegelbin.openbible.logic
 
 import android.content.Context
-import java.io.File
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
 
 fun getTranslations(context: Context): Map<String, Translation>? {
     val dir = context.getExternalFilesDir("Index")
@@ -79,21 +83,6 @@ fun getSelectionNames(
     val translation = bible.translation
     val book = bible.books[book].name
     return Triple(translation, book, (chapter + 1).toString())
-}
-
-fun getDefaultFiles(context: Context) {
-    var path = context.getExternalFilesDir("Index")
-    val translation = defaultTranslation
-    if (!File("${path}/translations.json").exists() || !File("${path}/checksum.json").exists()) {
-        saveIndex(context)
-        saveChecksum(context)
-    }
-    path = context.getExternalFilesDir("Translations")
-    if (!File("${path}/${translation}.json").exists()) {
-        downloadTranslation(
-            context, translation
-        )
-    }
 }
 
 fun getColorScheme(context: Context): Pair<ThemeOption, SchemeOption> {
@@ -196,4 +185,34 @@ fun getMainThemeOptions(
     val amoled = theme == ThemeOption.Amoled
 
     return Triple(darkTheme, dynamicColor, amoled)
+}
+
+fun getAppName(name: String, primary: Color, secondary: Color, tertiary: Color): AnnotatedString {
+    val appName =
+        name.split(Regex("(?=[A-Z])")).filter { it.isNotEmpty() }
+    val title = buildAnnotatedString {
+        appName.forEachIndexed { index, value ->
+            if (index == 1) withStyle(SpanStyle(primary)) { append(value) }
+            else if (index == 2) withStyle(SpanStyle(secondary)) {
+                append(
+                    value
+                )
+            }
+            else if (index == 3) withStyle(SpanStyle(tertiary)) {
+                append(
+                    value
+                )
+            }
+            else append(value)
+        }
+    }
+    return title
+}
+
+fun getFirstLaunch(context: Context): Boolean {
+    var dir = context.getExternalFilesDir("Translations")
+    if (dir == null) return true
+    val files = dir.listFiles()
+    if (files == null || files.isEmpty()) return true
+    return false
 }

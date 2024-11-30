@@ -5,10 +5,6 @@ import android.content.Context
 import android.net.Uri
 import java.io.File
 
-enum class Screen() {
-    Home, Read
-}
-
 enum class SelectMode() {
     Translation, Book, Chapter
 }
@@ -125,4 +121,12 @@ fun saveShowVerseNumbers(context: Context, shown: Boolean) {
     val editor = sharedPref.edit()
     editor.putBoolean("showVerseNumbers", shown)
     editor.apply()
+}
+
+fun saveNewIndex(context: Context) {
+    var path = context.getExternalFilesDir("Index")
+    if (!File("${path}/translations.json").exists() || !File("${path}/checksum.json").exists()) {
+        saveIndex(context)
+        saveChecksum(context)
+    }
 }

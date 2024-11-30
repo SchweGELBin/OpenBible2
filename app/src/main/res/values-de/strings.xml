@@ -13,11 +13,14 @@
     <string name="color_scheme">Farbschema</string>
     <string name="color_theme">Farbthema</string>
     <string name="download_translation">Übersetzung herunterladen</string>
+    <string name="error">ERROR</string>
     <string name="index">Index</string>
+    <string name="next">Weiter</string>
     <string name="scheme_dynamic">Dynamisch</string>
     <string name="scheme_static">Statisch</string>
     <string name="screen_home">Start</string>
     <string name="screen_read">Lesen</string>
+    <string name="selection">Auswahl</string>
     <string name="settings">Einstellungen</string>
     <string name="show_verse_number">Zeige Versnummer</string>
     <string name="source_repo">GitHub</string>
