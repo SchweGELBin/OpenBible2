@@ -65,8 +65,7 @@ fun SelectionScreen(onNavigateToRead: () -> Unit) {
         Column(
             modifier = Modifier
                 .padding(innerPadding)
-                .padding(horizontal = 20.dp)
-                .padding(bottom = 80.dp),
+                .padding(start = 20.dp, end = 20.dp, bottom = 20.dp),
             verticalArrangement = Arrangement.spacedBy(15.dp)
         ) {
             Selection(onNavigateToRead)
@@ -103,7 +102,9 @@ fun Selection(onNavigateToRead: () -> Unit) {
     }
     ElevatedCard(
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .verticalScroll(state = rememberScrollState(), enabled = true)
+            .fillMaxWidth()
     ) {
         when (selectMode.value) {
             SelectMode.Translation -> {
@@ -146,7 +147,7 @@ fun Selection(onNavigateToRead: () -> Unit) {
                 val names = getBookNames(context, translation)
                 val num = names.size - 1
                 val buttonsPerRow = 3
-                val length = 7
+                val length = 10
 
                 for (i in 0..num step buttonsPerRow) {
                     Row(
@@ -283,19 +284,16 @@ fun TranslationCard(onNavigateToRead: () -> Unit) {
     )
 
     Card(
-        modifier = Modifier.verticalScroll(rememberScrollState()),
+        modifier = Modifier
+            .verticalScroll(rememberScrollState())
+            .fillMaxWidth(),
         colors = CardDefaults.cardColors(containerColor = Color.Transparent)
     ) {
         translationItems?.forEach { (abbreviation, translation) ->
             TextButton(onClick = {
                 downloadTranslation(context, abbreviation)
                 onNavigateToRead()
-            }) {
-                Text(
-                    text = "$abbreviation | $translation",
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
+            }) { Text("$abbreviation | $translation") }
         }
     }
 }

@@ -66,7 +66,7 @@ fun ReadScreen(onNavigateToSelection: () -> Unit, onNavigateToSettings: () -> Un
         Column(
             modifier = Modifier
                 .padding(innerPadding)
-                .padding(start = 8.dp, end = 8.dp, bottom = 8.dp),
+                .padding(start = 8.dp, end = 8.dp, bottom = 12.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             ElevatedCard(
@@ -77,7 +77,7 @@ fun ReadScreen(onNavigateToSelection: () -> Unit, onNavigateToSettings: () -> Un
                 Text(
                     text = title,
                     modifier = Modifier
-                        .padding(8.dp)
+                        .padding(12.dp)
                         .align(Alignment.CenterHorizontally)
                 )
             }
