@@ -5,9 +5,8 @@
     <string name="alignment_justify">Justify</string>
     <string name="app_name">OpenBible</string>
     <string name="bible_text">Bible Text</string>
-    <string name="choose_book">Choose Book</string>
-    <string name="choose_chapter">Choose Chapter</string>
-    <string name="choose_translation">Choose Translation</string>
+    <string name="book">Book</string>
+    <string name="chapter">Chapter</string>
     <string name="close">Close</string>
     <string name="colors">Colors</string>
     <string name="color_scheme">Color Scheme</string>
@@ -28,5 +27,6 @@
     <string name="theme_dark">Dark</string>
     <string name="theme_light">Light</string>
     <string name="theme_system">System</string>
+    <string name="translation">Translation</string>
     <string name="update_index">Update Index</string>
 </resources>

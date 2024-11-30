@@ -2,18 +2,14 @@ package com.schwegelbin.openbible.ui.screens
 
 import android.content.Intent
 import android.net.Uri
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
@@ -25,9 +21,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableIntStateOf
@@ -44,6 +38,7 @@ import androidx.core.content.ContextCompat.startActivity
 import com.schwegelbin.openbible.R
 import com.schwegelbin.openbible.logic.ReadTextAlignment
 import com.schwegelbin.openbible.logic.SchemeOption
+import com.schwegelbin.openbible.logic.SelectMode
 import com.schwegelbin.openbible.logic.ThemeOption
 import com.schwegelbin.openbible.logic.downloadTranslation
 import com.schwegelbin.openbible.logic.getColorSchemeInt
@@ -221,55 +216,4 @@ fun RepoButton() {
             Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/SchweGELBin/OpenBible2"))
         startActivity(context, intent, null)
     }) { Text(stringResource(R.string.source_repo)) }
-}
-
-@Composable
-fun TranslationButton() {
-    val context = LocalContext.current
-    var showDialog = remember { mutableStateOf(false) }
-    val indexPath = "${context.getExternalFilesDir("Index")}/translations.json"
-
-    OutlinedButton(onClick = {
-        if (File(indexPath).exists()) showDialog.value = true
-    }) { Text(text = stringResource(R.string.download_translation)) }
-
-    if (showDialog.value) {
-        val translationMap = remember { getTranslations(context) }
-        val translationItems = translationMap?.values?.map {
-            it.abbreviation to it.translation
-        }
-
-        Dialog(onDismissRequest = { showDialog.value = false }) {
-            Surface(shape = RoundedCornerShape(size = 40.dp)) {
-                Column(
-                    modifier = Modifier.padding(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(10.dp)
-                ) {
-                    Text(
-                        text = stringResource(R.string.download_translation),
-                        style = MaterialTheme.typography.titleLarge,
-                        modifier = Modifier.fillMaxWidth(),
-                        textAlign = TextAlign.Center
-                    )
-
-                    Card(
-                        modifier = Modifier.verticalScroll(rememberScrollState()),
-                        colors = CardDefaults.cardColors(containerColor = Color.Transparent)
-                    ) {
-                        translationItems?.forEach { (abbreviation, translation) ->
-                            TextButton(onClick = {
-                                downloadTranslation(context, abbreviation)
-                                showDialog.value = false
-                            }) {
-                                Text(
-                                    text = "$abbreviation | $translation",
-                                    modifier = Modifier.fillMaxWidth()
-                                )
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
 }
