@@ -70,21 +70,6 @@ fun getChapter(
     return Pair("$translation | $title", text)
 }
 
-fun getSelectionNames(
-    context: Context,
-    abbrev: String,
-    book: Int,
-    chapter: Int
-): Triple<String, String, String> {
-    val dir = context.getExternalFilesDir("Translations")
-    val path = "${dir}/${abbrev}.json"
-    val bible = deserializeBible(path)
-    if (bible == null) return Triple("ERROR", "ERROR", "ERROR")
-    val translation = bible.translation
-    val book = bible.books[book].name
-    return Triple(translation, book, (chapter + 1).toString())
-}
-
 fun getColorScheme(context: Context): Pair<ThemeOption, SchemeOption> {
     val sharedPref = context.getSharedPreferences("options", Context.MODE_PRIVATE)
     val themeStr = sharedPref.getString("theme", "System")
