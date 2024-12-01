@@ -12,6 +12,8 @@
     <string name="color_scheme">Color Scheme</string>
     <string name="color_theme">Color Theme</string>
     <string name="download_translation">Download Translation</string>
+    <string name="downloading_index">Downloading Index, please wait…</string>
+    <string name="downloading_translation">Downloading Translation, please wait…</string>
     <string name="error">ERROR</string>
     <string name="index">Index</string>
     <string name="next">Next</string>

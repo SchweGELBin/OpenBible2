@@ -14,7 +14,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.schwegelbin.openbible.R
 import com.schwegelbin.openbible.logic.deserialize
 import com.schwegelbin.openbible.logic.getSelection
 import kotlinx.coroutines.delay
@@ -31,7 +33,7 @@ fun StartScreen(onNavigateToRead: () -> Unit) {
         when (state.intValue) {
             0 -> {
                 Text(
-                    text = "Downloading Index, please wait...",
+                    text = stringResource(R.string.download_translation),
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
                 val path = context.getExternalFilesDir("Index")

@@ -12,6 +12,8 @@
     <string name="color_scheme">Farbschema</string>
     <string name="color_theme">Farbthema</string>
     <string name="download_translation">Übersetzung herunterladen</string>
+    <string name="downloading_index">Lädt Index herunter, bitte warten Sie…</string>
+    <string name="downloading_translation">Lädt Übersetzung herunter, bitte warten Sie…</string>
     <string name="error">ERROR</string>
     <string name="index">Index</string>
     <string name="next">Weiter</string>
