@@ -23,4 +23,3 @@ It downloads and works with json files, provided by the [GETBIBLE API](https://g
 ## Screenshots
 | ![](./fastlane/metadata/android/en-US/images/phoneScreenshots/01.png) | ![](./fastlane/metadata/android/en-US/images/phoneScreenshots/02.png) | ![](./fastlane/metadata/android/en-US/images/phoneScreenshots/03.png) |
 |-----------------------------------------------------------------------|-----------------------------------------------------------------------|-----------------------------------------------------------------------|
-| ![](./fastlane/metadata/android/en-US/images/phoneScreenshots/05.png) | ![](./fastlane/metadata/android/en-US/images/phoneScreenshots/06.png) | ![](./fastlane/metadata/android/en-US/images/phoneScreenshots/07.png) |
