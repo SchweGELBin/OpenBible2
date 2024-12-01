@@ -33,7 +33,7 @@ fun StartScreen(onNavigateToRead: () -> Unit) {
         when (state.intValue) {
             0 -> {
                 Text(
-                    text = stringResource(R.string.download_translation),
+                    text = stringResource(R.string.downloading_index),
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
                 val path = context.getExternalFilesDir("Index")
