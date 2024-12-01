@@ -207,6 +207,6 @@ fun RepoButton() {
     OutlinedButton(onClick = {
         val intent =
             Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/SchweGELBin/OpenBible2"))
-        startActivity(context, intent, null)
+        context.startActivity(intent)
     }) { Text(stringResource(R.string.source_repo)) }
 }
