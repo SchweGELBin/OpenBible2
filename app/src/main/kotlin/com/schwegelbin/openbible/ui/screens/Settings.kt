@@ -31,7 +31,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat.startActivity
 import com.schwegelbin.openbible.R
 import com.schwegelbin.openbible.logic.ReadTextAlignment
 import com.schwegelbin.openbible.logic.SchemeOption
@@ -42,7 +41,6 @@ import com.schwegelbin.openbible.logic.getColorSchemeInt
 import com.schwegelbin.openbible.logic.getMainThemeOptions
 import com.schwegelbin.openbible.logic.getShowVerseNumbers
 import com.schwegelbin.openbible.logic.getTextAlignmentInt
-import com.schwegelbin.openbible.logic.getTranslations
 import com.schwegelbin.openbible.logic.saveChecksum
 import com.schwegelbin.openbible.logic.saveColorScheme
 import com.schwegelbin.openbible.logic.saveIndex
