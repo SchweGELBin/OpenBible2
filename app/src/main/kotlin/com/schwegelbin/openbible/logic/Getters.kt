@@ -198,6 +198,5 @@ fun getFirstLaunch(context: Context): Boolean {
     var dir = context.getExternalFilesDir("Translations")
     if (dir == null) return true
     val files = dir.listFiles()
-    if (files == null || files.isEmpty()) return true
-    return false
+    return files == null || files.isEmpty()
 }
