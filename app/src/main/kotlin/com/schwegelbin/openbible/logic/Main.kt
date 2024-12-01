@@ -67,7 +67,7 @@ fun checkUpdate(context: Context, abbrev: String): Boolean {
 
 fun downloadFile(
     context: Context, url: String, name: String, relPath: String = "", replace: Boolean = true
-) {
+): Long {
     if (replace) {
         val dir = context.getExternalFilesDir(relPath)
         val path = "${dir}/${name}"
@@ -80,7 +80,7 @@ fun downloadFile(
         setDestinationInExternalFilesDir(context, relPath, name)
     }
     val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-    downloadManager.enqueue(request)
+    return downloadManager.enqueue(request)
 }
 
 fun saveSelection(

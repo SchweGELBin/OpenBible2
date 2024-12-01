@@ -39,6 +39,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.schwegelbin.openbible.R
 import com.schwegelbin.openbible.logic.SelectMode
+import com.schwegelbin.openbible.logic.defaultBook
+import com.schwegelbin.openbible.logic.defaultChapter
 import com.schwegelbin.openbible.logic.downloadTranslation
 import com.schwegelbin.openbible.logic.getBookNames
 import com.schwegelbin.openbible.logic.getCount
@@ -268,7 +270,7 @@ fun TranslationButton() {
 }
 
 @Composable
-fun TranslationCard(onNavigateToRead: () -> Unit) {
+fun TranslationCard(onSelected: () -> Unit) {
     val context = LocalContext.current
 
     val translationMap = remember { getTranslations(context) }
@@ -292,7 +294,13 @@ fun TranslationCard(onNavigateToRead: () -> Unit) {
         translationItems?.forEach { (abbreviation, translation) ->
             TextButton(onClick = {
                 downloadTranslation(context, abbreviation)
-                onNavigateToRead()
+                saveSelection(
+                    context,
+                    translation = abbreviation,
+                    book = defaultBook,
+                    chapter = defaultChapter
+                )
+                onSelected()
             }) { Text("$abbreviation | $translation") }
         }
     }
