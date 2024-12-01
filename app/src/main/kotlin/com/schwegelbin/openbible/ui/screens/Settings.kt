@@ -36,15 +36,20 @@ import com.schwegelbin.openbible.R
 import com.schwegelbin.openbible.logic.ReadTextAlignment
 import com.schwegelbin.openbible.logic.SchemeOption
 import com.schwegelbin.openbible.logic.ThemeOption
+import com.schwegelbin.openbible.logic.checkUpdate
+import com.schwegelbin.openbible.logic.downloadTranslation
 import com.schwegelbin.openbible.logic.getColorSchemeInt
 import com.schwegelbin.openbible.logic.getMainThemeOptions
 import com.schwegelbin.openbible.logic.getShowVerseNumbers
 import com.schwegelbin.openbible.logic.getTextAlignmentInt
+import com.schwegelbin.openbible.logic.getTranslations
 import com.schwegelbin.openbible.logic.saveChecksum
 import com.schwegelbin.openbible.logic.saveColorScheme
 import com.schwegelbin.openbible.logic.saveIndex
 import com.schwegelbin.openbible.logic.saveShowVerseNumbers
 import com.schwegelbin.openbible.logic.saveTextStyle
+import kotlin.io.path.Path
+import kotlin.io.path.listDirectoryEntries
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -74,6 +79,7 @@ fun SettingsScreen(
             val styleMedium = MaterialTheme.typography.titleMedium
             Text(stringResource(R.string.index), style = styleLarge, modifier = modLarge)
             IndexButton()
+            UpdateTranslationsButton()
             TranslationButton()
 
             HorizontalDivider(Modifier.padding(12.dp))
@@ -209,4 +215,18 @@ fun RepoButton() {
             Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/SchweGELBin/OpenBible2"))
         context.startActivity(intent)
     }) { Text(stringResource(R.string.source_repo)) }
+}
+
+@Composable
+fun UpdateTranslationsButton() {
+    val context = LocalContext.current
+    OutlinedButton(onClick = {
+        val translationList = Path(
+            context.getExternalFilesDir("Checksums").toString()
+        ).listDirectoryEntries().sorted()
+        translationList.forEach { abbreviation ->
+            val abbrev = abbreviation.fileName.toString()
+            if (checkUpdate(context, abbrev)) downloadTranslation(context, abbrev)
+        }
+    }) { Text(stringResource(R.string.update_translations)) }
 }

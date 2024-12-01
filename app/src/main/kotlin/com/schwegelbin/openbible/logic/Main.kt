@@ -57,8 +57,11 @@ fun downloadTranslation(context: Context, abbrev: String) {
 }
 
 fun checkUpdate(context: Context, abbrev: String): Boolean {
-    val dir = context.getExternalFilesDir("Checksums")
-    val path = "${dir}/${abbrev}"
+    var dir = context.getExternalFilesDir("Translations")
+    var path = "${dir}/${abbrev}.json"
+    if (!File(path).exists()) return true
+    dir = context.getExternalFilesDir("Checksums")
+    path = "${dir}/${abbrev}"
     if (!File(path).exists()) return true
     val latest = getChecksum(context, abbrev)
     val current = File(path).readText()
