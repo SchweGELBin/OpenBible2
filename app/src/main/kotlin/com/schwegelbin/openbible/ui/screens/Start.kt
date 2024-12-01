@@ -46,7 +46,7 @@ fun StartScreen(onNavigateToRead: () -> Unit) {
 
             2 -> {
                 Text(
-                    text = "Downloading Translation, please wait...",
+                    text = stringResource(R.string.downloading_translation),
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
                 val (translation, _, _) = getSelection(context)
