@@ -1,0 +1,2 @@
+Moved Home Screen to Selection Screen at the top of Read Screen
+Added Getting Started

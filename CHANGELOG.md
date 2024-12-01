@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.0] - 2024-12-01
+
+### 🚀 Features
+
+- [**breaking**] Add Start screen
+- Improve selection screen ui
+- Improve
+- Add new strings to res/values
+- Add new strings to res/values
+
+### 🐛 Bug Fixes
+
+- Make selection scrollable again
+- First launch
+- Used wrong string
+- Not selecting while saving last selection
+
+### 🎨 Styling
+
+- Reformat
+
 ## [0.7.0] - 2024-11-23
 
 ### 🚀 Features
@@ -21,6 +42,10 @@ All notable changes to this project will be documented in this file.
 
 - Reformat code
 - Reformat
+
+### ⚙️ Miscellaneous Tasks
+
+- Bump to 0.7.0
 
 ## [0.6.1] - 2024-11-20
 
