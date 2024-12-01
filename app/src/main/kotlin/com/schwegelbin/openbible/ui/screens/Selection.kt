@@ -78,8 +78,10 @@ fun SelectionScreen(onNavigateToRead: () -> Unit) {
 @Composable
 fun Selection(onNavigateToRead: () -> Unit) {
     val context = LocalContext.current
-    val selection = remember { mutableStateOf(getSelection(context)) }
-    var (translation, book, chapter) = selection.value
+    val selection = getSelection(context)
+    var translation = remember { mutableStateOf(selection.first) }
+    var book = remember { mutableIntStateOf(selection.second) }
+    var chapter = remember { mutableIntStateOf(selection.third) }
     var selectedIndex = remember { mutableIntStateOf(1) }
     val options = SelectMode.entries
     var selectMode = remember { mutableStateOf(options[selectedIndex.intValue]) }
@@ -119,23 +121,28 @@ fun Selection(onNavigateToRead: () -> Unit) {
                     val abbrev = abbreviation.fileName.toString()
                     val name = translationMap?.get(abbrev)?.translation
                     TextButton(onClick = {
-                        translation = abbrev
+                        translation.value = abbrev
 
                         val (bookCount, chapterCount) = getCount(
                             context,
-                            translation,
-                            book
+                            translation.value,
+                            book.intValue
                         )
-                        if (book > bookCount) {
-                            book = 0
-                            chapter = 0
+                        if (book.intValue > bookCount) {
+                            book.intValue = 0
+                            chapter.intValue = 0
                         }
-                        if (chapter > chapterCount) {
-                            chapter = 0
+                        if (chapter.intValue > chapterCount) {
+                            chapter.intValue = 0
                         }
-                        saveSelection(context, translation, book, chapter)
                         selectMode.value = SelectMode.Book
                         selectedIndex.intValue = 1
+                        saveSelection(
+                            context,
+                            translation.value,
+                            book.intValue,
+                            chapter.intValue
+                        )
                     }) {
                         Text(
                             text = "$abbrev | $name",
@@ -146,7 +153,7 @@ fun Selection(onNavigateToRead: () -> Unit) {
             }
 
             SelectMode.Book -> {
-                val names = getBookNames(context, translation)
+                val names = getBookNames(context, translation.value)
                 val num = names.size - 1
                 val buttonsPerRow = 3
                 val length = 10
@@ -163,23 +170,22 @@ fun Selection(onNavigateToRead: () -> Unit) {
                                     name.substring(0, length - 1).trim() + "."
                                 while (name.length < length) name += " "
                                 TextButton(onClick = {
-                                    book = i + j
+                                    book.intValue = i + j
 
                                     val (_, chapterCount) = getCount(
                                         context,
-                                        translation,
-                                        book
+                                        translation.value,
+                                        book.intValue
                                     )
-                                    if (chapter > chapterCount) chapter =
-                                        0
-                                    saveSelection(
-                                        context,
-                                        translation,
-                                        book,
-                                        chapter
-                                    )
+                                    if (chapter.intValue > chapterCount) chapter.intValue = 0
                                     selectMode.value = SelectMode.Chapter
                                     selectedIndex.intValue = 2
+                                    saveSelection(
+                                        context,
+                                        translation.value,
+                                        book.intValue,
+                                        chapter.intValue
+                                    )
                                 }) { Text((name)) }
                             }
                         }
@@ -188,7 +194,7 @@ fun Selection(onNavigateToRead: () -> Unit) {
             }
 
             SelectMode.Chapter -> {
-                val (_, num) = getCount(context, translation, book)
+                val (_, num) = getCount(context, translation.value, book.intValue)
                 val buttonsPerRow = 4
 
                 for (i in 0..num step buttonsPerRow) {
@@ -200,12 +206,12 @@ fun Selection(onNavigateToRead: () -> Unit) {
                             if (i + j <= num) {
                                 val name = (i + j + 1).toString()
                                 TextButton(onClick = {
-                                    chapter = i + j
+                                    chapter.intValue = i + j
                                     saveSelection(
                                         context,
-                                        translation,
-                                        book,
-                                        chapter
+                                        translation.value,
+                                        book.intValue,
+                                        chapter.intValue
                                     )
                                     onNavigateToRead()
                                 }) { Text((name)) }
