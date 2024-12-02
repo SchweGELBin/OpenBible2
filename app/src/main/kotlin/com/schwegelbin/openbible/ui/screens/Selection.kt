@@ -44,12 +44,11 @@ import com.schwegelbin.openbible.logic.defaultChapter
 import com.schwegelbin.openbible.logic.downloadTranslation
 import com.schwegelbin.openbible.logic.getBookNames
 import com.schwegelbin.openbible.logic.getCount
+import com.schwegelbin.openbible.logic.getList
 import com.schwegelbin.openbible.logic.getSelection
 import com.schwegelbin.openbible.logic.getTranslations
 import com.schwegelbin.openbible.logic.saveSelection
 import java.io.File
-import kotlin.io.path.Path
-import kotlin.io.path.listDirectoryEntries
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -112,13 +111,10 @@ fun Selection(onNavigateToRead: () -> Unit) {
     ) {
         when (selectMode.value) {
             SelectMode.Translation -> {
-                val translationList = Path(
-                    context.getExternalFilesDir("Checksums").toString()
-                ).listDirectoryEntries().sorted()
+                val translationList = getList(context, "Translations").map { it.nameWithoutExtension }
                 val translationMap = getTranslations(context)
 
-                translationList.forEach { abbreviation ->
-                    val abbrev = abbreviation.fileName.toString()
+                translationList.forEach { abbrev ->
                     val name = translationMap?.get(abbrev)?.translation
                     TextButton(onClick = {
                         translation.value = abbrev

@@ -4,8 +4,6 @@ import android.app.DownloadManager
 import android.content.Context
 import android.net.Uri
 import java.io.File
-import kotlin.io.path.Path
-import kotlin.io.path.listDirectoryEntries
 
 enum class SelectMode() {
     Translation, Book, Chapter
@@ -137,11 +135,21 @@ fun saveNewIndex(context: Context) {
 }
 
 fun updateTranslations(context: Context) {
-    val translationList = Path(
-        context.getExternalFilesDir("Checksums").toString()
-    ).listDirectoryEntries().sorted()
+    cleanUpTranslations(context)
+    val translationList = getList(context, "Checksums")
     translationList.forEach { abbreviation ->
-        val abbrev = abbreviation.fileName.toString()
+        val abbrev = abbreviation.name
         if (checkUpdate(context, abbrev)) downloadTranslation(context, abbrev)
+    }
+}
+
+fun cleanUpTranslations(context: Context) {
+    val checksums = getList(context, "Checksums").map { it.name }
+    val translations = getList(context, "Translations").map { it.nameWithoutExtension }
+    checksums.forEach { sum ->
+        if (sum !in translations) File("${context.getExternalFilesDir("Checksums")}/${sum}").delete()
+    }
+    translations.forEach { abbrev ->
+        if (abbrev !in checksums) File("${context.getExternalFilesDir("Translations")}/${abbrev}.json").delete()
     }
 }

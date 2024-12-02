@@ -6,6 +6,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
+import java.io.File
 
 fun getTranslations(context: Context): Map<String, Translation>? {
     val dir = context.getExternalFilesDir("Index")
@@ -199,4 +200,10 @@ fun getFirstLaunch(context: Context): Boolean {
     if (dir == null) return true
     val files = dir.listFiles()
     return files == null || files.isEmpty()
+}
+
+fun getList(context: Context, relPath: String): Array<File> {
+    return File(
+        context.getExternalFilesDir(relPath).toString()
+    ).listFiles()
 }
