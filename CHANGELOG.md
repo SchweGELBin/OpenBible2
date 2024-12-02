@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.0] - 2024-12-02
+
+### 🚀 Features
+
+- Update translations
+- Update index before the translations
+- Clean up translations on updateTranslations
+- Delete translation
+
+### 🐛 Bug Fixes
+
+- Replace deprecated method
+- Protect user from deleting all translations
+
+### 📚 Documentation
+
+- *(readme)* Remove deleted screenshots
+
+### 🎨 Styling
+
+- Reformat
+
+### ⚙️ Miscellaneous Tasks
+
+- Remove unused function
+- Remove redundant if statement
+
 ## [1.0.0] - 2024-12-01
 
 ### 🚀 Features
@@ -22,6 +49,10 @@ All notable changes to this project will be documented in this file.
 ### 🎨 Styling
 
 - Reformat
+
+### ⚙️ Miscellaneous Tasks
+
+- Bump to 1.0.0
 
 ## [0.7.0] - 2024-11-23
 
