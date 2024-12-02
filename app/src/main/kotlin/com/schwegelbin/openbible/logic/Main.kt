@@ -159,7 +159,7 @@ fun checkTranslation(context: Context, abbrev: String, onNavigateToStart: () -> 
         val list = getList(context, "Translations").map { it.nameWithoutExtension }
         if (list.isNotEmpty()) {
             val newTranslation = list.first()
-            if (list.isNotEmpty()) saveSelection(context, newTranslation)
+            saveSelection(context, newTranslation)
             return newTranslation
         } else onNavigateToStart()
     }
