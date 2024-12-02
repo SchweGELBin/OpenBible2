@@ -35,8 +35,6 @@ import com.schwegelbin.openbible.R
 import com.schwegelbin.openbible.logic.ReadTextAlignment
 import com.schwegelbin.openbible.logic.SchemeOption
 import com.schwegelbin.openbible.logic.ThemeOption
-import com.schwegelbin.openbible.logic.checkUpdate
-import com.schwegelbin.openbible.logic.downloadTranslation
 import com.schwegelbin.openbible.logic.getColorSchemeInt
 import com.schwegelbin.openbible.logic.getMainThemeOptions
 import com.schwegelbin.openbible.logic.getShowVerseNumbers
@@ -46,8 +44,7 @@ import com.schwegelbin.openbible.logic.saveColorScheme
 import com.schwegelbin.openbible.logic.saveIndex
 import com.schwegelbin.openbible.logic.saveShowVerseNumbers
 import com.schwegelbin.openbible.logic.saveTextStyle
-import kotlin.io.path.Path
-import kotlin.io.path.listDirectoryEntries
+import com.schwegelbin.openbible.logic.updateTranslations
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -76,7 +73,6 @@ fun SettingsScreen(
             val modLarge = Modifier.padding(bottom = 12.dp)
             val styleMedium = MaterialTheme.typography.titleMedium
             Text(stringResource(R.string.index), style = styleLarge, modifier = modLarge)
-            IndexButton()
             UpdateTranslationsButton()
             TranslationButton()
 
@@ -109,15 +105,6 @@ fun SettingsScreen(
             RepoButton()
         }
     }
-}
-
-@Composable
-fun IndexButton() {
-    val context = LocalContext.current
-    OutlinedButton(onClick = {
-        saveIndex(context)
-        saveChecksum(context)
-    }) { Text(stringResource(R.string.update_index)) }
 }
 
 @Composable
@@ -218,13 +205,14 @@ fun RepoButton() {
 @Composable
 fun UpdateTranslationsButton() {
     val context = LocalContext.current
+    var clicked = remember { mutableStateOf(false) }
     OutlinedButton(onClick = {
-        val translationList = Path(
-            context.getExternalFilesDir("Checksums").toString()
-        ).listDirectoryEntries().sorted()
-        translationList.forEach { abbreviation ->
-            val abbrev = abbreviation.fileName.toString()
-            if (checkUpdate(context, abbrev)) downloadTranslation(context, abbrev)
-        }
+        saveChecksum(context)
+        saveIndex(context)
+        clicked.value = true
     }) { Text(stringResource(R.string.update_translations)) }
+    if (clicked.value) {
+        val path = context.getExternalFilesDir("Index")
+        WaitForFile(onLoaded = { updateTranslations(context) }, "${path}/translations.json")
+    }
 }

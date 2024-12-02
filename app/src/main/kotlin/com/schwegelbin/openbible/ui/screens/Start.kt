@@ -58,19 +58,8 @@ fun StartScreen(onNavigateToRead: () -> Unit) {
 }
 
 @Composable
-fun Loading(onLoaded: () -> Unit, file: String) {
-    LaunchedEffect(Unit) {
-        val max = 200
-        var counter = 0
-        while (counter < max) {
-            delay(100L)
-            if (deserialize(file) != null) {
-                onLoaded()
-                break
-            }
-            counter++
-        }
-    }
+fun Loading(onLoaded: () -> Unit, file: String, maxSeconds: Int = 20) {
+    WaitForFile(onLoaded, file, maxSeconds)
     LinearProgressIndicator(
         modifier = Modifier
             .fillMaxWidth()
@@ -78,4 +67,24 @@ fun Loading(onLoaded: () -> Unit, file: String) {
         color = MaterialTheme.colorScheme.secondary,
         trackColor = MaterialTheme.colorScheme.surfaceVariant
     )
+}
+
+@Composable
+fun WaitForFile(
+    onLoaded: () -> Unit,
+    file: String,
+    maxSeconds: Int = 20,
+    updateInterval: Long = 100
+) {
+    LaunchedEffect(Unit) {
+        var counter: Long = 0
+        while (counter < maxSeconds * updateInterval) {
+            delay(updateInterval)
+            if (deserialize(file) != null) {
+                onLoaded()
+                break
+            }
+            counter++
+        }
+    }
 }

@@ -30,6 +30,5 @@
     <string name="theme_light">Light</string>
     <string name="theme_system">System</string>
     <string name="translation">Translation</string>
-    <string name="update_index">Update Index</string>
     <string name="update_translations">Update Translations</string>
 </resources>
