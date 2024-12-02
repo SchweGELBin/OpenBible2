@@ -4,21 +4,33 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.schwegelbin.openbible.R
+import com.schwegelbin.openbible.logic.defaultBook
+import com.schwegelbin.openbible.logic.defaultChapter
 import com.schwegelbin.openbible.logic.deserialize
+import com.schwegelbin.openbible.logic.downloadTranslation
 import com.schwegelbin.openbible.logic.getSelection
+import com.schwegelbin.openbible.logic.getTranslations
+import com.schwegelbin.openbible.logic.saveSelection
 import kotlinx.coroutines.delay
 
 @Composable
@@ -85,6 +97,43 @@ fun WaitForFile(
                 break
             }
             counter++
+        }
+    }
+}
+
+@Composable
+fun TranslationCard(onSelected: () -> Unit) {
+    val context = LocalContext.current
+
+    val translationMap = remember { getTranslations(context) }
+    val translationItems = translationMap?.values?.map {
+        it.abbreviation to it.translation
+    }
+
+    Text(
+        text = stringResource(R.string.download_translation),
+        style = MaterialTheme.typography.titleLarge,
+        modifier = Modifier.fillMaxWidth(),
+        textAlign = TextAlign.Center
+    )
+
+    Card(
+        modifier = Modifier
+            .verticalScroll(rememberScrollState())
+            .fillMaxWidth(),
+        colors = CardDefaults.cardColors(containerColor = Color.Transparent)
+    ) {
+        translationItems?.forEach { (abbreviation, translation) ->
+            TextButton(onClick = {
+                downloadTranslation(context, abbreviation)
+                saveSelection(
+                    context,
+                    translation = abbreviation,
+                    book = defaultBook,
+                    chapter = defaultChapter
+                )
+                onSelected()
+            }) { Text("$abbreviation | $translation") }
         }
     }
 }

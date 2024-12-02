@@ -136,9 +136,8 @@ fun saveNewIndex(context: Context) {
 
 fun updateTranslations(context: Context) {
     cleanUpTranslations(context)
-    val translationList = getList(context, "Checksums")
-    translationList.forEach { abbreviation ->
-        val abbrev = abbreviation.name
+    val translationList = getList(context, "Checksums").map { it.name }
+    translationList.forEach { abbrev ->
         if (checkUpdate(context, abbrev)) downloadTranslation(context, abbrev)
     }
 }

@@ -6,23 +6,18 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
@@ -31,24 +26,17 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Dialog
 import com.schwegelbin.openbible.R
 import com.schwegelbin.openbible.logic.SelectMode
-import com.schwegelbin.openbible.logic.defaultBook
-import com.schwegelbin.openbible.logic.defaultChapter
-import com.schwegelbin.openbible.logic.downloadTranslation
 import com.schwegelbin.openbible.logic.getBookNames
 import com.schwegelbin.openbible.logic.getCount
 import com.schwegelbin.openbible.logic.getList
 import com.schwegelbin.openbible.logic.getSelection
 import com.schwegelbin.openbible.logic.getTranslations
 import com.schwegelbin.openbible.logic.saveSelection
-import java.io.File
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -111,7 +99,8 @@ fun Selection(onNavigateToRead: () -> Unit) {
     ) {
         when (selectMode.value) {
             SelectMode.Translation -> {
-                val translationList = getList(context, "Translations").map { it.nameWithoutExtension }
+                val translationList =
+                    getList(context, "Translations").map { it.nameWithoutExtension }
                 val translationMap = getTranslations(context)
 
                 translationList.forEach { abbrev ->
@@ -216,94 +205,6 @@ fun Selection(onNavigateToRead: () -> Unit) {
                     }
                 }
             }
-        }
-    }
-}
-
-@Composable
-fun TranslationButton() {
-    val context = LocalContext.current
-    var showDialog = remember { mutableStateOf(false) }
-    val indexPath = "${context.getExternalFilesDir("Index")}/translations.json"
-
-    OutlinedButton(onClick = {
-        if (File(indexPath).exists()) showDialog.value = true
-    }) { Text(text = stringResource(R.string.download_translation)) }
-
-    if (showDialog.value) {
-        val translationMap = remember { getTranslations(context) }
-        val translationItems = translationMap?.values?.map {
-            it.abbreviation to it.translation
-        }
-
-        Dialog(onDismissRequest = { showDialog.value = false }) {
-            Surface(shape = RoundedCornerShape(size = 40.dp)) {
-                Column(
-                    modifier = Modifier.padding(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(10.dp)
-                ) {
-                    Text(
-                        text = stringResource(R.string.download_translation),
-                        style = MaterialTheme.typography.titleLarge,
-                        modifier = Modifier.fillMaxWidth(),
-                        textAlign = TextAlign.Center
-                    )
-
-                    Card(
-                        modifier = Modifier.verticalScroll(rememberScrollState()),
-                        colors = CardDefaults.cardColors(containerColor = Color.Transparent)
-                    ) {
-                        translationItems?.forEach { (abbreviation, translation) ->
-                            TextButton(onClick = {
-                                downloadTranslation(context, abbreviation)
-                                showDialog.value = false
-                            }) {
-                                Text(
-                                    text = "$abbreviation | $translation",
-                                    modifier = Modifier.fillMaxWidth()
-                                )
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun TranslationCard(onSelected: () -> Unit) {
-    val context = LocalContext.current
-
-    val translationMap = remember { getTranslations(context) }
-    val translationItems = translationMap?.values?.map {
-        it.abbreviation to it.translation
-    }
-
-    Text(
-        text = stringResource(R.string.download_translation),
-        style = MaterialTheme.typography.titleLarge,
-        modifier = Modifier.fillMaxWidth(),
-        textAlign = TextAlign.Center
-    )
-
-    Card(
-        modifier = Modifier
-            .verticalScroll(rememberScrollState())
-            .fillMaxWidth(),
-        colors = CardDefaults.cardColors(containerColor = Color.Transparent)
-    ) {
-        translationItems?.forEach { (abbreviation, translation) ->
-            TextButton(onClick = {
-                downloadTranslation(context, abbreviation)
-                saveSelection(
-                    context,
-                    translation = abbreviation,
-                    book = defaultBook,
-                    chapter = defaultChapter
-                )
-                onSelected()
-            }) { Text("$abbreviation | $translation") }
         }
     }
 }
