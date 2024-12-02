@@ -24,8 +24,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.schwegelbin.openbible.R
-import com.schwegelbin.openbible.logic.defaultBook
-import com.schwegelbin.openbible.logic.defaultChapter
 import com.schwegelbin.openbible.logic.deserialize
 import com.schwegelbin.openbible.logic.downloadTranslation
 import com.schwegelbin.openbible.logic.getSelection
@@ -126,12 +124,7 @@ fun TranslationCard(onSelected: () -> Unit) {
         translationItems?.forEach { (abbreviation, translation) ->
             TextButton(onClick = {
                 downloadTranslation(context, abbreviation)
-                saveSelection(
-                    context,
-                    translation = abbreviation,
-                    book = defaultBook,
-                    chapter = defaultChapter
-                )
+                saveSelection(context, abbreviation)
                 onSelected()
             }) { Text("$abbreviation | $translation") }
         }

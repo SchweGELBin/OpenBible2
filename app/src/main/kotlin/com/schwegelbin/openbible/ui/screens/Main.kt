@@ -36,7 +36,8 @@ fun App(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
         composable<Read> {
             ReadScreen(
                 onNavigateToSelection = { navController.navigate(Selection) },
-                onNavigateToSettings = { navController.navigate(Settings) }
+                onNavigateToSettings = { navController.navigate(Settings) },
+                onNavigateToStart = { navController.navigate(Start) }
             )
         }
         composable<Selection> { SelectionScreen(onNavigateToRead = { navController.navigate(Read) }) }

@@ -29,6 +29,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.schwegelbin.openbible.R
 import com.schwegelbin.openbible.logic.ReadTextAlignment
+import com.schwegelbin.openbible.logic.checkTranslation
 import com.schwegelbin.openbible.logic.getAppName
 import com.schwegelbin.openbible.logic.getChapter
 import com.schwegelbin.openbible.logic.getSelection
@@ -37,18 +38,30 @@ import com.schwegelbin.openbible.logic.getTextAlignment
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ReadScreen(onNavigateToSelection: () -> Unit, onNavigateToSettings: () -> Unit) {
+fun ReadScreen(
+    onNavigateToSelection: () -> Unit,
+    onNavigateToSettings: () -> Unit,
+    onNavigateToStart: () -> Unit
+) {
     val context = LocalContext.current
     val selection = remember { mutableStateOf(getSelection(context)) }
-    val (translation, book, chapter) = selection.value
+    val (abbrev, book, chapter) = selection.value
+    val translation = checkTranslation(context, abbrev, onNavigateToStart)
     val showVerseNumbers = remember { mutableStateOf(getShowVerseNumbers(context)) }
-    val (title, text) = getChapter(context, translation, book, chapter, showVerseNumbers.value)
     val textAlignment = getTextAlignment(context)
     val appTitle = getAppName(
         stringResource(R.string.app_name),
         MaterialTheme.colorScheme.primary,
         MaterialTheme.colorScheme.secondary,
         MaterialTheme.colorScheme.tertiary
+    )
+    val (title, text) = getChapter(
+        context,
+        translation,
+        book,
+        chapter,
+        showVerseNumbers.value,
+        stringResource(R.string.error)
     )
 
     Scaffold(topBar = {

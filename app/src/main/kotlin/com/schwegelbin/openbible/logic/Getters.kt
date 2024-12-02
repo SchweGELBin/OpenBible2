@@ -53,12 +53,13 @@ fun getChapter(
     abbrev: String,
     book: Int,
     chapter: Int,
-    showVerseNumbers: Boolean
+    showVerseNumbers: Boolean,
+    error: String
 ): Pair<String, String> {
     val dir = context.getExternalFilesDir("Translations")
     val path = "${dir}/${abbrev}.json"
     val bible = deserializeBible(path)
-    if (bible == null) return Pair("ERROR", "Please try again\nCheck your internet connection")
+    if (bible == null) return Pair(error, "")
     val translation = bible.translation
     val title = bible.books[book].chapters[chapter].name
     var text = ""

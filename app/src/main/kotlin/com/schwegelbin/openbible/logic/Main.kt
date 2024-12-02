@@ -88,15 +88,15 @@ fun downloadFile(
 
 fun saveSelection(
     context: Context,
-    translation: String,
-    book: Int,
-    chapter: Int
+    translation: String? = null,
+    book: Int? = null,
+    chapter: Int? = null
 ) {
     val sharedPref = context.getSharedPreferences("selection", Context.MODE_PRIVATE)
     val editor = sharedPref.edit()
-    editor.putString("translation", translation)
-    editor.putInt("book", book)
-    editor.putInt("chapter", chapter)
+    if (translation != null) editor.putString("translation", translation)
+    if (book != null) editor.putInt("book", book)
+    if (chapter != null) editor.putInt("chapter", chapter)
     editor.apply()
 }
 
@@ -151,4 +151,17 @@ fun cleanUpTranslations(context: Context) {
     translations.forEach { abbrev ->
         if (abbrev !in checksums) File("${context.getExternalFilesDir("Translations")}/${abbrev}.json").delete()
     }
+}
+
+fun checkTranslation(context: Context, abbrev: String, onNavigateToStart: () -> Unit): String {
+    val dir = context.getExternalFilesDir("Translations")
+    if (!File("${dir}/${abbrev}.json").exists()) {
+        val list = getList(context, "Translations").map { it.nameWithoutExtension }
+        if (list.isNotEmpty()) {
+            val newTranslation = list.first()
+            if (list.isNotEmpty()) saveSelection(context, newTranslation)
+            return newTranslation
+        } else onNavigateToStart()
+    }
+    return abbrev
 }
