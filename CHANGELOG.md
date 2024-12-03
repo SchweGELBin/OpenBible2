@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.0] - 2024-12-03
+
+### 🚀 Features
+
+- Add split screen
+
+### 🐛 Bug Fixes
+
+- Improved padding
+
+### 🎨 Styling
+
+- Reformat
+- Reformat
+
+### ⚙️ Miscellaneous Tasks
+
+- Remove redundant if statement
+
 ## [1.1.0] - 2024-12-02
 
 ### 🚀 Features
@@ -28,6 +47,7 @@ All notable changes to this project will be documented in this file.
 
 - Remove unused function
 - Remove redundant if statement
+- Bump to 1.1.0
 
 ## [1.0.0] - 2024-12-01
 
