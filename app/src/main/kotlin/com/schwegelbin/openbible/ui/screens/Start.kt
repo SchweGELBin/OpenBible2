@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -59,6 +58,7 @@ fun StartScreen(onNavigateToRead: () -> Unit) {
             }
 
             2 -> {
+                Spacer(Modifier.fillMaxHeight(0.4f))
                 Text(
                     text = stringResource(R.string.downloading_translation),
                     modifier = Modifier.align(Alignment.CenterHorizontally)
