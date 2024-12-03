@@ -2,6 +2,9 @@ package com.schwegelbin.openbible.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -36,12 +39,13 @@ fun StartScreen(onNavigateToRead: () -> Unit) {
     val context = LocalContext.current
     Column(
         modifier = Modifier
-            .padding(horizontal = 20.dp, vertical = 160.dp),
+            .padding(horizontal = 20.dp, vertical = 80.dp),
         verticalArrangement = Arrangement.spacedBy(15.dp)
     ) {
         val state = remember { mutableIntStateOf(0) }
         when (state.intValue) {
             0 -> {
+                Spacer(Modifier.fillMaxHeight(0.4f))
                 Text(
                     text = stringResource(R.string.downloading_index),
                     modifier = Modifier.align(Alignment.CenterHorizontally)

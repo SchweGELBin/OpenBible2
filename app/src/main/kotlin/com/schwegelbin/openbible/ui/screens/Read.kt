@@ -69,10 +69,9 @@ fun ReadScreen(
             modifier = Modifier
                 .padding(innerPadding)
                 .padding(start = 8.dp, end = 8.dp, bottom = 12.dp)
-                .fillMaxSize(),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+                .fillMaxSize()
         ) {
-            Row {
+            Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                 ReadCard(onNavigateToSelection, onNavigateToStart, false)
                 if (getSplitScreen(LocalContext.current))
                     ReadCard(onNavigateToSelection, onNavigateToStart, true)
@@ -103,7 +102,7 @@ fun ReadCard(
     )
     var mod = Modifier.fillMaxWidth()
     if (!isSplitScreen && getSplitScreen(LocalContext.current)) mod = Modifier.fillMaxWidth(0.5f)
-    Column(mod) {
+    Column(mod, verticalArrangement = Arrangement.spacedBy(12.dp)) {
         ElevatedCard(
             elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
             modifier = Modifier.fillMaxWidth(),
