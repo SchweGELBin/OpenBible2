@@ -90,13 +90,20 @@ fun saveSelection(
     context: Context,
     translation: String? = null,
     book: Int? = null,
-    chapter: Int? = null
+    chapter: Int? = null,
+    isSplitScreen: Boolean
 ) {
     val sharedPref = context.getSharedPreferences("selection", Context.MODE_PRIVATE)
     val editor = sharedPref.edit()
-    if (translation != null) editor.putString("translation", translation)
-    if (book != null) editor.putInt("book", book)
-    if (chapter != null) editor.putInt("chapter", chapter)
+    if (!isSplitScreen) {
+        if (translation != null) editor.putString("translation", translation)
+        if (book != null) editor.putInt("book", book)
+        if (chapter != null) editor.putInt("chapter", chapter)
+    } else {
+        if (translation != null) editor.putString("translation_split", translation)
+        if (book != null) editor.putInt("book_split", book)
+        if (chapter != null) editor.putInt("chapter_split", chapter)
+    }
     editor.apply()
 }
 
@@ -123,6 +130,13 @@ fun saveShowVerseNumbers(context: Context, shown: Boolean) {
     val sharedPref = context.getSharedPreferences("options", Context.MODE_PRIVATE)
     val editor = sharedPref.edit()
     editor.putBoolean("showVerseNumbers", shown)
+    editor.apply()
+}
+
+fun saveSplitScreen(context: Context, enabled: Boolean) {
+    val sharedPref = context.getSharedPreferences("options", Context.MODE_PRIVATE)
+    val editor = sharedPref.edit()
+    editor.putBoolean("splitScreen", enabled)
     editor.apply()
 }
 
@@ -153,13 +167,13 @@ fun cleanUpTranslations(context: Context) {
     }
 }
 
-fun checkTranslation(context: Context, abbrev: String, onNavigateToStart: () -> Unit): String {
+fun checkTranslation(context: Context, abbrev: String, onNavigateToStart: () -> Unit, isSplitScreen: Boolean): String {
     val dir = context.getExternalFilesDir("Translations")
     if (!File("${dir}/${abbrev}.json").exists()) {
         val list = getList(context, "Translations").map { it.nameWithoutExtension }
         if (list.isNotEmpty()) {
             val newTranslation = list.first()
-            saveSelection(context, newTranslation)
+            saveSelection(context, newTranslation, isSplitScreen = isSplitScreen)
             return newTranslation
         } else onNavigateToStart()
     }

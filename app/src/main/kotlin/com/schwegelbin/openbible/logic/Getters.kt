@@ -113,11 +113,26 @@ fun getShowVerseNumbers(context: Context): Boolean {
     return shown
 }
 
-fun getSelection(context: Context): Triple<String, Int, Int> {
+fun getSplitScreen(context: Context): Boolean {
+    val sharedPref = context.getSharedPreferences("options", Context.MODE_PRIVATE)
+    val enabled = sharedPref.getBoolean("splitScreen", false)
+    return enabled
+}
+
+fun getSelection(context: Context, isSplitScreen: Boolean): Triple<String, Int, Int> {
     val sharedPref = context.getSharedPreferences("selection", Context.MODE_PRIVATE)
-    var translation = sharedPref.getString("translation", defaultTranslation).toString()
-    val book = sharedPref.getInt("book", defaultBook)
-    val chapter = sharedPref.getInt("chapter", defaultChapter)
+    var translation = defaultTranslation
+    var book = defaultBook
+    var chapter = defaultChapter
+    if (!isSplitScreen) {
+        translation = sharedPref.getString("translation", defaultTranslation).toString()
+        book = sharedPref.getInt("book", defaultBook)
+        chapter = sharedPref.getInt("chapter", defaultChapter)
+    } else {
+        translation = sharedPref.getString("translation_split", defaultTranslation).toString()
+        book = sharedPref.getInt("book_split", defaultBook)
+        chapter = sharedPref.getInt("chapter_split", defaultChapter)
+    }
 
     return Triple(translation, book, chapter)
 }

@@ -59,7 +59,7 @@ fun StartScreen(onNavigateToRead: () -> Unit) {
                     text = stringResource(R.string.downloading_translation),
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
-                val (translation, _, _) = getSelection(context)
+                val (translation, _, _) = getSelection(context, false)
                 val path = context.getExternalFilesDir("Translations")
                 Loading(onLoaded = { onNavigateToRead() }, file = "${path}/${translation}.json")
             }
@@ -124,7 +124,8 @@ fun TranslationCard(onSelected: () -> Unit) {
         translationItems?.forEach { (abbreviation, translation) ->
             TextButton(onClick = {
                 downloadTranslation(context, abbreviation)
-                saveSelection(context, abbreviation)
+                saveSelection(context, abbreviation, isSplitScreen = false)
+                saveSelection(context, abbreviation, isSplitScreen = true)
                 onSelected()
             }) { Text("$abbreviation | $translation") }
         }

@@ -28,6 +28,7 @@
     <string name="settings">Einstellungen</string>
     <string name="show_verse_number">Zeige Versnummer</string>
     <string name="source_repo">GitHub</string>
+    <string name="split_screen">Geteilter Bildschirm</string>
     <string name="theme_amoled">Amoled</string>
     <string name="theme_dark">Dunkel</string>
     <string name="theme_light">Hell</string>

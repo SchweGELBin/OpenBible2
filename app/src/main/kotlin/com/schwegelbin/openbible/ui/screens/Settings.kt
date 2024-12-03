@@ -50,12 +50,14 @@ import com.schwegelbin.openbible.logic.getColorSchemeInt
 import com.schwegelbin.openbible.logic.getList
 import com.schwegelbin.openbible.logic.getMainThemeOptions
 import com.schwegelbin.openbible.logic.getShowVerseNumbers
+import com.schwegelbin.openbible.logic.getSplitScreen
 import com.schwegelbin.openbible.logic.getTextAlignmentInt
 import com.schwegelbin.openbible.logic.getTranslations
 import com.schwegelbin.openbible.logic.saveChecksum
 import com.schwegelbin.openbible.logic.saveColorScheme
 import com.schwegelbin.openbible.logic.saveIndex
 import com.schwegelbin.openbible.logic.saveShowVerseNumbers
+import com.schwegelbin.openbible.logic.saveSplitScreen
 import com.schwegelbin.openbible.logic.saveTextStyle
 import com.schwegelbin.openbible.logic.updateTranslations
 import java.io.File
@@ -117,6 +119,18 @@ fun SettingsScreen(
                 Checkbox(checked = isChecked.value, onCheckedChange = {
                     isChecked.value = it
                     saveShowVerseNumbers(context, isChecked.value)
+                })
+            }
+            Row {
+                Text(
+                    stringResource(R.string.split_screen),
+                    style = styleMedium,
+                    modifier = Modifier.padding(top = 15.dp)
+                )
+                val isChecked = remember { mutableStateOf(getSplitScreen(context)) }
+                Checkbox(checked = isChecked.value, onCheckedChange = {
+                    isChecked.value = it
+                    saveSplitScreen(context, isChecked.value)
                 })
             }
 

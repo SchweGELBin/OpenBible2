@@ -6,6 +6,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.schwegelbin.openbible.logic.getFirstLaunch
 import com.schwegelbin.openbible.logic.saveNewIndex
 import kotlinx.serialization.Serializable
@@ -14,7 +15,7 @@ import kotlinx.serialization.Serializable
 object Read
 
 @Serializable
-object Selection
+data class Selection(val isSplitScreen: Boolean)
 
 @Serializable
 object Settings
@@ -35,12 +36,16 @@ fun App(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
     NavHost(navController, startDestination = startDestination) {
         composable<Read> {
             ReadScreen(
-                onNavigateToSelection = { navController.navigate(Selection) },
+                onNavigateToSelection = { isSplitScreen ->
+                    navController.navigate(Selection(isSplitScreen)) },
                 onNavigateToSettings = { navController.navigate(Settings) },
                 onNavigateToStart = { navController.navigate(Start) }
             )
         }
-        composable<Selection> { SelectionScreen(onNavigateToRead = { navController.navigate(Read) }) }
+        composable<Selection> { backStackEntry ->
+            val selection = backStackEntry.toRoute<Selection>()
+            SelectionScreen(onNavigateToRead = { navController.navigate(Read) }, selection.isSplitScreen)
+        }
         composable<Settings> {
             SettingsScreen(
                 onNavigateToRead = { navController.navigate(Read) },

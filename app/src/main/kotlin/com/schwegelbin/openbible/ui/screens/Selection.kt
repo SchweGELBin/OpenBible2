@@ -40,7 +40,7 @@ import com.schwegelbin.openbible.logic.saveSelection
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SelectionScreen(onNavigateToRead: () -> Unit) {
+fun SelectionScreen(onNavigateToRead: () -> Unit, isSplitScreen: Boolean = false) {
     Scaffold(topBar = {
         TopAppBar(title = { Text(stringResource(R.string.selection)) }, navigationIcon = {
             IconButton(onClick = { onNavigateToRead() }) {
@@ -57,15 +57,15 @@ fun SelectionScreen(onNavigateToRead: () -> Unit) {
                 .padding(start = 20.dp, end = 20.dp, bottom = 20.dp),
             verticalArrangement = Arrangement.spacedBy(15.dp)
         ) {
-            Selection(onNavigateToRead)
+            Selection(onNavigateToRead, isSplitScreen)
         }
     }
 }
 
 @Composable
-fun Selection(onNavigateToRead: () -> Unit) {
+fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean) {
     val context = LocalContext.current
-    val selection = getSelection(context)
+    val selection = getSelection(context, isSplitScreen)
     var translation = remember { mutableStateOf(selection.first) }
     var book = remember { mutableIntStateOf(selection.second) }
     var chapter = remember { mutableIntStateOf(selection.third) }
@@ -126,7 +126,8 @@ fun Selection(onNavigateToRead: () -> Unit) {
                             context,
                             translation.value,
                             book.intValue,
-                            chapter.intValue
+                            chapter.intValue,
+                            isSplitScreen
                         )
                     }) {
                         Text(
@@ -169,7 +170,8 @@ fun Selection(onNavigateToRead: () -> Unit) {
                                         context,
                                         translation.value,
                                         book.intValue,
-                                        chapter.intValue
+                                        chapter.intValue,
+                                        isSplitScreen
                                     )
                                 }) { Text((name)) }
                             }
@@ -196,7 +198,8 @@ fun Selection(onNavigateToRead: () -> Unit) {
                                         context,
                                         translation.value,
                                         book.intValue,
-                                        chapter.intValue
+                                        chapter.intValue,
+                                        isSplitScreen
                                     )
                                     onNavigateToRead()
                                 }) { Text((name)) }
