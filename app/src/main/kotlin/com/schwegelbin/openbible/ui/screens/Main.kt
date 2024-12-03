@@ -37,14 +37,18 @@ fun App(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
         composable<Read> {
             ReadScreen(
                 onNavigateToSelection = { isSplitScreen ->
-                    navController.navigate(Selection(isSplitScreen)) },
+                    navController.navigate(Selection(isSplitScreen))
+                },
                 onNavigateToSettings = { navController.navigate(Settings) },
                 onNavigateToStart = { navController.navigate(Start) }
             )
         }
         composable<Selection> { backStackEntry ->
             val selection = backStackEntry.toRoute<Selection>()
-            SelectionScreen(onNavigateToRead = { navController.navigate(Read) }, selection.isSplitScreen)
+            SelectionScreen(
+                onNavigateToRead = { navController.navigate(Read) },
+                selection.isSplitScreen
+            )
         }
         composable<Settings> {
             SettingsScreen(

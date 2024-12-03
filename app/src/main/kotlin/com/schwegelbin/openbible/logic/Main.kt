@@ -167,7 +167,12 @@ fun cleanUpTranslations(context: Context) {
     }
 }
 
-fun checkTranslation(context: Context, abbrev: String, onNavigateToStart: () -> Unit, isSplitScreen: Boolean): String {
+fun checkTranslation(
+    context: Context,
+    abbrev: String,
+    onNavigateToStart: () -> Unit,
+    isSplitScreen: Boolean
+): String {
     val dir = context.getExternalFilesDir("Translations")
     if (!File("${dir}/${abbrev}.json").exists()) {
         val list = getList(context, "Translations").map { it.nameWithoutExtension }
