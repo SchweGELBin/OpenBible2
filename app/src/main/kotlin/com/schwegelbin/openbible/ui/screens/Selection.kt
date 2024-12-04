@@ -37,6 +37,7 @@ import com.schwegelbin.openbible.logic.getList
 import com.schwegelbin.openbible.logic.getSelection
 import com.schwegelbin.openbible.logic.getTranslations
 import com.schwegelbin.openbible.logic.saveSelection
+import com.schwegelbin.openbible.logic.shorten
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -152,8 +153,7 @@ fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean) {
                         for (j in 0..buttonsPerRow - 1) {
                             if (i + j <= num) {
                                 var name = names[i + j].toString()
-                                if (name.length > length) name =
-                                    name.substring(0, length - 1).trim() + "."
+                                name = shorten(name, length)
                                 while (name.length < length) name += " "
                                 TextButton(onClick = {
                                     book.intValue = i + j

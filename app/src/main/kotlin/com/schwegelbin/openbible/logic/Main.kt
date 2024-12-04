@@ -184,3 +184,9 @@ fun checkTranslation(
     }
     return abbrev
 }
+
+fun shorten(str: String, max: Int): String {
+    return if (max >= 2 && str.length > max)
+        str.substring(0, max - 1).trim() + '.'
+    else str
+}

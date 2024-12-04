@@ -2,6 +2,7 @@ package com.schwegelbin.openbible.ui.screens
 
 import android.content.Intent
 import android.net.Uri
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -83,14 +84,14 @@ fun SettingsScreen(
             modifier = Modifier
                 .padding(innerPadding)
                 .padding(horizontal = 20.dp)
-                .verticalScroll(state = rememberScrollState(), enabled = true)
+                .verticalScroll(state = rememberScrollState())
         ) {
             val styleLarge = MaterialTheme.typography.titleLarge
             val modLarge = Modifier.padding(bottom = 12.dp)
             val styleMedium = MaterialTheme.typography.titleMedium
             Text(stringResource(R.string.translation), style = styleLarge, modifier = modLarge)
             Row(
-                Modifier.fillMaxWidth(),
+                Modifier.fillMaxWidth().horizontalScroll(state = rememberScrollState()),
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 UpdateTranslationsButton()
