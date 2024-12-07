@@ -1,0 +1,1 @@
+Fix too long words in german translation

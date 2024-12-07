@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.1] - 2024-12-07
+
+### 🐛 Bug Fixes
+
+- Handle long strings
+
+### ⚙️ Miscellaneous Tasks
+
+- Update dependencies
+
 ## [1.2.0] - 2024-12-03
 
 ### 🚀 Features
@@ -20,6 +30,7 @@ All notable changes to this project will be documented in this file.
 ### ⚙️ Miscellaneous Tasks
 
 - Remove redundant if statement
+- Bump to 1.2.0
 
 ## [1.1.0] - 2024-12-02
 
