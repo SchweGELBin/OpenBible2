@@ -92,7 +92,9 @@ fun SettingsScreen(
             val styleMedium = MaterialTheme.typography.titleMedium
             Text(stringResource(R.string.translation), style = styleLarge, modifier = modLarge)
             Row(
-                Modifier.fillMaxWidth().horizontalScroll(state = rememberScrollState()),
+                Modifier
+                    .fillMaxWidth()
+                    .horizontalScroll(state = rememberScrollState()),
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 UpdateTranslationsButton()
