@@ -1,0 +1,1 @@
+Only show options that are supported by the device

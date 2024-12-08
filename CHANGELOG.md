@@ -2,15 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.2.1] - 2024-12-07
+## [1.2.1] - 2024-12-08
 
 ### 🐛 Bug Fixes
 
 - Handle long strings
+- Hide unsupported options
+
+### 📚 Documentation
+
+- *(metadata)* Typo in changelog
+
+### 🎨 Styling
+
+- Reformat
 
 ### ⚙️ Miscellaneous Tasks
 
 - Update dependencies
+- Bump to 1.2.1
 
 ## [1.2.0] - 2024-12-03
 
