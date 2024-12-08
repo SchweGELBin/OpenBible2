@@ -2,6 +2,7 @@ package com.schwegelbin.openbible.ui.screens
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -103,8 +104,10 @@ fun SettingsScreen(
             Text(stringResource(R.string.colors), style = styleLarge, modifier = modLarge)
             Text(stringResource(R.string.color_theme), style = styleMedium)
             ThemeButton(onThemeChange)
-            Text(stringResource(R.string.color_scheme), style = styleMedium)
-            SchemeButton(onThemeChange)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                Text(stringResource(R.string.color_scheme), style = styleMedium)
+                SchemeButton(onThemeChange)
+            }
 
             HorizontalDivider(Modifier.padding(12.dp))
             Text(stringResource(R.string.bible_text), style = styleLarge, modifier = modLarge)
