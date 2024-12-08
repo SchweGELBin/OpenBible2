@@ -2,11 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.2.1] - 2024-12-08
+## [1.2.2] - 2024-12-08
 
 ### 🐛 Bug Fixes
 
-- Handle long strings
 - Hide unsupported options
 
 ### 📚 Documentation
@@ -16,6 +15,16 @@ All notable changes to this project will be documented in this file.
 ### 🎨 Styling
 
 - Reformat
+
+### ⚙️ Miscellaneous Tasks
+
+- Bump to 1.2.2
+
+## [1.2.1] - 2024-12-07
+
+### 🐛 Bug Fixes
+
+- Handle long strings
 
 ### ⚙️ Miscellaneous Tasks
 
