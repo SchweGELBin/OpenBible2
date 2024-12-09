@@ -21,5 +21,5 @@ It is written in [Jetpack Compose](https://developer.android.com/compose) and us
 It downloads and works with json files, provided by the [GETBIBLE API](https://getbible.net/docs) and the [CrossWire SWORD](https://www.crosswire.org/sword) project.
 
 ## Screenshots
-| ![](./fastlane/metadata/android/en-US/images/phoneScreenshots/01.png) | ![](./fastlane/metadata/android/en-US/images/phoneScreenshots/02.png) | ![](./fastlane/metadata/android/en-US/images/phoneScreenshots/03.png) |
+| ![](./metadata/en-US/images/phoneScreenshots/1.png) | ![](./metadata/en-US/images/phoneScreenshots/2.png) | ![](./metadata/en-US/images/phoneScreenshots/3.png) |
 |-----------------------------------------------------------------------|-----------------------------------------------------------------------|-----------------------------------------------------------------------|

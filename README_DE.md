@@ -21,5 +21,5 @@ Die App ist in [Jetpack Compose](https://developer.android.com/compose) geschrie
 Sie lädt json Dateien, welche von der [GETBIBLE API](https://getbible.net/docs) und dem [SWORD Projekt](https://www.crosswire.org/sword) von Crosswire zur Verfügung gestellt werden, herunter und arbeitet mit diesen.
 
 ## Blidschirmfotos
-| ![](./fastlane/metadata/android/en-US/images/phoneScreenshots/01.png) | ![](./fastlane/metadata/android/en-US/images/phoneScreenshots/02.png) | ![](./fastlane/metadata/android/en-US/images/phoneScreenshots/03.png) |
+| ![](./metadata/en-US/images/phoneScreenshots/1.png) | ![](./metadata/en-US/images/phoneScreenshots/2.png) | ![](./metadata/en-US/images/phoneScreenshots/3.png) |
 |-----------------------------------------------------------------------|-----------------------------------------------------------------------|-----------------------------------------------------------------------|
