@@ -1,0 +1,2 @@
+Update translations at startup
+Link getBible in Settings

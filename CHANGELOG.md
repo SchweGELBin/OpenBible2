@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.0] - 2024-12-11
+
+### 🚀 Features
+
+- Reference getBible in settings
+- Update translations at startup
+
+### 📚 Documentation
+
+- Reference getBible
+
+### 🎨 Styling
+
+- Reformat
+- Reformat
+
+### ⚙️ Miscellaneous Tasks
+
+- Restructure metadata
+- Update dependencies
+
 ## [1.2.2] - 2024-12-08
 
 ### 🐛 Bug Fixes
@@ -18,6 +39,7 @@ All notable changes to this project will be documented in this file.
 
 ### ⚙️ Miscellaneous Tasks
 
+- Bump to 1.2.2
 - Bump to 1.2.2
 
 ## [1.2.1] - 2024-12-07

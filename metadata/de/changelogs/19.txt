@@ -1,0 +1,2 @@
+Aktualisiere Uebersetzungen beim Start
+Verlinke getBible in den Einstellungen
