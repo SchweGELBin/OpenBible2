@@ -18,7 +18,7 @@ OpenBible provides the Bible as a simple Android App
 
 ## How does it work?
 It is written in [Jetpack Compose](https://developer.android.com/compose) and uses [Material You](https://m3.material.io) as its Design.
-It downloads and works with json files, provided by the [GETBIBLE API](https://getbible.net/docs) and the [CrossWire SWORD](https://www.crosswire.org/sword) project.
+Scripture data provided by [getBible](https://getbible.net/docs), a recognized [front end](https://wiki.crosswire.org/Frontends:getBible) for Crosswire’s SWORD modules.
 
 ## Screenshots
 | ![](./metadata/en-US/images/phoneScreenshots/1.png) | ![](./metadata/en-US/images/phoneScreenshots/2.png) | ![](./metadata/en-US/images/phoneScreenshots/3.png) |
