@@ -47,14 +47,8 @@ fun StartScreen(onNavigateToRead: () -> Unit) {
         verticalArrangement = Arrangement.spacedBy(15.dp)
     ) {
         val state = remember { mutableIntStateOf(0) }
-        if (state.intValue == 0 && getCheckAtStartup(context) && File(
-                "${
-                    context.getExternalFilesDir(
-                        "Index"
-                    )
-                }/translations.json"
-            ).exists()
-        )
+        val path = context.getExternalFilesDir("Index")
+        if (state.intValue == 0 && getCheckAtStartup(context) && File("${path}/translations.json").exists())
             state.intValue = 4
         when (state.intValue) {
             0 -> {
