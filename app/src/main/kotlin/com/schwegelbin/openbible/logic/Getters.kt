@@ -113,6 +113,12 @@ fun getShowVerseNumbers(context: Context): Boolean {
     return shown
 }
 
+fun getCheckAtStartup(context: Context): Boolean {
+    val sharedPref = context.getSharedPreferences("options", Context.MODE_PRIVATE)
+    val check = sharedPref.getBoolean("checkAtStartup", true)
+    return check
+}
+
 fun getSplitScreen(context: Context): Boolean {
     val sharedPref = context.getSharedPreferences("options", Context.MODE_PRIVATE)
     val enabled = sharedPref.getBoolean("splitScreen", false)

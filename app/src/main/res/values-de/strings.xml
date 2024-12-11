@@ -7,10 +7,12 @@
     <string name="bible_text">Bible Text</string>
     <string name="book">Buch</string>
     <string name="chapter">Kapitel</string>
+    <string name="check_at_startup">Aktualisiere beim Start</string>
     <string name="close">Schließen</string>
     <string name="colors">Farben</string>
     <string name="color_scheme">Farbschema</string>
     <string name="color_theme">Farbthema</string>
+    <string name="continue_button">Fortfahren</string>
     <string name="delete">Löschen</string>
     <string name="delete_translation">Übersetzung löschen</string>
     <string name="download">Herunterladen</string>
@@ -19,6 +21,8 @@
     <string name="downloading_translation">Lädt Übersetzung herunter, bitte warten Sie…</string>
     <string name="error">ERROR</string>
     <string name="index">Index</string>
+    <string name="needs_files">Diese Applikation benötigt einen Index, Checksums and Übersetzungen um zu funktionieren und muss diese herunterladen.</string>
+    <string name="new_files">Aktualisierungen für Übersetzungen gefunden. Wollen Sie diese installieren?</string>
     <string name="next">Weiter</string>
     <string name="scheme_dynamic">Dynamisch</string>
     <string name="scheme_static">Statisch</string>
@@ -27,6 +31,7 @@
     <string name="selection">Auswahl</string>
     <string name="settings">Einstellungen</string>
     <string name="show_verse_number">Zeige Versnummer</string>
+    <string name="skip">Überspringen</string>
     <string name="source_getbible">getBible</string>
     <string name="source_repo">GitHub</string>
     <string name="split_screen">Geteilter Bildschirm</string>
@@ -35,5 +40,4 @@
     <string name="theme_light">Hell</string>
     <string name="theme_system">System</string>
     <string name="translation">Übersetzung</string>
-    <string name="update">Aktualisieren</string>
 </resources>

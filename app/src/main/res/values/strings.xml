@@ -7,10 +7,12 @@
     <string name="bible_text">Bible Text</string>
     <string name="book">Book</string>
     <string name="chapter">Chapter</string>
+    <string name="check_at_startup">Update at startup</string>
     <string name="close">Close</string>
     <string name="colors">Colors</string>
     <string name="color_scheme">Color Scheme</string>
     <string name="color_theme">Color Theme</string>
+    <string name="continue_button">Continue</string>
     <string name="delete">Delete</string>
     <string name="delete_translation">Delete Translation</string>
     <string name="download">Download</string>
@@ -19,6 +21,8 @@
     <string name="downloading_translation">Downloading Translation, please wait…</string>
     <string name="error">ERROR</string>
     <string name="index">Index</string>
+    <string name="needs_files">This application needs to download an index, checksums and translations to work.</string>
+    <string name="new_files">Updates for translations found. Do you want to install them?</string>
     <string name="next">Next</string>
     <string name="scheme_dynamic">Dynamic</string>
     <string name="scheme_static">Static</string>
@@ -27,6 +31,7 @@
     <string name="selection">Selection</string>
     <string name="settings">Settings</string>
     <string name="show_verse_number">Show Verse Number</string>
+    <string name="skip">Skip</string>
     <string name="source_getbible">getBible</string>
     <string name="source_repo">GitHub</string>
     <string name="split_screen">Split Screen</string>
@@ -35,5 +40,4 @@
     <string name="theme_light">Light</string>
     <string name="theme_system">System</string>
     <string name="translation">Translation</string>
-    <string name="update">Update</string>
 </resources>

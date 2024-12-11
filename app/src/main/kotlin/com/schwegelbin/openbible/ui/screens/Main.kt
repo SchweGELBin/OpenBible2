@@ -7,6 +7,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import com.schwegelbin.openbible.logic.checkForUpdates
+import com.schwegelbin.openbible.logic.getCheckAtStartup
 import com.schwegelbin.openbible.logic.getFirstLaunch
 import com.schwegelbin.openbible.logic.saveNewIndex
 import kotlinx.serialization.Serializable
@@ -28,9 +30,11 @@ object Start
 fun App(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
     val context = LocalContext.current
     saveNewIndex(LocalContext.current)
+    var update = false
+    if (getCheckAtStartup(context)) update = checkForUpdates(context, false)
 
     var startDestination: Any = Start
-    if (!getFirstLaunch(context)) startDestination = Read
+    if (!getFirstLaunch(context) && !update) startDestination = Read
 
     val navController = rememberNavController()
     NavHost(navController, startDestination = startDestination) {

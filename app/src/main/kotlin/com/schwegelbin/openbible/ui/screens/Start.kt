@@ -2,6 +2,7 @@ package com.schwegelbin.openbible.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,6 +13,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -26,12 +28,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.schwegelbin.openbible.R
+import com.schwegelbin.openbible.logic.checkForUpdates
 import com.schwegelbin.openbible.logic.deserialize
 import com.schwegelbin.openbible.logic.downloadTranslation
+import com.schwegelbin.openbible.logic.getCheckAtStartup
 import com.schwegelbin.openbible.logic.getSelection
 import com.schwegelbin.openbible.logic.getTranslations
 import com.schwegelbin.openbible.logic.saveSelection
 import kotlinx.coroutines.delay
+import java.io.File
 
 @Composable
 fun StartScreen(onNavigateToRead: () -> Unit) {
@@ -42,22 +47,35 @@ fun StartScreen(onNavigateToRead: () -> Unit) {
         verticalArrangement = Arrangement.spacedBy(15.dp)
     ) {
         val state = remember { mutableIntStateOf(0) }
+        if (state.intValue == 0 && getCheckAtStartup(context) && File("${context.getExternalFilesDir("Index")}/translations.json").exists())
+            state.intValue = 4
         when (state.intValue) {
             0 -> {
+                Spacer(Modifier.fillMaxHeight(0.4f))
+                Text(
+                    text = stringResource(R.string.needs_files),
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                )
+                OutlinedButton(onClick = {
+                    state.intValue = 1
+                }) { Text(stringResource(R.string.continue_button)) }
+            }
+
+            1 -> {
                 Spacer(Modifier.fillMaxHeight(0.4f))
                 Text(
                     text = stringResource(R.string.downloading_index),
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
                 val path = context.getExternalFilesDir("Index")
-                Loading(onLoaded = { state.intValue = 1 }, file = "${path}/translations.json")
-            }
-
-            1 -> {
-                TranslationCard(onSelected = { state.intValue = 2 })
+                Loading(onLoaded = { state.intValue = 2 }, file = "${path}/translations.json")
             }
 
             2 -> {
+                TranslationCard(onSelected = { state.intValue = 3 })
+            }
+
+            3 -> {
                 Spacer(Modifier.fillMaxHeight(0.4f))
                 Text(
                     text = stringResource(R.string.downloading_translation),
@@ -66,6 +84,25 @@ fun StartScreen(onNavigateToRead: () -> Unit) {
                 val (translation, _, _) = getSelection(context, false)
                 val path = context.getExternalFilesDir("Translations")
                 Loading(onLoaded = { onNavigateToRead() }, file = "${path}/${translation}.json")
+            }
+
+            4 -> {
+                Spacer(Modifier.fillMaxHeight(0.4f))
+                Text(
+                    text = stringResource(R.string.new_files),
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                )
+                Row {
+                    OutlinedButton(onClick = {
+                        checkForUpdates(context, true)
+                        state.intValue = 3
+                    }) {
+                        Text(
+                            stringResource(R.string.continue_button)
+                        )
+                    }
+                    OutlinedButton(onClick = { onNavigateToRead() }) { Text(stringResource(R.string.skip)) }
+                }
             }
         }
     }

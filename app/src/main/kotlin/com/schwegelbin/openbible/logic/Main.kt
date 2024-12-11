@@ -133,6 +133,13 @@ fun saveShowVerseNumbers(context: Context, shown: Boolean) {
     editor.apply()
 }
 
+fun saveCheckAtStartup(context: Context, check: Boolean) {
+    val sharedPref = context.getSharedPreferences("options", Context.MODE_PRIVATE)
+    val editor = sharedPref.edit()
+    editor.putBoolean("checkAtStartup", check)
+    editor.apply()
+}
+
 fun saveSplitScreen(context: Context, enabled: Boolean) {
     val sharedPref = context.getSharedPreferences("options", Context.MODE_PRIVATE)
     val editor = sharedPref.edit()
@@ -142,18 +149,24 @@ fun saveSplitScreen(context: Context, enabled: Boolean) {
 
 fun saveNewIndex(context: Context) {
     var path = context.getExternalFilesDir("Index")
-    if (!File("${path}/translations.json").exists() || !File("${path}/checksum.json").exists()) {
+    val file = File("${path}/translations.json")
+    if (!file.exists() || (file.exists() && System.currentTimeMillis() - file.lastModified() > 86400000L)) {
         saveIndex(context)
         saveChecksum(context)
     }
 }
 
-fun updateTranslations(context: Context) {
+fun checkForUpdates(context: Context, update: Boolean): Boolean {
+    var updateAvailable = false
     cleanUpTranslations(context)
     val translationList = getList(context, "Checksums").map { it.name }
     translationList.forEach { abbrev ->
-        if (checkUpdate(context, abbrev)) downloadTranslation(context, abbrev)
+        if (checkUpdate(context, abbrev)) {
+            if (update) downloadTranslation(context, abbrev)
+            updateAvailable = true
+        }
     }
+    return updateAvailable
 }
 
 fun cleanUpTranslations(context: Context) {

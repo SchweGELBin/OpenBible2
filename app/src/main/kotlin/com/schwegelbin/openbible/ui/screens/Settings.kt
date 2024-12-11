@@ -48,6 +48,7 @@ import com.schwegelbin.openbible.logic.SchemeOption
 import com.schwegelbin.openbible.logic.ThemeOption
 import com.schwegelbin.openbible.logic.cleanUpTranslations
 import com.schwegelbin.openbible.logic.downloadTranslation
+import com.schwegelbin.openbible.logic.getCheckAtStartup
 import com.schwegelbin.openbible.logic.getColorSchemeInt
 import com.schwegelbin.openbible.logic.getList
 import com.schwegelbin.openbible.logic.getMainThemeOptions
@@ -55,13 +56,11 @@ import com.schwegelbin.openbible.logic.getShowVerseNumbers
 import com.schwegelbin.openbible.logic.getSplitScreen
 import com.schwegelbin.openbible.logic.getTextAlignmentInt
 import com.schwegelbin.openbible.logic.getTranslations
-import com.schwegelbin.openbible.logic.saveChecksum
+import com.schwegelbin.openbible.logic.saveCheckAtStartup
 import com.schwegelbin.openbible.logic.saveColorScheme
-import com.schwegelbin.openbible.logic.saveIndex
 import com.schwegelbin.openbible.logic.saveShowVerseNumbers
 import com.schwegelbin.openbible.logic.saveSplitScreen
 import com.schwegelbin.openbible.logic.saveTextStyle
-import com.schwegelbin.openbible.logic.updateTranslations
 import java.io.File
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -97,9 +96,25 @@ fun SettingsScreen(
                     .horizontalScroll(state = rememberScrollState()),
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                UpdateTranslationsButton()
                 DownloadTranslationButton()
                 DeleteTranslationButton()
+            }
+            Row(
+                Modifier
+                    .fillMaxWidth()
+                    .horizontalScroll(state = rememberScrollState()),
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                Text(
+                    stringResource(R.string.check_at_startup),
+                    style = styleMedium,
+                    modifier = Modifier.padding(top = 15.dp)
+                )
+                val isChecked = remember { mutableStateOf(getCheckAtStartup(context)) }
+                Checkbox(checked = isChecked.value, onCheckedChange = {
+                    isChecked.value = it
+                    saveCheckAtStartup(context, isChecked.value)
+                })
             }
 
             HorizontalDivider(Modifier.padding(12.dp))
@@ -115,7 +130,12 @@ fun SettingsScreen(
             Text(stringResource(R.string.bible_text), style = styleLarge, modifier = modLarge)
             Text(stringResource(R.string.alignment), style = styleMedium)
             ReadTextAlignmentButton()
-            Row {
+            Row(
+                Modifier
+                    .fillMaxWidth()
+                    .horizontalScroll(state = rememberScrollState()),
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
                 Text(
                     stringResource(R.string.show_verse_number),
                     style = styleMedium,
@@ -127,7 +147,12 @@ fun SettingsScreen(
                     saveShowVerseNumbers(context, isChecked.value)
                 })
             }
-            Row {
+            Row(
+                Modifier
+                    .fillMaxWidth()
+                    .horizontalScroll(state = rememberScrollState()),
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
                 Text(
                     stringResource(R.string.split_screen),
                     style = styleMedium,
@@ -251,21 +276,6 @@ fun GetBibleButton() {
             Intent(Intent.ACTION_VIEW, Uri.parse("https://getbible.net/docs"))
         context.startActivity(intent)
     }) { Text(stringResource(R.string.source_getbible)) }
-}
-
-@Composable
-fun UpdateTranslationsButton() {
-    val context = LocalContext.current
-    var clicked = remember { mutableStateOf(false) }
-    OutlinedButton(onClick = {
-        saveChecksum(context)
-        saveIndex(context)
-        clicked.value = true
-    }) { Text(stringResource(R.string.update)) }
-    if (clicked.value) {
-        val path = context.getExternalFilesDir("Index")
-        WaitForFile(onLoaded = { updateTranslations(context) }, "${path}/translations.json")
-    }
 }
 
 @Composable
