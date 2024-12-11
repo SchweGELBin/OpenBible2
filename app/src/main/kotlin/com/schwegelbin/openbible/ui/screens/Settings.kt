@@ -143,6 +143,7 @@ fun SettingsScreen(
             HorizontalDivider(Modifier.padding(12.dp))
             Text(stringResource(R.string.about_us), style = styleLarge, modifier = modLarge)
             RepoButton()
+            GetBibleButton()
         }
     }
 }
@@ -240,6 +241,16 @@ fun RepoButton() {
             Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/SchweGELBin/OpenBible2"))
         context.startActivity(intent)
     }) { Text(stringResource(R.string.source_repo)) }
+}
+
+@Composable
+fun GetBibleButton() {
+    val context = LocalContext.current
+    OutlinedButton(onClick = {
+        val intent =
+            Intent(Intent.ACTION_VIEW, Uri.parse("https://getbible.net/docs"))
+        context.startActivity(intent)
+    }) { Text(stringResource(R.string.source_getbible)) }
 }
 
 @Composable
