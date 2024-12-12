@@ -51,10 +51,9 @@ fun StartScreen(onNavigateToRead: () -> Unit) {
     ) {
         val state = remember { mutableIntStateOf(0) }
         val path = context.getExternalFilesDir("Index")
-        if (state.intValue == 0 && getCheckAtStartup(context) && File("${path}/translations.json").exists() && File(
-                "${path}/checksum.json"
-            ).exists()
-        )
+        val translationsFile = File("${path}/translations.json")
+        val checksumFile = File("${path}/checksum.json")
+        if (state.intValue == 0 && getCheckAtStartup(context) && translationsFile.exists() && checksumFile.exists())
             state.intValue = 4
         when (state.intValue) {
             0 -> {
