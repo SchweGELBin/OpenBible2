@@ -84,7 +84,7 @@ fun SettingsScreen(
             modifier = Modifier
                 .padding(innerPadding)
                 .padding(horizontal = 20.dp)
-                .verticalScroll(state = rememberScrollState())
+                .verticalScroll(rememberScrollState())
         ) {
             val styleLarge = MaterialTheme.typography.titleLarge
             val modLarge = Modifier.padding(bottom = 12.dp)
@@ -93,29 +93,19 @@ fun SettingsScreen(
             Row(
                 Modifier
                     .fillMaxWidth()
-                    .horizontalScroll(state = rememberScrollState()),
+                    .horizontalScroll(rememberScrollState()),
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 DownloadTranslationButton()
                 DeleteTranslationButton()
             }
-            Row(
-                Modifier
-                    .fillMaxWidth()
-                    .horizontalScroll(state = rememberScrollState()),
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                Text(
-                    stringResource(R.string.check_at_startup),
-                    style = styleMedium,
-                    modifier = Modifier.padding(top = 15.dp)
-                )
-                val isChecked = remember { mutableStateOf(getCheckAtStartup(context)) }
-                Checkbox(checked = isChecked.value, onCheckedChange = {
-                    isChecked.value = it
-                    saveCheckAtStartup(context, isChecked.value)
-                })
-            }
+            CheckBoxField(
+                text = stringResource(R.string.check_at_startup),
+                initialState = getCheckAtStartup(context),
+                saveFunction = { checked ->
+                    saveCheckAtStartup(context, checked)
+                }
+            )
 
             HorizontalDivider(Modifier.padding(12.dp))
             Text(stringResource(R.string.colors), style = styleLarge, modifier = modLarge)
@@ -130,47 +120,71 @@ fun SettingsScreen(
             Text(stringResource(R.string.bible_text), style = styleLarge, modifier = modLarge)
             Text(stringResource(R.string.alignment), style = styleMedium)
             ReadTextAlignmentButton()
-            Row(
-                Modifier
-                    .fillMaxWidth()
-                    .horizontalScroll(state = rememberScrollState()),
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                Text(
-                    stringResource(R.string.show_verse_number),
-                    style = styleMedium,
-                    modifier = Modifier.padding(top = 15.dp)
-                )
-                val isChecked = remember { mutableStateOf(getShowVerseNumbers(context)) }
-                Checkbox(checked = isChecked.value, onCheckedChange = {
-                    isChecked.value = it
-                    saveShowVerseNumbers(context, isChecked.value)
-                })
-            }
-            Row(
-                Modifier
-                    .fillMaxWidth()
-                    .horizontalScroll(state = rememberScrollState()),
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                Text(
-                    stringResource(R.string.split_screen),
-                    style = styleMedium,
-                    modifier = Modifier.padding(top = 15.dp)
-                )
-                val isChecked = remember { mutableStateOf(getSplitScreen(context)) }
-                Checkbox(checked = isChecked.value, onCheckedChange = {
-                    isChecked.value = it
-                    saveSplitScreen(context, isChecked.value)
-                })
-            }
+            CheckBoxField(
+                text = stringResource(R.string.show_verse_number),
+                initialState = getShowVerseNumbers(context),
+                saveFunction = { checked ->
+                    saveShowVerseNumbers(context, checked)
+                }
+            )
+            CheckBoxField(
+                text = stringResource(R.string.split_screen),
+                initialState = getSplitScreen(context),
+                saveFunction = { checked ->
+                    saveSplitScreen(context, checked)
+                }
+            )
 
             HorizontalDivider(Modifier.padding(12.dp))
             Text(stringResource(R.string.about_us), style = styleLarge, modifier = modLarge)
-            RepoButton()
-            GetBibleButton()
+            Row(
+                Modifier
+                    .fillMaxWidth()
+                    .horizontalScroll(rememberScrollState()),
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                LinkButton(
+                    text = stringResource(R.string.source_repo),
+                    url = "https://github.com/SchweGELBin/OpenBible2"
+                )
+                LinkButton(
+                    text = stringResource(R.string.source_getbible),
+                    url = "https://getbible.net/docs"
+                )
+            }
         }
     }
+}
+
+@Composable
+fun CheckBoxField(text: String, initialState: Boolean, saveFunction: (Boolean) -> Unit) {
+    Row(
+        Modifier
+            .fillMaxWidth()
+            .horizontalScroll(rememberScrollState()),
+        horizontalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        Text(
+            text = text,
+            style = MaterialTheme.typography.titleMedium,
+            modifier = Modifier.padding(top = 15.dp)
+        )
+        val isChecked = remember { mutableStateOf(initialState) }
+        Checkbox(checked = isChecked.value, onCheckedChange = {
+            isChecked.value = it
+            saveFunction(isChecked.value)
+        })
+    }
+}
+
+@Composable
+fun LinkButton(text: String, url: String) {
+    val context = LocalContext.current
+    OutlinedButton(onClick = {
+        val intent =
+            Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        context.startActivity(intent)
+    }) { Text(text) }
 }
 
 @Composable
@@ -256,26 +270,6 @@ fun SchemeButton(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
             ) { Text(label) }
         }
     }
-}
-
-@Composable
-fun RepoButton() {
-    val context = LocalContext.current
-    OutlinedButton(onClick = {
-        val intent =
-            Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/SchweGELBin/OpenBible2"))
-        context.startActivity(intent)
-    }) { Text(stringResource(R.string.source_repo)) }
-}
-
-@Composable
-fun GetBibleButton() {
-    val context = LocalContext.current
-    OutlinedButton(onClick = {
-        val intent =
-            Intent(Intent.ACTION_VIEW, Uri.parse("https://getbible.net/docs"))
-        context.startActivity(intent)
-    }) { Text(stringResource(R.string.source_getbible)) }
 }
 
 @Composable
