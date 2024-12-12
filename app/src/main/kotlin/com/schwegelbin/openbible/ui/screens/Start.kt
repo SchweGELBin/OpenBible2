@@ -51,7 +51,10 @@ fun StartScreen(onNavigateToRead: () -> Unit) {
     ) {
         val state = remember { mutableIntStateOf(0) }
         val path = context.getExternalFilesDir("Index")
-        if (state.intValue == 0 && getCheckAtStartup(context) && File("${path}/translations.json").exists() && File("${path}/checksum.json").exists())
+        if (state.intValue == 0 && getCheckAtStartup(context) && File("${path}/translations.json").exists() && File(
+                "${path}/checksum.json"
+            ).exists()
+        )
             state.intValue = 4
         when (state.intValue) {
             0 -> {
@@ -73,7 +76,9 @@ fun StartScreen(onNavigateToRead: () -> Unit) {
                 )
                 saveNewIndex(context)
                 val path = context.getExternalFilesDir("Index")
-                Loading(onLoaded = { if(!getFirstLaunch(context)) onNavigateToRead() else state.intValue = 2 }, file = "${path}/translations.json")
+                Loading(onLoaded = {
+                    if (!getFirstLaunch(context)) onNavigateToRead() else state.intValue = 2
+                }, file = "${path}/translations.json")
             }
 
             2 -> {
