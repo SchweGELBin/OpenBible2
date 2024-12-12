@@ -176,7 +176,9 @@ fun cleanUpTranslations(context: Context) {
         if (sum !in translations) File("${context.getExternalFilesDir("Checksums")}/${sum}").delete()
     }
     translations.forEach { abbrev ->
-        if (abbrev !in checksums) File("${context.getExternalFilesDir("Translations")}/${abbrev}.json").delete()
+        if (abbrev !in checksums) File("${context.getExternalFilesDir("Checksums")}/${abbrev}").writeText(
+            "unknown"
+        )
     }
 }
 

@@ -46,6 +46,7 @@ import com.schwegelbin.openbible.R
 import com.schwegelbin.openbible.logic.ReadTextAlignment
 import com.schwegelbin.openbible.logic.SchemeOption
 import com.schwegelbin.openbible.logic.ThemeOption
+import com.schwegelbin.openbible.logic.checkForUpdates
 import com.schwegelbin.openbible.logic.cleanUpTranslations
 import com.schwegelbin.openbible.logic.downloadTranslation
 import com.schwegelbin.openbible.logic.getCheckAtStartup
@@ -98,6 +99,12 @@ fun SettingsScreen(
             ) {
                 DownloadTranslationButton()
                 DeleteTranslationButton()
+                OutlinedButton(onClick = {
+                    checkForUpdates(
+                        context,
+                        true
+                    )
+                }) { Text(stringResource(R.string.update)) }
             }
             CheckBoxField(
                 text = stringResource(R.string.check_at_startup),

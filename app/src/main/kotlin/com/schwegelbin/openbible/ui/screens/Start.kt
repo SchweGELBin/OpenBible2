@@ -1,5 +1,6 @@
 package com.schwegelbin.openbible.ui.screens
 
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -93,7 +94,12 @@ fun StartScreen(onNavigateToRead: () -> Unit) {
                     text = stringResource(R.string.new_files),
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
-                Row {
+                Row(
+                    Modifier
+                        .fillMaxWidth()
+                        .horizontalScroll(rememberScrollState()),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
                     OutlinedButton(onClick = {
                         checkForUpdates(context, true)
                         state.intValue = 3
