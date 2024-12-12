@@ -33,8 +33,10 @@ import com.schwegelbin.openbible.logic.checkForUpdates
 import com.schwegelbin.openbible.logic.deserialize
 import com.schwegelbin.openbible.logic.downloadTranslation
 import com.schwegelbin.openbible.logic.getCheckAtStartup
+import com.schwegelbin.openbible.logic.getFirstLaunch
 import com.schwegelbin.openbible.logic.getSelection
 import com.schwegelbin.openbible.logic.getTranslations
+import com.schwegelbin.openbible.logic.saveNewIndex
 import com.schwegelbin.openbible.logic.saveSelection
 import kotlinx.coroutines.delay
 import java.io.File
@@ -49,7 +51,7 @@ fun StartScreen(onNavigateToRead: () -> Unit) {
     ) {
         val state = remember { mutableIntStateOf(0) }
         val path = context.getExternalFilesDir("Index")
-        if (state.intValue == 0 && getCheckAtStartup(context) && File("${path}/translations.json").exists())
+        if (state.intValue == 0 && getCheckAtStartup(context) && File("${path}/translations.json").exists() && File("${path}/checksum.json").exists())
             state.intValue = 4
         when (state.intValue) {
             0 -> {
@@ -69,8 +71,9 @@ fun StartScreen(onNavigateToRead: () -> Unit) {
                     text = stringResource(R.string.downloading_index),
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
+                saveNewIndex(context)
                 val path = context.getExternalFilesDir("Index")
-                Loading(onLoaded = { state.intValue = 2 }, file = "${path}/translations.json")
+                Loading(onLoaded = { if(!getFirstLaunch(context)) onNavigateToRead() else state.intValue = 2 }, file = "${path}/translations.json")
             }
 
             2 -> {

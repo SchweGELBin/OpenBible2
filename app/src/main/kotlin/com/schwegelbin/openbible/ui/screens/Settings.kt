@@ -59,6 +59,7 @@ import com.schwegelbin.openbible.logic.getTextAlignmentInt
 import com.schwegelbin.openbible.logic.getTranslations
 import com.schwegelbin.openbible.logic.saveCheckAtStartup
 import com.schwegelbin.openbible.logic.saveColorScheme
+import com.schwegelbin.openbible.logic.saveNewIndex
 import com.schwegelbin.openbible.logic.saveShowVerseNumbers
 import com.schwegelbin.openbible.logic.saveSplitScreen
 import com.schwegelbin.openbible.logic.saveTextStyle
@@ -334,11 +335,20 @@ fun DeleteTranslationButton() {
 fun DownloadTranslationButton() {
     val context = LocalContext.current
     var showDialog = remember { mutableStateOf(false) }
+    var clicked = remember { mutableStateOf(false) }
     val indexPath = "${context.getExternalFilesDir("Index")}/translations.json"
 
     OutlinedButton(onClick = {
-        if (File(indexPath).exists()) showDialog.value = true
+        clicked.value = true
     }) { Text(stringResource(R.string.download)) }
+
+    if (clicked.value) {
+        saveNewIndex(context)
+        WaitForFile(
+            file = indexPath,
+            onLoaded = { clicked.value = false; showDialog.value = true }
+        )
+    }
 
     if (showDialog.value) {
         val translationMap = remember { getTranslations(context) }

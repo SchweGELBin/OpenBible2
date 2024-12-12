@@ -24,9 +24,7 @@ fun getChecksum(context: Context, abbrev: String): String {
 }
 
 fun getCount(
-    context: Context,
-    abbrev: String,
-    book: Int
+    context: Context, abbrev: String, book: Int
 ): Pair<Int, Int> {
     val dir = context.getExternalFilesDir("Translations")
     val path = "${dir}/${abbrev}.json"
@@ -169,9 +167,7 @@ fun getColorSchemeInt(context: Context, isTheme: Boolean): Int {
 }
 
 fun getMainThemeOptions(
-    context: Context,
-    themeOption: ThemeOption? = null,
-    schemeOption: SchemeOption? = null
+    context: Context, themeOption: ThemeOption? = null, schemeOption: SchemeOption? = null
 ): Triple<Boolean?, Boolean, Boolean> {
     var (theme, scheme) = getColorScheme(context)
 
@@ -196,8 +192,7 @@ fun getMainThemeOptions(
 }
 
 fun getAppName(name: String, primary: Color, secondary: Color, tertiary: Color): AnnotatedString {
-    val appName =
-        name.split(Regex("(?=[A-Z])")).filter { it.isNotEmpty() }
+    val appName = name.split(Regex("(?=[A-Z])")).filter { it.isNotEmpty() }
     val title = buildAnnotatedString {
         appName.forEachIndexed { index, value ->
             if (index == 1) withStyle(SpanStyle(primary)) { append(value) }
@@ -218,7 +213,9 @@ fun getAppName(name: String, primary: Color, secondary: Color, tertiary: Color):
 }
 
 fun getFirstLaunch(context: Context): Boolean {
-    var dir = context.getExternalFilesDir("Translations")
+    var dir = context.getExternalFilesDir("Index")
+    if (!File("${dir}/translations.json").exists() || !File("${dir}/checksum.json").exists()) return true
+    dir = context.getExternalFilesDir("Translations")
     if (dir == null) return true
     val files = dir.listFiles()
     return files == null || files.isEmpty()

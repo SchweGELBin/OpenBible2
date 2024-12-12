@@ -149,8 +149,14 @@ fun saveSplitScreen(context: Context, enabled: Boolean) {
 
 fun saveNewIndex(context: Context) {
     var path = context.getExternalFilesDir("Index")
-    val file = File("${path}/translations.json")
-    if (!file.exists() || System.currentTimeMillis() - file.lastModified() > 86400000L) {
+    val translationsFile = File("${path}/translations.json")
+    val checksumFile = File("${path}/checksum.json")
+    if (
+        !translationsFile.exists() ||
+        !checksumFile.exists() ||
+        System.currentTimeMillis() - translationsFile.lastModified() > 86400000L ||
+        System.currentTimeMillis() - checksumFile.lastModified() > 86400000L
+    ) {
         saveIndex(context)
         saveChecksum(context)
     }

@@ -10,7 +10,6 @@ import androidx.navigation.toRoute
 import com.schwegelbin.openbible.logic.checkForUpdates
 import com.schwegelbin.openbible.logic.getCheckAtStartup
 import com.schwegelbin.openbible.logic.getFirstLaunch
-import com.schwegelbin.openbible.logic.saveNewIndex
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -29,7 +28,6 @@ object Start
 @Composable
 fun App(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
     val context = LocalContext.current
-    saveNewIndex(LocalContext.current)
     var update = false
     if (getCheckAtStartup(context)) update = checkForUpdates(context, false)
 
