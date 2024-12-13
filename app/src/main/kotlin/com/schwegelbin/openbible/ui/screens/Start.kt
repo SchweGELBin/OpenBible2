@@ -60,17 +60,22 @@ fun StartScreen(onNavigateToRead: () -> Unit) {
                 Spacer(Modifier.fillMaxHeight(0.4f))
                 Text(
                     text = stringResource(R.string.needs_files),
+                    textAlign = TextAlign.Center,
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
-                OutlinedButton(onClick = {
-                    state.intValue = 1
-                }) { Text(stringResource(R.string.continue_button)) }
+                OutlinedButton(
+                    onClick = {
+                        state.intValue = 1
+                    },
+                    Modifier.align(Alignment.CenterHorizontally)
+                ) { Text(stringResource(R.string.continue_button)) }
             }
 
             1 -> {
                 Spacer(Modifier.fillMaxHeight(0.4f))
                 Text(
                     text = stringResource(R.string.downloading_index),
+                    textAlign = TextAlign.Center,
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
                 saveNewIndex(context)
@@ -88,7 +93,8 @@ fun StartScreen(onNavigateToRead: () -> Unit) {
                 Spacer(Modifier.fillMaxHeight(0.4f))
                 Text(
                     text = stringResource(R.string.downloading_translation),
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.align(Alignment.CenterHorizontally),
                 )
                 val (translation, _, _) = getSelection(context, false)
                 val path = context.getExternalFilesDir("Translations")
@@ -99,22 +105,17 @@ fun StartScreen(onNavigateToRead: () -> Unit) {
                 Spacer(Modifier.fillMaxHeight(0.4f))
                 Text(
                     text = stringResource(R.string.new_files),
+                    textAlign = TextAlign.Center,
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
                 Row(
-                    Modifier
-                        .fillMaxWidth()
-                        .horizontalScroll(rememberScrollState()),
+                    Modifier.horizontalScroll(rememberScrollState()).align(Alignment.CenterHorizontally),
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     OutlinedButton(onClick = {
                         checkForUpdates(context, true)
                         state.intValue = 3
-                    }) {
-                        Text(
-                            stringResource(R.string.continue_button)
-                        )
-                    }
+                    }) { Text(stringResource(R.string.continue_button)) }
                     OutlinedButton(onClick = { onNavigateToRead() }) { Text(stringResource(R.string.skip)) }
                 }
             }
