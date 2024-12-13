@@ -147,11 +147,13 @@ fun saveNewIndex(context: Context) {
     var path = context.getExternalFilesDir("Index")
     val translationsFile = File("${path}/translations.json")
     val checksumFile = File("${path}/checksum.json")
+    val currentTime = System.currentTimeMillis()
+    val dayTime = 86_400_000L
     if (
         !translationsFile.exists() ||
         !checksumFile.exists() ||
-        System.currentTimeMillis() - translationsFile.lastModified() > 86400000L ||
-        System.currentTimeMillis() - checksumFile.lastModified() > 86400000L
+        currentTime - translationsFile.lastModified() > dayTime ||
+        currentTime - checksumFile.lastModified() > dayTime
     ) {
         saveIndex(context)
         saveChecksum(context)
