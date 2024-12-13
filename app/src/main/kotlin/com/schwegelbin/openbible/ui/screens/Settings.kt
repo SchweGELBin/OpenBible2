@@ -100,12 +100,7 @@ fun SettingsScreen(
             ) {
                 DownloadTranslationButton()
                 DeleteTranslationButton()
-                OutlinedButton(onClick = {
-                    checkForUpdates(
-                        context,
-                        true
-                    )
-                }) { Text(stringResource(R.string.update)) }
+                UpdateTranslationsButton()
             }
             CheckBoxField(
                 text = stringResource(R.string.check_at_startup),
@@ -383,5 +378,17 @@ fun DownloadTranslationButton() {
                 }
             }
         }
+    }
+}
+
+@Composable
+fun UpdateTranslationsButton() {
+    val context = LocalContext.current
+    var clicked = remember { mutableStateOf(false) }
+    OutlinedButton(onClick = { clicked.value = true }) { Text(stringResource(R.string.update)) }
+    if (clicked.value) {
+        saveNewIndex(context)
+        val path = context.getExternalFilesDir("Index")
+        WaitForFile(onLoaded = { checkForUpdates(context, true) }, file = "${path}/translations.json")
     }
 }
