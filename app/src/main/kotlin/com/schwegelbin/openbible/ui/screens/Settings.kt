@@ -387,6 +387,7 @@ fun UpdateTranslationsButton() {
     var clicked = remember { mutableStateOf(false) }
     OutlinedButton(onClick = { clicked.value = true }) { Text(stringResource(R.string.update)) }
     if (clicked.value) {
+        clicked.value = false
         saveNewIndex(context)
         val path = context.getExternalFilesDir("Index")
         WaitForFile(onLoaded = { checkForUpdates(context, true) }, file = "${path}/translations.json")
