@@ -1,0 +1,1 @@
+Verbesserungen und Optimierungen in Bezug auf Leistung, Synchronisation und ui

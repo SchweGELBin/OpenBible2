@@ -2,6 +2,41 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.4.0] - 2024-12-13
+
+### 🚀 Features
+
+- Readd update translations button
+
+### 🐛 Bug Fixes
+
+- Handle missing index
+- Update index before manually updating a translation
+- Reset clicked status
+- Adapt status bar color
+- *(ui)* Align start screen items in the center
+
+### 🚜 Refactor
+
+- Merge duplicated code
+
+### 📚 Documentation
+
+- *(readme)* Add F-Droid badges
+
+### ⚡ Performance
+
+- Remove unnecessary check
+- Remove global constants
+- Declare vals of time
+
+### 🎨 Styling
+
+- Reformat
+- Reformat
+- Reformat
+- Reformat
+
 ## [1.3.0] - 2024-12-11
 
 ### 🚀 Features
@@ -22,6 +57,7 @@ All notable changes to this project will be documented in this file.
 
 - Restructure metadata
 - Update dependencies
+- Bump to 1.3.0
 
 ## [1.2.2] - 2024-12-08
 
