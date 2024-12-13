@@ -109,7 +109,9 @@ fun StartScreen(onNavigateToRead: () -> Unit) {
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
                 Row(
-                    Modifier.horizontalScroll(rememberScrollState()).align(Alignment.CenterHorizontally),
+                    Modifier
+                        .horizontalScroll(rememberScrollState())
+                        .align(Alignment.CenterHorizontally),
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     OutlinedButton(onClick = {
