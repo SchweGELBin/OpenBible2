@@ -2,10 +2,6 @@ package com.schwegelbin.openbible.ui.theme
 
 import android.app.Activity
 import android.os.Build
-import android.view.Window
-import android.view.WindowId
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.systemBars
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme

@@ -390,6 +390,9 @@ fun UpdateTranslationsButton() {
         clicked.value = false
         saveNewIndex(context)
         val path = context.getExternalFilesDir("Index")
-        WaitForFile(onLoaded = { checkForUpdates(context, true) }, file = "${path}/translations.json")
+        WaitForFile(
+            onLoaded = { checkForUpdates(context, true) },
+            file = "${path}/translations.json"
+        )
     }
 }
