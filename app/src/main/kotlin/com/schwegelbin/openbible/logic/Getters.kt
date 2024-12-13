@@ -125,17 +125,17 @@ fun getSplitScreen(context: Context): Boolean {
 
 fun getSelection(context: Context, isSplitScreen: Boolean): Triple<String, Int, Int> {
     val sharedPref = context.getSharedPreferences("selection", Context.MODE_PRIVATE)
-    var translation = defaultTranslation
-    var book = defaultBook
-    var chapter = defaultChapter
+    var translation = "schlachter"
+    var book = 42
+    var chapter = 2
     if (!isSplitScreen) {
-        translation = sharedPref.getString("translation", defaultTranslation).toString()
-        book = sharedPref.getInt("book", defaultBook)
-        chapter = sharedPref.getInt("chapter", defaultChapter)
+        translation = sharedPref.getString("translation", translation).toString()
+        book = sharedPref.getInt("book", book)
+        chapter = sharedPref.getInt("chapter", chapter)
     } else {
-        translation = sharedPref.getString("translation_split", defaultTranslation).toString()
-        book = sharedPref.getInt("book_split", defaultBook)
-        chapter = sharedPref.getInt("chapter_split", defaultChapter)
+        translation = sharedPref.getString("translation_split", translation).toString()
+        book = sharedPref.getInt("book_split", book)
+        chapter = sharedPref.getInt("chapter_split", chapter)
     }
 
     return Triple(translation, book, chapter)
