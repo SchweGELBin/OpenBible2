@@ -37,6 +37,10 @@ All notable changes to this project will be documented in this file.
 - Reformat
 - Reformat
 
+### ⚙️ Miscellaneous Tasks
+
+- Bump to 1.4.0
+
 ## [1.3.0] - 2024-12-11
 
 ### 🚀 Features
