@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.4.2] - 2024-12-15
+
+### ⚙️ Miscellaneous Tasks
+
+- Add build workflow
+
+## [1.4.1] - 2024-12-14
+
+### ⚙️ Miscellaneous Tasks
+
+- Bump to 1.4.1
+
 ## [1.4.0] - 2024-12-13
 
 ### 🚀 Features
