@@ -10,6 +10,8 @@ All notable changes to this project will be documented in this file.
 - Bump to 1.4.2
 - *(build)* Update apk path
 - Bump to 1.4.2
+- Bump to 1.4.2
+- Bump to 1.4.2
 
 ## [1.4.1] - 2024-12-14
 
