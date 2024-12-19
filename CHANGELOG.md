@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.5.0] - 2024-12-19
+
+### 🚀 Features
+
+- Toggle download notification visibility
+- Display language of translations
+
+### 📚 Documentation
+
+- Update changelog
+- Add GitHub badge
+
+### 🎨 Styling
+
+- Reformat
+
 ## [1.4.2] - 2024-12-15
 
 ### ⚙️ Miscellaneous Tasks

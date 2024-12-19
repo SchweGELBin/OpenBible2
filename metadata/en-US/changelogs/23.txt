@@ -1,0 +1,2 @@
+Improved ui when selecting a translation
+Option to show a notification of downloading files
