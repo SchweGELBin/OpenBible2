@@ -5,7 +5,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.withStyle
 import java.io.File
 import java.util.Locale
@@ -19,7 +18,7 @@ fun getTranslations(context: Context): Map<String, List<Translation>>? {
     return items
 }
 
-fun getLanguageName(code: String, locale: Locale = Locale.getDefault()): String{
+fun getLanguageName(code: String, locale: Locale = Locale.getDefault()): String {
     return Locale(code).getDisplayLanguage(locale)
 }
 

@@ -392,7 +392,9 @@ fun listTranslations(buttonFunction: (String) -> Unit, list: List<String>? = nul
             Text(
                 text = "$lang - $language",
                 style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier.fillMaxWidth().padding(top = 20.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 20.dp),
                 textAlign = TextAlign.Center
             )
             translations.forEach { translation ->
