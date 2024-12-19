@@ -123,6 +123,12 @@ fun getSplitScreen(context: Context): Boolean {
     return enabled
 }
 
+fun getDownloadNotification(context: Context): Boolean {
+    val sharedPref = context.getSharedPreferences("options", Context.MODE_PRIVATE)
+    val enabled = sharedPref.getBoolean("notifyDownload", false)
+    return enabled
+}
+
 fun getSelection(context: Context, isSplitScreen: Boolean): Triple<String, Int, Int> {
     val sharedPref = context.getSharedPreferences("selection", Context.MODE_PRIVATE)
     var translation = "schlachter"

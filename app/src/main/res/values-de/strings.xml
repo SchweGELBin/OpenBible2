@@ -24,6 +24,7 @@
     <string name="needs_files">Diese Applikation benötigt einen Index, Checksums and Übersetzungen um zu funktionieren und muss diese herunterladen.</string>
     <string name="new_files">Aktualisierungen für Übersetzungen gefunden. Wollen Sie diese installieren?</string>
     <string name="next">Weiter</string>
+    <string name="notifications">Benachrichtigungen</string>
     <string name="scheme_dynamic">Dynamisch</string>
     <string name="scheme_static">Statisch</string>
     <string name="screen_home">Start</string>

@@ -72,10 +72,13 @@ fun downloadFile(
         val path = "${dir}/${name}"
         File(path).delete()
     }
+    val notify =
+        if (getDownloadNotification(context)) DownloadManager.Request.VISIBILITY_VISIBLE
+        else DownloadManager.Request.VISIBILITY_HIDDEN
     val request = DownloadManager.Request(Uri.parse(url)).apply {
         setTitle("Downloading $name")
         setDescription("Downloading $name")
-        setNotificationVisibility(DownloadManager.Request.VISIBILITY_HIDDEN)
+        setNotificationVisibility(notify)
         setDestinationInExternalFilesDir(context, relPath, name)
     }
     val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
@@ -140,6 +143,13 @@ fun saveSplitScreen(context: Context, enabled: Boolean) {
     val sharedPref = context.getSharedPreferences("options", Context.MODE_PRIVATE)
     val editor = sharedPref.edit()
     editor.putBoolean("splitScreen", enabled)
+    editor.apply()
+}
+
+fun saveDownloadNotification(context: Context, enabled: Boolean) {
+    val sharedPref = context.getSharedPreferences("options", Context.MODE_PRIVATE)
+    val editor = sharedPref.edit()
+    editor.putBoolean("notifyDownload", enabled)
     editor.apply()
 }
 

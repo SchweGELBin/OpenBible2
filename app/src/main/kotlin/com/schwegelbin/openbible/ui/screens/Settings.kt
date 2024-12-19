@@ -51,6 +51,7 @@ import com.schwegelbin.openbible.logic.cleanUpTranslations
 import com.schwegelbin.openbible.logic.downloadTranslation
 import com.schwegelbin.openbible.logic.getCheckAtStartup
 import com.schwegelbin.openbible.logic.getColorSchemeInt
+import com.schwegelbin.openbible.logic.getDownloadNotification
 import com.schwegelbin.openbible.logic.getList
 import com.schwegelbin.openbible.logic.getMainThemeOptions
 import com.schwegelbin.openbible.logic.getShowVerseNumbers
@@ -59,6 +60,7 @@ import com.schwegelbin.openbible.logic.getTextAlignmentInt
 import com.schwegelbin.openbible.logic.getTranslations
 import com.schwegelbin.openbible.logic.saveCheckAtStartup
 import com.schwegelbin.openbible.logic.saveColorScheme
+import com.schwegelbin.openbible.logic.saveDownloadNotification
 import com.schwegelbin.openbible.logic.saveNewIndex
 import com.schwegelbin.openbible.logic.saveShowVerseNumbers
 import com.schwegelbin.openbible.logic.saveSplitScreen
@@ -135,6 +137,16 @@ fun SettingsScreen(
                 initialState = getSplitScreen(context),
                 saveFunction = { checked ->
                     saveSplitScreen(context, checked)
+                }
+            )
+
+            HorizontalDivider(Modifier.padding(12.dp))
+            Text(stringResource(R.string.notifications), style = styleLarge, modifier = modLarge)
+            CheckBoxField(
+                text = stringResource(R.string.download),
+                initialState = getDownloadNotification(context),
+                saveFunction = { checked ->
+                    saveDownloadNotification(context, checked)
                 }
             )
 
