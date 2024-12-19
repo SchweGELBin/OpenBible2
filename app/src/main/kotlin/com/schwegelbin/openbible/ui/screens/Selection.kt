@@ -35,7 +35,6 @@ import com.schwegelbin.openbible.logic.getBookNames
 import com.schwegelbin.openbible.logic.getCount
 import com.schwegelbin.openbible.logic.getList
 import com.schwegelbin.openbible.logic.getSelection
-import com.schwegelbin.openbible.logic.getTranslations
 import com.schwegelbin.openbible.logic.saveSelection
 import com.schwegelbin.openbible.logic.shorten
 
@@ -102,41 +101,32 @@ fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean) {
             SelectMode.Translation -> {
                 val translationList =
                     getList(context, "Translations").map { it.nameWithoutExtension }
-                val translationMap = getTranslations(context)
 
-                translationList.forEach { abbrev ->
-                    val name = translationMap?.get(abbrev)?.translation
-                    TextButton(onClick = {
-                        translation.value = abbrev
+                listTranslations(buttonFunction = { abbrev ->
+                    translation.value = abbrev
 
-                        val (bookCount, chapterCount) = getCount(
-                            context,
-                            translation.value,
-                            book.intValue
-                        )
-                        if (book.intValue > bookCount) {
-                            book.intValue = 0
-                            chapter.intValue = 0
-                        }
-                        if (chapter.intValue > chapterCount) {
-                            chapter.intValue = 0
-                        }
-                        selectMode.value = SelectMode.Book
-                        selectedIndex.intValue = 1
-                        saveSelection(
-                            context,
-                            translation.value,
-                            book.intValue,
-                            chapter.intValue,
-                            isSplitScreen
-                        )
-                    }) {
-                        Text(
-                            text = "$abbrev | $name",
-                            modifier = Modifier.fillMaxWidth()
-                        )
+                    val (bookCount, chapterCount) = getCount(
+                        context,
+                        translation.value,
+                        book.intValue
+                    )
+                    if (book.intValue > bookCount) {
+                        book.intValue = 0
+                        chapter.intValue = 0
                     }
-                }
+                    if (chapter.intValue > chapterCount) {
+                        chapter.intValue = 0
+                    }
+                    selectMode.value = SelectMode.Book
+                    selectedIndex.intValue = 1
+                    saveSelection(
+                        context,
+                        translation.value,
+                        book.intValue,
+                        chapter.intValue,
+                        isSplitScreen
+                    )
+                }, translationList)
             }
 
             SelectMode.Book -> {

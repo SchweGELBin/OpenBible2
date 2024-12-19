@@ -5,14 +5,22 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.withStyle
 import java.io.File
+import java.util.Locale
 
-fun getTranslations(context: Context): Map<String, Translation>? {
+fun getTranslations(context: Context): Map<String, List<Translation>>? {
     val dir = context.getExternalFilesDir("Index")
     val path = "${dir}/translations.json"
     val map = deserializeTranslations(path)
-    return map
+    if (map == null) return null
+    val items = map.values.groupBy { it.lang }.toSortedMap()
+    return items
+}
+
+fun getLanguageName(code: String, locale: Locale = Locale.getDefault()): String{
+    return Locale(code).getDisplayLanguage(locale)
 }
 
 fun getChecksum(context: Context, abbrev: String): String {

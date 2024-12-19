@@ -52,6 +52,7 @@ import com.schwegelbin.openbible.logic.downloadTranslation
 import com.schwegelbin.openbible.logic.getCheckAtStartup
 import com.schwegelbin.openbible.logic.getColorSchemeInt
 import com.schwegelbin.openbible.logic.getDownloadNotification
+import com.schwegelbin.openbible.logic.getLanguageName
 import com.schwegelbin.openbible.logic.getList
 import com.schwegelbin.openbible.logic.getMainThemeOptions
 import com.schwegelbin.openbible.logic.getShowVerseNumbers
@@ -300,10 +301,6 @@ fun DeleteTranslationButton() {
     if (showDialog.value) {
         val translationList =
             getList(context, "Translations").map { it.nameWithoutExtension }
-        val translationMap = remember { getTranslations(context) }
-        val translationItems = translationMap?.values?.map {
-            it.abbreviation to it.translation
-        }
 
         Dialog(onDismissRequest = { showDialog.value = false }) {
             Surface(shape = RoundedCornerShape(size = 40.dp)) {
@@ -322,15 +319,10 @@ fun DeleteTranslationButton() {
                         modifier = Modifier.verticalScroll(rememberScrollState()),
                         colors = CardDefaults.cardColors(containerColor = Color.Transparent)
                     ) {
-                        translationItems?.forEach { (abbrev, translation) ->
-                            if (abbrev in translationList) {
-                                TextButton(onClick = {
-                                    File("${context.getExternalFilesDir("Translations")}/${abbrev}.json").delete()
-                                    File("${context.getExternalFilesDir("Checksums")}/${abbrev}").delete()
-                                    showDialog.value = false
-                                }) { Text("$abbrev | $translation") }
-                            }
-                        }
+                        showDialog.value = !listTranslations(buttonFunction = { abbrev ->
+                            File("${context.getExternalFilesDir("Translations")}/${abbrev}.json").delete()
+                            File("${context.getExternalFilesDir("Checksums")}/${abbrev}").delete()
+                        }, translationList)
                     }
                 }
             }
@@ -358,11 +350,6 @@ fun DownloadTranslationButton() {
     }
 
     if (showDialog.value) {
-        val translationMap = remember { getTranslations(context) }
-        val translationItems = translationMap?.values?.map {
-            it.abbreviation to it.translation
-        }
-
         Dialog(onDismissRequest = { showDialog.value = false }) {
             Surface(shape = RoundedCornerShape(size = 40.dp)) {
                 Column(
@@ -380,17 +367,47 @@ fun DownloadTranslationButton() {
                         modifier = Modifier.verticalScroll(rememberScrollState()),
                         colors = CardDefaults.cardColors(containerColor = Color.Transparent)
                     ) {
-                        translationItems?.forEach { (abbrev, translation) ->
-                            TextButton(onClick = {
-                                downloadTranslation(context, abbrev)
-                                showDialog.value = false
-                            }) { Text("$abbrev | $translation") }
-                        }
+                        showDialog.value = !listTranslations(buttonFunction = { abbrev ->
+                            downloadTranslation(context, abbrev)
+                        })
                     }
                 }
             }
         }
     }
+}
+
+@Composable
+fun listTranslations(buttonFunction: (String) -> Unit, list: List<String>? = null): Boolean {
+    val context = LocalContext.current
+    val translations = remember { getTranslations(context) }
+    var clicked = remember { mutableStateOf(false) }
+
+    translations?.forEach { (lang, translations) ->
+        val showLang = translations.any {
+            list == null || list.contains(it.abbreviation)
+        }
+        if (showLang) {
+            val language = getLanguageName(lang)
+            Text(
+                text = "$lang - $language",
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.fillMaxWidth().padding(top = 20.dp),
+                textAlign = TextAlign.Center
+            )
+            translations.forEach { translation ->
+                val abbrev = translation.abbreviation
+                if (list == null || list.contains(abbrev)) {
+                    val name = translation.translation
+                    TextButton(onClick = {
+                        buttonFunction(abbrev)
+                        clicked.value = true
+                    }) { Text("$abbrev | $name") }
+                }
+            }
+        }
+    }
+    return clicked.value
 }
 
 @Composable

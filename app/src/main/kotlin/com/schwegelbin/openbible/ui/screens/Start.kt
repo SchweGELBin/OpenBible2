@@ -16,7 +16,6 @@ import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableIntStateOf
@@ -35,7 +34,6 @@ import com.schwegelbin.openbible.logic.downloadTranslation
 import com.schwegelbin.openbible.logic.getCheckAtStartup
 import com.schwegelbin.openbible.logic.getFirstLaunch
 import com.schwegelbin.openbible.logic.getSelection
-import com.schwegelbin.openbible.logic.getTranslations
 import com.schwegelbin.openbible.logic.saveNewIndex
 import com.schwegelbin.openbible.logic.saveSelection
 import kotlinx.coroutines.delay
@@ -161,11 +159,6 @@ fun WaitForFile(
 fun TranslationCard(onSelected: () -> Unit) {
     val context = LocalContext.current
 
-    val translationMap = remember { getTranslations(context) }
-    val translationItems = translationMap?.values?.map {
-        it.abbreviation to it.translation
-    }
-
     Text(
         text = stringResource(R.string.download_translation),
         style = MaterialTheme.typography.titleLarge,
@@ -179,13 +172,11 @@ fun TranslationCard(onSelected: () -> Unit) {
             .fillMaxWidth(),
         colors = CardDefaults.cardColors(containerColor = Color.Transparent)
     ) {
-        translationItems?.forEach { (abbreviation, translation) ->
-            TextButton(onClick = {
-                downloadTranslation(context, abbreviation)
-                saveSelection(context, abbreviation, isSplitScreen = false)
-                saveSelection(context, abbreviation, isSplitScreen = true)
-                onSelected()
-            }) { Text("$abbreviation | $translation") }
-        }
+        listTranslations(buttonFunction = { abbrev ->
+            downloadTranslation(context, abbrev)
+            saveSelection(context, abbrev, isSplitScreen = false)
+            saveSelection(context, abbrev, isSplitScreen = true)
+            onSelected()
+        })
     }
 }
