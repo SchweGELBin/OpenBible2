@@ -8,7 +8,7 @@ espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.9.3"
 composeBom = "2024.12.01"
-kotlinxSerialization = "1.7.3"
+kotlinxSerialization = "1.8.0"
 nav = "2.8.5"
 
 [libraries]
