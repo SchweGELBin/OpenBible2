@@ -6,8 +6,6 @@ on:
       - 'v[0-9]+.[0-9]+.[0-9]+'
   pull_request:
     branches: [ "main" ]
-  schedule:
-    - cron: '23 3 * * 0'
 
 jobs:
   analyze:
