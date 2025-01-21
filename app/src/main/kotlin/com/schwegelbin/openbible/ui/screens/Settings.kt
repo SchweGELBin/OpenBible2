@@ -206,7 +206,7 @@ fun LinkButton(text: String, url: String) {
 @Composable
 fun ReadTextAlignmentButton() {
     val context = LocalContext.current
-    var selectedIndex = remember { mutableIntStateOf(getTextAlignmentInt(context)) }
+    val selectedIndex = remember { mutableIntStateOf(getTextAlignmentInt(context)) }
     val options = ReadTextAlignment.entries
 
     SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
@@ -214,7 +214,6 @@ fun ReadTextAlignmentButton() {
             val label = when (option) {
                 ReadTextAlignment.Start -> stringResource(R.string.alignment_start)
                 ReadTextAlignment.Justify -> stringResource(R.string.alignment_justify)
-                else -> ""
             }
             SegmentedButton(
                 shape = SegmentedButtonDefaults.itemShape(index = index, count = options.size),
@@ -231,7 +230,7 @@ fun ReadTextAlignmentButton() {
 @Composable
 fun ThemeButton(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
     val context = LocalContext.current
-    var selectedIndex = remember { mutableIntStateOf(getColorSchemeInt(context, true)) }
+    val selectedIndex = remember { mutableIntStateOf(getColorSchemeInt(context, true)) }
     val options = ThemeOption.entries
 
     SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
@@ -241,7 +240,6 @@ fun ThemeButton(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
                 ThemeOption.Dark -> stringResource(R.string.theme_dark)
                 ThemeOption.Light -> stringResource(R.string.theme_light)
                 ThemeOption.Amoled -> stringResource(R.string.theme_amoled)
-                else -> ""
             }
             SegmentedButton(
                 shape = SegmentedButtonDefaults.itemShape(index = index, count = options.size),
@@ -262,7 +260,7 @@ fun ThemeButton(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
 @Composable
 fun SchemeButton(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
     val context = LocalContext.current
-    var selectedIndex = remember { mutableIntStateOf(getColorSchemeInt(context, false)) }
+    val selectedIndex = remember { mutableIntStateOf(getColorSchemeInt(context, false)) }
     val options = SchemeOption.entries
 
     SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
@@ -270,7 +268,6 @@ fun SchemeButton(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
             val label = when (option) {
                 SchemeOption.Static -> stringResource(R.string.scheme_static)
                 SchemeOption.Dynamic -> stringResource(R.string.scheme_dynamic)
-                else -> ""
             }
             SegmentedButton(
                 shape = SegmentedButtonDefaults.itemShape(index = index, count = options.size),
@@ -291,7 +288,7 @@ fun SchemeButton(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
 @Composable
 fun DeleteTranslationButton() {
     val context = LocalContext.current
-    var showDialog = remember { mutableStateOf(false) }
+    val showDialog = remember { mutableStateOf(false) }
 
     OutlinedButton(onClick = {
         showDialog.value = true
@@ -333,8 +330,8 @@ fun DeleteTranslationButton() {
 @Composable
 fun DownloadTranslationButton() {
     val context = LocalContext.current
-    var showDialog = remember { mutableStateOf(false) }
-    var clicked = remember { mutableStateOf(false) }
+    val showDialog = remember { mutableStateOf(false) }
+    val clicked = remember { mutableStateOf(false) }
     val indexPath = "${context.getExternalFilesDir("Index")}/translations.json"
 
     OutlinedButton(onClick = {
@@ -381,7 +378,7 @@ fun DownloadTranslationButton() {
 fun listTranslations(buttonFunction: (String) -> Unit, list: List<String>? = null): Boolean {
     val context = LocalContext.current
     val translations = remember { getTranslations(context) }
-    var clicked = remember { mutableStateOf(false) }
+    val clicked = remember { mutableStateOf(false) }
 
     translations?.forEach { (lang, translations) ->
         val showLang = translations.any {
@@ -415,7 +412,7 @@ fun listTranslations(buttonFunction: (String) -> Unit, list: List<String>? = nul
 @Composable
 fun UpdateTranslationsButton() {
     val context = LocalContext.current
-    var clicked = remember { mutableStateOf(false) }
+    val clicked = remember { mutableStateOf(false) }
     OutlinedButton(onClick = { clicked.value = true }) { Text(stringResource(R.string.update)) }
     if (clicked.value) {
         clicked.value = false

@@ -34,9 +34,9 @@ fun MainApp() {
     var (darkTheme, dynamicColor, amoled) = getMainThemeOptions(context)
     if (darkTheme == null) darkTheme = systemDarkTheme
 
-    var isDarkTheme = remember { mutableStateOf(darkTheme) }
-    var isDynamicColor = remember { mutableStateOf(dynamicColor) }
-    var isAmoled = remember { mutableStateOf(amoled) }
+    val isDarkTheme = remember { mutableStateOf(darkTheme) }
+    val isDynamicColor = remember { mutableStateOf(dynamicColor) }
+    val isAmoled = remember { mutableStateOf(amoled) }
 
     OpenBibleTheme(
         darkTheme = isDarkTheme.value,

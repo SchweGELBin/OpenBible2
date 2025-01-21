@@ -66,12 +66,12 @@ fun SelectionScreen(onNavigateToRead: () -> Unit, isSplitScreen: Boolean = false
 fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean) {
     val context = LocalContext.current
     val selection = getSelection(context, isSplitScreen)
-    var translation = remember { mutableStateOf(selection.first) }
-    var book = remember { mutableIntStateOf(selection.second) }
-    var chapter = remember { mutableIntStateOf(selection.third) }
-    var selectedIndex = remember { mutableIntStateOf(1) }
+    val translation = remember { mutableStateOf(selection.first) }
+    val book = remember { mutableIntStateOf(selection.second) }
+    val chapter = remember { mutableIntStateOf(selection.third) }
+    val selectedIndex = remember { mutableIntStateOf(1) }
     val options = SelectMode.entries
-    var selectMode = remember { mutableStateOf(options[selectedIndex.intValue]) }
+    val selectMode = remember { mutableStateOf(options[selectedIndex.intValue]) }
 
     SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
         options.forEachIndexed { index, option ->
@@ -79,7 +79,6 @@ fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean) {
                 SelectMode.Translation -> stringResource(R.string.translation)
                 SelectMode.Book -> stringResource(R.string.book)
                 SelectMode.Chapter -> stringResource(R.string.chapter)
-                else -> ""
             }
             SegmentedButton(
                 shape = SegmentedButtonDefaults.itemShape(index = index, count = options.size),
@@ -140,9 +139,9 @@ fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean) {
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
-                        for (j in 0..buttonsPerRow - 1) {
+                        for (j in 0..<buttonsPerRow) {
                             if (i + j <= num) {
-                                var name = names[i + j].toString()
+                                var name = names[i + j]
                                 name = shorten(name, length)
                                 while (name.length < length) name += " "
                                 TextButton(onClick = {
@@ -179,7 +178,7 @@ fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean) {
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
-                        for (j in 0..buttonsPerRow - 1) {
+                        for (j in 0..<buttonsPerRow) {
                             if (i + j <= num) {
                                 val name = (i + j + 1).toString()
                                 TextButton(onClick = {

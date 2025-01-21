@@ -12,8 +12,7 @@ import java.util.Locale
 fun getTranslations(context: Context): Map<String, List<Translation>>? {
     val dir = context.getExternalFilesDir("Index")
     val path = "${dir}/translations.json"
-    val map = deserializeTranslations(path)
-    if (map == null) return null
+    val map = deserializeTranslations(path) ?: return null
     val items = map.values.groupBy { it.lang }.toSortedMap()
     return items
 }
@@ -25,8 +24,7 @@ fun getLanguageName(code: String, locale: Locale = Locale.getDefault()): String 
 fun getChecksum(context: Context, abbrev: String): String {
     val dir = context.getExternalFilesDir("Index")
     val path = "${dir}/checksum.json"
-    val obj = deserialize(path)
-    if (obj == null) return "unknown"
+    val obj = deserialize(path) ?: return "unknown"
     return obj[abbrev].toString()
 }
 
@@ -35,19 +33,17 @@ fun getCount(
 ): Pair<Int, Int> {
     val dir = context.getExternalFilesDir("Translations")
     val path = "${dir}/${abbrev}.json"
-    val bible = deserializeBible(path)
-    if (bible == null) return Pair(0, 0)
+    val bible = deserializeBible(path) ?: return Pair(0, 0)
     return Pair(bible.books.size - 1, bible.books[book].chapters.size - 1)
 }
 
 fun getBookNames(context: Context, abbrev: String): Array<String> {
     val dir = context.getExternalFilesDir("Translations")
     val path = "${dir}/${abbrev}.json"
-    val bible = deserializeBible(path)
-    if (bible == null) return Array<String>(1) { "ERROR" }
+    val bible = deserializeBible(path) ?: return Array(1) { "ERROR" }
     val num = bible.books.size
-    var arr = Array<String>(num) { "" }
-    for (i in 0..num - 1) {
+    val arr = Array(num) { "" }
+    for (i in 0..<num) {
         arr[i] = bible.books[i].name
     }
     return arr
@@ -63,8 +59,7 @@ fun getChapter(
 ): Pair<String, String> {
     val dir = context.getExternalFilesDir("Translations")
     val path = "${dir}/${abbrev}.json"
-    val bible = deserializeBible(path)
-    if (bible == null) return Pair(error, "")
+    val bible = deserializeBible(path) ?: return Pair(error, "")
     val translation = bible.translation
     val title = bible.books[book].chapters[chapter].name
     var text = ""
@@ -159,7 +154,6 @@ fun getTextAlignmentInt(context: Context): Int {
     return when (textAlignment) {
         ReadTextAlignment.Start -> 0
         ReadTextAlignment.Justify -> 1
-        else -> 0
     }
 }
 
@@ -170,12 +164,10 @@ fun getColorSchemeInt(context: Context, isTheme: Boolean): Int {
         ThemeOption.Light -> 1
         ThemeOption.Dark -> 2
         ThemeOption.Amoled -> 3
-        else -> 0
     }
     return when (scheme) {
         SchemeOption.Dynamic -> 0
         SchemeOption.Static -> 1
-        else -> 0
     }
 }
 
@@ -192,12 +184,10 @@ fun getMainThemeOptions(
         ThemeOption.Light -> false
         ThemeOption.Dark -> true
         ThemeOption.Amoled -> true
-        else -> null
     }
     val dynamicColor = when (scheme) {
         SchemeOption.Dynamic -> true
         SchemeOption.Static -> false
-        else -> true
     }
     val amoled = theme == ThemeOption.Amoled
 
@@ -208,18 +198,12 @@ fun getAppName(name: String, primary: Color, secondary: Color, tertiary: Color):
     val appName = name.split(Regex("(?=[A-Z])")).filter { it.isNotEmpty() }
     val title = buildAnnotatedString {
         appName.forEachIndexed { index, value ->
-            if (index == 1) withStyle(SpanStyle(primary)) { append(value) }
-            else if (index == 2) withStyle(SpanStyle(secondary)) {
-                append(
-                    value
-                )
+            when (index) {
+                1 -> withStyle(SpanStyle(primary)) { append(value) }
+                2 -> withStyle(SpanStyle(secondary)) { append(value) }
+                3 -> withStyle(SpanStyle(tertiary)) { append(value) }
+                else -> append(value)
             }
-            else if (index == 3) withStyle(SpanStyle(tertiary)) {
-                append(
-                    value
-                )
-            }
-            else append(value)
         }
     }
     return title
@@ -234,8 +218,9 @@ fun getFirstLaunch(context: Context): Boolean {
     return files == null || files.isEmpty()
 }
 
-fun getList(context: Context, relPath: String): Array<File> {
-    return File(
+fun getList(context: Context, relPath: String = ""): Array<File> {
+    val file = File(
         context.getExternalFilesDir(relPath).toString()
-    ).listFiles()
+    ).listFiles() ?: return emptyArray()
+    return file
 }

@@ -5,19 +5,19 @@ import android.content.Context
 import android.net.Uri
 import java.io.File
 
-enum class SelectMode() {
+enum class SelectMode {
     Translation, Book, Chapter
 }
 
-enum class ThemeOption() {
+enum class ThemeOption {
     System, Light, Dark, Amoled
 }
 
-enum class SchemeOption() {
+enum class SchemeOption {
     Dynamic, Static
 }
 
-enum class ReadTextAlignment() {
+enum class ReadTextAlignment {
     Start, Justify
 }
 
@@ -154,7 +154,7 @@ fun saveDownloadNotification(context: Context, enabled: Boolean) {
 }
 
 fun saveNewIndex(context: Context) {
-    var path = context.getExternalFilesDir("Index")
+    val path = context.getExternalFilesDir("Index")
     val translationsFile = File("${path}/translations.json")
     val checksumFile = File("${path}/checksum.json")
     val currentTime = System.currentTimeMillis()

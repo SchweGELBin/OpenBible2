@@ -1,6 +1,5 @@
 package com.schwegelbin.openbible.ui.screens
 
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
@@ -24,13 +23,12 @@ object Settings
 @Serializable
 object Start
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun App(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
     val context = LocalContext.current
     var update = false
     if (getCheckAtStartup(context)) update = checkForUpdates(context, false)
-    var startDestination = if (update || getFirstLaunch(context)) Start else Read
+    val startDestination: Any = if (update || getFirstLaunch(context)) Start else Read
 
     val navController = rememberNavController()
     NavHost(navController, startDestination = startDestination) {

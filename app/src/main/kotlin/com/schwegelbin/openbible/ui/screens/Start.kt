@@ -77,10 +77,9 @@ fun StartScreen(onNavigateToRead: () -> Unit) {
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
                 saveNewIndex(context)
-                val path = context.getExternalFilesDir("Index")
                 Loading(onLoaded = {
                     if (!getFirstLaunch(context)) onNavigateToRead() else state.intValue = 2
-                }, file = "${path}/translations.json")
+                }, file = "${context.getExternalFilesDir("Index")}/translations.json")
             }
 
             2 -> {
@@ -95,8 +94,7 @@ fun StartScreen(onNavigateToRead: () -> Unit) {
                     modifier = Modifier.align(Alignment.CenterHorizontally),
                 )
                 val (translation, _, _) = getSelection(context, false)
-                val path = context.getExternalFilesDir("Translations")
-                Loading(onLoaded = { onNavigateToRead() }, file = "${path}/${translation}.json")
+                Loading(onLoaded = { onNavigateToRead() }, file = "${context.getExternalFilesDir("Translations")}/${translation}.json")
             }
 
             4 -> {
