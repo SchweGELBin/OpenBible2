@@ -218,7 +218,7 @@ fun getFirstLaunch(context: Context): Boolean {
     return files == null || files.isEmpty()
 }
 
-fun getList(context: Context, relPath: String = ""): Array<File> {
+fun getList(context: Context, relPath: String): Array<File> {
     val file = File(
         context.getExternalFilesDir(relPath).toString()
     ).listFiles() ?: return emptyArray()
