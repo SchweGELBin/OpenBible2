@@ -1,0 +1,7 @@
+Fehlerkorrektur:
+- Die Zuruecktaste schliesst jetzt die Anwendung im Lesebereich
+- Schutz vor Absturz bei Uebersetzungen mit weniger Buechern
+
+Verbesserungen:
+- Aktualisieren der Bibliotheken
+- Automatisierung im Repo

@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.5.1] - 2025-01-22
+
+### 🐛 Bug Fixes
+
+- Back button closes the app at Read screen
+- Book out of bounce at language selection
+- Return right number of chapters
+
+### 📚 Documentation
+
+- Add issue templates
+- Add SECURITY.md
+
+### 🎨 Styling
+
+- Reformat and cleanup
+- Reformat and cleanup
+
+### ⚙️ Miscellaneous Tasks
+
+- Add dependabot.yml
+- Add codeql.yml
+- Dont schedule codeql
+
 ## [1.5.0] - 2024-12-19
 
 ### 🚀 Features
@@ -17,6 +41,10 @@ All notable changes to this project will be documented in this file.
 ### 🎨 Styling
 
 - Reformat
+
+### ⚙️ Miscellaneous Tasks
+
+- Bump to 1.5.0
 
 ## [1.4.2] - 2024-12-15
 

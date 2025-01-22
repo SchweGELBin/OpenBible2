@@ -1,0 +1,7 @@
+Bug fixes:
+- Back button closes the app at Read screen
+- Book out of bounce at language selection
+
+Improvements:
+- Bumped dependencies
+- Automation in the repo
