@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.5.2] - 2025-01-22
+
+### 🐛 Bug Fixes
+
+- Selecting smaller translation at first launch
+
 ## [1.5.1] - 2025-01-22
 
 ### 🐛 Bug Fixes
@@ -25,6 +31,7 @@ All notable changes to this project will be documented in this file.
 - Add dependabot.yml
 - Add codeql.yml
 - Dont schedule codeql
+- Bump to 1.5.1
 
 ## [1.5.0] - 2024-12-19
 
