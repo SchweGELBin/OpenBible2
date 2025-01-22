@@ -34,9 +34,9 @@ fun getCount(
     val dir = context.getExternalFilesDir("Translations")
     val path = "${dir}/${abbrev}.json"
     val bible = deserializeBible(path) ?: return Pair(0, 0)
-    var books = bible.books.size - 1
-    if (book > books) books = 0
-    return Pair(books, bible.books[books].chapters.size - 1)
+    val books = bible.books.size - 1
+    if (book > books) return Pair(0, bible.books[0].chapters.size - 1)
+    return Pair(books, bible.books[book].chapters.size - 1)
 }
 
 fun getBookNames(context: Context, abbrev: String): Array<String> {
