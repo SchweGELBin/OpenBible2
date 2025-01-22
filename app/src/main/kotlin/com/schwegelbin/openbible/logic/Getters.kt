@@ -10,11 +10,10 @@ import java.io.File
 import java.util.Locale
 
 fun getTranslations(context: Context): Map<String, List<Translation>>? {
-    val dir = context.getExternalFilesDir("Index")
-    val path = "${dir}/translations.json"
-    val map = deserializeTranslations(path) ?: return null
-    val items = map.values.groupBy { it.lang }.toSortedMap()
-    return items
+    val map = deserializeTranslations(
+        "${context.getExternalFilesDir("Index")}/translations.json"
+    ) ?: return null
+    return map.values.groupBy { it.lang }.toSortedMap()
 }
 
 fun getLanguageName(code: String, locale: Locale = Locale.getDefault()): String {
@@ -22,27 +21,27 @@ fun getLanguageName(code: String, locale: Locale = Locale.getDefault()): String 
 }
 
 fun getChecksum(context: Context, abbrev: String): String {
-    val dir = context.getExternalFilesDir("Index")
-    val path = "${dir}/checksum.json"
-    val obj = deserialize(path) ?: return "unknown"
+    val obj = deserialize(
+        "${context.getExternalFilesDir("Index")}/checksum.json"
+    ) ?: return "unknown"
     return obj[abbrev].toString()
 }
 
 fun getCount(
     context: Context, abbrev: String, book: Int
 ): Pair<Int, Int> {
-    val dir = context.getExternalFilesDir("Translations")
-    val path = "${dir}/${abbrev}.json"
-    val bible = deserializeBible(path) ?: return Pair(0, 0)
+    val bible = deserializeBible(
+        "${context.getExternalFilesDir("Translations")}/${abbrev}.json"
+    ) ?: return Pair(0, 0)
     val books = bible.books.size - 1
     if (book > books) return Pair(0, bible.books[0].chapters.size - 1)
     return Pair(books, bible.books[book].chapters.size - 1)
 }
 
 fun getBookNames(context: Context, abbrev: String): Array<String> {
-    val dir = context.getExternalFilesDir("Translations")
-    val path = "${dir}/${abbrev}.json"
-    val bible = deserializeBible(path) ?: return Array(1) { "ERROR" }
+    val bible = deserializeBible(
+        "${context.getExternalFilesDir("Translations")}/${abbrev}.json"
+    ) ?: return Array(1) { "ERROR" }
     val num = bible.books.size
     val arr = Array(num) { "" }
     for (i in 0..<num) {
@@ -59,19 +58,16 @@ fun getChapter(
     showVerseNumbers: Boolean,
     error: String
 ): Pair<String, String> {
-    val dir = context.getExternalFilesDir("Translations")
-    val path = "${dir}/${abbrev}.json"
-    val bible = deserializeBible(path) ?: return Pair(error, "")
-    val translation = bible.translation
-    val title = bible.books[book].chapters[chapter].name
+    val bible = deserializeBible(
+        "${context.getExternalFilesDir("Translations")}/${abbrev}.json"
+    ) ?: return Pair(error, "")
     var text = ""
-    val verses = bible.books[book].chapters[chapter].verses
-    verses.forEach { verse ->
+    bible.books[book].chapters[chapter].verses.forEach { verse ->
         text += if (showVerseNumbers) "${verse.verse} ${verse.text}".trim() + "\n"
         else verse.text
     }
     if (showVerseNumbers) text = text.substring(0, text.length - 1)
-    return Pair("$translation | $title", text)
+    return Pair("${bible.translation} | ${bible.books[book].chapters[chapter].name}", text)
 }
 
 fun getColorScheme(context: Context): Pair<ThemeOption, SchemeOption> {
@@ -110,27 +106,23 @@ fun getTextAlignment(context: Context): ReadTextAlignment {
 }
 
 fun getShowVerseNumbers(context: Context): Boolean {
-    val sharedPref = context.getSharedPreferences("options", Context.MODE_PRIVATE)
-    val shown = sharedPref.getBoolean("showVerseNumbers", true)
-    return shown
+    return context.getSharedPreferences("options", Context.MODE_PRIVATE)
+        .getBoolean("showVerseNumbers", true)
 }
 
 fun getCheckAtStartup(context: Context): Boolean {
-    val sharedPref = context.getSharedPreferences("options", Context.MODE_PRIVATE)
-    val check = sharedPref.getBoolean("checkAtStartup", true)
-    return check
+    return context.getSharedPreferences("options", Context.MODE_PRIVATE)
+        .getBoolean("checkAtStartup", true)
 }
 
 fun getSplitScreen(context: Context): Boolean {
-    val sharedPref = context.getSharedPreferences("options", Context.MODE_PRIVATE)
-    val enabled = sharedPref.getBoolean("splitScreen", false)
-    return enabled
+    return context.getSharedPreferences("options", Context.MODE_PRIVATE)
+        .getBoolean("splitScreen", false)
 }
 
 fun getDownloadNotification(context: Context): Boolean {
-    val sharedPref = context.getSharedPreferences("options", Context.MODE_PRIVATE)
-    val enabled = sharedPref.getBoolean("notifyDownload", false)
-    return enabled
+    return context.getSharedPreferences("options", Context.MODE_PRIVATE)
+        .getBoolean("notifyDownload", false)
 }
 
 fun getSelection(context: Context, isSplitScreen: Boolean): Triple<String, Int, Int> {
@@ -147,13 +139,21 @@ fun getSelection(context: Context, isSplitScreen: Boolean): Triple<String, Int, 
         book = sharedPref.getInt("book_split", book)
         chapter = sharedPref.getInt("chapter_split", chapter)
     }
+    if (book == 42 && chapter == 2) {
+        val bible = deserializeBible(
+            "${context.getExternalFilesDir("Translations")}/${translation}.json"
+        )
+        if (bible != null && book > bible.books.size) {
+            book = 0
+            chapter = 0
+        }
+    }
 
     return Triple(translation, book, chapter)
 }
 
 fun getTextAlignmentInt(context: Context): Int {
-    val textAlignment = getTextAlignment(context)
-    return when (textAlignment) {
+    return when (getTextAlignment(context)) {
         ReadTextAlignment.Start -> 0
         ReadTextAlignment.Justify -> 1
     }
@@ -221,8 +221,7 @@ fun getFirstLaunch(context: Context): Boolean {
 }
 
 fun getList(context: Context, relPath: String): Array<File> {
-    val file = File(
+    return File(
         context.getExternalFilesDir(relPath).toString()
     ).listFiles() ?: return emptyArray()
-    return file
 }

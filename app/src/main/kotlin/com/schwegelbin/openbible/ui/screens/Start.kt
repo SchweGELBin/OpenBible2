@@ -94,7 +94,10 @@ fun StartScreen(onNavigateToRead: () -> Unit) {
                     modifier = Modifier.align(Alignment.CenterHorizontally),
                 )
                 val (translation, _, _) = getSelection(context, false)
-                Loading(onLoaded = { onNavigateToRead() }, file = "${context.getExternalFilesDir("Translations")}/${translation}.json")
+                Loading(
+                    onLoaded = { onNavigateToRead() },
+                    file = "${context.getExternalFilesDir("Translations")}/${translation}.json"
+                )
             }
 
             4 -> {

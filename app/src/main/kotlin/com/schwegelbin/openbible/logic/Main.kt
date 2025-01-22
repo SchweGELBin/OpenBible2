@@ -46,18 +46,17 @@ fun downloadTranslation(context: Context, abbrev: String) {
         name = "${abbrev}.json",
         relPath = "Translations"
     )
-    val checksum = getChecksum(context, abbrev)
-    val dir = context.getExternalFilesDir("Checksums")
-    val path = "${dir}/${abbrev}"
-    File(path).writeText(checksum)
+    File(
+        "${context.getExternalFilesDir("Checksums")}/${abbrev}"
+    ).writeText(getChecksum(context, abbrev))
 }
 
 fun checkUpdate(context: Context, abbrev: String): Boolean {
-    var dir = context.getExternalFilesDir("Translations")
-    var path = "${dir}/${abbrev}.json"
-    if (!File(path).exists()) return true
-    dir = context.getExternalFilesDir("Checksums")
-    path = "${dir}/${abbrev}"
+    if (!File(
+            "${context.getExternalFilesDir("Translations")}/${abbrev}.json"
+        ).exists()
+    ) return true
+    val path = "${context.getExternalFilesDir("Checksums")}/${abbrev}"
     if (!File(path).exists()) return true
     val latest = getChecksum(context, abbrev)
     val current = File(path).readText()
@@ -67,11 +66,7 @@ fun checkUpdate(context: Context, abbrev: String): Boolean {
 fun downloadFile(
     context: Context, url: String, name: String, relPath: String = "", replace: Boolean = true
 ): Long {
-    if (replace) {
-        val dir = context.getExternalFilesDir(relPath)
-        val path = "${dir}/${name}"
-        File(path).delete()
-    }
+    if (replace) File("${context.getExternalFilesDir(relPath)}/${name}").delete()
     val notify =
         if (getDownloadNotification(context)) DownloadManager.Request.VISIBILITY_VISIBLE
         else DownloadManager.Request.VISIBILITY_HIDDEN
@@ -92,8 +87,7 @@ fun saveSelection(
     chapter: Int? = null,
     isSplitScreen: Boolean
 ) {
-    val sharedPref = context.getSharedPreferences("selection", Context.MODE_PRIVATE)
-    val editor = sharedPref.edit()
+    val editor = context.getSharedPreferences("selection", Context.MODE_PRIVATE).edit()
     if (!isSplitScreen) {
         if (translation != null) editor.putString("translation", translation)
         if (book != null) editor.putInt("book", book)
@@ -111,46 +105,35 @@ fun saveColorScheme(
     theme: ThemeOption? = null,
     scheme: SchemeOption? = null
 ) {
-    val sharedPref = context.getSharedPreferences("options", Context.MODE_PRIVATE)
-    val editor = sharedPref.edit()
+    val editor = context.getSharedPreferences("options", Context.MODE_PRIVATE).edit()
     if (theme != null) editor.putString("theme", theme.toString())
     if (scheme != null) editor.putString("scheme", scheme.toString())
     editor.apply()
 }
 
 fun saveTextStyle(context: Context, alignment: ReadTextAlignment) {
-    val sharedPref = context.getSharedPreferences("options", Context.MODE_PRIVATE)
-    val editor = sharedPref.edit()
-    editor.putString("textAlignment", alignment.toString())
-    editor.apply()
+    context.getSharedPreferences("options", Context.MODE_PRIVATE).edit()
+        .putString("textAlignment", alignment.toString()).apply()
 }
 
 fun saveShowVerseNumbers(context: Context, shown: Boolean) {
-    val sharedPref = context.getSharedPreferences("options", Context.MODE_PRIVATE)
-    val editor = sharedPref.edit()
-    editor.putBoolean("showVerseNumbers", shown)
-    editor.apply()
+    context.getSharedPreferences("options", Context.MODE_PRIVATE).edit()
+        .putBoolean("showVerseNumbers", shown).apply()
 }
 
 fun saveCheckAtStartup(context: Context, check: Boolean) {
-    val sharedPref = context.getSharedPreferences("options", Context.MODE_PRIVATE)
-    val editor = sharedPref.edit()
-    editor.putBoolean("checkAtStartup", check)
-    editor.apply()
+    context.getSharedPreferences("options", Context.MODE_PRIVATE).edit()
+        .putBoolean("checkAtStartup", check).apply()
 }
 
 fun saveSplitScreen(context: Context, enabled: Boolean) {
-    val sharedPref = context.getSharedPreferences("options", Context.MODE_PRIVATE)
-    val editor = sharedPref.edit()
-    editor.putBoolean("splitScreen", enabled)
-    editor.apply()
+    context.getSharedPreferences("options", Context.MODE_PRIVATE).edit()
+        .putBoolean("splitScreen", enabled).apply()
 }
 
 fun saveDownloadNotification(context: Context, enabled: Boolean) {
-    val sharedPref = context.getSharedPreferences("options", Context.MODE_PRIVATE)
-    val editor = sharedPref.edit()
-    editor.putBoolean("notifyDownload", enabled)
-    editor.apply()
+    context.getSharedPreferences("options", Context.MODE_PRIVATE).edit()
+        .putBoolean("notifyDownload", enabled).apply()
 }
 
 fun saveNewIndex(context: Context) {
@@ -173,8 +156,7 @@ fun saveNewIndex(context: Context) {
 fun checkForUpdates(context: Context, update: Boolean): Boolean {
     var updateAvailable = false
     cleanUpTranslations(context)
-    val translationList = getList(context, "Checksums").map { it.name }
-    translationList.forEach { abbrev ->
+    getList(context, "Checksums").map { it.name }.forEach { abbrev ->
         if (checkUpdate(context, abbrev)) {
             if (update) downloadTranslation(context, abbrev)
             updateAvailable = true
@@ -202,8 +184,7 @@ fun checkTranslation(
     onNavigateToStart: () -> Unit,
     isSplitScreen: Boolean
 ): String {
-    val dir = context.getExternalFilesDir("Translations")
-    if (!File("${dir}/${abbrev}.json").exists()) {
+    if (!File("${context.getExternalFilesDir("Translations")}/${abbrev}.json").exists()) {
         val list = getList(context, "Translations").map { it.nameWithoutExtension }
         if (list.isNotEmpty()) {
             val newTranslation = list.first()

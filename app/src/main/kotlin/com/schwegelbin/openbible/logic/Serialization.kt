@@ -5,7 +5,6 @@ import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import java.io.File
-import kotlin.collections.Map
 
 @Serializable
 data class Verse(
@@ -35,40 +34,31 @@ data class Translation(
 fun deserializeBible(path: String): Bible? {
     if (!File(path).exists()) return null
 
-    val json = File(path).readText()
     val unknown = Json { ignoreUnknownKeys = true; }
-    val bible = try {
-        unknown.decodeFromString<Bible>(json)
+    return try {
+        unknown.decodeFromString<Bible>(File(path).readText())
     } catch (_: SerializationException) {
         null
     }
-
-    return bible
 }
 
 fun deserialize(path: String): JsonObject? {
     if (!File(path).exists()) return null
 
-    val json = File(path).readText()
-    val obj = try {
-        Json.decodeFromString<JsonObject>(json)
+    return try {
+        Json.decodeFromString<JsonObject>(File(path).readText())
     } catch (_: SerializationException) {
         null
     }
-
-    return obj
 }
 
 fun deserializeTranslations(path: String): Map<String, Translation>? {
     if (!File(path).exists()) return null
 
-    val json = File(path).readText()
     val unknown = Json { ignoreUnknownKeys = true; }
-    val map = try {
-        unknown.decodeFromString<Map<String, Translation>>(json)
+    return try {
+        unknown.decodeFromString<Map<String, Translation>>(File(path).readText())
     } catch (_: SerializationException) {
         null
     }
-
-    return map
 }

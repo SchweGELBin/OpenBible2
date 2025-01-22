@@ -33,9 +33,10 @@ fun App(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
     val navController = rememberNavController()
     NavHost(navController, startDestination = startDestination) {
         composable<Read> {
-            ReadScreen(onNavigateToSelection = { isSplitScreen ->
-                navController.navigate(Selection(isSplitScreen))
-            },
+            ReadScreen(
+                onNavigateToSelection = { isSplitScreen ->
+                    navController.navigate(Selection(isSplitScreen))
+                },
                 onNavigateToSettings = { navController.navigate(Settings) },
                 onNavigateToStart = {
                     navController.navigate(Start) {
