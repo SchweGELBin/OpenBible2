@@ -16,6 +16,6 @@ jobs:
       - name: Enable auto-merge for Dependabot PRs
         id: merge
         if: steps.metadata.outputs.update-type == 'version-update:semver-patch'
-        run: gh pr merge --auto --merge --squash ${{github.event.pull_request.html_url}}
+        run: gh pr merge --auto --squash ${{github.event.pull_request.html_url}}
         env:
           GH_TOKEN: ${{ github.token }}
