@@ -10,7 +10,6 @@ on:
 jobs:
   analyze:
     name: Analyze (${{ matrix.language }})
-    if: github.event.pull_request.user.login != 'dependabot[bot]'
     runs-on: ubuntu-latest
     permissions:
       security-events: write
