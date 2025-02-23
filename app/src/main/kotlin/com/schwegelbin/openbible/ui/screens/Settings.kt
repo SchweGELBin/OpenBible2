@@ -164,6 +164,10 @@ fun SettingsScreen(
                     url = "https://github.com/SchweGELBin/OpenBible2"
                 )
                 LinkButton(
+                    text = stringResource(R.string.google_play),
+                    url = "https://play.google.com/store/apps/details?id=com.schwegelbin.openbible"
+                )
+                LinkButton(
                     text = stringResource(R.string.source_getbible),
                     url = "https://getbible.net/docs"
                 )

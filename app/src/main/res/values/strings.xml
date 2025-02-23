@@ -20,6 +20,7 @@
     <string name="downloading_index">Downloading Index, please wait…</string>
     <string name="downloading_translation">Downloading Translation, please wait…</string>
     <string name="error">ERROR</string>
+    <string name="google_play">Google Play</string>
     <string name="index">Index</string>
     <string name="needs_files">This application needs to download an index, checksums and translations to work.</string>
     <string name="new_files">Updates for translations found. Do you want to install them?</string>
