@@ -1,0 +1,7 @@
+Features:
+- New static color design
+- Play Store link in settings
+- internal changes
+
+Bug Fixes:
+- Settings closed when choosing a color theme for the first time

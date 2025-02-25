@@ -2,11 +2,40 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.6.0] - 2025-02-25
+
+### 🚀 Features
+
+- *(settings)* Add `Google Play` link
+- *(theme)* Add custom theme based on app icon color
+
+### 🎨 Styling
+
+- Cleanup dependencies
+- Cleanup dependencies again
+
+### ⚙️ Miscellaneous Tasks
+
+- Auto-merge dependabot PRs
+- *(auto-merge)* Declare repo
+- *(auto-merge)* Remove condition
+- *(auto-merge)* Fix last commit
+- *(auto-merge)* Squash instead if merge
+- *(codeql)* Disable for dependabot
+
+### ◀️ Revert
+
+- Ci(codeql): disable for dependabot
+
 ## [1.5.2] - 2025-01-22
 
 ### 🐛 Bug Fixes
 
 - Selecting smaller translation at first launch
+
+### ⚙️ Miscellaneous Tasks
+
+- Bump to 1.5.2
 
 ## [1.5.1] - 2025-01-22
 
