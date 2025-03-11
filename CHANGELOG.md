@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.6.1] - 2025-03-11
+
+### 📚 Documentation
+
+- *(strings)* Add PT-BR (#37)
+- *(strings)* Make some keys untranslatable
+
 ## [1.6.0] - 2025-02-25
 
 ### 🚀 Features
@@ -22,6 +29,7 @@ All notable changes to this project will be documented in this file.
 - *(auto-merge)* Fix last commit
 - *(auto-merge)* Squash instead if merge
 - *(codeql)* Disable for dependabot
+- Bump to 1.6.0
 
 ### ◀️ Revert
 

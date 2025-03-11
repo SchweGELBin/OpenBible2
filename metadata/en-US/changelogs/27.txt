@@ -1,0 +1,1 @@
+Adds `Brazilian Portuguese` translation by @Jeiel0rbit
