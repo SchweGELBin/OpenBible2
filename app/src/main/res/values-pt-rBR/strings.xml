@@ -3,7 +3,6 @@
     <string name="alignment">Alinhamento</string>
     <string name="alignment_start">Início</string>
     <string name="alignment_justify">Justificado</string>
-    <string name="app_name">OpenBible</string>
     <string name="bible_text">Texto Bíblico</string>
     <string name="book">Livro</string>
     <string name="chapter">Capítulo</string>
@@ -20,7 +19,6 @@
     <string name="downloading_index">Baixando índice, aguarde…</string>
     <string name="downloading_translation">Baixando tradução, aguarde…</string>
     <string name="error">ERRO</string>
-    <string name="google_play">Google Play</string>
     <string name="index">Índice</string>
     <string name="needs_files">Este aplicativo precisa baixar um índice, somas de verificação e traduções para funcionar.</string>
     <string name="new_files">Atualizações de traduções encontradas. Deseja instalá-las?</string>
@@ -34,10 +32,7 @@
     <string name="settings">Configurações</string>
     <string name="show_verse_number">Mostrar Número do Versículo</string>
     <string name="skip">Pular</string>
-    <string name="source_getbible">getBible</string>
-    <string name="source_repo">GitHub</string>
     <string name="split_screen">Tela Dividida</string>
-    <string name="theme_amoled">Amoled</string>
     <string name="theme_dark">Escuro</string>
     <string name="theme_light">Claro</string>
     <string name="theme_system">Sistema</string>
