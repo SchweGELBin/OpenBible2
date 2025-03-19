@@ -3,6 +3,7 @@
     <string name="alignment">Alignment</string>
     <string name="alignment_start">Start</string>
     <string name="alignment_justify">Justify</string>
+    <string name="backup">Backup</string>
     <string name="bible_text">Bible Text</string>
     <string name="book">Book</string>
     <string name="chapter">Chapter</string>
@@ -14,6 +15,7 @@
     <string name="continue_button">Continue</string>
     <string name="delete">Delete</string>
     <string name="delete_translation">Delete Translation</string>
+    <string name="documents">Documents</string>
     <string name="download">Download</string>
     <string name="download_translation">Download Translation</string>
     <string name="downloading_index">Downloading Index, please wait…</string>
@@ -26,6 +28,7 @@
     <string name="new_files">Updates for translations found. Do you want to install them?</string>
     <string name="next">Next</string>
     <string name="notifications">Notifications</string>
+    <string name="preferences">Preferences</string>
     <string name="scheme_dynamic">Dynamic</string>
     <string name="scheme_static">Static</string>
     <string name="screen_home">Home</string>

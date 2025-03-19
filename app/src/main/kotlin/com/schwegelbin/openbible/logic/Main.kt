@@ -2,8 +2,13 @@ package com.schwegelbin.openbible.logic
 
 import android.app.DownloadManager
 import android.content.Context
+import android.os.Environment
 import androidx.core.content.edit
 import androidx.core.net.toUri
+import net.lingala.zip4j.ZipFile
+import net.lingala.zip4j.model.ZipParameters
+import net.lingala.zip4j.model.enums.CompressionLevel
+import net.lingala.zip4j.model.enums.CompressionMethod
 import java.io.File
 
 enum class SelectMode {
@@ -209,4 +214,28 @@ fun shorten(str: String, max: Int): String {
     return if (max >= 2 && str.length > max)
         str.substring(0, max - 1).trim() + '.'
     else str
+}
+
+fun backupData(context: Context, user: Boolean = false, data: Boolean = false) {
+    val userDir = context.getExternalFilesDir("")
+    val dataDir = "${context.dataDir}/shared_prefs"
+    val download = Environment.getExternalStoragePublicDirectory("Download")
+
+    val parameters = ZipParameters().apply {
+        compressionMethod = CompressionMethod.DEFLATE
+        compressionLevel = CompressionLevel.NORMAL
+    }
+
+    if (user) {
+        val zip = ZipFile("$download/OpenBible-Documents.zip")
+        userDir?.listFiles()?.forEach { file ->
+            if (file.isDirectory) zip.addFolder(file, parameters)
+            else zip.addFile(file, parameters)
+        }
+    }
+
+    if (data) {
+        val zip = ZipFile("$download/OpenBible-Preferences.zip")
+        zip.addFiles(File(dataDir).listFiles()?.toList(), parameters)
+    }
 }

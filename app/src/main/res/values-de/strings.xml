@@ -3,6 +3,7 @@
     <string name="alignment">Ausrichtung</string>
     <string name="alignment_start">Start</string>
     <string name="alignment_justify">Blocksatz</string>
+    <string name="backup">Backup</string>
     <string name="bible_text">Bibeltext</string>
     <string name="book">Buch</string>
     <string name="chapter">Kapitel</string>
@@ -14,6 +15,7 @@
     <string name="continue_button">Fortfahren</string>
     <string name="delete">Löschen</string>
     <string name="delete_translation">Übersetzung löschen</string>
+    <string name="documents">Dokumente</string>
     <string name="download">Herunterladen</string>
     <string name="download_translation">Übersetzung herunterladen</string>
     <string name="downloading_index">Lädt Index herunter, bitte warten Sie…</string>
@@ -26,6 +28,7 @@
     <string name="new_files">Aktualisierungen für Übersetzungen gefunden. Wollen Sie diese installieren?</string>
     <string name="next">Weiter</string>
     <string name="notifications">Benachrichtigungen</string>
+    <string name="preferences">Einstellungen</string>
     <string name="scheme_dynamic">Dynamisch</string>
     <string name="scheme_static">Statisch</string>
     <string name="screen_home">Start</string>

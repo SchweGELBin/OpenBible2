@@ -46,6 +46,7 @@ import com.schwegelbin.openbible.R
 import com.schwegelbin.openbible.logic.ReadTextAlignment
 import com.schwegelbin.openbible.logic.SchemeOption
 import com.schwegelbin.openbible.logic.ThemeOption
+import com.schwegelbin.openbible.logic.backupData
 import com.schwegelbin.openbible.logic.checkForUpdates
 import com.schwegelbin.openbible.logic.cleanUpTranslations
 import com.schwegelbin.openbible.logic.downloadTranslation
@@ -151,6 +152,17 @@ fun SettingsScreen(
                 }
             )
 
+            HorizontalDivider(Modifier.padding(12.dp))
+            Text(stringResource(R.string.backup), style = styleLarge, modifier = modLarge)
+            Row(
+                Modifier
+                    .fillMaxWidth()
+                    .horizontalScroll(rememberScrollState()),
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                BackupButton(isUser = true, text = stringResource(R.string.documents))
+                BackupButton(isData = true, text = stringResource(R.string.preferences))
+            }
             HorizontalDivider(Modifier.padding(12.dp))
             Text(stringResource(R.string.about_us), style = styleLarge, modifier = modLarge)
             Row(
@@ -426,5 +438,16 @@ fun UpdateTranslationsButton() {
             onLoaded = { checkForUpdates(context, true) },
             file = "${path}/translations.json"
         )
+    }
+}
+
+@Composable
+fun BackupButton(isUser: Boolean = false, isData: Boolean = false, text: String) {
+    val context = LocalContext.current
+    val clicked = remember { mutableStateOf(false) }
+    OutlinedButton(onClick = { clicked.value = true }) { Text(text) }
+    if (clicked.value) {
+        clicked.value = false
+        backupData(context, user = isUser, data = isData)
     }
 }
