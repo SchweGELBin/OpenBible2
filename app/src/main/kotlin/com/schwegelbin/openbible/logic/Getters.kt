@@ -27,6 +27,18 @@ fun getChecksum(context: Context, abbrev: String): String {
     return obj[abbrev].toString()
 }
 
+fun getTranslationInfo(context: Context, abbrev: String): String {
+    val map = deserializeTranslations(
+        "${context.getExternalFilesDir("Index")}/translations.json"
+    ) ?: return ""
+    map.values.forEach { (translation, abbreviation, _, _, about, license) ->
+        if (abbreviation == abbrev) {
+            return "$translation\n\n$about\n\n$license"
+        }
+    }
+    return ""
+}
+
 fun getCount(
     context: Context, abbrev: String, book: Int
 ): Pair<Int, Int> {

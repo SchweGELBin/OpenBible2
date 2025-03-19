@@ -1,5 +1,6 @@
 package com.schwegelbin.openbible.logic
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
@@ -28,7 +29,12 @@ data class Bible(
 
 @Serializable
 data class Translation(
-    val translation: String, val abbreviation: String, val lang: String
+    val translation: String,
+    val abbreviation: String,
+    val lang: String,
+    val language: String,
+    @SerialName("distribution_about") val about: String,
+    @SerialName("distribution_license") val license: String
 )
 
 fun deserializeBible(path: String): Bible? {

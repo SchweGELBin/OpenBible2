@@ -9,6 +9,10 @@ enum class SelectMode {
     Translation, Book, Chapter
 }
 
+enum class TranslationMode {
+    Info, Name
+}
+
 enum class ThemeOption {
     System, Light, Dark, Amoled
 }
