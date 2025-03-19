@@ -1,7 +1,6 @@
 package com.schwegelbin.openbible.ui.screens
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
@@ -67,6 +66,7 @@ import com.schwegelbin.openbible.logic.saveShowVerseNumbers
 import com.schwegelbin.openbible.logic.saveSplitScreen
 import com.schwegelbin.openbible.logic.saveTextStyle
 import java.io.File
+import androidx.core.net.toUri
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -202,7 +202,7 @@ fun LinkButton(text: String, url: String) {
     val context = LocalContext.current
     OutlinedButton(onClick = {
         val intent =
-            Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            Intent(Intent.ACTION_VIEW, url.toUri())
         context.startActivity(intent)
     }) { Text(text) }
 }

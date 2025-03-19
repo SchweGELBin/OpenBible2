@@ -2,8 +2,9 @@ package com.schwegelbin.openbible.logic
 
 import android.app.DownloadManager
 import android.content.Context
-import android.net.Uri
 import java.io.File
+import androidx.core.net.toUri
+import androidx.core.content.edit
 
 enum class SelectMode {
     Translation, Book, Chapter
@@ -74,7 +75,7 @@ fun downloadFile(
     val notify =
         if (getDownloadNotification(context)) DownloadManager.Request.VISIBILITY_VISIBLE
         else DownloadManager.Request.VISIBILITY_HIDDEN
-    val request = DownloadManager.Request(Uri.parse(url)).apply {
+    val request = DownloadManager.Request(url.toUri()).apply {
         setTitle("Downloading $name")
         setDescription("Downloading $name")
         setNotificationVisibility(notify)
@@ -91,17 +92,17 @@ fun saveSelection(
     chapter: Int? = null,
     isSplitScreen: Boolean
 ) {
-    val editor = context.getSharedPreferences("selection", Context.MODE_PRIVATE).edit()
-    if (!isSplitScreen) {
-        if (translation != null) editor.putString("translation", translation)
-        if (book != null) editor.putInt("book", book)
-        if (chapter != null) editor.putInt("chapter", chapter)
-    } else {
-        if (translation != null) editor.putString("translation_split", translation)
-        if (book != null) editor.putInt("book_split", book)
-        if (chapter != null) editor.putInt("chapter_split", chapter)
+    context.getSharedPreferences("selection", Context.MODE_PRIVATE).edit {
+        if (!isSplitScreen) {
+            if (translation != null) putString("translation", translation)
+            if (book != null) putInt("book", book)
+            if (chapter != null) putInt("chapter", chapter)
+        } else {
+            if (translation != null) putString("translation_split", translation)
+            if (book != null) putInt("book_split", book)
+            if (chapter != null) putInt("chapter_split", chapter)
+        }
     }
-    editor.apply()
 }
 
 fun saveColorScheme(
@@ -109,35 +110,40 @@ fun saveColorScheme(
     theme: ThemeOption? = null,
     scheme: SchemeOption? = null
 ) {
-    val editor = context.getSharedPreferences("options", Context.MODE_PRIVATE).edit()
-    if (theme != null) editor.putString("theme", theme.toString())
-    if (scheme != null) editor.putString("scheme", scheme.toString())
-    editor.apply()
+    context.getSharedPreferences("options", Context.MODE_PRIVATE).edit {
+        if (theme != null) putString("theme", theme.toString())
+        if (scheme != null) putString("scheme", scheme.toString())
+    }
 }
 
 fun saveTextStyle(context: Context, alignment: ReadTextAlignment) {
-    context.getSharedPreferences("options", Context.MODE_PRIVATE).edit()
-        .putString("textAlignment", alignment.toString()).apply()
+    context.getSharedPreferences("options", Context.MODE_PRIVATE).edit {
+        putString("textAlignment", alignment.toString())
+    }
 }
 
 fun saveShowVerseNumbers(context: Context, shown: Boolean) {
-    context.getSharedPreferences("options", Context.MODE_PRIVATE).edit()
-        .putBoolean("showVerseNumbers", shown).apply()
+    context.getSharedPreferences("options", Context.MODE_PRIVATE).edit {
+        putBoolean("showVerseNumbers", shown)
+    }
 }
 
 fun saveCheckAtStartup(context: Context, check: Boolean) {
-    context.getSharedPreferences("options", Context.MODE_PRIVATE).edit()
-        .putBoolean("checkAtStartup", check).apply()
+    context.getSharedPreferences("options", Context.MODE_PRIVATE).edit {
+        putBoolean("checkAtStartup", check)
+    }
 }
 
 fun saveSplitScreen(context: Context, enabled: Boolean) {
-    context.getSharedPreferences("options", Context.MODE_PRIVATE).edit()
-        .putBoolean("splitScreen", enabled).apply()
+    context.getSharedPreferences("options", Context.MODE_PRIVATE).edit {
+        putBoolean("splitScreen", enabled)
+    }
 }
 
 fun saveDownloadNotification(context: Context, enabled: Boolean) {
-    context.getSharedPreferences("options", Context.MODE_PRIVATE).edit()
-        .putBoolean("notifyDownload", enabled).apply()
+    context.getSharedPreferences("options", Context.MODE_PRIVATE).edit {
+        putBoolean("notifyDownload", enabled)
+    }
 }
 
 fun saveNewIndex(context: Context) {
