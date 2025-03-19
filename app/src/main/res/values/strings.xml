@@ -21,6 +21,7 @@
     <string name="downloading_index">Downloading Index, please wait…</string>
     <string name="downloading_translation">Downloading Translation, please wait…</string>
     <string name="error">ERROR</string>
+    <string name="horizontal">Horizontal</string>
     <string name="index">Index</string>
     <string name="information">Information</string>
     <string name="name">Name</string>
@@ -28,6 +29,7 @@
     <string name="new_files">Updates for translations found. Do you want to install them?</string>
     <string name="next">Next</string>
     <string name="notifications">Notifications</string>
+    <string name="off">Off</string>
     <string name="preferences">Preferences</string>
     <string name="scheme_dynamic">Dynamic</string>
     <string name="scheme_static">Static</string>
@@ -43,6 +45,7 @@
     <string name="theme_system">System</string>
     <string name="translation">Translation</string>
     <string name="update">Update</string>
+    <string name="vertical">Vertical</string>
     <string name="app_name" translatable="false">OpenBible</string>
     <string name="google_play" translatable="false">Google Play</string>
     <string name="source_getbible" translatable="false">getBible</string>

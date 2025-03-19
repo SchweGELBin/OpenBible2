@@ -27,6 +27,10 @@ enum class ReadTextAlignment {
     Start, Justify
 }
 
+enum class SplitScreen {
+    Off, Vertical, Horizontal
+}
+
 fun saveIndex(context: Context) {
     downloadFile(
         context = context,
@@ -135,9 +139,9 @@ fun saveCheckAtStartup(context: Context, check: Boolean) {
     }
 }
 
-fun saveSplitScreen(context: Context, enabled: Boolean) {
+fun saveSplitScreen(context: Context, split: SplitScreen) {
     context.getSharedPreferences("options", Context.MODE_PRIVATE).edit {
-        putBoolean("splitScreen", enabled)
+        putString("split", split.toString())
     }
 }
 

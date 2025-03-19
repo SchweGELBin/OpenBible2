@@ -45,6 +45,7 @@ import androidx.core.net.toUri
 import com.schwegelbin.openbible.R
 import com.schwegelbin.openbible.logic.ReadTextAlignment
 import com.schwegelbin.openbible.logic.SchemeOption
+import com.schwegelbin.openbible.logic.SplitScreen
 import com.schwegelbin.openbible.logic.ThemeOption
 import com.schwegelbin.openbible.logic.backupData
 import com.schwegelbin.openbible.logic.checkForUpdates
@@ -57,7 +58,7 @@ import com.schwegelbin.openbible.logic.getLanguageName
 import com.schwegelbin.openbible.logic.getList
 import com.schwegelbin.openbible.logic.getMainThemeOptions
 import com.schwegelbin.openbible.logic.getShowVerseNumbers
-import com.schwegelbin.openbible.logic.getSplitScreen
+import com.schwegelbin.openbible.logic.getSplitScreenInt
 import com.schwegelbin.openbible.logic.getTextAlignmentInt
 import com.schwegelbin.openbible.logic.getTranslations
 import com.schwegelbin.openbible.logic.saveCheckAtStartup
@@ -127,18 +128,13 @@ fun SettingsScreen(
             Text(stringResource(R.string.bible_text), style = styleLarge, modifier = modLarge)
             Text(stringResource(R.string.alignment), style = styleMedium)
             ReadTextAlignmentButton()
+            Text(stringResource(R.string.split_screen), style = styleMedium)
+            SplitScreenButton()
             CheckBoxField(
                 text = stringResource(R.string.show_verse_number),
                 initialState = getShowVerseNumbers(context),
                 saveFunction = { checked ->
                     saveShowVerseNumbers(context, checked)
-                }
-            )
-            CheckBoxField(
-                text = stringResource(R.string.split_screen),
-                initialState = getSplitScreen(context),
-                saveFunction = { checked ->
-                    saveSplitScreen(context, checked)
                 }
             )
 
@@ -236,6 +232,31 @@ fun ReadTextAlignmentButton() {
                 onClick = {
                     selectedIndex.intValue = index
                     saveTextStyle(context, option)
+                },
+                selected = index == selectedIndex.intValue
+            ) { Text(label) }
+        }
+    }
+}
+
+@Composable
+fun SplitScreenButton() {
+    val context = LocalContext.current
+    val selectedIndex = remember { mutableIntStateOf(getSplitScreenInt(context)) }
+    val options = SplitScreen.entries
+
+    SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
+        options.forEachIndexed { index, option ->
+            val label = when (option) {
+                SplitScreen.Off -> stringResource(R.string.off)
+                SplitScreen.Vertical -> stringResource(R.string.vertical)
+                SplitScreen.Horizontal -> stringResource(R.string.horizontal)
+            }
+            SegmentedButton(
+                shape = SegmentedButtonDefaults.itemShape(index = index, count = options.size),
+                onClick = {
+                    selectedIndex.intValue = index
+                    saveSplitScreen(context, option)
                 },
                 selected = index == selectedIndex.intValue
             ) { Text(label) }

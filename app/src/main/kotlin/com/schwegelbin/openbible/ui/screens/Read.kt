@@ -3,6 +3,8 @@ package com.schwegelbin.openbible.ui.screens
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -31,6 +33,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.schwegelbin.openbible.R
 import com.schwegelbin.openbible.logic.ReadTextAlignment
+import com.schwegelbin.openbible.logic.SplitScreen
 import com.schwegelbin.openbible.logic.checkTranslation
 import com.schwegelbin.openbible.logic.getAppName
 import com.schwegelbin.openbible.logic.getChapter
@@ -52,6 +55,7 @@ fun ReadScreen(
         MaterialTheme.colorScheme.secondary,
         MaterialTheme.colorScheme.tertiary
     )
+    val split = getSplitScreen(LocalContext.current)
 
     Scaffold(topBar = {
         TopAppBar(
@@ -67,15 +71,17 @@ fun ReadScreen(
     }) { innerPadding ->
         Column(
             modifier = Modifier
-                .padding(innerPadding)
                 .padding(start = 8.dp, end = 8.dp, bottom = 12.dp)
                 .fillMaxSize()
+                .padding(innerPadding)
         ) {
             Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                ReadCard(onNavigateToSelection, onNavigateToStart, false)
-                if (getSplitScreen(LocalContext.current))
-                    ReadCard(onNavigateToSelection, onNavigateToStart, true)
+                ReadCard(onNavigateToSelection, onNavigateToStart, split, false)
+                if (split == SplitScreen.Vertical)
+                    ReadCard(onNavigateToSelection, onNavigateToStart, split, true)
             }
+            if (split == SplitScreen.Horizontal)
+                ReadCard(onNavigateToSelection, onNavigateToStart, split, true)
         }
     }
 }
@@ -84,6 +90,7 @@ fun ReadScreen(
 fun ReadCard(
     onNavigateToSelection: (Boolean) -> Unit,
     onNavigateToStart: () -> Unit,
+    split: SplitScreen,
     isSplitScreen: Boolean
 ) {
     val context = LocalContext.current
@@ -104,11 +111,15 @@ fun ReadCard(
     val textMod = Modifier
         .padding(8.dp)
         .verticalScroll(rememberScrollState())
-    if (!isSplitScreen && getSplitScreen(LocalContext.current)) mod = Modifier.fillMaxWidth(0.5f)
-    Column(mod, verticalArrangement = Arrangement.spacedBy(12.dp)) {
+    if (!isSplitScreen && split == SplitScreen.Vertical) mod = Modifier.fillMaxWidth(0.5f)
+    if (!isSplitScreen && split == SplitScreen.Horizontal) mod = mod.fillMaxHeight(0.5f)
+    Column(mod, verticalArrangement = Arrangement.spacedBy(6.dp)) {
+        var innerMod = Modifier.fillMaxWidth()
+        if (isSplitScreen && split == SplitScreen.Horizontal) innerMod =
+            innerMod.padding(top = 12.dp)
         ElevatedCard(
             elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
-            modifier = Modifier.fillMaxWidth(),
+            modifier = innerMod,
             onClick = { onNavigateToSelection(isSplitScreen) }
         ) {
             Text(
@@ -118,11 +129,10 @@ fun ReadCard(
                     .align(Alignment.CenterHorizontally)
             )
         }
+        if (split != SplitScreen.Horizontal) Spacer(Modifier)
         ElevatedCard(
             elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
-            modifier = Modifier
-
-                .fillMaxWidth()
+            modifier = Modifier.fillMaxWidth()
         ) {
             when (textAlignment) {
                 ReadTextAlignment.Start -> {

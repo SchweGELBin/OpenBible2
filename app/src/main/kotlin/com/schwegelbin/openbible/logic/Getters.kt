@@ -118,6 +118,20 @@ fun getTextAlignment(context: Context): ReadTextAlignment {
     return textAlignment
 }
 
+fun getSplitScreen(context: Context): SplitScreen {
+    val sharedPref = context.getSharedPreferences("options", Context.MODE_PRIVATE)
+    val splitScreenStr = sharedPref.getString("split", "Start")
+
+    val splitScreen = when (splitScreenStr) {
+        SplitScreen.Off.toString() -> SplitScreen.Off
+        SplitScreen.Vertical.toString() -> SplitScreen.Vertical
+        SplitScreen.Horizontal.toString() -> SplitScreen.Horizontal
+        else -> SplitScreen.Off
+    }
+
+    return splitScreen
+}
+
 fun getShowVerseNumbers(context: Context): Boolean {
     return context.getSharedPreferences("options", Context.MODE_PRIVATE)
         .getBoolean("showVerseNumbers", true)
@@ -126,11 +140,6 @@ fun getShowVerseNumbers(context: Context): Boolean {
 fun getCheckAtStartup(context: Context): Boolean {
     return context.getSharedPreferences("options", Context.MODE_PRIVATE)
         .getBoolean("checkAtStartup", true)
-}
-
-fun getSplitScreen(context: Context): Boolean {
-    return context.getSharedPreferences("options", Context.MODE_PRIVATE)
-        .getBoolean("splitScreen", false)
 }
 
 fun getDownloadNotification(context: Context): Boolean {
@@ -169,6 +178,14 @@ fun getTextAlignmentInt(context: Context): Int {
     return when (getTextAlignment(context)) {
         ReadTextAlignment.Start -> 0
         ReadTextAlignment.Justify -> 1
+    }
+}
+
+fun getSplitScreenInt(context: Context): Int {
+    return when (getSplitScreen(context)) {
+        SplitScreen.Off -> 0
+        SplitScreen.Vertical -> 1
+        SplitScreen.Horizontal -> 2
     }
 }
 
