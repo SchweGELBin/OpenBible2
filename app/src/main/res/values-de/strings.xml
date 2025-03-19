@@ -31,6 +31,7 @@
     <string name="notifications">Benachrichtigungen</string>
     <string name="off">Aus</string>
     <string name="preferences">Einstellungen</string>
+    <string name="restore">Wiederherstellen</string>
     <string name="scheme_dynamic">Dynamisch</string>
     <string name="scheme_static">Statisch</string>
     <string name="screen_home">Start</string>

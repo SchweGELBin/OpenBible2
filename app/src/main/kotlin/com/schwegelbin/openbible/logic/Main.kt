@@ -2,14 +2,18 @@ package com.schwegelbin.openbible.logic
 
 import android.app.DownloadManager
 import android.content.Context
+import android.net.Uri
 import android.os.Environment
 import androidx.core.content.edit
 import androidx.core.net.toUri
 import net.lingala.zip4j.ZipFile
+import net.lingala.zip4j.exception.ZipException
 import net.lingala.zip4j.model.ZipParameters
 import net.lingala.zip4j.model.enums.CompressionLevel
 import net.lingala.zip4j.model.enums.CompressionMethod
 import java.io.File
+import java.io.FileOutputStream
+
 
 enum class SelectMode {
     Translation, Book, Chapter
@@ -237,5 +241,32 @@ fun backupData(context: Context, user: Boolean = false, data: Boolean = false) {
     if (data) {
         val zip = ZipFile("$download/OpenBible-Preferences.zip")
         zip.addFiles(File(dataDir).listFiles()?.toList(), parameters)
+    }
+}
+
+fun restoreBackup(context: Context, uri: Uri, user: Boolean, onFinished: () -> Unit) {
+    if (user) {
+        val dir = context.getExternalFilesDir("")
+        context.contentResolver.openInputStream(uri)?.use { inputStream ->
+            val temp = File(dir, "temp.zip")
+            FileOutputStream(temp).use { outputStream ->
+                inputStream.copyTo(outputStream)
+            }
+            try {
+                val zip = ZipFile(temp)
+                zip.extractAll(dir?.absolutePath)
+            } catch (e: ZipException) {
+                e.printStackTrace()
+            } finally {
+                temp.delete()
+                onFinished()
+            }
+        } ?: run {
+            println("Failed to open input stream.")
+        }
+    }
+
+    if (!user) {
+        // TODO: Restore Preferences
     }
 }

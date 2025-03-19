@@ -1,5 +1,7 @@
 package com.schwegelbin.openbible.ui.screens
 
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -19,6 +21,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,6 +37,7 @@ import com.schwegelbin.openbible.logic.downloadTranslation
 import com.schwegelbin.openbible.logic.getCheckAtStartup
 import com.schwegelbin.openbible.logic.getFirstLaunch
 import com.schwegelbin.openbible.logic.getSelection
+import com.schwegelbin.openbible.logic.restoreBackup
 import com.schwegelbin.openbible.logic.saveNewIndex
 import com.schwegelbin.openbible.logic.saveSelection
 import kotlinx.coroutines.delay
@@ -61,12 +65,22 @@ fun StartScreen(onNavigateToRead: () -> Unit) {
                     textAlign = TextAlign.Center,
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
-                OutlinedButton(
-                    onClick = {
-                        state.intValue = 1
-                    },
-                    Modifier.align(Alignment.CenterHorizontally)
-                ) { Text(stringResource(R.string.continue_button)) }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .horizontalScroll(rememberScrollState()),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    OutlinedButton(
+                        onClick = {
+                            state.intValue = 1
+                        }
+                    ) { Text(stringResource(R.string.download)) }
+                    RestoreButton(
+                        stringResource(R.string.restore),
+                        true,
+                        onFinished = { onNavigateToRead() })
+                }
             }
 
             1 -> {
@@ -179,5 +193,23 @@ fun TranslationCard(onSelected: () -> Unit) {
             saveSelection(context, abbrev, isSplitScreen = true)
             onSelected()
         })
+    }
+}
+
+@Composable
+fun RestoreButton(label: String, user: Boolean, onFinished: () -> Unit) {
+    val context = LocalContext.current
+    val clicked = remember { mutableStateOf(false) }
+
+    val getContentLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.GetContent()
+    ) { result ->
+        result?.let { restoreBackup(context, it, user, onFinished) }
+    }
+
+    OutlinedButton(onClick = { clicked.value = true }) { Text(label) }
+    if (clicked.value) {
+        clicked.value = false
+        getContentLauncher.launch("application/zip")
     }
 }

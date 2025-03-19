@@ -107,19 +107,20 @@ fun ReadCard(
         showVerseNumbers.value,
         stringResource(R.string.error)
     )
-    var mod = Modifier.fillMaxWidth()
+    val mod = Modifier.fillMaxWidth()
+    var outer = mod
     val textMod = Modifier
         .padding(8.dp)
         .verticalScroll(rememberScrollState())
-    if (!isSplitScreen && split == SplitScreen.Vertical) mod = Modifier.fillMaxWidth(0.5f)
-    if (!isSplitScreen && split == SplitScreen.Horizontal) mod = mod.fillMaxHeight(0.5f)
-    Column(mod, verticalArrangement = Arrangement.spacedBy(6.dp)) {
+    if (!isSplitScreen && split == SplitScreen.Vertical) outer = Modifier.fillMaxWidth(0.5f)
+    if (!isSplitScreen && split == SplitScreen.Horizontal) outer = mod.fillMaxHeight(0.5f)
+    Column(outer, verticalArrangement = Arrangement.spacedBy(6.dp)) {
         var innerMod = Modifier.fillMaxWidth()
         if (isSplitScreen && split == SplitScreen.Horizontal) innerMod =
             innerMod.padding(top = 12.dp)
         ElevatedCard(
             elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
-            modifier = innerMod,
+            modifier = if (isSplitScreen && split == SplitScreen.Horizontal) mod.padding(top = 12.dp) else mod,
             onClick = { onNavigateToSelection(isSplitScreen) }
         ) {
             Text(

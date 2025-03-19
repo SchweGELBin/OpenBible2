@@ -31,6 +31,7 @@
     <string name="notifications">Notifications</string>
     <string name="off">Off</string>
     <string name="preferences">Preferences</string>
+    <string name="restore">Restore</string>
     <string name="scheme_dynamic">Dynamic</string>
     <string name="scheme_static">Static</string>
     <string name="screen_home">Home</string>
