@@ -33,7 +33,8 @@ fun getTranslationInfo(context: Context, abbrev: String): String {
     ) ?: return ""
     map.values.forEach { (translation, abbreviation, _, _, about, license) ->
         if (abbreviation == abbrev) {
-            return "$translation\n\n$about\n\n$license"
+            val newAbout = about.replace("\\par ", "\n").replace("\\par", "\n")
+            return "$translation\n\n$newAbout\n\n$license"
         }
     }
     return ""

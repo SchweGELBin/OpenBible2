@@ -3,9 +3,11 @@ package com.schwegelbin.openbible.ui.screens
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
@@ -31,7 +33,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.schwegelbin.openbible.R
 import com.schwegelbin.openbible.logic.SelectMode
-import com.schwegelbin.openbible.logic.TranslationMode
 import com.schwegelbin.openbible.logic.getBookNames
 import com.schwegelbin.openbible.logic.getCount
 import com.schwegelbin.openbible.logic.getList
@@ -72,11 +73,8 @@ fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean) {
     val book = remember { mutableIntStateOf(selection.second) }
     val chapter = remember { mutableIntStateOf(selection.third) }
     val selectedIndex = remember { mutableIntStateOf(1) }
-    val selectedTIndex = remember { mutableIntStateOf(1) }
     val options = SelectMode.entries
-    val tOptions = TranslationMode.entries
     val selectMode = remember { mutableStateOf(options[selectedIndex.intValue]) }
-    val selectTMode = remember { mutableStateOf(tOptions[selectedTIndex.intValue]) }
 
     SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
         options.forEachIndexed { index, option ->
@@ -96,70 +94,56 @@ fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean) {
         }
     }
     if (selectMode.value == SelectMode.Translation) {
-        SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
-            tOptions.forEachIndexed { index, option ->
-                val label = when (option) {
-                    TranslationMode.Info -> stringResource(R.string.information)
-                    TranslationMode.Name -> stringResource(R.string.name)
-                }
-                SegmentedButton(
-                    shape = SegmentedButtonDefaults.itemShape(index = index, count = tOptions.size),
-                    onClick = {
-                        selectedTIndex.intValue = index
-                        selectTMode.value = option
-                    },
-                    selected = index == selectedTIndex.intValue
-                ) { Text(label) }
+        ElevatedCard(
+            elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.35f)
+        ) {
+            SelectionContainer {
+                Text(
+                    text = getTranslationInfo(context, translation.value),
+                    modifier = Modifier
+                        .padding(10.dp)
+                        .verticalScroll(rememberScrollState())
+                )
             }
         }
     }
     ElevatedCard(
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
         modifier = Modifier
-            .verticalScroll(state = rememberScrollState(), enabled = true)
+            .verticalScroll(rememberScrollState())
             .fillMaxWidth()
     ) {
         when (selectMode.value) {
             SelectMode.Translation -> {
-                when (selectTMode.value) {
-                    TranslationMode.Info -> Text(
-                        getTranslationInfo(
-                            LocalContext.current,
-                            translation.value
-                        )
+                val translationList =
+                    getList(context, "Translations").map { it.nameWithoutExtension }
+
+                listTranslations(buttonFunction = { abbrev ->
+                    translation.value = abbrev
+
+                    val (bookCount, chapterCount) = getCount(
+                        context,
+                        translation.value,
+                        book.intValue
                     )
-
-                    TranslationMode.Name -> {
-                        val translationList =
-                            getList(context, "Translations").map { it.nameWithoutExtension }
-
-                        listTranslations(buttonFunction = { abbrev ->
-                            translation.value = abbrev
-
-                            val (bookCount, chapterCount) = getCount(
-                                context,
-                                translation.value,
-                                book.intValue
-                            )
-                            if (book.intValue > bookCount) {
-                                book.intValue = 0
-                                chapter.intValue = 0
-                            }
-                            if (chapter.intValue > chapterCount) {
-                                chapter.intValue = 0
-                            }
-                            selectMode.value = SelectMode.Book
-                            selectedIndex.intValue = 1
-                            saveSelection(
-                                context,
-                                translation.value,
-                                book.intValue,
-                                chapter.intValue,
-                                isSplitScreen
-                            )
-                        }, translationList)
+                    if (book.intValue > bookCount) {
+                        book.intValue = 0
+                        chapter.intValue = 0
                     }
-                }
+                    if (chapter.intValue > chapterCount) {
+                        chapter.intValue = 0
+                    }
+                    saveSelection(
+                        context,
+                        translation.value,
+                        book.intValue,
+                        chapter.intValue,
+                        isSplitScreen
+                    )
+                }, translationList)
             }
 
             SelectMode.Book -> {

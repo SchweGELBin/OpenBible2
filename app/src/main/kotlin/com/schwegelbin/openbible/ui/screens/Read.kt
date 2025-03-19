@@ -101,6 +101,9 @@ fun ReadCard(
         stringResource(R.string.error)
     )
     var mod = Modifier.fillMaxWidth()
+    val textMod = Modifier
+        .padding(8.dp)
+        .verticalScroll(rememberScrollState())
     if (!isSplitScreen && getSplitScreen(LocalContext.current)) mod = Modifier.fillMaxWidth(0.5f)
     Column(mod, verticalArrangement = Arrangement.spacedBy(12.dp)) {
         ElevatedCard(
@@ -118,7 +121,7 @@ fun ReadCard(
         ElevatedCard(
             elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
             modifier = Modifier
-                .verticalScroll(state = rememberScrollState(), enabled = true)
+
                 .fillMaxWidth()
         ) {
             when (textAlignment) {
@@ -126,7 +129,7 @@ fun ReadCard(
                     SelectionContainer {
                         Text(
                             text = text,
-                            modifier = Modifier.padding(8.dp)
+                            modifier = textMod
                         )
                     }
                 }
@@ -134,7 +137,7 @@ fun ReadCard(
                 ReadTextAlignment.Justify -> {
                     Text(
                         text = text,
-                        modifier = Modifier.padding(8.dp),
+                        modifier = textMod,
                         textAlign = TextAlign.Justify
                     )
                 }
