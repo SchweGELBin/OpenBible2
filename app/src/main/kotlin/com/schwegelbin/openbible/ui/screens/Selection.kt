@@ -122,7 +122,13 @@ fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean) {
         when (selectMode.value) {
             SelectMode.Translation -> {
                 when (selectTMode.value) {
-                    TranslationMode.Info -> Text(getTranslationInfo(LocalContext.current, translation.value))
+                    TranslationMode.Info -> Text(
+                        getTranslationInfo(
+                            LocalContext.current,
+                            translation.value
+                        )
+                    )
+
                     TranslationMode.Name -> {
                         val translationList =
                             getList(context, "Translations").map { it.nameWithoutExtension }

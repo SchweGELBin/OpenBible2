@@ -2,9 +2,9 @@ package com.schwegelbin.openbible.logic
 
 import android.app.DownloadManager
 import android.content.Context
-import java.io.File
-import androidx.core.net.toUri
 import androidx.core.content.edit
+import androidx.core.net.toUri
+import java.io.File
 
 enum class SelectMode {
     Translation, Book, Chapter

@@ -21,8 +21,8 @@
     <string name="error">ERROR</string>
     <string name="index">Index</string>
     <string name="information">Information</string>
-    <string name="needs_files">This application needs to download an index, checksums and translations to work.</string>
     <string name="name">Name</string>
+    <string name="needs_files">This application needs to download an index, checksums and translations to work.</string>
     <string name="new_files">Updates for translations found. Do you want to install them?</string>
     <string name="next">Next</string>
     <string name="notifications">Notifications</string>
