@@ -25,12 +25,13 @@
     <string name="index">Index</string>
     <string name="information">Information</string>
     <string name="name">Name</string>
-    <string name="needs_files">Diese Applikation benötigt einen Index, Checksums and Übersetzungen um zu funktionieren und muss diese herunterladen.</string>
+    <string name="needs_files">Diese Applikation benötigt einen Index, Checksums and Übersetzungen um zu funktionieren.</string>
     <string name="new_files">Aktualisierungen für Übersetzungen gefunden. Wollen Sie diese installieren?</string>
-    <string name="next">Weiter</string>
+    <string name="next">Nächstes</string>
     <string name="notifications">Benachrichtigungen</string>
     <string name="off">Aus</string>
     <string name="preferences">Einstellungen</string>
+    <string name="previous">Vorheriges</string>
     <string name="restore">Wiederherstellen</string>
     <string name="scheme_dynamic">Dynamisch</string>
     <string name="scheme_static">Statisch</string>

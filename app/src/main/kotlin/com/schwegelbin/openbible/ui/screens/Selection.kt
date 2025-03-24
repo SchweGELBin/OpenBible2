@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -93,60 +94,65 @@ fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean) {
             ) { Text(label) }
         }
     }
-    if (selectMode.value == SelectMode.Translation) {
-        ElevatedCard(
-            elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(0.35f)
-        ) {
-            SelectionContainer {
-                Text(
-                    text = getTranslationInfo(context, translation.value),
-                    modifier = Modifier
-                        .padding(10.dp)
-                        .verticalScroll(rememberScrollState())
-                )
+    when (selectMode.value) {
+        SelectMode.Translation -> {
+            ElevatedCard(
+                elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(0.65f)
+            ) {
+                Column(Modifier.verticalScroll(rememberScrollState())) {
+                    val translationList =
+                        getList(context, "Translations").map { it.nameWithoutExtension }
+
+                    listTranslations(buttonFunction = { abbrev ->
+                        translation.value = abbrev
+
+                        val (bookCount, chapterCount) = getCount(
+                            context,
+                            translation.value,
+                            book.intValue
+                        )
+                        if (book.intValue > bookCount) {
+                            book.intValue = 0
+                            chapter.intValue = 0
+                        }
+                        if (chapter.intValue > chapterCount) {
+                            chapter.intValue = 0
+                        }
+                        saveSelection(
+                            context,
+                            translation.value,
+                            book.intValue,
+                            chapter.intValue,
+                            isSplitScreen
+                        )
+                    }, translationList)
+                }
+            }
+            ElevatedCard(
+                elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+                modifier = Modifier.fillMaxSize()
+            ) {
+                SelectionContainer {
+                    Text(
+                        text = getTranslationInfo(context, translation.value),
+                        modifier = Modifier
+                            .padding(10.dp)
+                            .verticalScroll(rememberScrollState())
+                    )
+                }
             }
         }
-    }
-    ElevatedCard(
-        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
-        modifier = Modifier
-            .verticalScroll(rememberScrollState())
-            .fillMaxWidth()
-    ) {
-        when (selectMode.value) {
-            SelectMode.Translation -> {
-                val translationList =
-                    getList(context, "Translations").map { it.nameWithoutExtension }
 
-                listTranslations(buttonFunction = { abbrev ->
-                    translation.value = abbrev
-
-                    val (bookCount, chapterCount) = getCount(
-                        context,
-                        translation.value,
-                        book.intValue
-                    )
-                    if (book.intValue > bookCount) {
-                        book.intValue = 0
-                        chapter.intValue = 0
-                    }
-                    if (chapter.intValue > chapterCount) {
-                        chapter.intValue = 0
-                    }
-                    saveSelection(
-                        context,
-                        translation.value,
-                        book.intValue,
-                        chapter.intValue,
-                        isSplitScreen
-                    )
-                }, translationList)
-            }
-
-            SelectMode.Book -> {
+        SelectMode.Book -> {
+            ElevatedCard(
+                elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .verticalScroll(rememberScrollState())
+            ) {
                 val names = getBookNames(context, translation.value)
                 val num = names.size - 1
                 val buttonsPerRow = 3
@@ -186,8 +192,15 @@ fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean) {
                     }
                 }
             }
+        }
 
-            SelectMode.Chapter -> {
+        SelectMode.Chapter -> {
+            ElevatedCard(
+                elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .verticalScroll(rememberScrollState())
+            ) {
                 val (_, num) = getCount(context, translation.value, book.intValue)
                 val buttonsPerRow = 4
 

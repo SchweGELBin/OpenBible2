@@ -42,6 +42,11 @@ fun App(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
                     navController.navigate(Start) {
                         popUpTo(0) { inclusive = true }
                     }
+                },
+                onNavigateToRead = {
+                    navController.navigate(Read) {
+                        popUpTo(0) { inclusive = true }
+                    }
                 })
         }
         composable<Selection> { backStackEntry ->

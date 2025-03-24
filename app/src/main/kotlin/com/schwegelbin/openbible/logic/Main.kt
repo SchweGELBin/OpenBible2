@@ -270,3 +270,33 @@ fun restoreBackup(context: Context, uri: Uri, user: Boolean, onFinished: () -> U
         // TODO: Restore Preferences
     }
 }
+
+fun turnChapter(
+    context: Context,
+    next: Boolean,
+    isSplitScreen: Boolean,
+    onNavigateToRead: () -> Unit
+) {
+    var (translation, book, chapter) = getSelection(context, isSplitScreen)
+    if (next) {
+        val (bookCount, chapterCount) = getCount(context, translation, book)
+        if (chapter < chapterCount) {
+            chapter++
+            onNavigateToRead()
+        } else if (book < bookCount) {
+            book++
+            chapter = 0
+            onNavigateToRead()
+        }
+    } else {
+        if (chapter > 0) {
+            chapter--
+            onNavigateToRead()
+        } else if (book > 0) {
+            book--
+            chapter = getCount(context, translation, book).second
+            onNavigateToRead()
+        }
+    }
+    saveSelection(context, book = book, chapter = chapter, isSplitScreen = isSplitScreen)
+}
