@@ -2,12 +2,47 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.7.0] - 2025-03-24
+
+### 🚀 Features
+
+- *(selection)* Show translation information
+- Backup data
+- Add horizontal split screen
+- Restore user backup
+- Add previous/next chapter buttons to ReadScreen
+
+### 🐛 Bug Fixes
+
+- Return to download translation screen when no translation found
+
+### 📚 Documentation
+
+- *(license)* Bump copyright date
+
+### ⚡ Performance
+
+- Improve translation information interface
+
+### 🎨 Styling
+
+- Reformat and cleanup
+- Reformat
+
+### ⚙️ Miscellaneous Tasks
+
+- Use ktx functions
+
 ## [1.6.1] - 2025-03-11
 
 ### 📚 Documentation
 
 - *(strings)* Add PT-BR (#37)
 - *(strings)* Make some keys untranslatable
+
+### ⚙️ Miscellaneous Tasks
+
+- Bump to 1.6.1
 
 ## [1.6.0] - 2025-02-25
 

@@ -1,0 +1,8 @@
+Features
+- Show translation information
+- Backup data
+- Horizontal split screen
+- Switch to next/previous chapter
+
+Bug Fixes
+- Return to download translation at interruption

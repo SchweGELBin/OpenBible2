@@ -1,0 +1,8 @@
+Funktionen
+- Zeige Uebersetzungsinformationen
+- Daten-Backup
+- Geteilter Bildschirm Modus: Horizontal
+- Wechsel zum naechsten/vorherigen Kapitel
+
+Fehlerbehebungen
+- Wiederherstellung des Herunterladen-Prozesses bei Unterbrechungen
