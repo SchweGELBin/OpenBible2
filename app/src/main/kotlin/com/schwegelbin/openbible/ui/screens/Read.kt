@@ -27,6 +27,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -133,14 +134,13 @@ fun ReadCard(
             onClick = { onNavigateToSelection(isSplitScreen) }
         ) {
             Row(
-                horizontalArrangement = Arrangement.End
+                horizontalArrangement = Arrangement.End,
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 TurnButton(false, isSplitScreen, onNavigateToRead)
                 Text(
                     text = title,
-                    modifier = Modifier
-                        .padding(top = 12.dp)
-                        .weight(1f),
+                    modifier = Modifier.weight(1f),
                     textAlign = TextAlign.Center
                 )
                 TurnButton(true, isSplitScreen, onNavigateToRead)

@@ -52,11 +52,13 @@ fun StartScreen(onNavigateToRead: () -> Unit) {
         verticalArrangement = Arrangement.spacedBy(15.dp)
     ) {
         val state = remember { mutableIntStateOf(0) }
-        val path = context.getExternalFilesDir("Index")
-        val translationsFile = File("${path}/translations.json")
-        val checksumFile = File("${path}/checksum.json")
-        if (state.intValue == 0 && getCheckAtStartup(context) && translationsFile.exists() && checksumFile.exists())
-            state.intValue = 4
+        val path = context.getExternalFilesDir("")
+        if (state.intValue == 0 && getCheckAtStartup(context) && File("${path}/Index/translations.json").exists() && File(
+                "${path}/Index/checksum.json"
+            ).exists()
+        )
+            if (File("${path}/Translations").list()?.isEmpty() == true) state.intValue = 2
+            else state.intValue = 4
         when (state.intValue) {
             0 -> {
                 Spacer(Modifier.fillMaxHeight(0.4f))
