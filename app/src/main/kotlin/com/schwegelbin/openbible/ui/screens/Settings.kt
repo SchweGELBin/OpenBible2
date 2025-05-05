@@ -69,7 +69,7 @@ import com.schwegelbin.openbible.logic.saveInfiniteScroll
 import com.schwegelbin.openbible.logic.saveNewIndex
 import com.schwegelbin.openbible.logic.saveShowVerseNumbers
 import com.schwegelbin.openbible.logic.saveSplitScreen
-import com.schwegelbin.openbible.logic.saveTextStyle
+import com.schwegelbin.openbible.logic.saveTextAlignment
 import java.io.File
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -240,7 +240,7 @@ fun ReadTextAlignmentButton() {
                 shape = SegmentedButtonDefaults.itemShape(index = index, count = options.size),
                 onClick = {
                     selectedIndex.intValue = index
-                    saveTextStyle(context, option)
+                    saveTextAlignment(context, option)
                 },
                 selected = index == selectedIndex.intValue
             ) { Text(label) }

@@ -4,7 +4,6 @@ import android.app.DownloadManager
 import android.content.Context
 import android.net.Uri
 import android.os.Environment
-import androidx.core.content.edit
 import androidx.core.net.toUri
 import net.lingala.zip4j.ZipFile
 import net.lingala.zip4j.exception.ZipException
@@ -92,73 +91,6 @@ fun downloadFile(
     }
     val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
     return downloadManager.enqueue(request)
-}
-
-fun saveSelection(
-    context: Context,
-    translation: String? = null,
-    book: Int? = null,
-    chapter: Int? = null,
-    isSplitScreen: Boolean
-) {
-    context.getSharedPreferences("selection", Context.MODE_PRIVATE).edit {
-        if (!isSplitScreen) {
-            if (translation != null) putString("translation", translation)
-            if (book != null) putInt("book", book)
-            if (chapter != null) putInt("chapter", chapter)
-        } else {
-            if (translation != null) putString("translation_split", translation)
-            if (book != null) putInt("book_split", book)
-            if (chapter != null) putInt("chapter_split", chapter)
-        }
-    }
-}
-
-fun saveColorScheme(
-    context: Context,
-    theme: ThemeOption? = null,
-    scheme: SchemeOption? = null
-) {
-    context.getSharedPreferences("options", Context.MODE_PRIVATE).edit {
-        if (theme != null) putString("theme", theme.toString())
-        if (scheme != null) putString("scheme", scheme.toString())
-    }
-}
-
-fun saveTextStyle(context: Context, alignment: ReadTextAlignment) {
-    context.getSharedPreferences("options", Context.MODE_PRIVATE).edit {
-        putString("textAlignment", alignment.toString())
-    }
-}
-
-fun saveShowVerseNumbers(context: Context, shown: Boolean) {
-    context.getSharedPreferences("options", Context.MODE_PRIVATE).edit {
-        putBoolean("showVerseNumbers", shown)
-    }
-}
-
-fun saveInfiniteScroll(context: Context, shown: Boolean) {
-    context.getSharedPreferences("options", Context.MODE_PRIVATE).edit {
-        putBoolean("infiniteScroll", shown)
-    }
-}
-
-fun saveCheckAtStartup(context: Context, check: Boolean) {
-    context.getSharedPreferences("options", Context.MODE_PRIVATE).edit {
-        putBoolean("checkAtStartup", check)
-    }
-}
-
-fun saveSplitScreen(context: Context, split: SplitScreen) {
-    context.getSharedPreferences("options", Context.MODE_PRIVATE).edit {
-        putString("split", split.toString())
-    }
-}
-
-fun saveDownloadNotification(context: Context, enabled: Boolean) {
-    context.getSharedPreferences("options", Context.MODE_PRIVATE).edit {
-        putBoolean("notifyDownload", enabled)
-    }
 }
 
 fun saveNewIndex(context: Context) {
