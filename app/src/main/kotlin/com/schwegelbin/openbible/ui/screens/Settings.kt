@@ -54,6 +54,7 @@ import com.schwegelbin.openbible.logic.downloadTranslation
 import com.schwegelbin.openbible.logic.getCheckAtStartup
 import com.schwegelbin.openbible.logic.getColorSchemeInt
 import com.schwegelbin.openbible.logic.getDownloadNotification
+import com.schwegelbin.openbible.logic.getInfiniteScroll
 import com.schwegelbin.openbible.logic.getLanguageName
 import com.schwegelbin.openbible.logic.getList
 import com.schwegelbin.openbible.logic.getMainThemeOptions
@@ -64,6 +65,7 @@ import com.schwegelbin.openbible.logic.getTranslations
 import com.schwegelbin.openbible.logic.saveCheckAtStartup
 import com.schwegelbin.openbible.logic.saveColorScheme
 import com.schwegelbin.openbible.logic.saveDownloadNotification
+import com.schwegelbin.openbible.logic.saveInfiniteScroll
 import com.schwegelbin.openbible.logic.saveNewIndex
 import com.schwegelbin.openbible.logic.saveShowVerseNumbers
 import com.schwegelbin.openbible.logic.saveSplitScreen
@@ -135,6 +137,13 @@ fun SettingsScreen(
                 initialState = getShowVerseNumbers(context),
                 saveFunction = { checked ->
                     saveShowVerseNumbers(context, checked)
+                }
+            )
+            CheckBoxField(
+                text = stringResource(R.string.infinite_scroll),
+                initialState = getInfiniteScroll(context),
+                saveFunction = { checked ->
+                    saveInfiniteScroll(context, checked)
                 }
             )
 

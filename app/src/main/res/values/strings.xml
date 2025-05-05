@@ -23,6 +23,7 @@
     <string name="error">ERROR</string>
     <string name="horizontal">Horizontal</string>
     <string name="index">Index</string>
+    <string name="infinite_scroll">Infinite Scroll</string>
     <string name="information">Information</string>
     <string name="name">Name</string>
     <string name="needs_files">This application needs an index, checksums and translations to work.</string>

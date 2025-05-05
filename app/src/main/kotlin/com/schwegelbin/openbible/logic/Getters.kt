@@ -137,6 +137,11 @@ fun getShowVerseNumbers(context: Context): Boolean {
         .getBoolean("showVerseNumbers", true)
 }
 
+fun getInfiniteScroll(context: Context): Boolean {
+    return context.getSharedPreferences("options", Context.MODE_PRIVATE)
+        .getBoolean("infiniteScroll", true)
+}
+
 fun getCheckAtStartup(context: Context): Boolean {
     return context.getSharedPreferences("options", Context.MODE_PRIVATE)
         .getBoolean("checkAtStartup", true)

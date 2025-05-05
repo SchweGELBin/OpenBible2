@@ -137,6 +137,12 @@ fun saveShowVerseNumbers(context: Context, shown: Boolean) {
     }
 }
 
+fun saveInfiniteScroll(context: Context, shown: Boolean) {
+    context.getSharedPreferences("options", Context.MODE_PRIVATE).edit {
+        putBoolean("infiniteScroll", shown)
+    }
+}
+
 fun saveCheckAtStartup(context: Context, check: Boolean) {
     context.getSharedPreferences("options", Context.MODE_PRIVATE).edit {
         putBoolean("checkAtStartup", check)

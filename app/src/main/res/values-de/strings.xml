@@ -23,6 +23,7 @@
     <string name="error">ERROR</string>
     <string name="horizontal">Horizontal</string>
     <string name="index">Index</string>
+    <string name="infinite_scroll">Unendliches Scrollen</string>
     <string name="information">Information</string>
     <string name="name">Name</string>
     <string name="needs_files">Diese Applikation benötigt einen Index, Checksums and Übersetzungen um zu funktionieren.</string>
