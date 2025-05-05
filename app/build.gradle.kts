@@ -7,12 +7,12 @@ plugins {
 
 android {
     namespace = "com.schwegelbin.openbible"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.schwegelbin.openbible"
         minSdk = 27
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 28
         versionName = "1.7.0"
 
