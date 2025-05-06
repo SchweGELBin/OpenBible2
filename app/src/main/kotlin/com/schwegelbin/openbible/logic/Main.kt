@@ -143,6 +143,7 @@ fun restoreBackup(context: Context, uri: Uri, user: Boolean, onFinished: () -> U
     }
 
     /* TODO: Restore Preferences
+     * https://github.com/SchweGELBin/OpenBible2/issues/35
     else { }
     */
 }

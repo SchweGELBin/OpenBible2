@@ -9,7 +9,7 @@ import java.io.File
 
 @Serializable
 data class Verse(
-    val verse: Int, val text: String
+    val name: String, val verse: Int, val text: String
 )
 
 @Serializable

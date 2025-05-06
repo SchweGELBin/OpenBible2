@@ -116,6 +116,7 @@ fun SettingsScreen(
             )
 
             /* TODO: Implement Language Change
+             * https://github.com/SchweGELBin/OpenBible2/issues/13
             HorizontalDivider(Modifier.padding(12.dp))
             Text(stringResource(R.string.locale), style = styleLarge, modifier = modLarge)
             Text(stringResource(R.string.language), style = styleMedium)
@@ -145,6 +146,7 @@ fun SettingsScreen(
                 }
             )
             /* TODO: Implement Infinite Scroll
+             * https://github.com/SchweGELBin/OpenBible2/issues/16
             CheckBoxField(
                 text = stringResource(R.string.infinite_scroll),
                 initialState = getInfiniteScroll(context),
@@ -164,6 +166,7 @@ fun SettingsScreen(
                 }
             )
             /* TODO: Implement Verse of the Day
+             * https://github.com/SchweGELBin/OpenBible2/issues/19
             CheckBoxField(
                 text = stringResource(R.string.verse_of_the_day),
                 initialState = getVerseOfTheDay(context),

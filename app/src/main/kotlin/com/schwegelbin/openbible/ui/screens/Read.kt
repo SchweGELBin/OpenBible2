@@ -13,9 +13,11 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Bookmarks
 import androidx.compose.material.icons.filled.ChevronLeft
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenu
@@ -226,7 +228,7 @@ fun HamburgerMenu(
             },
             onClick = { onNavigateToSettings() }
         )
-        /* TODO: Implement Bookmarks
+        // TODO: Implement Bookmarks
         DropdownMenuItem(
             text = { Text(stringResource(R.string.bookmarks)) },
             trailingIcon = {
@@ -237,8 +239,7 @@ fun HamburgerMenu(
             },
             onClick = { onNavigateToBookmarks() }
         )
-        */
-        /* TODO: Implement Search
+        // TODO: Implement Search
         DropdownMenuItem(
             text = { Text(stringResource(R.string.search)) },
             trailingIcon = {
@@ -249,6 +250,5 @@ fun HamburgerMenu(
             },
             onClick = { onNavigateToSearch() }
         )
-        */
     }
 }
