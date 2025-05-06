@@ -36,9 +36,9 @@ import com.schwegelbin.openbible.R
 import com.schwegelbin.openbible.logic.SelectMode
 import com.schwegelbin.openbible.logic.getBookNames
 import com.schwegelbin.openbible.logic.getCount
-import com.schwegelbin.openbible.logic.getList
 import com.schwegelbin.openbible.logic.getSelection
 import com.schwegelbin.openbible.logic.getTranslationInfo
+import com.schwegelbin.openbible.logic.getTranslationList
 import com.schwegelbin.openbible.logic.saveSelection
 import com.schwegelbin.openbible.logic.shorten
 
@@ -104,7 +104,7 @@ fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean) {
             ) {
                 Column(Modifier.verticalScroll(rememberScrollState())) {
                     val translationList =
-                        getList(context, "Translations").map { it.nameWithoutExtension }
+                        getTranslationList(context).map { it.nameWithoutExtension }
 
                     listTranslations(buttonFunction = { abbrev ->
                         translation.value = abbrev

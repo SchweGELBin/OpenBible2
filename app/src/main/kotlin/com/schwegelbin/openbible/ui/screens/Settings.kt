@@ -49,28 +49,28 @@ import com.schwegelbin.openbible.logic.SplitScreen
 import com.schwegelbin.openbible.logic.ThemeOption
 import com.schwegelbin.openbible.logic.backupData
 import com.schwegelbin.openbible.logic.checkForUpdates
-import com.schwegelbin.openbible.logic.cleanUpTranslations
 import com.schwegelbin.openbible.logic.downloadTranslation
 import com.schwegelbin.openbible.logic.getCheckAtStartup
 import com.schwegelbin.openbible.logic.getColorSchemeInt
 import com.schwegelbin.openbible.logic.getDownloadNotification
+import com.schwegelbin.openbible.logic.getIndexPath
 import com.schwegelbin.openbible.logic.getInfiniteScroll
 import com.schwegelbin.openbible.logic.getLanguageName
-import com.schwegelbin.openbible.logic.getList
 import com.schwegelbin.openbible.logic.getMainThemeOptions
 import com.schwegelbin.openbible.logic.getShowVerseNumbers
 import com.schwegelbin.openbible.logic.getSplitScreenInt
 import com.schwegelbin.openbible.logic.getTextAlignmentInt
+import com.schwegelbin.openbible.logic.getTranslation
+import com.schwegelbin.openbible.logic.getTranslationList
 import com.schwegelbin.openbible.logic.getTranslations
 import com.schwegelbin.openbible.logic.saveCheckAtStartup
 import com.schwegelbin.openbible.logic.saveColorScheme
 import com.schwegelbin.openbible.logic.saveDownloadNotification
+import com.schwegelbin.openbible.logic.saveIndex
 import com.schwegelbin.openbible.logic.saveInfiniteScroll
-import com.schwegelbin.openbible.logic.saveNewIndex
 import com.schwegelbin.openbible.logic.saveShowVerseNumbers
 import com.schwegelbin.openbible.logic.saveSplitScreen
 import com.schwegelbin.openbible.logic.saveTextAlignment
-import java.io.File
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -338,12 +338,11 @@ fun DeleteTranslationButton() {
 
     OutlinedButton(onClick = {
         showDialog.value = true
-        cleanUpTranslations(context)
     }) { Text(stringResource(R.string.delete)) }
 
     if (showDialog.value) {
         val translationList =
-            getList(context, "Translations").map { it.nameWithoutExtension }
+            getTranslationList(context).map { it.nameWithoutExtension }
 
         Dialog(onDismissRequest = { showDialog.value = false }) {
             Surface(shape = RoundedCornerShape(size = 40.dp)) {
@@ -363,8 +362,7 @@ fun DeleteTranslationButton() {
                         colors = CardDefaults.cardColors(containerColor = Color.Transparent)
                     ) {
                         showDialog.value = !listTranslations(buttonFunction = { abbrev ->
-                            File("${context.getExternalFilesDir("Translations")}/${abbrev}.json").delete()
-                            File("${context.getExternalFilesDir("Checksums")}/${abbrev}").delete()
+                            getTranslation(context, abbrev).delete()
                         }, translationList)
                     }
                 }
@@ -378,14 +376,14 @@ fun DownloadTranslationButton() {
     val context = LocalContext.current
     val showDialog = remember { mutableStateOf(false) }
     val clicked = remember { mutableStateOf(false) }
-    val indexPath = "${context.getExternalFilesDir("Index")}/translations.json"
+    val indexPath = getIndexPath(context)
 
     OutlinedButton(onClick = {
         clicked.value = true
     }) { Text(stringResource(R.string.download)) }
 
     if (clicked.value) {
-        saveNewIndex(context)
+        saveIndex(context)
         WaitForFile(
             file = indexPath,
             onLoaded = { clicked.value = false; showDialog.value = true }
@@ -462,11 +460,10 @@ fun UpdateTranslationsButton() {
     OutlinedButton(onClick = { clicked.value = true }) { Text(stringResource(R.string.update)) }
     if (clicked.value) {
         clicked.value = false
-        saveNewIndex(context)
-        val path = context.getExternalFilesDir("Index")
+        saveIndex(context)
         WaitForFile(
             onLoaded = { checkForUpdates(context, true) },
-            file = "${path}/translations.json"
+            file = getIndexPath(context)
         )
     }
 }

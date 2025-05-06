@@ -34,7 +34,8 @@ data class Translation(
     val lang: String,
     val language: String,
     @SerialName("distribution_about") val about: String,
-    @SerialName("distribution_license") val license: String
+    @SerialName("distribution_license") val license: String,
+    val sha: String
 )
 
 fun deserializeBible(path: String): Bible? {

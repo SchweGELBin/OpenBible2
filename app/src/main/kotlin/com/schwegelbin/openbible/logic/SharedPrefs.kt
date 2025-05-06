@@ -3,6 +3,26 @@ package com.schwegelbin.openbible.logic
 import android.content.Context
 import androidx.core.content.edit
 
+enum class SelectMode {
+    Translation, Book, Chapter
+}
+
+enum class ThemeOption {
+    System, Light, Dark, Amoled
+}
+
+enum class SchemeOption {
+    Dynamic, Static
+}
+
+enum class ReadTextAlignment {
+    Start, Justify
+}
+
+enum class SplitScreen {
+    Off, Vertical, Horizontal
+}
+
 fun getCheckAtStartup(context: Context): Boolean {
     return context.getSharedPreferences("options", Context.MODE_PRIVATE)
         .getBoolean("checkAtStartup", true)
@@ -35,6 +55,20 @@ fun getColorScheme(context: Context): Pair<ThemeOption, SchemeOption> {
     }
 
     return Pair(theme, scheme)
+}
+
+fun getColorSchemeInt(context: Context, isTheme: Boolean): Int {
+    val (theme, scheme) = getColorScheme(context)
+    if (isTheme) return when (theme) {
+        ThemeOption.System -> 0
+        ThemeOption.Light -> 1
+        ThemeOption.Dark -> 2
+        ThemeOption.Amoled -> 3
+    }
+    return when (scheme) {
+        SchemeOption.Dynamic -> 0
+        SchemeOption.Static -> 1
+    }
 }
 
 fun saveColorScheme(
@@ -88,9 +122,7 @@ fun getSelection(context: Context, isSplitScreen: Boolean): Triple<String, Int, 
         chapter = sharedPref.getInt("chapter_split", chapter)
     }
     if (book == 42 && chapter == 2) {
-        val bible = deserializeBible(
-            "${context.getExternalFilesDir("Translations")}/${translation}.json"
-        )
+        val bible = deserializeBible(getTranslationPath(context, translation))
         if (bible != null && book > bible.books.size) {
             book = 0
             chapter = 0
@@ -147,6 +179,14 @@ fun getSplitScreen(context: Context): SplitScreen {
     return splitScreen
 }
 
+fun getSplitScreenInt(context: Context): Int {
+    return when (getSplitScreen(context)) {
+        SplitScreen.Off -> 0
+        SplitScreen.Vertical -> 1
+        SplitScreen.Horizontal -> 2
+    }
+}
+
 fun saveSplitScreen(context: Context, split: SplitScreen) {
     context.getSharedPreferences("options", Context.MODE_PRIVATE).edit {
         putString("split", split.toString())
@@ -165,6 +205,13 @@ fun getTextAlignment(context: Context): ReadTextAlignment {
     }
 
     return textAlignment
+}
+
+fun getTextAlignmentInt(context: Context): Int {
+    return when (getTextAlignment(context)) {
+        ReadTextAlignment.Start -> 0
+        ReadTextAlignment.Justify -> 1
+    }
 }
 
 fun saveTextAlignment(context: Context, alignment: ReadTextAlignment) {

@@ -13,78 +13,20 @@ import net.lingala.zip4j.model.enums.CompressionMethod
 import java.io.File
 import java.io.FileOutputStream
 
-
-enum class SelectMode {
-    Translation, Book, Chapter
-}
-
-enum class ThemeOption {
-    System, Light, Dark, Amoled
-}
-
-enum class SchemeOption {
-    Dynamic, Static
-}
-
-enum class ReadTextAlignment {
-    Start, Justify
-}
-
-enum class SplitScreen {
-    Off, Vertical, Horizontal
-}
-
-fun saveIndex(context: Context) {
-    downloadFile(
-        context = context,
-        url = "https://api.getbible.net/v2/translations.json",
-        name = "translations.json",
-        relPath = "Index"
-    )
-}
-
-fun saveChecksum(context: Context) {
-    downloadFile(
-        context = context,
-        url = "https://api.getbible.net/v2/checksum.json",
-        name = "checksum.json",
-        relPath = "Index"
-    )
-}
-
-fun downloadTranslation(context: Context, abbrev: String) {
-    downloadFile(
-        context = context,
-        url = "https://api.getbible.net/v2/${abbrev}.json",
-        name = "${abbrev}.json",
-        relPath = "Translations"
-    )
-    File(
-        "${context.getExternalFilesDir("Checksums")}/${abbrev}"
-    ).writeText(getChecksum(context, abbrev))
-}
-
-fun checkUpdate(context: Context, abbrev: String): Boolean {
-    if (!File(
-            "${context.getExternalFilesDir("Translations")}/${abbrev}.json"
-        ).exists()
-    ) return true
-    val path = "${context.getExternalFilesDir("Checksums")}/${abbrev}"
-    if (!File(path).exists()) return true
-    val latest = getChecksum(context, abbrev)
-    val current = File(path).readText()
-    return latest != current
-}
-
 fun downloadFile(
-    context: Context, url: String, name: String, relPath: String = "", replace: Boolean = true
+    context: Context,
+    url: String,
+    name: String,
+    relPath: String = "",
+    replace: Boolean = true,
+    title: String = "Downloading File"
 ): Long {
-    if (replace) File("${context.getExternalFilesDir(relPath)}/${name}").delete()
+    if (replace) File("${getExternalPath(context, relPath)}/${name}").delete()
     val notify =
         if (getDownloadNotification(context)) DownloadManager.Request.VISIBILITY_VISIBLE
         else DownloadManager.Request.VISIBILITY_HIDDEN
     val request = DownloadManager.Request(url.toUri()).apply {
-        setTitle("Downloading $name")
+        setTitle(title)
         setDescription("Downloading $name")
         setNotificationVisibility(notify)
         setDestinationInExternalFilesDir(context, relPath, name)
@@ -93,27 +35,36 @@ fun downloadFile(
     return downloadManager.enqueue(request)
 }
 
-fun saveNewIndex(context: Context) {
-    val path = context.getExternalFilesDir("Index")
-    val translationsFile = File("${path}/translations.json")
-    val checksumFile = File("${path}/checksum.json")
+fun downloadTranslation(context: Context, abbrev: String) {
+    downloadFile(
+        context = context,
+        url = "https://api.getbible.net/v2/${abbrev}.json",
+        name = "${abbrev}.json",
+        title = "Downloading Translation"
+    )
+}
+
+fun checkUpdate(context: Context, abbrev: String): Boolean {
+    return getChecksum(context, abbrev) != getTranslation(context, abbrev).getChecksum()
+}
+
+fun saveIndex(context: Context) {
+    val file = getIndex(context)
     val currentTime = System.currentTimeMillis()
     val dayTime = 86_400_000L
-    if (
-        !translationsFile.exists() ||
-        !checksumFile.exists() ||
-        currentTime - translationsFile.lastModified() > dayTime ||
-        currentTime - checksumFile.lastModified() > dayTime
-    ) {
-        saveIndex(context)
-        saveChecksum(context)
+    if (!file.exists() || currentTime - file.lastModified() > dayTime) {
+        downloadFile(
+            context = context,
+            url = "https://api.getbible.net/v2/translations.json",
+            name = "translations.json",
+            title = "Downloading Index"
+        )
     }
 }
 
 fun checkForUpdates(context: Context, update: Boolean): Boolean {
     var updateAvailable = false
-    cleanUpTranslations(context)
-    getList(context, "Checksums").map { it.name }.forEach { abbrev ->
+    getTranslationList(context).map { it.name }.forEach { abbrev ->
         if (checkUpdate(context, abbrev)) {
             if (update) downloadTranslation(context, abbrev)
             updateAvailable = true
@@ -122,27 +73,14 @@ fun checkForUpdates(context: Context, update: Boolean): Boolean {
     return updateAvailable
 }
 
-fun cleanUpTranslations(context: Context) {
-    val checksums = getList(context, "Checksums").map { it.name }
-    val translations = getList(context, "Translations").map { it.nameWithoutExtension }
-    checksums.forEach { sum ->
-        if (sum !in translations) File("${context.getExternalFilesDir("Checksums")}/${sum}").delete()
-    }
-    translations.forEach { abbrev ->
-        if (abbrev !in checksums) File("${context.getExternalFilesDir("Checksums")}/${abbrev}").writeText(
-            "unknown"
-        )
-    }
-}
-
 fun checkTranslation(
     context: Context,
     abbrev: String,
     onNavigateToStart: () -> Unit,
     isSplitScreen: Boolean
 ): String {
-    if (!File("${context.getExternalFilesDir("Translations")}/${abbrev}.json").exists()) {
-        val list = getList(context, "Translations").map { it.nameWithoutExtension }
+    if (getTranslation(context, abbrev).exists()) {
+        val list = getTranslationList(context).map { it.nameWithoutExtension }
         if (list.isNotEmpty()) {
             val newTranslation = list.first()
             saveSelection(context, newTranslation, isSplitScreen = isSplitScreen)
@@ -159,7 +97,7 @@ fun shorten(str: String, max: Int): String {
 }
 
 fun backupData(context: Context, user: Boolean = false, data: Boolean = false) {
-    val userDir = context.getExternalFilesDir("")
+    val userDir = getExternalPath(context)
     val dataDir = "${context.dataDir}/shared_prefs"
     val download = Environment.getExternalStoragePublicDirectory("Download")
 
@@ -170,7 +108,7 @@ fun backupData(context: Context, user: Boolean = false, data: Boolean = false) {
 
     if (user) {
         val zip = ZipFile("$download/OpenBible-Documents.zip")
-        userDir?.listFiles()?.forEach { file ->
+        File(userDir).listFiles()?.forEach { file ->
             if (file.isDirectory) zip.addFolder(file, parameters)
             else zip.addFile(file, parameters)
         }
@@ -184,7 +122,7 @@ fun backupData(context: Context, user: Boolean = false, data: Boolean = false) {
 
 fun restoreBackup(context: Context, uri: Uri, user: Boolean, onFinished: () -> Unit) {
     if (user) {
-        val dir = context.getExternalFilesDir("")
+        val dir = getExternalPath(context)
         context.contentResolver.openInputStream(uri)?.use { inputStream ->
             val temp = File(dir, "temp.zip")
             FileOutputStream(temp).use { outputStream ->
@@ -192,7 +130,7 @@ fun restoreBackup(context: Context, uri: Uri, user: Boolean, onFinished: () -> U
             }
             try {
                 val zip = ZipFile(temp)
-                zip.extractAll(dir?.absolutePath)
+                zip.extractAll(File(dir).absolutePath)
             } catch (e: ZipException) {
                 e.printStackTrace()
             } finally {
@@ -237,4 +175,25 @@ fun turnChapter(
         }
     }
     saveSelection(context, book = book, chapter = chapter, isSplitScreen = isSplitScreen)
+}
+
+fun bytesToHex(bytes: ByteArray): String {
+    val hexChars = CharArray(bytes.size * 2)
+    for (j in bytes.indices) {
+        val v = bytes[j].toInt() and 0xFF
+        hexChars[j * 2] = "0123456789abcdef"[v ushr 4]
+        hexChars[j * 2 + 1] = "0123456789abcdef"[v and 0x0F]
+    }
+    return String(hexChars)
+}
+
+fun fixLegacy(context: Context) {
+    val path = getExternalPath(context)
+    File("${path}/Index/translations.json").renameTo(File("${path}/translations.json"))
+    File("${path}/Translations").listFiles()?.forEach { translation ->
+        translation.renameTo(File("${path}/${translation.name}"))
+    }
+    File("${path}/Checksums").delete()
+    File("${path}/Index").delete()
+    File("${path}/Translations").delete()
 }

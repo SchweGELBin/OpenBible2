@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.schwegelbin.openbible.logic.checkForUpdates
+import com.schwegelbin.openbible.logic.fixLegacy
 import com.schwegelbin.openbible.logic.getCheckAtStartup
 import com.schwegelbin.openbible.logic.getFirstLaunch
 import kotlinx.serialization.Serializable
@@ -27,6 +28,7 @@ object Start
 fun App(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
     val context = LocalContext.current
     var update = false
+    fixLegacy(context)
     if (getCheckAtStartup(context)) update = checkForUpdates(context, false)
     val startDestination: Any = if (update || getFirstLaunch(context)) Start else Read
 

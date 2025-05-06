@@ -36,12 +36,14 @@ import com.schwegelbin.openbible.logic.deserialize
 import com.schwegelbin.openbible.logic.downloadTranslation
 import com.schwegelbin.openbible.logic.getCheckAtStartup
 import com.schwegelbin.openbible.logic.getFirstLaunch
+import com.schwegelbin.openbible.logic.getIndex
+import com.schwegelbin.openbible.logic.getIndexPath
 import com.schwegelbin.openbible.logic.getSelection
+import com.schwegelbin.openbible.logic.getTranslationPath
 import com.schwegelbin.openbible.logic.restoreBackup
-import com.schwegelbin.openbible.logic.saveNewIndex
+import com.schwegelbin.openbible.logic.saveIndex
 import com.schwegelbin.openbible.logic.saveSelection
 import kotlinx.coroutines.delay
-import java.io.File
 
 @Composable
 fun StartScreen(onNavigateToRead: () -> Unit) {
@@ -52,11 +54,8 @@ fun StartScreen(onNavigateToRead: () -> Unit) {
         verticalArrangement = Arrangement.spacedBy(15.dp)
     ) {
         val state = remember { mutableIntStateOf(0) }
-        val path = context.getExternalFilesDir("")
-        if (state.intValue == 0 && getCheckAtStartup(context) &&
-            File("${path}/Index/translations.json").exists() && File("${path}/Index/checksum.json").exists()
-        ) {
-            if (File("${path}/Translations").list()?.isEmpty() == true) state.intValue = 2
+        if (state.intValue == 0 && getCheckAtStartup(context) && getIndex(context).exists()) {
+            if (getFirstLaunch(context)) state.intValue = 2
             else state.intValue = 4
         }
         when (state.intValue) {
@@ -92,10 +91,10 @@ fun StartScreen(onNavigateToRead: () -> Unit) {
                     textAlign = TextAlign.Center,
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
-                saveNewIndex(context)
+                saveIndex(context)
                 Loading(onLoaded = {
                     if (!getFirstLaunch(context)) onNavigateToRead() else state.intValue = 2
-                }, file = "${context.getExternalFilesDir("Index")}/translations.json")
+                }, file = getIndexPath(context))
             }
 
             2 -> {
@@ -112,7 +111,7 @@ fun StartScreen(onNavigateToRead: () -> Unit) {
                 val (translation, _, _) = getSelection(context, false)
                 Loading(
                     onLoaded = { onNavigateToRead() },
-                    file = "${context.getExternalFilesDir("Translations")}/${translation}.json"
+                    file = getTranslationPath(context, translation)
                 )
             }
 

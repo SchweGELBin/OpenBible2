@@ -7,30 +7,26 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import java.io.File
+import java.io.FileInputStream
+import java.security.MessageDigest
 import java.util.Locale
 
 fun getTranslations(context: Context): Map<String, List<Translation>>? {
-    val map = deserializeTranslations(
-        "${context.getExternalFilesDir("Index")}/translations.json"
-    ) ?: return null
+    val map = deserializeTranslations(getIndexPath(context)) ?: return null
     return map.values.groupBy { it.lang }.toSortedMap()
 }
 
 fun getLanguageName(code: String, locale: Locale = Locale.getDefault()): String {
-    return Locale(code).getDisplayLanguage(locale)
+    return Locale.forLanguageTag(code).getDisplayLanguage(locale)
 }
 
 fun getChecksum(context: Context, abbrev: String): String {
-    val obj = deserialize(
-        "${context.getExternalFilesDir("Index")}/checksum.json"
-    ) ?: return "unknown"
-    return obj[abbrev].toString()
+    val obj = deserializeTranslations(getIndexPath(context)) ?: return "unknown"
+    return obj[abbrev]?.sha ?: return "unknown"
 }
 
 fun getTranslationInfo(context: Context, abbrev: String): String {
-    val map = deserializeTranslations(
-        "${context.getExternalFilesDir("Index")}/translations.json"
-    ) ?: return ""
+    val map = deserializeTranslations(getIndexPath(context)) ?: return ""
     map.values.forEach { (translation, abbreviation, _, _, about, license) ->
         if (abbreviation == abbrev) {
             val newAbout = about.replace("\\par ", "\n").replace("\\par", "\n")
@@ -43,18 +39,14 @@ fun getTranslationInfo(context: Context, abbrev: String): String {
 fun getCount(
     context: Context, abbrev: String, book: Int
 ): Pair<Int, Int> {
-    val bible = deserializeBible(
-        "${context.getExternalFilesDir("Translations")}/${abbrev}.json"
-    ) ?: return Pair(0, 0)
+    val bible = deserializeBible(getTranslationPath(context, abbrev)) ?: return Pair(0, 0)
     val books = bible.books.size - 1
     if (book > books) return Pair(0, bible.books[0].chapters.size - 1)
     return Pair(books, bible.books[book].chapters.size - 1)
 }
 
 fun getBookNames(context: Context, abbrev: String): Array<String> {
-    val bible = deserializeBible(
-        "${context.getExternalFilesDir("Translations")}/${abbrev}.json"
-    ) ?: return Array(1) { "ERROR" }
+    val bible = deserializeBible(getTranslationPath(context, abbrev)) ?: return Array(1) { "ERROR" }
     val num = bible.books.size
     val arr = Array(num) { "" }
     for (i in 0..<num) {
@@ -71,9 +63,7 @@ fun getChapter(
     showVerseNumbers: Boolean,
     error: String
 ): Pair<String, String> {
-    val bible = deserializeBible(
-        "${context.getExternalFilesDir("Translations")}/${abbrev}.json"
-    ) ?: return Pair(error, "")
+    val bible = deserializeBible(getTranslationPath(context, abbrev)) ?: return Pair(error, "")
     var text = ""
     bible.books[book].chapters[chapter].verses.forEach { verse ->
         text += if (showVerseNumbers) "${verse.verse} ${verse.text}".trim() + "\n"
@@ -81,35 +71,6 @@ fun getChapter(
     }
     if (showVerseNumbers) text = text.substring(0, text.length - 1)
     return Pair("${bible.translation} | ${bible.books[book].chapters[chapter].name}", text)
-}
-
-fun getTextAlignmentInt(context: Context): Int {
-    return when (getTextAlignment(context)) {
-        ReadTextAlignment.Start -> 0
-        ReadTextAlignment.Justify -> 1
-    }
-}
-
-fun getSplitScreenInt(context: Context): Int {
-    return when (getSplitScreen(context)) {
-        SplitScreen.Off -> 0
-        SplitScreen.Vertical -> 1
-        SplitScreen.Horizontal -> 2
-    }
-}
-
-fun getColorSchemeInt(context: Context, isTheme: Boolean): Int {
-    val (theme, scheme) = getColorScheme(context)
-    if (isTheme) return when (theme) {
-        ThemeOption.System -> 0
-        ThemeOption.Light -> 1
-        ThemeOption.Dark -> 2
-        ThemeOption.Amoled -> 3
-    }
-    return when (scheme) {
-        SchemeOption.Dynamic -> 0
-        SchemeOption.Static -> 1
-    }
 }
 
 fun getMainThemeOptions(
@@ -151,16 +112,51 @@ fun getAppName(name: String, primary: Color, secondary: Color, tertiary: Color):
 }
 
 fun getFirstLaunch(context: Context): Boolean {
-    var dir = context.getExternalFilesDir("Index")
-    if (!File("${dir}/translations.json").exists() || !File("${dir}/checksum.json").exists()) return true
-    dir = context.getExternalFilesDir("Translations")
-    if (dir == null) return true
-    val files = dir.listFiles()
-    return files == null || files.isEmpty()
+    val file = File(getExternalPath(context)).listFiles() ?: return true
+    return file.size <= 1
 }
 
-fun getList(context: Context, relPath: String): Array<File> {
-    return File(
-        context.getExternalFilesDir(relPath).toString()
-    ).listFiles() ?: return emptyArray()
+fun getList(context: Context, relPath: String = ""): Array<File> {
+    return File(getExternalPath(context, relPath)).listFiles() ?: return emptyArray()
+}
+
+fun getTranslationList(context: Context): Array<File> {
+    return getList(context).filter { file -> (file.name != "translations.json" && file.isFile) }
+        .toTypedArray()
+}
+
+fun File.getChecksum(): String? {
+    return try {
+        val md = MessageDigest.getInstance("SHA-1")
+        val fis = FileInputStream(this)
+        val buffer = ByteArray(1024)
+        var bytesRead: Int
+        while (fis.read(buffer).also { bytesRead = it } != -1) {
+            md.update(buffer, 0, bytesRead)
+        }
+        fis.close()
+        bytesToHex(md.digest())
+    } catch (_: Exception) {
+        null
+    }
+}
+
+fun getIndex(context: Context): File {
+    return File(getIndexPath(context))
+}
+
+fun getIndexPath(context: Context): String {
+    return "${getExternalPath(context)}/translations.json"
+}
+
+fun getTranslation(context: Context, abbrev: String): File {
+    return File(getTranslationPath(context, abbrev))
+}
+
+fun getTranslationPath(context: Context, abbrev: String): String {
+    return "${getExternalPath(context)}/${abbrev}.json"
+}
+
+fun getExternalPath(context: Context, relPath: String = ""): String {
+    return context.getExternalFilesDir(relPath).toString()
 }
