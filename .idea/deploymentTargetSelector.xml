@@ -4,7 +4,7 @@
     <selectionStates>
       <SelectionState runConfigName="OpenBible">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2025-05-05T19:35:24.435476904Z">
+        <DropdownSelection timestamp="2025-05-06T15:41:04.391625734Z">
           <Target type="DEFAULT_BOOT">
             <handle>
               <DeviceId pluginId="PhysicalDevice" identifier="serial=63a6e9ae" />

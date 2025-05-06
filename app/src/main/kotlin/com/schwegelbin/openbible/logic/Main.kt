@@ -44,10 +44,6 @@ fun downloadTranslation(context: Context, abbrev: String) {
     )
 }
 
-fun checkUpdate(context: Context, abbrev: String): Boolean {
-    return getChecksum(context, abbrev) != getTranslation(context, abbrev).getChecksum()
-}
-
 fun saveIndex(context: Context) {
     val file = getIndex(context)
     val currentTime = System.currentTimeMillis()
@@ -64,10 +60,14 @@ fun saveIndex(context: Context) {
 
 fun checkForUpdates(context: Context, update: Boolean): Boolean {
     var updateAvailable = false
-    getTranslationList(context).map { it.name }.forEach { abbrev ->
-        if (checkUpdate(context, abbrev)) {
-            if (update) downloadTranslation(context, abbrev)
-            updateAvailable = true
+    val installed = getTranslationList(context).map { it.nameWithoutExtension }
+    val index = deserializeTranslations(getIndexPath(context)) ?: return false
+    index.values.forEach { (_, abbrev, _, _, _, _, sha) ->
+        if (installed.contains(abbrev)) {
+            if (getTranslation(context, abbrev).getChecksum() != sha) {
+                if (update) downloadTranslation(context, abbrev)
+                updateAvailable = true
+            }
         }
     }
     return updateAvailable
