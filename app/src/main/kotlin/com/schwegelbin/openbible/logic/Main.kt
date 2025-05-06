@@ -143,7 +143,7 @@ fun restoreBackup(context: Context, uri: Uri, user: Boolean, onFinished: () -> U
     }
 
     /* TODO: Restore Preferences
-    if (!user) { }
+    else { }
     */
 }
 

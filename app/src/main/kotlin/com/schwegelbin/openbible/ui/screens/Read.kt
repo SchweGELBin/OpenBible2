@@ -1,6 +1,7 @@
 package com.schwegelbin.openbible.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,8 +15,11 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ChevronLeft
 import androidx.compose.material.icons.filled.ChevronRight
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -48,10 +52,12 @@ import com.schwegelbin.openbible.logic.turnChapter
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ReadScreen(
+    onNavigateToBookmarks: () -> Unit,
+    onNavigateToRead: () -> Unit,
+    onNavigateToSearch: () -> Unit,
     onNavigateToSelection: (Boolean) -> Unit,
     onNavigateToSettings: () -> Unit,
     onNavigateToStart: () -> Unit,
-    onNavigateToRead: () -> Unit
 ) {
     val appTitle = getAppName(
         stringResource(R.string.app_name),
@@ -65,13 +71,13 @@ fun ReadScreen(
         TopAppBar(
             title = { Text(appTitle) },
             actions = {
-                IconButton(onClick = { onNavigateToSettings() }) {
-                    Icon(
-                        imageVector = Icons.Filled.Settings,
-                        contentDescription = stringResource(R.string.settings)
-                    )
-                }
-            })
+                HamburgerMenu(
+                    onNavigateToBookmarks,
+                    onNavigateToSearch,
+                    onNavigateToSettings
+                )
+            }
+        )
     }) { innerPadding ->
         Column(
             modifier = Modifier
@@ -188,6 +194,65 @@ fun TurnButton(next: Boolean, isSplitScreen: Boolean, onNavigateToRead: () -> Un
                 imageVector = Icons.Filled.ChevronLeft,
                 contentDescription = stringResource(R.string.previous)
             )
+        }
+    }
+}
+
+@Composable
+fun HamburgerMenu(
+    onNavigateToBookmarks: () -> Unit,
+    onNavigateToSearch: () -> Unit,
+    onNavigateToSettings: () -> Unit
+) {
+    val expanded = remember { mutableStateOf(false) }
+    Box(
+        modifier = Modifier
+            .padding(16.dp)
+    ) {
+        IconButton(onClick = { expanded.value = !expanded.value }) {
+            Icon(
+                imageVector = Icons.Filled.MoreVert,
+                contentDescription = stringResource(R.string.menu)
+            )
+        }
+        DropdownMenu(
+            expanded = expanded.value,
+            onDismissRequest = { expanded.value = false }
+        ) {
+            DropdownMenuItem(
+                text = { Text(stringResource(R.string.settings)) },
+                trailingIcon = {
+                    Icon(
+                        imageVector = Icons.Filled.Settings,
+                        contentDescription = null
+                    )
+                },
+                onClick = { onNavigateToSettings() }
+            )
+            /* TODO: Implement Bookmarks
+            DropdownMenuItem(
+                text = { Text(stringResource(R.string.bookmarks)) },
+                trailingIcon = {
+                    Icon(
+                        imageVector = Icons.Filled.Bookmarks,
+                        contentDescription = null
+                    )
+                },
+                onClick = { onNavigateToBookmarks() }
+            )
+            */
+            /* TODO: Implement Search
+            DropdownMenuItem(
+                text = { Text(stringResource(R.string.search)) },
+                trailingIcon = {
+                    Icon(
+                        imageVector = Icons.Filled.Search,
+                        contentDescription = null
+                    )
+                },
+                onClick = { onNavigateToSearch() }
+            )
+            */
         }
     }
 }

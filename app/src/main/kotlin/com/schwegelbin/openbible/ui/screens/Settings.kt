@@ -54,7 +54,6 @@ import com.schwegelbin.openbible.logic.getCheckAtStartup
 import com.schwegelbin.openbible.logic.getColorSchemeInt
 import com.schwegelbin.openbible.logic.getDownloadNotification
 import com.schwegelbin.openbible.logic.getIndexPath
-import com.schwegelbin.openbible.logic.getInfiniteScroll
 import com.schwegelbin.openbible.logic.getLanguageName
 import com.schwegelbin.openbible.logic.getMainThemeOptions
 import com.schwegelbin.openbible.logic.getShowVerseNumbers
@@ -67,7 +66,6 @@ import com.schwegelbin.openbible.logic.saveCheckAtStartup
 import com.schwegelbin.openbible.logic.saveColorScheme
 import com.schwegelbin.openbible.logic.saveDownloadNotification
 import com.schwegelbin.openbible.logic.saveIndex
-import com.schwegelbin.openbible.logic.saveInfiniteScroll
 import com.schwegelbin.openbible.logic.saveShowVerseNumbers
 import com.schwegelbin.openbible.logic.saveSplitScreen
 import com.schwegelbin.openbible.logic.saveTextAlignment
@@ -117,6 +115,13 @@ fun SettingsScreen(
                 }
             )
 
+            /* TODO: Implement Language Change
+            HorizontalDivider(Modifier.padding(12.dp))
+            Text(stringResource(R.string.locale), style = styleLarge, modifier = modLarge)
+            Text(stringResource(R.string.language), style = styleMedium)
+            LanguageButton(onLanguageChange)
+            */
+
             HorizontalDivider(Modifier.padding(12.dp))
             Text(stringResource(R.string.colors), style = styleLarge, modifier = modLarge)
             Text(stringResource(R.string.color_theme), style = styleMedium)
@@ -139,6 +144,7 @@ fun SettingsScreen(
                     saveShowVerseNumbers(context, checked)
                 }
             )
+            /* TODO: Implement Infinite Scroll
             CheckBoxField(
                 text = stringResource(R.string.infinite_scroll),
                 initialState = getInfiniteScroll(context),
@@ -146,6 +152,7 @@ fun SettingsScreen(
                     saveInfiniteScroll(context, checked)
                 }
             )
+             */
 
             HorizontalDivider(Modifier.padding(12.dp))
             Text(stringResource(R.string.notifications), style = styleLarge, modifier = modLarge)
@@ -156,6 +163,15 @@ fun SettingsScreen(
                     saveDownloadNotification(context, checked)
                 }
             )
+            /* TODO: Implement Verse of the Day
+            CheckBoxField(
+                text = stringResource(R.string.verse_of_the_day),
+                initialState = getVerseOfTheDay(context),
+                saveFunction = { checked ->
+                    saveVerseOfTheDay(context, checked)
+                }
+            )
+             */
 
             HorizontalDivider(Modifier.padding(12.dp))
             Text(stringResource(R.string.backup), style = styleLarge, modifier = modLarge)

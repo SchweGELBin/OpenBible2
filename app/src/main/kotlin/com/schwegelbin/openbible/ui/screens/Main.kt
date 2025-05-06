@@ -14,7 +14,13 @@ import com.schwegelbin.openbible.logic.getTranslationList
 import kotlinx.serialization.Serializable
 
 @Serializable
+object Bookmarks
+
+@Serializable
 object Read
+
+@Serializable
+object Search
 
 @Serializable
 data class Selection(val isSplitScreen: Boolean)
@@ -37,8 +43,22 @@ fun App(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
 
     val navController = rememberNavController()
     NavHost(navController, startDestination = startDestination) {
+        composable<Bookmarks> {
+            BookmarksScreen(onNavigateToRead = {
+                navController.navigate(Read) {
+                    popUpTo(0) { inclusive = true }
+                }
+            })
+        }
         composable<Read> {
             ReadScreen(
+                onNavigateToBookmarks = { navController.navigate(Bookmarks) },
+                onNavigateToRead = {
+                    navController.navigate(Read) {
+                        popUpTo(0) { inclusive = true }
+                    }
+                },
+                onNavigateToSearch = { navController.navigate(Search) },
                 onNavigateToSelection = { isSplitScreen ->
                     navController.navigate(Selection(isSplitScreen))
                 },
@@ -47,12 +67,14 @@ fun App(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
                     navController.navigate(Start) {
                         popUpTo(0) { inclusive = true }
                     }
-                },
-                onNavigateToRead = {
-                    navController.navigate(Read) {
-                        popUpTo(0) { inclusive = true }
-                    }
                 })
+        }
+        composable<Search> {
+            SearchScreen(onNavigateToRead = {
+                navController.navigate(Read) {
+                    popUpTo(0) { inclusive = true }
+                }
+            })
         }
         composable<Selection> { backStackEntry ->
             val selection = backStackEntry.toRoute<Selection>()

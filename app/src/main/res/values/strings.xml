@@ -6,6 +6,7 @@
     <string name="backup">Backup</string>
     <string name="bible_text">Bible Text</string>
     <string name="book">Book</string>
+    <string name="bookmarks">Bookmarks</string>
     <string name="chapter">Chapter</string>
     <string name="check_at_startup">Update at startup</string>
     <string name="close">Close</string>
@@ -25,6 +26,7 @@
     <string name="index">Index</string>
     <string name="infinite_scroll">Infinite Scroll</string>
     <string name="information">Information</string>
+    <string name="menu">Menu</string>
     <string name="name">Name</string>
     <string name="needs_files">This application needs an index, checksums and translations to work.</string>
     <string name="new_files">Updates for translations found. Do you want to install them?</string>
@@ -38,6 +40,7 @@
     <string name="scheme_static">Static</string>
     <string name="screen_home">Home</string>
     <string name="screen_read">Read</string>
+    <string name="search">Search</string>
     <string name="selection">Selection</string>
     <string name="settings">Settings</string>
     <string name="show_verse_number">Show Verse Number</string>
@@ -48,6 +51,7 @@
     <string name="theme_system">System</string>
     <string name="translation">Translation</string>
     <string name="update">Update</string>
+    <string name="verse_of_the_day">Verse of the day</string>
     <string name="vertical">Vertical</string>
     <string name="app_name" translatable="false">OpenBible</string>
     <string name="google_play" translatable="false">Google Play</string>

@@ -219,3 +219,15 @@ fun saveTextAlignment(context: Context, alignment: ReadTextAlignment) {
         putString("textAlignment", alignment.toString())
     }
 }
+
+
+fun getVerseOfTheDay(context: Context): Boolean {
+    return context.getSharedPreferences("options", Context.MODE_PRIVATE)
+        .getBoolean("verseOfTheDay", false)
+}
+
+fun saveVerseOfTheDay(context: Context, shown: Boolean) {
+    context.getSharedPreferences("options", Context.MODE_PRIVATE).edit {
+        putBoolean("verseOfTheDay", shown)
+    }
+}

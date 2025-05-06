@@ -6,6 +6,7 @@
     <string name="backup">Backup</string>
     <string name="bible_text">Bibeltext</string>
     <string name="book">Buch</string>
+    <string name="bookmarks">Lesezeichen</string>
     <string name="chapter">Kapitel</string>
     <string name="check_at_startup">Aktualisiere beim Start</string>
     <string name="close">Schließen</string>
@@ -25,6 +26,7 @@
     <string name="index">Index</string>
     <string name="infinite_scroll">Unendliches Scrollen</string>
     <string name="information">Information</string>
+    <string name="menu">Menü</string>
     <string name="name">Name</string>
     <string name="needs_files">Diese Applikation benötigt einen Index, Checksums and Übersetzungen um zu funktionieren.</string>
     <string name="new_files">Aktualisierungen für Übersetzungen gefunden. Wollen Sie diese installieren?</string>
@@ -38,6 +40,7 @@
     <string name="scheme_static">Statisch</string>
     <string name="screen_home">Start</string>
     <string name="screen_read">Lesen</string>
+    <string name="search">Suchen</string>
     <string name="selection">Auswahl</string>
     <string name="settings">Einstellungen</string>
     <string name="show_verse_number">Zeige Versnummer</string>
@@ -48,5 +51,6 @@
     <string name="theme_system">System</string>
     <string name="translation">Übersetzung</string>
     <string name="update">Aktualisieren</string>
+    <string name="verse_of_the_day">Vers des Tages</string>
     <string name="vertical">Vertikal</string>
 </resources>
