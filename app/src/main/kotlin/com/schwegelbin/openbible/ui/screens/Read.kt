@@ -1,7 +1,7 @@
 package com.schwegelbin.openbible.ui.screens
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -15,7 +15,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ChevronLeft
 import androidx.compose.material.icons.filled.ChevronRight
-import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenu
@@ -205,54 +205,50 @@ fun HamburgerMenu(
     onNavigateToSettings: () -> Unit
 ) {
     val expanded = remember { mutableStateOf(false) }
-    Box(
-        modifier = Modifier
-            .padding(16.dp)
+    IconButton(onClick = { expanded.value = !expanded.value }) {
+        Icon(
+            imageVector = Icons.Filled.Menu,
+            contentDescription = stringResource(R.string.menu)
+        )
+    }
+    DropdownMenu(
+        expanded = expanded.value,
+        onDismissRequest = { expanded.value = false },
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.onSurface)
     ) {
-        IconButton(onClick = { expanded.value = !expanded.value }) {
-            Icon(
-                imageVector = Icons.Filled.MoreVert,
-                contentDescription = stringResource(R.string.menu)
-            )
-        }
-        DropdownMenu(
-            expanded = expanded.value,
-            onDismissRequest = { expanded.value = false }
-        ) {
-            DropdownMenuItem(
-                text = { Text(stringResource(R.string.settings)) },
-                trailingIcon = {
-                    Icon(
-                        imageVector = Icons.Filled.Settings,
-                        contentDescription = null
-                    )
-                },
-                onClick = { onNavigateToSettings() }
-            )
-            /* TODO: Implement Bookmarks
-            DropdownMenuItem(
-                text = { Text(stringResource(R.string.bookmarks)) },
-                trailingIcon = {
-                    Icon(
-                        imageVector = Icons.Filled.Bookmarks,
-                        contentDescription = null
-                    )
-                },
-                onClick = { onNavigateToBookmarks() }
-            )
-            */
-            /* TODO: Implement Search
-            DropdownMenuItem(
-                text = { Text(stringResource(R.string.search)) },
-                trailingIcon = {
-                    Icon(
-                        imageVector = Icons.Filled.Search,
-                        contentDescription = null
-                    )
-                },
-                onClick = { onNavigateToSearch() }
-            )
-            */
-        }
+        DropdownMenuItem(
+            text = { Text(stringResource(R.string.settings)) },
+            trailingIcon = {
+                Icon(
+                    imageVector = Icons.Filled.Settings,
+                    contentDescription = null
+                )
+            },
+            onClick = { onNavigateToSettings() }
+        )
+        /* TODO: Implement Bookmarks
+        DropdownMenuItem(
+            text = { Text(stringResource(R.string.bookmarks)) },
+            trailingIcon = {
+                Icon(
+                    imageVector = Icons.Filled.Bookmarks,
+                    contentDescription = null
+                )
+            },
+            onClick = { onNavigateToBookmarks() }
+        )
+        */
+        /* TODO: Implement Search
+        DropdownMenuItem(
+            text = { Text(stringResource(R.string.search)) },
+            trailingIcon = {
+                Icon(
+                    imageVector = Icons.Filled.Search,
+                    contentDescription = null
+                )
+            },
+            onClick = { onNavigateToSearch() }
+        )
+        */
     }
 }
