@@ -20,11 +20,6 @@ fun getLanguageName(code: String, locale: Locale = Locale.getDefault()): String 
     return Locale.forLanguageTag(code).getDisplayLanguage(locale)
 }
 
-fun getChecksum(context: Context, abbrev: String): String {
-    val obj = deserializeTranslations(getIndexPath(context)) ?: return "unknown"
-    return obj[abbrev]?.sha ?: return "unknown"
-}
-
 fun getTranslationInfo(context: Context, abbrev: String): String {
     val map = deserializeTranslations(getIndexPath(context)) ?: return ""
     map.values.forEach { (translation, abbreviation, _, _, about, license) ->
@@ -109,11 +104,6 @@ fun getAppName(name: String, primary: Color, secondary: Color, tertiary: Color):
         }
     }
     return title
-}
-
-fun getFirstLaunch(context: Context): Boolean {
-    val file = File(getExternalPath(context)).listFiles() ?: return true
-    return file.size <= 1
 }
 
 fun getList(context: Context, relPath: String = ""): Array<File> {

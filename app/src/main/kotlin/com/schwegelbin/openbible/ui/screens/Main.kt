@@ -9,7 +9,8 @@ import androidx.navigation.toRoute
 import com.schwegelbin.openbible.logic.checkForUpdates
 import com.schwegelbin.openbible.logic.fixLegacy
 import com.schwegelbin.openbible.logic.getCheckAtStartup
-import com.schwegelbin.openbible.logic.getFirstLaunch
+import com.schwegelbin.openbible.logic.getIndex
+import com.schwegelbin.openbible.logic.getTranslationList
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -27,10 +28,12 @@ object Start
 @Composable
 fun App(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
     val context = LocalContext.current
-    var update = false
     fixLegacy(context)
-    if (getCheckAtStartup(context)) update = checkForUpdates(context, false)
-    val startDestination: Any = if (update || getFirstLaunch(context)) Start else Read
+    val startDestination: Any =
+        if ((getCheckAtStartup(context) && checkForUpdates(context, false)) ||
+            !getIndex(context).exists() ||
+            getTranslationList(context).isEmpty()
+        ) Start else Read
 
     val navController = rememberNavController()
     NavHost(navController, startDestination = startDestination) {

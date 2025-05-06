@@ -35,10 +35,10 @@ import com.schwegelbin.openbible.logic.checkForUpdates
 import com.schwegelbin.openbible.logic.deserialize
 import com.schwegelbin.openbible.logic.downloadTranslation
 import com.schwegelbin.openbible.logic.getCheckAtStartup
-import com.schwegelbin.openbible.logic.getFirstLaunch
 import com.schwegelbin.openbible.logic.getIndex
 import com.schwegelbin.openbible.logic.getIndexPath
 import com.schwegelbin.openbible.logic.getSelection
+import com.schwegelbin.openbible.logic.getTranslationList
 import com.schwegelbin.openbible.logic.getTranslationPath
 import com.schwegelbin.openbible.logic.restoreBackup
 import com.schwegelbin.openbible.logic.saveIndex
@@ -54,9 +54,9 @@ fun StartScreen(onNavigateToRead: () -> Unit) {
         verticalArrangement = Arrangement.spacedBy(15.dp)
     ) {
         val state = remember { mutableIntStateOf(0) }
-        if (state.intValue == 0 && getCheckAtStartup(context) && getIndex(context).exists()) {
-            if (getFirstLaunch(context)) state.intValue = 2
-            else state.intValue = 4
+        if (state.intValue == 0) {
+            if (getTranslationList(context).isNotEmpty()) state.intValue = 1
+            else if (getIndex(context).exists()) state.intValue = 2
         }
         when (state.intValue) {
             0 -> {
@@ -93,7 +93,10 @@ fun StartScreen(onNavigateToRead: () -> Unit) {
                 )
                 saveIndex(context)
                 Loading(onLoaded = {
-                    if (!getFirstLaunch(context)) onNavigateToRead() else state.intValue = 2
+                    if (getTranslationList(context).isEmpty()) state.intValue = 2
+                    else if (getCheckAtStartup(context) && checkForUpdates(context, false))
+                        state.intValue = 4
+                    else onNavigateToRead()
                 }, file = getIndexPath(context))
             }
 
