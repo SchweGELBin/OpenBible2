@@ -30,9 +30,9 @@ fun App(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
     val context = LocalContext.current
     fixLegacy(context)
     val startDestination: Any =
-        if ((getCheckAtStartup(context) && checkForUpdates(context, false)) ||
-            !getIndex(context).exists() ||
-            getTranslationList(context).isEmpty()
+        if (!getIndex(context).exists() ||
+            getTranslationList(context).isEmpty() ||
+            (getCheckAtStartup(context) && checkForUpdates(context, false))
         ) Start else Read
 
     val navController = rememberNavController()
