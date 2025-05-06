@@ -193,7 +193,7 @@ fun fixLegacy(context: Context) {
     File("${path}/Translations").listFiles()?.forEach { translation ->
         translation.renameTo(File("${path}/${translation.name}"))
     }
-    File("${path}/Checksums").delete()
-    File("${path}/Index").delete()
-    File("${path}/Translations").delete()
+    File("${path}/Checksums").deleteRecursively()
+    File("${path}/Index").deleteRecursively()
+    File("${path}/Translations").deleteRecursively()
 }
