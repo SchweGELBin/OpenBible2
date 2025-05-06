@@ -79,7 +79,7 @@ fun checkTranslation(
     onNavigateToStart: () -> Unit,
     isSplitScreen: Boolean
 ): String {
-    if (getTranslation(context, abbrev).exists()) {
+    if (!getTranslation(context, abbrev).exists()) {
         val list = getTranslationList(context).map { it.nameWithoutExtension }
         if (list.isNotEmpty()) {
             val newTranslation = list.first()
