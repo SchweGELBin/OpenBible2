@@ -1,6 +1,8 @@
 package com.schwegelbin.openbible.ui.screens
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.gestures.rememberTransformableState
+import androidx.compose.foundation.gestures.transformable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -31,6 +33,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -39,6 +42,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.schwegelbin.openbible.R
 import com.schwegelbin.openbible.logic.ReadTextAlignment
 import com.schwegelbin.openbible.logic.SplitScreen
@@ -50,6 +54,8 @@ import com.schwegelbin.openbible.logic.getShowVerseNumbers
 import com.schwegelbin.openbible.logic.getSplitScreen
 import com.schwegelbin.openbible.logic.getTextAlignment
 import com.schwegelbin.openbible.logic.turnChapter
+import kotlin.math.max
+import kotlin.math.min
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -128,6 +134,13 @@ fun ReadCard(
     )
     val mod = Modifier.fillMaxWidth()
     var outer = mod
+    val scaleRange = Pair(1f, 2f)
+    val textScale = remember { mutableFloatStateOf(scaleRange.first) }
+    val zoomState = rememberTransformableState { zoomChange, _, _ ->
+        textScale.floatValue =
+            min(max(textScale.floatValue * zoomChange, scaleRange.first), scaleRange.second)
+    }
+    val textStyle = MaterialTheme.typography.bodyLarge
     val textMod = Modifier
         .padding(8.dp)
         .verticalScroll(rememberScrollState())
@@ -157,14 +170,18 @@ fun ReadCard(
         if (split != SplitScreen.Horizontal) Spacer(Modifier)
         ElevatedCard(
             elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .transformable(zoomState)
         ) {
             when (textAlignment) {
                 ReadTextAlignment.Start -> {
                     SelectionContainer {
                         Text(
                             text = text,
-                            modifier = textMod
+                            modifier = textMod,
+                            fontSize = (textScale.floatValue * textStyle.fontSize.value).sp,
+                            lineHeight = (textScale.floatValue * textStyle.lineHeight.value).sp
                         )
                     }
                 }
@@ -173,6 +190,8 @@ fun ReadCard(
                     Text(
                         text = text,
                         modifier = textMod,
+                        fontSize = (textScale.floatValue * textStyle.fontSize.value).sp,
+                        lineHeight = (textScale.floatValue * textStyle.lineHeight.value).sp,
                         textAlign = TextAlign.Justify
                     )
                 }
