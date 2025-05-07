@@ -245,7 +245,7 @@ fun HamburgerMenu(
                     contentDescription = null
                 )
             },
-            onClick = { onNavigateToSettings() }
+            onClick = { expanded.value = false; onNavigateToSettings() }
         )
         // TODO: Implement Bookmarks
         DropdownMenuItem(
@@ -256,7 +256,7 @@ fun HamburgerMenu(
                     contentDescription = null
                 )
             },
-            onClick = { onNavigateToBookmarks() }
+            onClick = { expanded.value = false; onNavigateToBookmarks() }
         )
         // TODO: Implement Search
         DropdownMenuItem(
@@ -267,7 +267,7 @@ fun HamburgerMenu(
                     contentDescription = null
                 )
             },
-            onClick = { onNavigateToSearch() }
+            onClick = { expanded.value = false; onNavigateToSearch() }
         )
     }
 }
