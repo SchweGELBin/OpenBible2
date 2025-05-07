@@ -198,3 +198,20 @@ fun fixLegacy(context: Context) {
     File("${path}/Index").deleteRecursively()
     File("${path}/Translations").deleteRecursively()
 }
+
+fun searchText(context: Context, abbrev: String, query: String): List<Triple<String, Int, Int>> {
+    val result = mutableListOf(Triple("", -1, -1))
+    val bible = deserializeBible(getTranslationPath(context, abbrev)) ?: return result
+    bible.books.forEachIndexed { bookIndex, book ->
+        book.chapters.forEachIndexed { chapterIndex, chapter ->
+            chapter.verses.forEach { (name, _, text) ->
+                if (text.contains(query)) result += Triple(
+                    "${name}\n${text}",
+                    bookIndex,
+                    chapterIndex
+                )
+            }
+        }
+    }
+    return result
+}

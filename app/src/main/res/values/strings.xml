@@ -41,6 +41,7 @@
     <string name="screen_home">Home</string>
     <string name="screen_read">Read</string>
     <string name="search">Search</string>
+    <string name="search_for_text">Search for text</string>
     <string name="selection">Selection</string>
     <string name="settings">Settings</string>
     <string name="show_verse_number">Show Verse Number</string>

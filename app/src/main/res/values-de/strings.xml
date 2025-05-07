@@ -41,6 +41,7 @@
     <string name="screen_home">Start</string>
     <string name="screen_read">Lesen</string>
     <string name="search">Suchen</string>
+    <string name="search_for_text">Nach Text suchen</string>
     <string name="selection">Auswahl</string>
     <string name="settings">Einstellungen</string>
     <string name="show_verse_number">Zeige Versnummer</string>
