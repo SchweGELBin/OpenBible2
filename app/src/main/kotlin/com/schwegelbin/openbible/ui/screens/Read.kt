@@ -1,6 +1,7 @@
 package com.schwegelbin.openbible.ui.screens
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.gestures.rememberTransformableState
 import androidx.compose.foundation.gestures.transformable
 import androidx.compose.foundation.layout.Arrangement
@@ -38,6 +39,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -173,6 +175,11 @@ fun ReadCard(
             modifier = Modifier
                 .fillMaxWidth()
                 .transformable(zoomState)
+                .pointerInput(Unit) {
+                    detectTapGestures(onDoubleTap = {
+                        textScale.floatValue = if (textScale.floatValue != 1f) 1f else 2f
+                    })
+                }
         ) {
             when (textAlignment) {
                 ReadTextAlignment.Start -> {
