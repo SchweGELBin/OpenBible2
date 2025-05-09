@@ -1,0 +1,8 @@
+Updated Dependencies
+Improved Performance (Startup & Translation update time)
+
+Added:
+- DropdownMenu
+- Search Screen
+- Pinch to zoom
+- Double click to zoom

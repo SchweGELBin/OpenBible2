@@ -2,6 +2,43 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.8.0] - 2025-05-09
+
+### 🚀 Features
+
+- Add infinite scroll checkmark
+- Pinch to zoom
+- Add SearchScreen
+- Double tap to zoom
+
+### 🐛 Bug Fixes
+
+- Output for checksum was null
+- Translation selection not updating
+- Old dirs not deleting
+- Back gesture blocked by search bar
+
+### 🚜 Refactor
+
+- Split shared prefs logic to seperat file
+
+### ⚡ Performance
+
+- Automatically calculate shasum
+- Improve startup logic
+- Reorder startup checks
+
+### ⚙️ Miscellaneous Tasks
+
+- Bump sdk from 35 to 36
+- Remove "DropdownSelection" from deploymentTargetSelector.xml
+- Add todos and initialize them
+- Update Menu UI
+- Add issue links to todos
+- Change dependabot intervall from weekly to monthly
+- Close menu on click
+- Finish search todo
+
 ## [1.7.0] - 2025-03-24
 
 ### 🚀 Features
@@ -32,6 +69,7 @@ All notable changes to this project will be documented in this file.
 ### ⚙️ Miscellaneous Tasks
 
 - Use ktx functions
+- Bump to 1.7.0
 
 ## [1.6.1] - 2025-03-11
 

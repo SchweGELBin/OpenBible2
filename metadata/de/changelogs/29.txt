@@ -1,0 +1,8 @@
+Aktualisieren der Pakete
+Leistungsverbesserung (Startgeschwindigkeit, Übersetzungsaktualsierungszeit)
+
+Hinzugefügt:
+- Aufklappbares Menü
+- Such-Funktion
+- Zwei-Finger-Vergrößerung
+- Doppelklick zum Vergrößern
