@@ -1,9 +1,9 @@
 package com.schwegelbin.openbible.ui.screens
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -23,12 +23,10 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.isTraversalGroup
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.traversalIndex
 import androidx.compose.ui.unit.dp
@@ -50,19 +48,25 @@ fun SearchScreen(onNavigateToRead: () -> Unit) {
             }
         })
     }) { innerPadding ->
-        val context = LocalContext.current
-        val selection = remember { mutableStateOf(getSelection(context, false)) }
-        val query = remember { mutableStateOf("") }
-        val results = remember { mutableStateOf(listOf(Triple("", -1, -1))) }
-        TextSearchBar(
-            Modifier
+        Column(
+            modifier = Modifier
                 .padding(innerPadding)
                 .padding(start = 20.dp, end = 20.dp, bottom = 20.dp),
-            query.value,
-            { s -> query.value = s },
-            { results.value = searchText(context, selection.value.first, query.value) },
-            results.value,
-            { (book, chapter) ->
+            verticalArrangement = Arrangement.spacedBy(15.dp)
+        ) {
+            val context = LocalContext.current
+            val selection = remember { mutableStateOf(getSelection(context, false)) }
+            val query = remember { mutableStateOf("") }
+            val results = remember { mutableStateOf(listOf(Triple("", -1, -1))) }
+            TextSearchBar(
+                query.value,
+                { s -> query.value = s },
+                { results.value = searchText(context, selection.value.first, query.value) },
+                stringResource(R.string.search_for_text)
+            )
+            TextSearchResults(
+                results.value,
+            ) { (book, chapter) ->
                 if (book >= 0 && chapter >= 0) saveSelection(
                     context,
                     book = book,
@@ -70,74 +74,68 @@ fun SearchScreen(onNavigateToRead: () -> Unit) {
                     isSplitScreen = false
                 )
                 onNavigateToRead()
-            },
-            stringResource(R.string.search_for_text)
-        )
+            }
+        }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TextSearchBar(
-    modifier: Modifier = Modifier,
     query: String,
     onQueryChange: (String) -> Unit,
     onSearch: (String) -> Unit,
+    placeholderText: String
+) {
+    SearchBar(
+        modifier = Modifier.semantics { traversalIndex = 0f },
+        inputField = {
+            SearchBarDefaults.InputField(
+                query = query,
+                onQueryChange = onQueryChange,
+                onSearch = onSearch,
+                expanded = true,
+                onExpandedChange = { },
+                placeholder = { Text(placeholderText) },
+                leadingIcon = {
+                    Icon(
+                        Icons.Filled.Search,
+                        contentDescription = "Search"
+                    )
+                }
+            )
+        },
+        expanded = false,
+        onExpandedChange = { },
+        colors = SearchBarDefaults.colors(Color.Transparent),
+        windowInsets = WindowInsets(0.dp)
+    ) { }
+}
+
+@Composable
+fun TextSearchResults(
     searchResults: List<Triple<String, Int, Int>>,
     onResultClick: (Pair<Int, Int>) -> Unit,
-    placeholderText: String,
 ) {
-    Box(
-        modifier
-            .fillMaxSize()
-            .semantics { isTraversalGroup = true }
-    ) {
-        SearchBar(
-            modifier = Modifier
-                .align(Alignment.TopCenter)
-                .semantics { traversalIndex = 0f },
-            inputField = {
-                SearchBarDefaults.InputField(
-                    query = query,
-                    onQueryChange = onQueryChange,
-                    onSearch = onSearch,
-                    expanded = true,
-                    onExpandedChange = { },
-                    placeholder = { Text(placeholderText) },
-                    leadingIcon = {
-                        Icon(
-                            Icons.Filled.Search,
-                            contentDescription = "Search"
-                        )
-                    }
+    LazyColumn {
+        items(count = searchResults.size) { index ->
+            val resultText = searchResults[index].first
+            if (resultText != "") {
+                ListItem(
+                    headlineContent = { Text(resultText) },
+                    colors = ListItemDefaults.colors(containerColor = Color.Transparent),
+                    modifier = Modifier
+                        .clickable {
+                            onResultClick(
+                                Pair(
+                                    searchResults[index].second,
+                                    searchResults[index].third
+                                )
+                            )
+                        }
+                        .fillMaxWidth()
+                        .padding(vertical = 4.dp)
                 )
-            },
-            expanded = true,
-            onExpandedChange = { },
-            colors = SearchBarDefaults.colors(Color.Transparent),
-            windowInsets = WindowInsets(0.dp)
-        ) {
-            LazyColumn {
-                items(count = searchResults.size) { index ->
-                    val resultText = searchResults[index].first
-                    if (resultText != "") {
-                        ListItem(
-                            headlineContent = { Text(resultText) },
-                            colors = ListItemDefaults.colors(containerColor = Color.Transparent),
-                            modifier = Modifier
-                                .clickable {
-                                    onResultClick(
-                                        Pair(
-                                            searchResults[index].second,
-                                            searchResults[index].third
-                                        )
-                                    )
-                                }
-                                .fillMaxWidth()
-                                .padding(vertical = 4.dp)
-                        )
-                    }
-                }
             }
         }
     }
