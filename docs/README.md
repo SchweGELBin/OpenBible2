@@ -12,11 +12,11 @@
 
 [German](./README_DE.md)
 
-<!-- ./metadata/en-US/short_description.txt -->
+<!-- ../metadata/en-US/short_description.txt -->
 OpenBible provides the Bible as a simple Android App
 
 ## Description
-<!-- ./metadata/en-US/full_description.txt -->
+<!-- ../metadata/en-US/full_description.txt -->
 <p><i>OpenBible</i> lets you download the Bible in multiple translations. You can choose a downloaded translation and select a book and chapter of it. Then you can read the selected chapter. If you exit out of the app, it saves your last state that you can continue, where you left. It follows your system theme (dark/light mode, language and material design) to make your experience as simple and straight forward as possible.</p>
 
 ## How does it work?
@@ -24,5 +24,5 @@ It is written in [Jetpack Compose](https://developer.android.com/compose) and us
 Scripture data provided by [getBible](https://getbible.net/docs), a recognized [front end](https://wiki.crosswire.org/Frontends:getBible) for Crosswire’s SWORD modules.
 
 ## Screenshots
-| ![](./metadata/en-US/images/phoneScreenshots/1.png) | ![](./metadata/en-US/images/phoneScreenshots/2.png) | ![](./metadata/en-US/images/phoneScreenshots/3.png) |
+| ![](../metadata/en-US/images/phoneScreenshots/1.png) | ![](../metadata/en-US/images/phoneScreenshots/2.png) | ![](../metadata/en-US/images/phoneScreenshots/3.png) |
 |-----------------------------------------------------|-----------------------------------------------------|-----------------------------------------------------|
