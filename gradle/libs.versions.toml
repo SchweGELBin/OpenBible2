@@ -10,7 +10,7 @@ kotlin = "2.1.21"
 kotlinxSerializationJson = "1.8.1"
 lifecycleRuntimeKtx = "2.9.0"
 materialIconsExtended = "1.7.8"
-navigationCompose = "2.8.9"
+navigationCompose = "2.9.0"
 zip4j = "2.11.5"
 
 [libraries]
