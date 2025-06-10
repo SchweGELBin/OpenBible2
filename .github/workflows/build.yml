@@ -28,6 +28,7 @@ jobs:
         KEYSTORE: ${{ secrets.KEYSTORE }}
         KEYSTORE_PASS: ${{ secrets.KEYSTORE_PASS }}
       run: |
+        apt install apksigner
         echo $KEYSTORE | base64 --decode > release.keystore
         apksigner sign --ks release.keystore --ks-pass env:KEYSTORE_PASS --in out/app-release-unsigned.apk --out out/app-release.apk
         rm release.keystore
