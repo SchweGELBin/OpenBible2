@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - 'v[0-9]+.[0-9]+.[0-9]+'
+  workflow_dispatch:
 
 jobs:
   build:
@@ -18,10 +19,25 @@ jobs:
         java-version: 21
     - name: Build
       run: |
+        mkdir out
         chmod +x ./gradlew
         ./gradlew clean assembleRelease
-    - name: Upload Artifact
+        mv app/build/outputs/apk/release/app-release-unsigned.apk out
+    - name: Sign
+      env:
+        KEYSTORE: ${{ secrets.KEYSTORE }}
+        KEYSTORE_PASS: ${{ secrets.KEYSTORE_PASS }}
+      run: |
+        base64 --decode $KEYSTORE > release.keystore
+        apksigner sign --ks release.keystore --ks-pass env:KEYSTORE_PASS --in out/app-release-unsigned.apk --out out/app-release.apk
+        apksigner verify --print-certs out/app-release.apk
+    - name: Upload Unsigned Artifact
       uses: actions/upload-artifact@v4
       with:
         name: app-release-unsigned.apk
-        path: app/build/outputs/apk/release/app-release-unsigned.apk
+        path: out/app-release-unsigned.apk
+    - name: Upload Signed Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-release.apk
+        path: out/app-release.apk
