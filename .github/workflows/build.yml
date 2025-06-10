@@ -30,6 +30,7 @@ jobs:
       run: |
         base64 --decode $KEYSTORE > release.keystore
         apksigner sign --ks release.keystore --ks-pass env:KEYSTORE_PASS --in out/app-release-unsigned.apk --out out/app-release.apk
+        rm release.keystore
         apksigner verify --print-certs out/app-release.apk
     - name: Upload Unsigned Artifact
       uses: actions/upload-artifact@v4
