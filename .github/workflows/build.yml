@@ -4,16 +4,21 @@ on:
   workflow_call:
     inputs:
       sign:
-          required: true
-          type: boolean
-          default: false
+        required: true
+        type: boolean
+        default: false
+    secrets:
+      KEYSTORE:
+        required: true
+      KEYSTORE_PASS:
+        required: true
 
   workflow_dispatch:
     inputs:
       sign:
-          required: true
-          type: boolean
-          default: false
+        required: true
+        type: boolean
+        default: false
 
 jobs:
   build:
