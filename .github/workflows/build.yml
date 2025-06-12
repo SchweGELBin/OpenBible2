@@ -1,10 +1,19 @@
 name: Build
 
 on:
-  push:
-    tags:
-      - 'v[0-9]+.[0-9]+.[0-9]+'
+  workflow_call:
+    inputs:
+      sign:
+          required: true
+          type: boolean
+          default: false
+
   workflow_dispatch:
+    inputs:
+      sign:
+          required: true
+          type: boolean
+          default: false
 
 jobs:
   build:
@@ -17,29 +26,39 @@ jobs:
       with:
         distribution: temurin
         java-version: 21
-    - name: Build
+    - name: Build APK
       run: |
-        mkdir out
         chmod +x ./gradlew
         ./gradlew clean assembleRelease
-        mv app/build/outputs/apk/release/app-release-unsigned.apk out
-    - name: Sign
+    - name: Upload Unsigned APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-release-unsigned.apk
+        path: app/build/outputs/apk/release/app-release-unsigned.apk
+
+  sign:
+    if: ${{ inputs.sign }}
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Download unsigned APK
+      uses: actions/download-artifact
+      with:
+        name: app-release-unsigned.apk
+    - name: Sign APK
       env:
         KEYSTORE: ${{ secrets.KEYSTORE }}
         KEYSTORE_PASS: ${{ secrets.KEYSTORE_PASS }}
       run: |
         sudo apt install apksigner
         echo $KEYSTORE | base64 --decode > release.keystore
-        apksigner sign --ks release.keystore --ks-pass env:KEYSTORE_PASS --in out/app-release-unsigned.apk --out out/app-release.apk
+        apksigner sign --ks release.keystore --ks-pass env:KEYSTORE_PASS --in app-release-unsigned.apk --out app-release.apk
         rm release.keystore
-        apksigner verify --print-certs out/app-release.apk
-    - name: Upload Unsigned Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: app-release-unsigned.apk
-        path: out/app-release-unsigned.apk
-    - name: Upload Signed Artifact
+        apksigner verify --print-certs app-release.apk
+    - name: Upload Signed APK
       uses: actions/upload-artifact@v4
       with:
         name: app-release.apk
-        path: out/app-release.apk
+        path: app-release.apk

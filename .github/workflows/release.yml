@@ -1,0 +1,36 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+    with:
+      sign: true
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+          fetch-depth: 0
+    - name: Generate Changelog
+      uses: orhun/git-cliff-action@v4
+      with:
+        args: --latest --strip all
+    - name: Download APK
+      uses: actions/download-artifact@v4
+      with:
+        name: app-release.apk
+    - name: Upload Release
+      uses: svenstaro/upload-release-action@v2
+      with:
+        file: app-release.apk
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        tag: ${{ github.ref }}
+        body: ${{ steps.git-cliff.outputs.content }}
