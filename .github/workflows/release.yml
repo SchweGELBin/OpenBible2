@@ -23,15 +23,13 @@ jobs:
     - name: Generate Changelog
       uses: orhun/git-cliff-action@v4
       with:
-        args: --latest --strip all
+        args: -vv --latest --strip all
     - name: Download APK
       uses: actions/download-artifact@v4
       with:
         name: app-release.apk
     - name: Upload Release
-      uses: svenstaro/upload-release-action@v2
+      uses: ncipollo/release-action@v1
       with:
-        file: app-release.apk
-        repo_token: ${{ secrets.GITHUB_TOKEN }}
-        tag: ${{ github.ref }}
-        body: ${{ steps.git-cliff.outputs.content }}
+        artifacts: app-release.apk
+        bodyFile: git-cliff/CHANGELOG.md
