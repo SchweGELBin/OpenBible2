@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.8.1] - 2025-06-12
+
+### 📚 Documentation
+
+- Move documentation to ./docs
+- Move license back to root
+
+### ⚙️ Miscellaneous Tasks
+
+- Update .idea
+- *(build)* Sign apk
+- *(build)* Cleanup keystore after signing
+- *(build)* Correctly decrypt secret
+- *(build)* Correctly decrypt secret
+- *(build)* Install apksigner
+- *(build)* Install apksigner
+- Add release workflow
+- *(build)* Fix syntax error
+- *(dependabot)* Add github-actions
+- *(build)* Inherit secret
+- *(release)* Fix release body
+
 ## [1.8.0] - 2025-05-09
 
 ### 🚀 Features
@@ -38,6 +60,7 @@ All notable changes to this project will be documented in this file.
 - Change dependabot intervall from weekly to monthly
 - Close menu on click
 - Finish search todo
+- Bump to 1.8.0
 
 ## [1.7.0] - 2025-03-24
 

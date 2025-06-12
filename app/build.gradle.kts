@@ -13,8 +13,8 @@ android {
         applicationId = "com.schwegelbin.openbible"
         minSdk = 27
         targetSdk = 36
-        versionCode = 29
-        versionName = "1.8.0"
+        versionCode = 30
+        versionName = "1.8.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

@@ -1,0 +1,3 @@
+Update dependencies
+Improve build workflow
+Automatic releases
