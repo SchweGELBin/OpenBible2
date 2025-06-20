@@ -6,7 +6,7 @@
 [![F-Droid Release](https://img.shields.io/f-droid/v/com.schwegelbin.openbible)](https://f-droid.org/packages/com.schwegelbin.openbible)
 
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" height="60">](https://play.google.com/store/apps/details?id=com.schwegelbin.openbible)
-[<img src="https://raw.githubusercontent.com/SchweGELBin/Get-It-On/refs/heads/main/get-it-on.png" height="60">](https://github.com/SchweGELBin/OpenBible2/releases/latest)
+[<img src="https://raw.githubusercontent.com/SchweGELBin/artwork/refs/heads/main/badges/get-it-on-github.png" height="60">](https://github.com/SchweGELBin/OpenBible2/releases/latest)
 [<img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png" height="60">](https://apt.izzysoft.de/packages/com.schwegelbin.openbible)
 [<img src="https://f-droid.org/badge/get-it-on.png" height="60">](https://f-droid.org/packages/com.schwegelbin.openbible)
 
