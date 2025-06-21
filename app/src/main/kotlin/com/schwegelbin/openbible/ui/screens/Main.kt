@@ -23,7 +23,9 @@ object Read
 object Search
 
 @Serializable
-data class Selection(val isSplitScreen: Boolean)
+data class Selection(
+    val isSplitScreen: Boolean, val initialIndex: Int
+)
 
 @Serializable
 object Settings
@@ -59,8 +61,8 @@ fun App(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
                     }
                 },
                 onNavigateToSearch = { navController.navigate(Search) },
-                onNavigateToSelection = { isSplitScreen ->
-                    navController.navigate(Selection(isSplitScreen))
+                onNavigateToSelection = { isSplitScreen, initialIndex ->
+                    navController.navigate(Selection(isSplitScreen, initialIndex))
                 },
                 onNavigateToSettings = { navController.navigate(Settings) },
                 onNavigateToStart = {
@@ -83,7 +85,7 @@ fun App(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
                     navController.navigate(Read) {
                         popUpTo(0) { inclusive = true }
                     }
-                }, selection.isSplitScreen
+                }, selection.isSplitScreen, selection.initialIndex
             )
         }
         composable<Settings> {

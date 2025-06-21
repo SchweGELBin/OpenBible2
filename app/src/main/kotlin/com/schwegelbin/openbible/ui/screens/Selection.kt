@@ -44,7 +44,11 @@ import com.schwegelbin.openbible.logic.shorten
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SelectionScreen(onNavigateToRead: () -> Unit, isSplitScreen: Boolean = false) {
+fun SelectionScreen(
+    onNavigateToRead: () -> Unit,
+    isSplitScreen: Boolean = false,
+    initialIndex: Int = 1
+) {
     Scaffold(topBar = {
         TopAppBar(title = { Text(stringResource(R.string.selection)) }, navigationIcon = {
             IconButton(onClick = { onNavigateToRead() }) {
@@ -61,19 +65,19 @@ fun SelectionScreen(onNavigateToRead: () -> Unit, isSplitScreen: Boolean = false
                 .padding(start = 20.dp, end = 20.dp, bottom = 20.dp),
             verticalArrangement = Arrangement.spacedBy(15.dp)
         ) {
-            Selection(onNavigateToRead, isSplitScreen)
+            Selection(onNavigateToRead, isSplitScreen, initialIndex)
         }
     }
 }
 
 @Composable
-fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean) {
+fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean, initialIndex: Int) {
     val context = LocalContext.current
     val selection = getSelection(context, isSplitScreen)
     val translation = remember { mutableStateOf(selection.first) }
     val book = remember { mutableIntStateOf(selection.second) }
     val chapter = remember { mutableIntStateOf(selection.third) }
-    val selectedIndex = remember { mutableIntStateOf(1) }
+    val selectedIndex = remember { mutableIntStateOf(initialIndex) }
     val options = SelectMode.entries
     val selectMode = remember { mutableStateOf(options[selectedIndex.intValue]) }
 

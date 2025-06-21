@@ -57,15 +57,16 @@ fun getChapter(
     chapter: Int,
     showVerseNumbers: Boolean,
     error: String
-): Pair<String, String> {
-    val bible = deserializeBible(getTranslationPath(context, abbrev)) ?: return Pair(error, "")
+): Triple<String, String, String> {
+    val bible =
+        deserializeBible(getTranslationPath(context, abbrev)) ?: return Triple(error, error, "")
     var text = ""
     bible.books[book].chapters[chapter].verses.forEach { verse ->
         text += if (showVerseNumbers) "${verse.verse} ${verse.text}".trim() + "\n"
         else verse.text
     }
     if (showVerseNumbers && text.isNotEmpty()) text = text.substring(0, text.length - 1)
-    return Pair("${bible.translation} | ${bible.books[book].chapters[chapter].name}", text)
+    return Triple(bible.translation, bible.books[book].chapters[chapter].name, text)
 }
 
 fun getMainThemeOptions(

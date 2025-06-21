@@ -21,6 +21,7 @@ import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -31,6 +32,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableFloatStateOf
@@ -64,7 +66,7 @@ fun ReadScreen(
     onNavigateToBookmarks: () -> Unit,
     onNavigateToRead: () -> Unit,
     onNavigateToSearch: () -> Unit,
-    onNavigateToSelection: (Boolean) -> Unit,
+    onNavigateToSelection: (Boolean, Int) -> Unit,
     onNavigateToSettings: () -> Unit,
     onNavigateToStart: () -> Unit,
 ) {
@@ -113,7 +115,7 @@ fun ReadScreen(
 
 @Composable
 fun ReadCard(
-    onNavigateToSelection: (Boolean) -> Unit,
+    onNavigateToSelection: (Boolean, Int) -> Unit,
     onNavigateToStart: () -> Unit,
     onNavigateToRead: () -> Unit,
     split: SplitScreen,
@@ -125,7 +127,7 @@ fun ReadCard(
     val translation = checkTranslation(context, abbrev, onNavigateToStart, isSplitScreen)
     val showVerseNumbers = remember { mutableStateOf(getShowVerseNumbers(context)) }
     val textAlignment = getTextAlignment(context)
-    val (title, text) = getChapter(
+    val (translationName, chapterName, text) = getChapter(
         context,
         translation,
         book,
@@ -153,15 +155,25 @@ fun ReadCard(
             modifier = if (isSplitScreen && split == SplitScreen.Horizontal) mod.padding(
                 top = 12.dp
             ) else mod,
-            onClick = { onNavigateToSelection(isSplitScreen) }
+            onClick = { onNavigateToSelection(isSplitScreen, 1) }
         ) {
             Row(
                 horizontalArrangement = Arrangement.End,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 TurnButton(false, isSplitScreen, onNavigateToRead)
+                TextButton(
+                    colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.onSurface),
+                    modifier = Modifier.weight(1f),
+                    onClick = { onNavigateToSelection(isSplitScreen, 0) }
+                ) {
+                    Text(
+                        text = translationName,
+                        textAlign = TextAlign.Center
+                    )
+                }
                 Text(
-                    text = title,
+                    text = chapterName,
                     modifier = Modifier.weight(1f),
                     textAlign = TextAlign.Center
                 )
