@@ -1,6 +1,6 @@
 # OpenBible
 [![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/SchweGELBin/OpenBible2/total)](https://github.com/SchweGELBin/OpenBible2/releases)
-[![GitHub License](https://img.shields.io/github/license/SchweGELBin/OpenBible2)](./LICENSE)
+[![GitHub License](https://img.shields.io/github/license/SchweGELBin/OpenBible2)](../LICENSE)
 [![GitHub Release](https://img.shields.io/github/v/release/SchweGELBin/OpenBible2)](https://github.com/SchweGELBin/OpenBible2/releases/latest)
 [![IzzyOnDroid Release](https://img.shields.io/endpoint?url=https://apt.izzysoft.de/fdroid/api/v1/shield/com.schwegelbin.openbible)](https://apt.izzysoft.de/packages/com.schwegelbin.openbible)
 [![F-Droid Release](https://img.shields.io/f-droid/v/com.schwegelbin.openbible)](https://f-droid.org/packages/com.schwegelbin.openbible)
