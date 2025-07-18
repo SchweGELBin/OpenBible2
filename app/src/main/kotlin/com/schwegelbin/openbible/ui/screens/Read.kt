@@ -1,6 +1,7 @@
 package com.schwegelbin.openbible.ui.screens
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.gestures.rememberTransformableState
 import androidx.compose.foundation.gestures.transformable
@@ -21,7 +22,6 @@ import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -32,7 +32,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableFloatStateOf
@@ -163,16 +162,13 @@ fun ReadCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 TurnButton(false, isSplitScreen, onNavigateToRead)
-                TextButton(
-                    colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.onSurface),
-                    modifier = Modifier.weight(1f),
-                    onClick = { onNavigateToSelection(isSplitScreen, 0) }
-                ) {
-                    Text(
-                        text = translationName,
-                        textAlign = TextAlign.Center
-                    )
-                }
+                Text(
+                    text = translationName,
+                    modifier = Modifier
+                        .weight(1f)
+                        .clickable(onClick = { onNavigateToSelection(isSplitScreen, 0) }),
+                    textAlign = TextAlign.Center
+                )
                 Text(
                     text = chapterName,
                     modifier = Modifier.weight(1f),
