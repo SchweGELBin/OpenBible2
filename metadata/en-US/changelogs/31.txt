@@ -1,5 +1,7 @@
 Made the translation in the read screen clickable to change the translation direclty
 
+Updated the settings ui to use switches over checkboxes
+
 Added an option to set the font size range in the settings:
 - Default: Min
 - Min: Minimum font size while zooming
