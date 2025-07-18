@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -37,7 +35,7 @@ android {
     }
     kotlin {
         compilerOptions {
-            jvmTarget = JvmTarget.JVM_11
+            jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21
         }
     }
     buildFeatures {
