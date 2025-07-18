@@ -15,7 +15,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -27,6 +26,7 @@ import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
@@ -107,7 +107,7 @@ fun SettingsScreen(
                 DeleteTranslationButton()
                 UpdateTranslationsButton()
             }
-            CheckBoxField(
+            SettingsField(
                 text = stringResource(R.string.check_at_startup),
                 initialState = getCheckAtStartup(context),
                 saveFunction = { checked ->
@@ -138,7 +138,7 @@ fun SettingsScreen(
             ReadTextAlignmentButton()
             Text(stringResource(R.string.split_screen), style = styleMedium)
             SplitScreenButton()
-            CheckBoxField(
+            SettingsField(
                 text = stringResource(R.string.show_verse_number),
                 initialState = getShowVerseNumbers(context),
                 saveFunction = { checked ->
@@ -147,7 +147,7 @@ fun SettingsScreen(
             )
             /* TODO: Implement Infinite Scroll
              * https://github.com/SchweGELBin/OpenBible2/issues/16
-            CheckBoxField(
+            SettingsField(
                 text = stringResource(R.string.infinite_scroll),
                 initialState = getInfiniteScroll(context),
                 saveFunction = { checked ->
@@ -158,7 +158,7 @@ fun SettingsScreen(
 
             HorizontalDivider(Modifier.padding(12.dp))
             Text(stringResource(R.string.notifications), style = styleLarge, modifier = modLarge)
-            CheckBoxField(
+            SettingsField(
                 text = stringResource(R.string.download),
                 initialState = getDownloadNotification(context),
                 saveFunction = { checked ->
@@ -167,7 +167,7 @@ fun SettingsScreen(
             )
             /* TODO: Implement Verse of the Day
              * https://github.com/SchweGELBin/OpenBible2/issues/19
-            CheckBoxField(
+            SettingsField(
                 text = stringResource(R.string.verse_of_the_day),
                 initialState = getVerseOfTheDay(context),
                 saveFunction = { checked ->
@@ -213,20 +213,21 @@ fun SettingsScreen(
 }
 
 @Composable
-fun CheckBoxField(text: String, initialState: Boolean, saveFunction: (Boolean) -> Unit) {
+fun SettingsField(text: String, initialState: Boolean, saveFunction: (Boolean) -> Unit) {
     Row(
         Modifier
             .fillMaxWidth()
             .horizontalScroll(rememberScrollState()),
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         Text(
             text = text,
             style = MaterialTheme.typography.titleMedium,
-            modifier = Modifier.padding(top = 15.dp)
+            modifier = Modifier
+                .padding(top = 15.dp)
+                .weight(1f)
         )
         val isChecked = remember { mutableStateOf(initialState) }
-        Checkbox(checked = isChecked.value, onCheckedChange = {
+        Switch(checked = isChecked.value, onCheckedChange = {
             isChecked.value = it
             saveFunction(isChecked.value)
         })
