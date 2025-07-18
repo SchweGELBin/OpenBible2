@@ -52,6 +52,7 @@ import com.schwegelbin.openbible.logic.SplitScreen
 import com.schwegelbin.openbible.logic.checkTranslation
 import com.schwegelbin.openbible.logic.getAppName
 import com.schwegelbin.openbible.logic.getChapter
+import com.schwegelbin.openbible.logic.getFontSize
 import com.schwegelbin.openbible.logic.getSelection
 import com.schwegelbin.openbible.logic.getShowVerseNumbers
 import com.schwegelbin.openbible.logic.getSplitScreen
@@ -137,11 +138,11 @@ fun ReadCard(
     )
     val mod = Modifier.fillMaxWidth()
     var outer = mod
-    val scaleRange = Pair(1f, 2f)
-    val textScale = remember { mutableFloatStateOf(scaleRange.first) }
+    val fontSize = getFontSize(context)
+    val textScale = remember { mutableFloatStateOf(fontSize.start) }
     val zoomState = rememberTransformableState { zoomChange, _, _ ->
         textScale.floatValue =
-            min(max(textScale.floatValue * zoomChange, scaleRange.first), scaleRange.second)
+            min(max(textScale.floatValue * zoomChange, fontSize.start), fontSize.endInclusive)
     }
     val textStyle = MaterialTheme.typography.bodyLarge
     val textMod = Modifier
@@ -188,7 +189,8 @@ fun ReadCard(
                 .transformable(zoomState)
                 .pointerInput(Unit) {
                     detectTapGestures(onDoubleTap = {
-                        textScale.floatValue = if (textScale.floatValue != 1f) 1f else 2f
+                        textScale.floatValue =
+                            if (textScale.floatValue != fontSize.start) fontSize.start else fontSize.endInclusive
                     })
                 }
         ) {

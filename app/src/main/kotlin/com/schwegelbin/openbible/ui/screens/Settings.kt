@@ -21,6 +21,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.RangeSlider
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
@@ -53,6 +54,7 @@ import com.schwegelbin.openbible.logic.downloadTranslation
 import com.schwegelbin.openbible.logic.getCheckAtStartup
 import com.schwegelbin.openbible.logic.getColorSchemeInt
 import com.schwegelbin.openbible.logic.getDownloadNotification
+import com.schwegelbin.openbible.logic.getFontSize
 import com.schwegelbin.openbible.logic.getIndexPath
 import com.schwegelbin.openbible.logic.getLanguageName
 import com.schwegelbin.openbible.logic.getMainThemeOptions
@@ -65,6 +67,7 @@ import com.schwegelbin.openbible.logic.getTranslations
 import com.schwegelbin.openbible.logic.saveCheckAtStartup
 import com.schwegelbin.openbible.logic.saveColorScheme
 import com.schwegelbin.openbible.logic.saveDownloadNotification
+import com.schwegelbin.openbible.logic.saveFontSize
 import com.schwegelbin.openbible.logic.saveIndex
 import com.schwegelbin.openbible.logic.saveShowVerseNumbers
 import com.schwegelbin.openbible.logic.saveSplitScreen
@@ -138,6 +141,8 @@ fun SettingsScreen(
             ReadTextAlignmentButton()
             Text(stringResource(R.string.split_screen), style = styleMedium)
             SplitScreenButton()
+            Text(stringResource(R.string.font_size), style = styleMedium)
+            FontSizeSlider()
             SettingsField(
                 text = stringResource(R.string.show_verse_number),
                 initialState = getShowVerseNumbers(context),
@@ -349,6 +354,19 @@ fun SchemeButton(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
             ) { Text(label) }
         }
     }
+}
+
+@Composable
+fun FontSizeSlider() {
+    val context = LocalContext.current
+    val sliderPosition = remember { mutableStateOf(getFontSize(context)) }
+    RangeSlider(
+        value = sliderPosition.value,
+        steps = 9,
+        onValueChange = { range -> sliderPosition.value = range },
+        valueRange = 1f..2f,
+        onValueChangeFinished = { saveFontSize(context, sliderPosition.value) },
+    )
 }
 
 @Composable

@@ -22,6 +22,7 @@
     <string name="downloading_index">Lädt Index herunter, bitte warten Sie…</string>
     <string name="downloading_translation">Lädt Übersetzung herunter, bitte warten Sie…</string>
     <string name="error">ERROR</string>
+    <string name="font_size">Schriftgröße</string>
     <string name="horizontal">Horizontal</string>
     <string name="index">Index</string>
     <string name="infinite_scroll">Unendliches Scrollen</string>

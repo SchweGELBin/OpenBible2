@@ -220,6 +220,20 @@ fun saveTextAlignment(context: Context, alignment: ReadTextAlignment) {
     }
 }
 
+fun getFontSize(context: Context): ClosedFloatingPointRange<Float> {
+    val start = context.getSharedPreferences("options", Context.MODE_PRIVATE)
+        .getFloat("fontSizeStart", 1f)
+    val end = context.getSharedPreferences("options", Context.MODE_PRIVATE)
+        .getFloat("fontSizeEnd", 1.8f)
+    return start..end
+}
+
+fun saveFontSize(context: Context, range: ClosedFloatingPointRange<Float>) {
+    context.getSharedPreferences("options", Context.MODE_PRIVATE).edit {
+        putFloat("fontSizeStart", range.start)
+        putFloat("fontSizeEnd", range.endInclusive)
+    }
+}
 
 fun getVerseOfTheDay(context: Context): Boolean {
     return context.getSharedPreferences("options", Context.MODE_PRIVATE)

@@ -22,6 +22,7 @@
     <string name="downloading_index">Downloading Index, please wait…</string>
     <string name="downloading_translation">Downloading Translation, please wait…</string>
     <string name="error">ERROR</string>
+    <string name="font_size">Font Size</string>
     <string name="horizontal">Horizontal</string>
     <string name="index">Index</string>
     <string name="infinite_scroll">Infinite Scroll</string>
