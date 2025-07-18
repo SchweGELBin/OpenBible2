@@ -1,0 +1,6 @@
+Die Uebersetzung im Lesemodus ist nun anklickbar und laesst einen direkt die Uebersetzung aendern
+
+Die Schriftgroesse kann nun in den Einstellungen als Bereich gesetzt werden:
+- Standart: Min
+- Min: Minimale Schriftgroesse beim Vergroessern/Verkleinern
+- Max: Maximale Schriftgroesse beim Vergroessern/Verkleinern

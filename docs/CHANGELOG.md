@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.9.0] - 2025-07-18
+
+### 🚀 Features
+
+- Seperate translation and chapter selection in ReadScreen title
+- Set font size range
+
+### 🐛 Bug Fixes
+
+- *(ui)* Remove padding around TranslationButton in ReadScreen
+- Update kotlin jvmTarget
+
+### 🚜 Refactor
+
+- *(ui)* Use switches instead of checkboxes in settings
+
+### 📚 Documentation
+
+- *(readme)* Update `Get It On Github` badge link
+- *(readme)* Fix license path of license badge
+
+### ⚙️ Miscellaneous Tasks
+
+- Update deprecated kotlin compilerOptions
+
 ## [1.8.1] - 2025-06-12
 
 ### 📚 Documentation
@@ -23,6 +48,7 @@ All notable changes to this project will be documented in this file.
 - *(dependabot)* Add github-actions
 - *(build)* Inherit secret
 - *(release)* Fix release body
+- Bump to 1.8.1
 
 ## [1.8.0] - 2025-05-09
 
