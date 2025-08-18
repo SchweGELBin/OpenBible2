@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.9.1] - 2025-08-18
+
+### 🐛 Bug Fixes
+
+- *(ui)* Improve alignment in selection screen
+- *(ui)* Match menu color to background
+
+### 📚 Documentation
+
+- *(metadata)* Add one missing but added feature to changelog 31 (1.9.0)
+
 ## [1.9.0] - 2025-07-18
 
 ### 🚀 Features
@@ -26,6 +37,7 @@ All notable changes to this project will be documented in this file.
 ### ⚙️ Miscellaneous Tasks
 
 - Update deprecated kotlin compilerOptions
+- Bump to 1.9.0
 
 ## [1.8.1] - 2025-06-12
 

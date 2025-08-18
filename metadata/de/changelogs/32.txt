@@ -1,0 +1,3 @@
+- Verbesserte Ausrichtung der Buechernamen
+- Angepasste Menuefarbe an Hintergrundfarbe
+- Aktualisieren von Abhaengigkeiten

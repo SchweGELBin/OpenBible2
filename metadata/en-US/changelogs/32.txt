@@ -1,0 +1,3 @@
+- Improve Alignment of Book names
+- Match Menu Color to Background Color
+- Update Dependencies
