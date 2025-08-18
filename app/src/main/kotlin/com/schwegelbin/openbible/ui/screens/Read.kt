@@ -251,7 +251,8 @@ fun HamburgerMenu(
     DropdownMenu(
         expanded = expanded.value,
         onDismissRequest = { expanded.value = false },
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.onSurface)
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.onSurface),
+        containerColor = MaterialTheme.colorScheme.background
     ) {
         DropdownMenuItem(
             text = { Text(stringResource(R.string.settings)) },
