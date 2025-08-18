@@ -1,8 +1,10 @@
 package com.schwegelbin.openbible.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -28,9 +30,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.schwegelbin.openbible.R
 import com.schwegelbin.openbible.logic.SelectMode
@@ -40,7 +44,6 @@ import com.schwegelbin.openbible.logic.getSelection
 import com.schwegelbin.openbible.logic.getTranslationInfo
 import com.schwegelbin.openbible.logic.getTranslationList
 import com.schwegelbin.openbible.logic.saveSelection
-import com.schwegelbin.openbible.logic.shorten
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -169,28 +172,43 @@ fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean, initialIndex
                     ) {
                         for (j in 0..<buttonsPerRow) {
                             if (i + j <= num) {
-                                var name = names[i + j]
-                                name = shorten(name, length)
-                                while (name.length < length) name += " "
-                                TextButton(onClick = {
-                                    book.intValue = i + j
-
-                                    val (_, chapterCount) = getCount(
-                                        context,
-                                        translation.value,
-                                        book.intValue
-                                    )
-                                    if (chapter.intValue > chapterCount) chapter.intValue = 0
-                                    selectMode.value = SelectMode.Chapter
-                                    selectedIndex.intValue = 2
-                                    saveSelection(
-                                        context,
-                                        translation.value,
-                                        book.intValue,
-                                        chapter.intValue,
-                                        isSplitScreen
-                                    )
-                                }) { Text((name)) }
+                                val name = names[i + j]
+                                Box(
+                                    modifier = Modifier.weight(1f),
+                                    contentAlignment = Alignment.CenterStart
+                                ) {
+                                    TextButton(
+                                        modifier = Modifier.fillMaxWidth(),
+                                        onClick = {
+                                            book.intValue = i + j
+                                            val (_, chapterCount) = getCount(
+                                                context,
+                                                translation.value,
+                                                book.intValue
+                                            )
+                                            if (chapter.intValue > chapterCount) chapter.intValue =
+                                                0
+                                            selectMode.value = SelectMode.Chapter
+                                            selectedIndex.intValue = 2
+                                            saveSelection(
+                                                context,
+                                                translation.value,
+                                                book.intValue,
+                                                chapter.intValue,
+                                                isSplitScreen
+                                            )
+                                        }
+                                    ) {
+                                        Text(
+                                            text = name,
+                                            maxLines = 1,
+                                            overflow = TextOverflow.Ellipsis,
+                                            modifier = Modifier.fillMaxWidth()
+                                        )
+                                    }
+                                }
+                            } else {
+                                Spacer(modifier = Modifier.weight(1f))
                             }
                         }
                     }
