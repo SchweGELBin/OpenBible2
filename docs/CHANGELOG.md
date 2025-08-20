@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.9.2] - 2025-08-20
+
+### ◀️ Revert
+
+- Chore(deps): bump com.android.application from 8.11.1 to 8.12.0 (#63)
+
 ## [1.9.1] - 2025-08-18
 
 ### 🐛 Bug Fixes
@@ -12,6 +18,10 @@ All notable changes to this project will be documented in this file.
 ### 📚 Documentation
 
 - *(metadata)* Add one missing but added feature to changelog 31 (1.9.0)
+
+### ⚙️ Miscellaneous Tasks
+
+- Bump to 1.9.1
 
 ## [1.9.0] - 2025-07-18
 
