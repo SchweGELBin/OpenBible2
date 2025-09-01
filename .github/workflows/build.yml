@@ -49,7 +49,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
     - name: Download unsigned APK
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v5
       with:
         name: app-release-unsigned.apk
     - name: Sign APK
