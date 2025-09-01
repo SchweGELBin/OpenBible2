@@ -209,6 +209,10 @@ fun SettingsScreen(
                     url = "https://play.google.com/store/apps/details?id=com.schwegelbin.openbible"
                 )
                 LinkButton(
+                    text = stringResource(R.string.contact),
+                    url = "mailto:schwegelbin@gmail.com"
+                )
+                LinkButton(
                     text = stringResource(R.string.source_getbible),
                     url = "https://getbible.net/docs"
                 )
