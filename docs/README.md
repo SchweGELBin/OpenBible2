@@ -32,4 +32,4 @@ Scripture data is being provided by [getBible](https://getbible.net/docs), a rec
 
 ## Screenshots
 | ![](../metadata/en-US/images/phoneScreenshots/1.png) | ![](../metadata/en-US/images/phoneScreenshots/2.png) | ![](../metadata/en-US/images/phoneScreenshots/3.png) |
-|-----------------------------------------------------|-----------------------------------------------------|-----------------------------------------------------|
+|------------------------------------------------------|------------------------------------------------------|------------------------------------------------------|

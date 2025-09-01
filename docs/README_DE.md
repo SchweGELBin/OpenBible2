@@ -32,4 +32,4 @@ Die Schriftdaten werden von [getBible](https://getbible.net/docs), ein anerkannt
 
 ## Blidschirmfotos
 | ![](../metadata/en-US/images/phoneScreenshots/1.png) | ![](../metadata/en-US/images/phoneScreenshots/2.png) | ![](../metadata/en-US/images/phoneScreenshots/3.png) |
-|-----------------------------------------------------|-----------------------------------------------------|-----------------------------------------------------|
+|------------------------------------------------------|------------------------------------------------------|------------------------------------------------------|
