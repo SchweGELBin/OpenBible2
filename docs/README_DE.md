@@ -27,7 +27,7 @@ Beim Lesen kann man die Schriftgröße temporär, durch Wischen mit zwei Fingern
 Ihre Einstellungen, Ausgewähltes und Übersetzungen werden gespeichert und können problemlos, lokal gesichert werden.
 
 ## Wie funktioniert es?
-Die App ist in [Jetpack Compose](https://developer.android.com/compose) geschrieben und nutzt [Material You](https://m3.material.io) füz ihre Gestaltung.
+Die App ist in [Jetpack Compose](https://developer.android.com/compose) geschrieben und nutzt [Material You](https://m3.material.io) für ihre Gestaltung.
 Die Schriftdaten werden von [getBible](https://getbible.net/docs), ein anerkanntes [Frontend](https://wiki.crosswire.org/Frontends:getBible) für Crosswires SWORD Module, bereitgestellt.
 
 ## Blidschirmfotos
