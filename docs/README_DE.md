@@ -13,14 +13,21 @@
 [English](./README.md)
 
 <!-- ../metadata/de/short_description.txt -->
-OpenBible stellt die Bibel als einfache Android App zur Verfügung
+OpenBible stellt die Bibel möglichst ohne Ablenkungen zur Verfügung
 
 ## Beschreibung
 <!-- ../metadata/de/full_description.txt -->
-<p><i>OpenBible</i> lässt Sie die Bibel in mehreren Übersetzungen herunterladen. Sie können eine heruntergeladene Übersetzung und ein zugehöriges Buch und Kapitel auswählen. Dann können Sie das ausgewählte Kapitel lesen. Wenn Sie die App schließen, speichert es den letzten Stand und Sie können weitermachen, wo Sie aufhörten. Es folgt Ihrem System-Design (Hell-/Dunkelmodus, Sprache und Material Design), um die Erfahrung so leicht und unkompliziert wie möglich zu gestalten.</p>
+OpenBible ist eine offene, einfache und leichte Android Applikation zum Lesen der Bibel, ohne zusätzlichen Informationen. Das bedeutet, dass diese App keine Überschriften, Kommentare, Lesepläne oder Tipps enthält.
+
+OpenBible erlaubt das Herunterladen der Bibel in vielen verschiedenen Sprachen und Übersetzungen. Sie versucht diese stets aktuell zu halten, um Formatierungen oder ähnliche Probleme zu lösen.
+Man kann eine Übersetzung, ein Buch und ein Kapitel auswählen oder Verse finden, indem man nach ihrem Inhalt sucht.
+Die App lässt einen die Leseerfahrung in Form von Farbthemen, Farbschemas, Textausrichtung, geteilten Modus, Schriftgröße und Versnummersichtbarkeit, anpassen.
+Diese Einstellungen sind standartmäßig den Systempräferenzen angepasst, um die Notwendigkeit des manuelles Anpassens zu verringern.
+Beim Lesen kann man die Schriftgröße temporär, durch Wischen mit zwei Fingern oder Doppelklicken, ändern. Zusätzlich kann man den Text auswählen, um ihn zu kopieren oder zu teilen.
+Ihre Einstellungen, Ausgewähltes und Übersetzungen werden gespeichert und können problemlos, lokal gesichert werden.
 
 ## Wie funktioniert es?
-Die App ist in [Jetpack Compose](https://developer.android.com/compose) geschrieben und nutzt [Material You](https://m3.material.io) in der Gestaltung.
+Die App ist in [Jetpack Compose](https://developer.android.com/compose) geschrieben und nutzt [Material You](https://m3.material.io) füz ihre Gestaltung.
 Die Schriftdaten werden von [getBible](https://getbible.net/docs), ein anerkanntes [Frontend](https://wiki.crosswire.org/Frontends:getBible) für Crosswires SWORD Module, bereitgestellt.
 
 ## Blidschirmfotos

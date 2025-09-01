@@ -13,15 +13,22 @@
 [German](./README_DE.md)
 
 <!-- ../metadata/en-US/short_description.txt -->
-OpenBible provides the Bible as a simple Android App
+OpenBible provides the Bible with as little distractions as possible
 
 ## Description
 <!-- ../metadata/en-US/full_description.txt -->
-<p><i>OpenBible</i> lets you download the Bible in multiple translations. You can choose a downloaded translation and select a book and chapter of it. Then you can read the selected chapter. If you exit out of the app, it saves your last state that you can continue, where you left. It follows your system theme (dark/light mode, language and material design) to make your experience as simple and straight forward as possible.</p>
+OpenBible aims to be an open, simple and lightweight Android application for reading the Bible without any additional inputs. This means that the app contains only the Bible without items like section headings, comments, reading plans or tips.
+
+OpenBible allows you to download the Bible in many different languages and translations. It strives to keep these translations up to date to address formatting or similar issues.
+You can select the translation, book and chapter or find verses by searching their content.
+The app lets you customize your reading experience through color themes, color schemes, text alignment, split screen mode, font size and verse number visibility.
+These settings default to your system preferences to reduce the need for manual adjustments.
+While reading, you can pinch or double click the screen to temporarily change the font size. Additionally, you can select text to copy or share it.
+Your settings, selections and translations are saved and can be backed up for convenience.
 
 ## How does it work?
 It is written in [Jetpack Compose](https://developer.android.com/compose) and uses [Material You](https://m3.material.io) as its Design.
-Scripture data provided by [getBible](https://getbible.net/docs), a recognized [front end](https://wiki.crosswire.org/Frontends:getBible) for Crosswire’s SWORD modules.
+Scripture data is being provided by [getBible](https://getbible.net/docs), a recognized [front end](https://wiki.crosswire.org/Frontends:getBible) for Crosswire’s SWORD modules.
 
 ## Screenshots
 | ![](../metadata/en-US/images/phoneScreenshots/1.png) | ![](../metadata/en-US/images/phoneScreenshots/2.png) | ![](../metadata/en-US/images/phoneScreenshots/3.png) |
