@@ -1,1 +1,1 @@
-OpenBible provides the Bible as a simple Android App
+OpenBible provides the Bible with as little distractions as possible
