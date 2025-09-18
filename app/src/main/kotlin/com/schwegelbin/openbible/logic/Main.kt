@@ -68,10 +68,18 @@ fun checkTranslation(
     onNavigateToStart: () -> Unit,
     isSplitScreen: Boolean
 ): String {
-    if (!getTranslation(context, abbrev).exists() || deserializeBible(getTranslationPath(context, abbrev)) == null) {
+    if (!getTranslation(context, abbrev).exists() ||
+        deserializeBible(getTranslationPath(context, abbrev)) == null
+    ) {
         val list = getTranslationList(context).map { it.nameWithoutExtension }
         if (list.isNotEmpty()) {
-            val newTranslation = list.first()
+            var newTranslation = abbrev
+            for (item in list) {
+                if (deserializeBible(getTranslationPath(context, item)) != null) {
+                    newTranslation = item
+                    break
+                }
+            }
             saveSelection(context, newTranslation, isSplitScreen = isSplitScreen)
             return newTranslation
         } else onNavigateToStart()
