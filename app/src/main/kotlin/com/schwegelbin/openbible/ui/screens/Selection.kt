@@ -291,9 +291,8 @@ fun ListTranslationsPart(
 ) {
     val updateList = getUpdateList(context, false)
     translations?.forEach { (lang, translations) ->
-        if (list.isNullOrEmpty() ||
-            (showInstalled && translations.any { list.contains(it.abbreviation) }) ||
-            (!showInstalled && !translations.any { list.contains(it.abbreviation) })
+        if (list.isNullOrEmpty() || !showInstalled ||
+            translations.any { list.contains(it.abbreviation) }
         ) {
             val language = getLanguageName(lang)
             Text(
