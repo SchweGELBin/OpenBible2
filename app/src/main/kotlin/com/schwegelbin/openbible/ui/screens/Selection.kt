@@ -191,7 +191,6 @@ fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean, initialIndex
                 val names = getBookNames(context, translation.value)
                 val num = names.size - 1
                 val buttonsPerRow = 3
-                val length = 10
 
                 for (i in 0..num step buttonsPerRow) {
                     Row(
