@@ -117,7 +117,7 @@ fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean, initialIndex
     when (selectMode.value) {
         SelectMode.Translation -> {
             ElevatedCard(
-                elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+                elevation = CardDefaults.cardElevation(6.dp),
                 modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight(0.55f)
@@ -162,7 +162,7 @@ fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean, initialIndex
                 UpdateTranslationsButton()
             }
             ElevatedCard(
-                elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+                elevation = CardDefaults.cardElevation(6.dp),
                 modifier = Modifier.fillMaxSize()
             ) {
                 SelectionContainer {
@@ -178,7 +178,7 @@ fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean, initialIndex
 
         SelectMode.Book -> {
             ElevatedCard(
-                elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+                elevation = CardDefaults.cardElevation(6.dp),
                 modifier = Modifier
                     .fillMaxWidth()
                     .verticalScroll(rememberScrollState())
@@ -240,7 +240,7 @@ fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean, initialIndex
 
         SelectMode.Chapter -> {
             ElevatedCard(
-                elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+                elevation = CardDefaults.cardElevation(6.dp),
                 modifier = Modifier
                     .fillMaxWidth()
                     .verticalScroll(rememberScrollState())

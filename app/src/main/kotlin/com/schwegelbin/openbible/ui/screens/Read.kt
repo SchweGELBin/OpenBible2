@@ -151,7 +151,7 @@ fun ReadCard(
     if (!isSplitScreen && split == SplitScreen.Horizontal) outer = mod.fillMaxHeight(0.5f)
     Column(outer, verticalArrangement = Arrangement.spacedBy(6.dp)) {
         ElevatedCard(
-            elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+            elevation = CardDefaults.cardElevation(6.dp),
             modifier = if (isSplitScreen && split == SplitScreen.Horizontal) mod.padding(
                 top = 12.dp
             ) else mod,
@@ -179,7 +179,7 @@ fun ReadCard(
         }
         if (split != SplitScreen.Horizontal) Spacer(Modifier)
         ElevatedCard(
-            elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+            elevation = CardDefaults.cardElevation(6.dp),
             modifier = Modifier
                 .fillMaxWidth()
                 .transformable(zoomState)
