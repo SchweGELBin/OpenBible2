@@ -222,15 +222,9 @@ fun TurnButton(next: Boolean, isSplitScreen: Boolean, onNavigateToRead: () -> Un
     val context = LocalContext.current
     IconButton(onClick = { turnChapter(context, next, isSplitScreen, onNavigateToRead) }) {
         if (next) {
-            Icon(
-                imageVector = Icons.Filled.ChevronRight,
-                contentDescription = stringResource(R.string.next)
-            )
+            Icon(Icons.Filled.ChevronRight, stringResource(R.string.next))
         } else {
-            Icon(
-                imageVector = Icons.Filled.ChevronLeft,
-                contentDescription = stringResource(R.string.previous)
-            )
+            Icon(Icons.Filled.ChevronLeft, stringResource(R.string.previous))
         }
     }
 }
@@ -243,10 +237,7 @@ fun HamburgerMenu(
 ) {
     val expanded = remember { mutableStateOf(false) }
     IconButton(onClick = { expanded.value = !expanded.value }) {
-        Icon(
-            imageVector = Icons.Filled.Menu,
-            contentDescription = stringResource(R.string.menu)
-        )
+        Icon(Icons.Filled.Menu, stringResource(R.string.menu))
     }
     DropdownMenu(
         expanded = expanded.value,
@@ -257,10 +248,7 @@ fun HamburgerMenu(
         DropdownMenuItem(
             text = { Text(stringResource(R.string.settings)) },
             trailingIcon = {
-                Icon(
-                    imageVector = Icons.Filled.Settings,
-                    contentDescription = null
-                )
+                Icon(Icons.Filled.Settings, null)
             },
             onClick = { expanded.value = false; onNavigateToSettings() }
         )
@@ -268,10 +256,7 @@ fun HamburgerMenu(
         DropdownMenuItem(
             text = { Text(stringResource(R.string.bookmarks)) },
             trailingIcon = {
-                Icon(
-                    imageVector = Icons.Filled.Bookmarks,
-                    contentDescription = null
-                )
+                Icon(Icons.Filled.Bookmarks, null)
             },
             onClick = { expanded.value = false; onNavigateToBookmarks() }
         )
@@ -279,10 +264,7 @@ fun HamburgerMenu(
         DropdownMenuItem(
             text = { Text(stringResource(R.string.search)) },
             trailingIcon = {
-                Icon(
-                    imageVector = Icons.Filled.Search,
-                    contentDescription = null
-                )
+                Icon(Icons.Filled.Search, null)
             },
             onClick = { expanded.value = false; onNavigateToSearch() }
         )

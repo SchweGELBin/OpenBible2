@@ -60,8 +60,6 @@ import com.schwegelbin.openbible.logic.getTranslationList
 import com.schwegelbin.openbible.logic.getTranslations
 import com.schwegelbin.openbible.logic.saveIndex
 import com.schwegelbin.openbible.logic.saveSelection
-import kotlin.collections.component1
-import kotlin.collections.component2
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -73,10 +71,7 @@ fun SelectionScreen(
     Scaffold(topBar = {
         TopAppBar(title = { Text(stringResource(R.string.selection)) }, navigationIcon = {
             IconButton(onClick = { onNavigateToRead() }) {
-                Icon(
-                    imageVector = Icons.Filled.Close,
-                    contentDescription = stringResource(R.string.close)
-                )
+                Icon(Icons.Filled.Close, stringResource(R.string.close))
             }
         })
     }) { innerPadding ->

@@ -41,10 +41,7 @@ fun SearchScreen(onNavigateToRead: () -> Unit) {
     Scaffold(topBar = {
         TopAppBar(title = { Text(stringResource(R.string.search)) }, navigationIcon = {
             IconButton(onClick = { onNavigateToRead() }) {
-                Icon(
-                    imageVector = Icons.Filled.Close,
-                    contentDescription = stringResource(R.string.close)
-                )
+                Icon(Icons.Filled.Close, stringResource(R.string.close))
             }
         })
     }) { innerPadding ->
@@ -98,10 +95,7 @@ fun TextSearchBar(
                 onExpandedChange = { },
                 placeholder = { Text(placeholderText) },
                 leadingIcon = {
-                    Icon(
-                        Icons.Filled.Search,
-                        contentDescription = "Search"
-                    )
+                    Icon(Icons.Filled.Search, stringResource(R.string.search))
                 }
             )
         },

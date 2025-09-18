@@ -23,10 +23,7 @@ fun BookmarksScreen(onNavigateToRead: () -> Unit) {
     Scaffold(topBar = {
         TopAppBar(title = { Text(stringResource(R.string.bookmarks)) }, navigationIcon = {
             IconButton(onClick = { onNavigateToRead() }) {
-                Icon(
-                    imageVector = Icons.Filled.Close,
-                    contentDescription = stringResource(R.string.close)
-                )
+                Icon(Icons.Filled.Close, stringResource(R.string.close))
             }
         })
     }) { innerPadding ->

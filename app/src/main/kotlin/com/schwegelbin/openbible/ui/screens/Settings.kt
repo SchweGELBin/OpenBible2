@@ -83,9 +83,7 @@ fun SettingsScreen(
     Scaffold(topBar = {
         TopAppBar(title = { Text(stringResource(R.string.settings)) }, navigationIcon = {
             IconButton(onClick = { onNavigateToRead() }) {
-                Icon(
-                    imageVector = Icons.Filled.Close,
-                    contentDescription = stringResource(R.string.close)
+                Icon(Icons.Filled.Close, stringResource(R.string.close)
                 )
             }
         })
