@@ -151,3 +151,18 @@ fun getTranslationPath(context: Context, abbrev: String): String {
 fun getExternalPath(context: Context, relPath: String = ""): String {
     return context.getExternalFilesDir(relPath).toString()
 }
+
+fun getUpdateList(context: Context, install: Boolean, translation: String? = null): List<String> {
+    val updates = mutableListOf<String>()
+    val installed = getTranslationList(context).map { it.nameWithoutExtension }
+    val index = deserializeTranslations(getIndexPath(context)) ?: return emptyList()
+    index.values.forEach { (_, abbrev, _, _, _, _, sha) ->
+        if (installed.contains(abbrev) && (translation == null || abbrev == translation)) {
+            if (getTranslation(context, abbrev).getChecksum() != sha) {
+                if (install) downloadTranslation(context, abbrev)
+                updates.add(abbrev)
+            }
+        }
+    }
+    return updates
+}

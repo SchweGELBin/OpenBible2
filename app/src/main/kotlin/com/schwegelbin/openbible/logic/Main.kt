@@ -58,19 +58,8 @@ fun saveIndex(context: Context) {
     }
 }
 
-fun checkForUpdates(context: Context, install: Boolean): Boolean {
-    var updateAvailable = false
-    val installed = getTranslationList(context).map { it.nameWithoutExtension }
-    val index = deserializeTranslations(getIndexPath(context)) ?: return false
-    index.values.forEach { (_, abbrev, _, _, _, _, sha) ->
-        if (installed.contains(abbrev)) {
-            if (getTranslation(context, abbrev).getChecksum() != sha) {
-                if (install) downloadTranslation(context, abbrev)
-                updateAvailable = true
-            }
-        }
-    }
-    return updateAvailable
+fun checkForUpdates(context: Context, install: Boolean, translation: String? = null): Boolean {
+    return getUpdateList(context, install, translation).isNotEmpty()
 }
 
 fun checkTranslation(

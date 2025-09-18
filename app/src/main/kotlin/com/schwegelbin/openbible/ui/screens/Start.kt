@@ -191,7 +191,7 @@ fun TranslationCard(onSelected: () -> Unit) {
             .fillMaxWidth(),
         colors = CardDefaults.cardColors(containerColor = Color.Transparent)
     ) {
-        listTranslations(buttonFunction = { abbrev ->
+        ListTranslations(onSelect = { abbrev ->
             downloadTranslation(context, abbrev)
             saveSelection(context, abbrev, isSplitScreen = false)
             saveSelection(context, abbrev, isSplitScreen = true)

@@ -1,5 +1,6 @@
 package com.schwegelbin.openbible.ui.screens
 
+import android.content.Context
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -11,24 +12,23 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material3.Card
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Update
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
@@ -38,28 +38,26 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Dialog
 import com.schwegelbin.openbible.R
 import com.schwegelbin.openbible.logic.SelectMode
-import com.schwegelbin.openbible.logic.checkForUpdates
+import com.schwegelbin.openbible.logic.Translation
 import com.schwegelbin.openbible.logic.downloadTranslation
 import com.schwegelbin.openbible.logic.getBookNames
 import com.schwegelbin.openbible.logic.getCount
-import com.schwegelbin.openbible.logic.getIndexPath
 import com.schwegelbin.openbible.logic.getLanguageName
 import com.schwegelbin.openbible.logic.getSelection
 import com.schwegelbin.openbible.logic.getTranslation
 import com.schwegelbin.openbible.logic.getTranslationInfo
 import com.schwegelbin.openbible.logic.getTranslationList
 import com.schwegelbin.openbible.logic.getTranslations
-import com.schwegelbin.openbible.logic.saveIndex
+import com.schwegelbin.openbible.logic.getUpdateList
 import com.schwegelbin.openbible.logic.saveSelection
+import java.io.File
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -120,13 +118,14 @@ fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean, initialIndex
                 elevation = CardDefaults.cardElevation(6.dp),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight(0.55f)
+                    .fillMaxHeight(0.65f)
             ) {
                 Column(Modifier.verticalScroll(rememberScrollState())) {
                     val translationList =
                         getTranslationList(context).map { it.nameWithoutExtension }
 
-                    listTranslations(buttonFunction = { abbrev ->
+                    ListTranslations(onSelect = { abbrev ->
+                        if (!getTranslation(context, abbrev).exists()) downloadTranslation(context, abbrev)
                         translation.value = abbrev
 
                         val (bookCount, chapterCount) = getCount(
@@ -148,18 +147,8 @@ fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean, initialIndex
                             chapter.intValue,
                             isSplitScreen
                         )
-                    }, translationList)
+                    }, translationList, true)
                 }
-            }
-            Row(
-                Modifier
-                    .fillMaxWidth()
-                    .horizontalScroll(rememberScrollState()),
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                DownloadTranslationButton()
-                DeleteTranslationButton()
-                UpdateTranslationsButton()
             }
             ElevatedCard(
                 elevation = CardDefaults.cardElevation(6.dp),
@@ -277,118 +266,35 @@ fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean, initialIndex
 }
 
 @Composable
-fun DownloadTranslationButton() {
-    val context = LocalContext.current
-    val showDialog = remember { mutableStateOf(false) }
-    val clicked = remember { mutableStateOf(false) }
-    val indexPath = getIndexPath(context)
-
-    OutlinedButton(onClick = {
-        clicked.value = true
-    }) { Text(stringResource(R.string.download)) }
-
-    if (clicked.value) {
-        saveIndex(context)
-        WaitForFile(
-            file = indexPath,
-            onLoaded = { clicked.value = false; showDialog.value = true }
-        )
-    }
-
-    if (showDialog.value) {
-        Dialog(onDismissRequest = { showDialog.value = false }) {
-            Surface(shape = RoundedCornerShape(size = 40.dp)) {
-                Column(
-                    modifier = Modifier.padding(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(10.dp)
-                ) {
-                    Text(
-                        text = stringResource(R.string.download_translation),
-                        style = MaterialTheme.typography.titleLarge,
-                        modifier = Modifier.fillMaxWidth(),
-                        textAlign = TextAlign.Center
-                    )
-
-                    Card(
-                        modifier = Modifier.verticalScroll(rememberScrollState()),
-                        colors = CardDefaults.cardColors(containerColor = Color.Transparent)
-                    ) {
-                        showDialog.value = !listTranslations(buttonFunction = { abbrev ->
-                            downloadTranslation(context, abbrev)
-                        })
-                    }
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun DeleteTranslationButton() {
-    val context = LocalContext.current
-    val showDialog = remember { mutableStateOf(false) }
-
-    OutlinedButton(onClick = {
-        showDialog.value = true
-    }) { Text(stringResource(R.string.delete)) }
-
-    if (showDialog.value) {
-        val translationList =
-            getTranslationList(context).map { it.nameWithoutExtension }
-
-        Dialog(onDismissRequest = { showDialog.value = false }) {
-            Surface(shape = RoundedCornerShape(size = 40.dp)) {
-                Column(
-                    modifier = Modifier.padding(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(10.dp)
-                ) {
-                    Text(
-                        text = stringResource(R.string.delete_translation),
-                        style = MaterialTheme.typography.titleLarge,
-                        modifier = Modifier.fillMaxWidth(),
-                        textAlign = TextAlign.Center
-                    )
-
-                    Card(
-                        modifier = Modifier.verticalScroll(rememberScrollState()),
-                        colors = CardDefaults.cardColors(containerColor = Color.Transparent)
-                    ) {
-                        showDialog.value = !listTranslations(buttonFunction = { abbrev ->
-                            getTranslation(context, abbrev).delete()
-                        }, translationList)
-                    }
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun UpdateTranslationsButton() {
-    val context = LocalContext.current
-    val clicked = remember { mutableStateOf(false) }
-    OutlinedButton(onClick = { clicked.value = true }) { Text(stringResource(R.string.update)) }
-    if (clicked.value) {
-        clicked.value = false
-        saveIndex(context)
-        WaitForFile(
-            onLoaded = { checkForUpdates(context, true) },
-            file = getIndexPath(context)
-        )
-    }
-}
-
-@Composable
-fun listTranslations(buttonFunction: (String) -> Unit, list: List<String>? = null): Boolean {
+fun ListTranslations(
+    onSelect: (String) -> Unit,
+    list: List<String>? = null,
+    listAll: Boolean = false
+) {
     val context = LocalContext.current
     val translations = remember { getTranslations(context) }
-    val clicked = remember { mutableStateOf(false) }
 
+    ListTranslationsPart(context, translations, onSelect, list, true)
+    if (!list.isNullOrEmpty() && listAll) {
+        HorizontalDivider(Modifier.padding(12.dp))
+        ListTranslationsPart(context, translations, onSelect, list, false)
+    }
+}
+
+@Composable
+fun ListTranslationsPart(
+    context: Context,
+    translations: Map<String, List<Translation>>?,
+    onSelect: (String) -> Unit,
+    list: List<String>? = null,
+    showInstalled: Boolean
+) {
+    val updateList = getUpdateList(context, false)
     translations?.forEach { (lang, translations) ->
-        val showLang = translations.any {
-            list == null || list.contains(it.abbreviation)
-        }
-        if (showLang) {
+        if (list.isNullOrEmpty() ||
+            (showInstalled && translations.any { list.contains(it.abbreviation) }) ||
+            (!showInstalled && !translations.any { list.contains(it.abbreviation) })
+        ) {
             val language = getLanguageName(lang)
             Text(
                 text = "$lang - $language",
@@ -400,15 +306,34 @@ fun listTranslations(buttonFunction: (String) -> Unit, list: List<String>? = nul
             )
             translations.forEach { translation ->
                 val abbrev = translation.abbreviation
-                if (list == null || list.contains(abbrev)) {
+                if (list.isNullOrEmpty() ||
+                    (showInstalled && list.contains(abbrev)) ||
+                    (!showInstalled && !list.contains(abbrev))
+                ) {
                     val name = translation.translation
-                    TextButton(onClick = {
-                        buttonFunction(abbrev)
-                        clicked.value = true
-                    }) { Text("$abbrev | $name") }
+                    Row(
+                        Modifier
+                            .fillMaxWidth()
+                            .horizontalScroll(rememberScrollState())
+                    ) {
+                        TextButton(
+                            onClick = { onSelect(abbrev) },
+                            modifier = Modifier.weight(1f)
+                        )
+                        { Text("$abbrev | $name") }
+                        if (list != null && list.contains(abbrev)) {
+                            if (updateList.contains(abbrev)) {
+                                IconButton(onClick = { downloadTranslation(context, abbrev) }) {
+                                    Icon(Icons.Filled.Update, stringResource(R.string.update))
+                                }
+                            }
+                            IconButton(onClick = { getTranslation(context, abbrev).delete() }) {
+                                Icon(Icons.Filled.Delete, stringResource(R.string.delete))
+                            }
+                        }
+                    }
                 }
             }
         }
     }
-    return clicked.value
 }
