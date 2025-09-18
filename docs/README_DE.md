@@ -28,7 +28,7 @@ Ihre Einstellungen, Ausgewähltes und Übersetzungen werden gespeichert und kön
 
 ## Wie funktioniert es?
 Die App ist in [Jetpack Compose](https://developer.android.com/compose) geschrieben und nutzt [Material You](https://m3.material.io) für ihre Gestaltung.
-Die Schriftdaten werden von [getBible](https://getbible.net/docs), ein anerkanntes [Frontend](https://wiki.crosswire.org/Frontends:getBible) für Crosswires SWORD Module, bereitgestellt.
+Die Schriftdaten werden von [getBible](https://getbible.life/docs), ein anerkanntes [Frontend](https://wiki.crosswire.org/Frontends:getBible) für Crosswires SWORD Module, bereitgestellt.
 
 ## Blidschirmfotos
 | ![](../metadata/en-US/images/phoneScreenshots/1.png) | ![](../metadata/en-US/images/phoneScreenshots/2.png) | ![](../metadata/en-US/images/phoneScreenshots/3.png) |

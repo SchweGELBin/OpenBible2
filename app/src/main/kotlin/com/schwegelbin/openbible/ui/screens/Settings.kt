@@ -202,7 +202,7 @@ fun SettingsScreen(
                 )
                 LinkButton(
                     text = stringResource(R.string.source_getbible),
-                    url = "https://getbible.net/docs"
+                    url = "https://getbible.life/docs"
                 )
             }
         }

@@ -38,7 +38,7 @@ fun downloadFile(
 fun downloadTranslation(context: Context, abbrev: String) {
     downloadFile(
         context = context,
-        url = "https://api.getbible.net/v2/${abbrev}.json",
+        url = "https://api.getbible.life/v2/${abbrev}.json",
         name = "${abbrev}.json",
         title = "Downloading Translation"
     )
@@ -51,7 +51,7 @@ fun saveIndex(context: Context) {
     if (!file.exists() || currentTime - file.lastModified() > dayTime) {
         downloadFile(
             context = context,
-            url = "https://api.getbible.net/v2/translations.json",
+            url = "https://api.getbible.life/v2/translations.json",
             name = "translations.json",
             title = "Downloading Index"
         )
