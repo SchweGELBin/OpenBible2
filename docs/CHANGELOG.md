@@ -2,7 +2,44 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.0] - 2025-09-18
+
+### 🚀 Features
+
+- Add contact button to settings
+- Move translation management from Settings to Selection
+- [**breaking**] Improve translation management
+
+### 🐛 Bug Fixes
+
+- Don't allow deleting the last translation
+- Fallback to working translation in case of a deserialization error
+- Selection not showing available translations of installed languages
+- Create fallbacks for fallbacks for translations
+
+### 📚 Documentation
+
+- *(metadata)* Update short and full descriptions
+- *(readme)* Update short and full descriptions
+- *(readme)* Fix typo
+- *(metadata, readme)* Fix another typo
+- *(readme)* Format table
+
+### 🎨 Styling
+
+- Cleanup Icon syntax
+- Cleanup elevation syntax
+
+### ⚙️ Miscellaneous Tasks
+
+- Remove unnecessary val
+- Update getbible link (getbible.net -> getbible.life)
+
 ## [1.9.2] - 2025-08-20
+
+### ⚙️ Miscellaneous Tasks
+
+- Bump to 1.9.2
 
 ### ◀️ Revert
 

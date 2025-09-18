@@ -1,0 +1,15 @@
+Features
+- Added a contact button to settings
+- Moved translation management from settings to selection
+- Improved translation management
+
+Bug Fixes
+- Don't allow deleting the last translation
+- Improved fallback mechanism of broken translations (e.g. not fully downloaded)
+
+Documentation
+- Updated short and full descriptions
+
+Miscellaneous Tasks
+- Updated Dependencies
+- Updated getBible links

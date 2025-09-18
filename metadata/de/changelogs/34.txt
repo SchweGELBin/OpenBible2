@@ -1,0 +1,15 @@
+Funktionen
+- Hinzufuegen eines Knopfes zur Kontaktaufnahme
+- Uebersetzungen koennen nun im Auswaehlbereich verwaltet werden, anstelle von in den Einstellungen
+- Verbesserte Uebersetzungsverwaltung
+
+Fehlerkorrigierungen
+- Die letzte Uebersetzung kann nicht mehr geloescht werden
+- Verbessertes Ruecklagesystem von kaputten Uebersetzungen (z.B. nicht vollstaendig heruntergeladen)
+
+Dokumentation
+- Aktualisieren der kurzen und langen Beschreibung
+
+Weitere Aufgaben
+- Aktualisieren von Abhaengigkeiten
+- Aktualisieren der getBible Links
