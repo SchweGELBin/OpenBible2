@@ -57,7 +57,6 @@ import com.schwegelbin.openbible.logic.getTranslationList
 import com.schwegelbin.openbible.logic.getTranslations
 import com.schwegelbin.openbible.logic.getUpdateList
 import com.schwegelbin.openbible.logic.saveSelection
-import java.io.File
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -125,7 +124,8 @@ fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean, initialIndex
                         getTranslationList(context).map { it.nameWithoutExtension }
 
                     ListTranslations(onSelect = { abbrev ->
-                        if (!getTranslation(context, abbrev).exists()) downloadTranslation(context, abbrev)
+                        if (!getTranslation(context, abbrev).exists())
+                            downloadTranslation(context, abbrev)
                         translation.value = abbrev
 
                         val (bookCount, chapterCount) = getCount(
@@ -327,7 +327,10 @@ fun ListTranslationsPart(
                                     Icon(Icons.Filled.Update, stringResource(R.string.update))
                                 }
                             }
-                            IconButton(onClick = { getTranslation(context, abbrev).delete() }) {
+                            IconButton(onClick = {
+                                if (getTranslationList(context).size > 1)
+                                    getTranslation(context, abbrev).delete()
+                            }) {
                                 Icon(Icons.Filled.Delete, stringResource(R.string.delete))
                             }
                         }
