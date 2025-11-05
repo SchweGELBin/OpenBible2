@@ -36,7 +36,7 @@ jobs:
         chmod +x ./gradlew
         ./gradlew clean assembleRelease
     - name: Upload Unsigned APK
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: app-release-unsigned.apk
         path: app/build/outputs/apk/release/app-release-unsigned.apk
@@ -63,7 +63,7 @@ jobs:
         rm release.keystore
         apksigner verify --print-certs app-release.apk
     - name: Upload Signed APK
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: app-release.apk
         path: app-release.apk
