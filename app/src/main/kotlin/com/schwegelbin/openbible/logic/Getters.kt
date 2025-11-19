@@ -65,7 +65,7 @@ fun getChapter(
         text += if (showVerseNumbers) "${verse.verse} ${verse.text}".trim() + "\n"
         else verse.text
     }
-    if (showVerseNumbers && text.isNotEmpty()) text = text.substring(0, text.length - 1)
+    if (showVerseNumbers && text.isNotEmpty()) text = text.dropLast(1)
     return Triple(bible.translation, bible.books[book].chapters[chapter].name, text)
 }
 
