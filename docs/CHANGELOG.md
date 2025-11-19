@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.1.0] - 2025-11-19
+
+### 🚀 Features
+
+- Deeplink support
+
+### 🐛 Bug Fixes
+
+- Setting out of bounce values using deep links
+- *(ui)* Set search bar container color to transparent
+
+### 🎨 Styling
+
+- Rename route value in App
+
+### ⚙️ Miscellaneous Tasks
+
+- Update tagetApi to match targetSdk
+- Use droplast instead of substring in getChapter
+- Remove unused imports
+
 ## [2.0.0] - 2025-09-18
 
 ### 🚀 Features
@@ -34,6 +55,7 @@ All notable changes to this project will be documented in this file.
 
 - Remove unnecessary val
 - Update getbible link (getbible.net -> getbible.life)
+- Bump to 2.0.0
 
 ## [1.9.2] - 2025-08-20
 

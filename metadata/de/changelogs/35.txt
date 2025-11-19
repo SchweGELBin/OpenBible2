@@ -1,0 +1,3 @@
+Unterstuetzung zum Oeffnen spezieller Buecher und Kapitel via Deep-Links
+Angepasste Knopffarben
+Andere Fehlerbehebungen und Verbesserungen

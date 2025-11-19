@@ -1,0 +1,3 @@
+Support for opening a specific book and chapter via deep links
+New button colors
+Other bug fixes and improvements
