@@ -5,12 +5,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navDeepLink
 import androidx.navigation.toRoute
 import com.schwegelbin.openbible.logic.checkForUpdates
 import com.schwegelbin.openbible.logic.fixLegacy
 import com.schwegelbin.openbible.logic.getCheckAtStartup
 import com.schwegelbin.openbible.logic.getIndex
 import com.schwegelbin.openbible.logic.getTranslationList
+import com.schwegelbin.openbible.logic.saveDeepLink
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -52,7 +54,20 @@ fun App(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
                 }
             })
         }
-        composable<Read> {
+        composable<Read>(
+            deepLinks = listOf(
+                navDeepLink { uriPattern = "openbible://{book}" },
+                navDeepLink { uriPattern = "openbible://{book}/{chapter}" },
+                navDeepLink { uriPattern = "openbible://{book}/{chapter}/{verse}" }
+            )
+        ) { backStackEntry ->
+            val book = backStackEntry.arguments?.getString("book")
+            val chapter = backStackEntry.arguments?.getString("chapter")
+            if (book != null) saveDeepLink(
+                context,
+                book = book,
+                chapter = chapter
+            )
             ReadScreen(
                 onNavigateToBookmarks = { navController.navigate(Bookmarks) },
                 onNavigateToRead = {

@@ -206,3 +206,13 @@ fun searchText(context: Context, abbrev: String, query: String): List<Triple<Str
     }
     return result
 }
+
+fun saveDeepLink(context: Context, book: String?, chapter: String?) {
+    var bookInt = book?.toIntOrNull()
+    if (bookInt != null && bookInt > 0) bookInt--
+    var chapterInt = chapter?.toIntOrNull()
+    if (chapterInt != null && chapterInt > 0) chapterInt--
+    val bookIndex = getBookAbbreviations().indexOfFirst { list -> list.contains(book) }
+    if (bookIndex > 0) bookInt = bookIndex
+    saveSelection(context, book = bookInt, chapter = chapterInt, isSplitScreen = false)
+}
