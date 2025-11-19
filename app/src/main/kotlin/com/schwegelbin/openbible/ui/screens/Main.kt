@@ -94,13 +94,13 @@ fun App(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
             })
         }
         composable<Selection> { backStackEntry ->
-            val selection = backStackEntry.toRoute<Selection>()
+            val route = backStackEntry.toRoute<Selection>()
             SelectionScreen(
                 onNavigateToRead = {
                     navController.navigate(Read) {
                         popUpTo(0) { inclusive = true }
                     }
-                }, selection.isSplitScreen, selection.initialIndex
+                }, route.isSplitScreen, route.initialIndex
             )
         }
         composable<Settings> {
