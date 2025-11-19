@@ -9,12 +9,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -26,22 +23,17 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Dialog
 import androidx.core.net.toUri
 import com.schwegelbin.openbible.R
 import com.schwegelbin.openbible.logic.ReadTextAlignment
@@ -49,26 +41,18 @@ import com.schwegelbin.openbible.logic.SchemeOption
 import com.schwegelbin.openbible.logic.SplitScreen
 import com.schwegelbin.openbible.logic.ThemeOption
 import com.schwegelbin.openbible.logic.backupData
-import com.schwegelbin.openbible.logic.checkForUpdates
-import com.schwegelbin.openbible.logic.downloadTranslation
 import com.schwegelbin.openbible.logic.getCheckAtStartup
 import com.schwegelbin.openbible.logic.getColorSchemeInt
 import com.schwegelbin.openbible.logic.getDownloadNotification
 import com.schwegelbin.openbible.logic.getFontSize
-import com.schwegelbin.openbible.logic.getIndexPath
-import com.schwegelbin.openbible.logic.getLanguageName
 import com.schwegelbin.openbible.logic.getMainThemeOptions
 import com.schwegelbin.openbible.logic.getShowVerseNumbers
 import com.schwegelbin.openbible.logic.getSplitScreenInt
 import com.schwegelbin.openbible.logic.getTextAlignmentInt
-import com.schwegelbin.openbible.logic.getTranslation
-import com.schwegelbin.openbible.logic.getTranslationList
-import com.schwegelbin.openbible.logic.getTranslations
 import com.schwegelbin.openbible.logic.saveCheckAtStartup
 import com.schwegelbin.openbible.logic.saveColorScheme
 import com.schwegelbin.openbible.logic.saveDownloadNotification
 import com.schwegelbin.openbible.logic.saveFontSize
-import com.schwegelbin.openbible.logic.saveIndex
 import com.schwegelbin.openbible.logic.saveShowVerseNumbers
 import com.schwegelbin.openbible.logic.saveSplitScreen
 import com.schwegelbin.openbible.logic.saveTextAlignment
@@ -83,7 +67,8 @@ fun SettingsScreen(
     Scaffold(topBar = {
         TopAppBar(title = { Text(stringResource(R.string.settings)) }, navigationIcon = {
             IconButton(onClick = { onNavigateToRead() }) {
-                Icon(Icons.Filled.Close, stringResource(R.string.close)
+                Icon(
+                    Icons.Filled.Close, stringResource(R.string.close)
                 )
             }
         })
