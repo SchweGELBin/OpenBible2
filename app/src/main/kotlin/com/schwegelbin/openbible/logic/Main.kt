@@ -87,6 +87,19 @@ fun checkTranslation(
     return abbrev
 }
 
+fun checkSelection(
+    context: Context,
+    selection: Triple<String, Int, Int>
+): Triple<String, Int, Int> {
+    var (abbrev, book, chapter) = selection
+    val bible = deserializeBible(getTranslationPath(context, abbrev)) ?: return Triple(abbrev, book, chapter)
+    val books = bible.books.size
+    if (book < 0) book = 0 else if (book >= books) book = books - 1
+    val chapters = bible.books[book].chapters.size
+    if (chapter < 0) chapter = 0 else if (chapter >= chapters) chapter = chapters - 1
+    return Triple(abbrev, book, chapter)
+}
+
 fun backupData(context: Context, user: Boolean = false, data: Boolean = false) {
     val userDir = getExternalPath(context)
     val dataDir = "${context.dataDir}/shared_prefs"
