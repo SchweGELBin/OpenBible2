@@ -92,11 +92,9 @@ fun checkSelection(
     selection: Triple<String, Int, Int>
 ): Triple<String, Int, Int> {
     var (abbrev, book, chapter) = selection
-    val bible = deserializeBible(getTranslationPath(context, abbrev)) ?: return Triple(abbrev, book, chapter)
-    val books = bible.books.size
-    if (book < 0) book = 0 else if (book >= books) book = books - 1
-    val chapters = bible.books[book].chapters.size
-    if (chapter < 0) chapter = 0 else if (chapter >= chapters) chapter = chapters - 1
+    val (books, chapters) = getCount(context, abbrev, book)
+    book = book.coerceIn(0, books)
+    chapter = chapter.coerceIn(0, chapters)
     return Triple(abbrev, book, chapter)
 }
 
