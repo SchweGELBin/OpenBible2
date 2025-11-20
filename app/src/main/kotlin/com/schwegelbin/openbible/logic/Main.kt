@@ -221,7 +221,10 @@ fun searchText(context: Context, abbrev: String, query: String): List<Triple<Str
 fun saveDeepLink(context: Context, book: String?, chapter: String?) {
     var bookInt = book?.toIntOrNull()
     if (bookInt != null && bookInt > 0) bookInt--
-    val bookIndex = getBookAbbreviations().indexOfFirst { list -> list.contains(book) }
+    val bookCount = getBookNames(context, getSelection(context, false).first).size
+    val bookIndex =
+        if (bookCount == 66) getBookAbbreviations().indexOfFirst { list -> list.contains(book) }
+        else -1
     if (bookIndex >= 0) bookInt = bookIndex
     var chapterInt = chapter?.toIntOrNull()
     if (chapterInt == null) chapterInt = 0 else if (chapterInt > 0) chapterInt--
