@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.1.1] - 2025-11-20
+
+### 🐛 Bug Fixes
+
+- Deep link can't open first book
+- Default to chapter 1 in deeplinks
+- Disable deep links for translations with fewer books
+
+### ⚡ Performance
+
+- Simplify checkSelection
+
 ## [2.1.0] - 2025-11-19
 
 ### 🚀 Features
@@ -22,6 +34,7 @@ All notable changes to this project will be documented in this file.
 - Update tagetApi to match targetSdk
 - Use droplast instead of substring in getChapter
 - Remove unused imports
+- Bump to 2.1.0
 
 ## [2.0.0] - 2025-09-18
 
