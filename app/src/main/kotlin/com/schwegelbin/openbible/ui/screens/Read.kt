@@ -43,6 +43,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.schwegelbin.openbible.R
@@ -164,14 +165,18 @@ fun ReadCard(
                 TurnButton(false, isSplitScreen, onNavigateToRead)
                 Text(
                     text = translationName,
+                    maxLines = 2,
                     modifier = Modifier
                         .weight(1f)
                         .clickable(onClick = { onNavigateToSelection(isSplitScreen, 0) }),
+                    overflow = TextOverflow.Ellipsis,
                     textAlign = TextAlign.Center
                 )
                 Text(
                     text = chapterName,
+                    maxLines = 1,
                     modifier = Modifier.weight(1f),
+                    overflow = TextOverflow.MiddleEllipsis,
                     textAlign = TextAlign.Center
                 )
                 TurnButton(true, isSplitScreen, onNavigateToRead)
