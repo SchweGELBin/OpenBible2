@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.1.2] - 2025-11-24
+
+### 🐛 Bug Fixes
+
+- *(ui)* Improve overflow in the read screen
+
+### 🚜 Refactor
+
+- Remove setting EdgeToEdge
+
+### 🎨 Styling
+
+- Cleanup app/build.gradle.kts
+
 ## [2.1.1] - 2025-11-20
 
 ### 🐛 Bug Fixes
@@ -13,6 +27,10 @@ All notable changes to this project will be documented in this file.
 ### ⚡ Performance
 
 - Simplify checkSelection
+
+### ⚙️ Miscellaneous Tasks
+
+- Bump to 2.1.1
 
 ## [2.1.0] - 2025-11-19
 

@@ -1,0 +1,1 @@
+Shorten long names of translations or books in the read screen
