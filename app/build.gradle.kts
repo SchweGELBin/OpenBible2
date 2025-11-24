@@ -10,9 +10,9 @@ android {
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.schwegelbin.openbible"
+        applicationId = android.namespace
         minSdk = 27
-        targetSdk = 36
+        targetSdk = android.compileSdk
         versionCode = 36
         versionName = "2.1.1"
 
@@ -29,15 +29,15 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
     }
     kotlin {
-        compilerOptions {
-            jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21
-        }
+        compilerOptions.jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21
     }
+
     buildFeatures {
         compose = true
     }
@@ -49,7 +49,6 @@ android {
 }
 
 dependencies {
-
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.ui.test.junit4)
