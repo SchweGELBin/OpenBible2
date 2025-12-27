@@ -30,7 +30,7 @@
     <string name="information">Informatie</string>
     <string name="menu">Menu</string>
     <string name="name">Naam</string>
-    <string name="needs_files">Deze applicatie heeft een index, controlesommen en vertalingen nodig om te werken.</string>
+    <string name="needs_files">Deze applicatie heeft een index, checksums en vertalingen nodig om te werken.</string>
     <string name="new_files">Updates voor vertalingen gevonden. Wilt u deze installeren?</string>
     <string name="next">Volgende</string>
     <string name="notifications">Meldingen</string>
