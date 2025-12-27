@@ -1,0 +1,9 @@
+OpenBible is een open, eenvoudige en lichte Android-app om de Bijbel te lezen zonder extra's. De app bevat alleen de Bijbeltekst, zonder hoofdstuktitels, commentaren, leesplannen of tips.
+
+Met OpenBible kunt u de Bijbel in veel verschillende talen en vertalingen downloaden. De app houdt deze vertalingen up-to-date om opmaakproblemen op te lossen.
+
+Kies uw vertaling, boek en hoofdstuk, of zoek specifieke verzen op inhoud. U past uw leeservaring aan met thema's, tekstuitlijning, gesplitst scherm, lettergrootte en versnummers.
+
+De instellingen volgen automatisch uw systeemvoorkeuren, zodat u minder hoeft aan te passen. Tijdens het lezen kunt u knijpen of dubbeltikken om de lettergrootte tijdelijk te wijzigen, en tekst selecteren om te kopiëren of delen.
+
+Al uw instellingen, selecties en vertalingen worden opgeslagen en kunnen eenvoudig worden geback-upd.
