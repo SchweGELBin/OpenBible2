@@ -1,15 +1,27 @@
-*.iml
+# Gradle
+app/build
+app/release
 .gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+
+# IDEA
+.idea/assetWizardSettings.xml
+.idea/caches
+.idea/deploymentTargetSelector.xml
+.idea/libraries
+.idea/modules.xml
+.idea/misc.xml
+.idea/navEditor.xml
+.idea/shelf
+.idea/workspace.xml
+
+# Local Configuration
 local.properties
+
+# macOS
+.DS_Store
+
+# Other
+captures
+.cxx
+.externalNativeBuild
+*.iml
