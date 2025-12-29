@@ -1,6 +1,5 @@
 package com.schwegelbin.openbible.ui.screens
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.gestures.rememberTransformableState
@@ -19,12 +18,9 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ChevronLeft
 import androidx.compose.material.icons.filled.ChevronRight
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -64,7 +60,6 @@ import kotlin.math.min
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ReadScreen(
-    onNavigateToBookmarks: () -> Unit,
     onNavigateToRead: () -> Unit,
     onNavigateToSearch: () -> Unit,
     onNavigateToSelection: (Boolean, Int) -> Unit,
@@ -83,11 +78,12 @@ fun ReadScreen(
         TopAppBar(
             title = { Text(appTitle) },
             actions = {
-                HamburgerMenu(
-                    onNavigateToBookmarks,
-                    onNavigateToSearch,
-                    onNavigateToSettings
-                )
+                IconButton(onClick = onNavigateToSearch) {
+                    Icon(Icons.Filled.Search, stringResource(R.string.search))
+                }
+                IconButton(onClick = onNavigateToSettings) {
+                    Icon(Icons.Filled.Settings, stringResource(R.string.settings))
+                }
             }
         )
     }) { innerPadding ->
@@ -234,44 +230,3 @@ fun TurnButton(next: Boolean, isSplitScreen: Boolean, onNavigateToRead: () -> Un
     }
 }
 
-@Composable
-fun HamburgerMenu(
-    onNavigateToBookmarks: () -> Unit,
-    onNavigateToSearch: () -> Unit,
-    onNavigateToSettings: () -> Unit
-) {
-    val expanded = remember { mutableStateOf(false) }
-    IconButton(onClick = { expanded.value = !expanded.value }) {
-        Icon(Icons.Filled.Menu, stringResource(R.string.menu))
-    }
-    DropdownMenu(
-        expanded = expanded.value,
-        onDismissRequest = { expanded.value = false },
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.onSurface),
-        containerColor = MaterialTheme.colorScheme.background
-    ) {
-        DropdownMenuItem(
-            text = { Text(stringResource(R.string.settings)) },
-            trailingIcon = {
-                Icon(Icons.Filled.Settings, null)
-            },
-            onClick = { expanded.value = false; onNavigateToSettings() }
-        )
-        /* TODO: Implement Bookmarks
-        DropdownMenuItem(
-            text = { Text(stringResource(R.string.bookmarks)) },
-            trailingIcon = {
-                Icon(Icons.Filled.Bookmarks, null)
-            },
-            onClick = { expanded.value = false; onNavigateToBookmarks() }
-        )
-        */
-        DropdownMenuItem(
-            text = { Text(stringResource(R.string.search)) },
-            trailingIcon = {
-                Icon(Icons.Filled.Search, null)
-            },
-            onClick = { expanded.value = false; onNavigateToSearch() }
-        )
-    }
-}

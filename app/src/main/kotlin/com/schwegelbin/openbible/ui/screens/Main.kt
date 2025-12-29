@@ -69,7 +69,6 @@ fun App(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
                 chapter = chapter
             )
             ReadScreen(
-                onNavigateToBookmarks = { navController.navigate(Bookmarks) },
                 onNavigateToRead = {
                     navController.navigate(Read) {
                         popUpTo(0) { inclusive = true }
