@@ -1,7 +1,9 @@
 # Gradle
 app/build
 app/release
+build
 .gradle
+release
 
 # IDEA
 .idea/assetWizardSettings.xml
