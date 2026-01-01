@@ -25,7 +25,7 @@ jobs:
       with:
         args: -vv --latest --strip all
     - name: Download APK
-      uses: actions/download-artifact@v6
+      uses: actions/download-artifact@v7
       with:
         name: app-release.apk
     - name: Upload Release
