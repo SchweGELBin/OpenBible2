@@ -22,7 +22,7 @@ jobs:
       matrix:
         include:
         - language: java-kotlin
-          build-mode: none
+          build-mode: autobuild
 
     steps:
     - name: Checkout repository
