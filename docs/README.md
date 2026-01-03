@@ -11,7 +11,6 @@
 [<img src="https://f-droid.org/badge/get-it-on.png" height="60">](https://f-droid.org/packages/com.schwegelbin.openbible)
 
 [German](./README_DE.md)
-[Dutch](./README_NL.md)
 
 <!-- ../metadata/en-US/short_description.txt -->
 OpenBible provides the Bible with as little distractions as possible
