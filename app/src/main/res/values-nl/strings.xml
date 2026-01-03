@@ -57,9 +57,4 @@
     <string name="update">Bijwerken</string>
     <string name="verse_of_the_day">Vers van de dag</string>
     <string name="vertical">Verticaal</string>
-    <string name="google_play" translatable="false"></string>
-    <string name="source_repo" translatable="false"></string>
-    <string name="source_getbible" translatable="false"></string>
-    <string name="theme_amoled" translatable="false"></string>
-    <string name="app_name" translatable="false"></string>
 </resources>
