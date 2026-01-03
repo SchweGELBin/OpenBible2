@@ -31,6 +31,7 @@ Die App ist in [Jetpack Compose](https://developer.android.com/compose) geschrie
 Die Schriftdaten werden von [getBible](https://getbible.life/docs), ein anerkanntes [Frontend](https://wiki.crosswire.org/Frontends:getBible) für Crosswires SWORD Module, bereitgestellt.
 
 ## Beteiligung
+Sie können mithelfen, indem Sie OpenBible in Ihre Sprache übersetzen
 [![Translation status](https://hosted.weblate.org/widget/openbible/multi-auto.svg)](https://hosted.weblate.org/engage/openbible/)
 
 ## Blidschirmfotos

@@ -31,6 +31,7 @@ It is written in [Jetpack Compose](https://developer.android.com/compose) and us
 Scripture data is being provided by [getBible](https://getbible.life/docs), a recognized [front end](https://wiki.crosswire.org/Frontends:getBible) for Crosswire’s SWORD modules.
 
 ## Contribute
+You can help by translating OpenBible into your language
 [![Translation status](https://hosted.weblate.org/widget/openbible/multi-auto.svg)](https://hosted.weblate.org/engage/openbible/)
 
 ## Screenshots
