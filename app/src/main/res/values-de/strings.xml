@@ -36,12 +36,12 @@
     <string name="next">Nächstes</string>
     <string name="notifications">Benachrichtigungen</string>
     <string name="off">Aus</string>
-    <string name="preferences">Einstellungen</string>
+    <string name="preferences">Präferenzen</string>
     <string name="previous">Vorheriges</string>
     <string name="restore">Wiederherstellen</string>
     <string name="scheme_dynamic">Dynamisch</string>
     <string name="scheme_static">Statisch</string>
-    <string name="screen_home">Start</string>
+    <string name="screen_home">Startseite</string>
     <string name="screen_read">Lesen</string>
     <string name="search">Suchen</string>
     <string name="search_for_text">Nach Text suchen</string>
