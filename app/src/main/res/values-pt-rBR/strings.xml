@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="about_us">Sobre nós</string>
     <string name="alignment">Alinhamento</string>
@@ -38,4 +39,27 @@
     <string name="theme_system">Sistema</string>
     <string name="translation">Tradução</string>
     <string name="update">Atualizar</string>
+    <string name="horizontal"></string>
+    <string name="font_size"></string>
+    <string name="google_play" translatable="false"></string>
+    <string name="documents"></string>
+    <string name="source_repo" translatable="false"></string>
+    <string name="information"></string>
+    <string name="restore"></string>
+    <string name="search_for_text"></string>
+    <string name="verse_of_the_day"></string>
+    <string name="source_getbible" translatable="false"></string>
+    <string name="name"></string>
+    <string name="preferences"></string>
+    <string name="off"></string>
+    <string name="menu"></string>
+    <string name="contact"></string>
+    <string name="previous"></string>
+    <string name="backup"></string>
+    <string name="vertical"></string>
+    <string name="search"></string>
+    <string name="theme_amoled" translatable="false"></string>
+    <string name="infinite_scroll"></string>
+    <string name="app_name" translatable="false"></string>
+    <string name="bookmarks"></string>
 </resources>
