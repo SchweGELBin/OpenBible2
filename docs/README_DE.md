@@ -32,6 +32,7 @@ Die Schriftdaten werden von [getBible](https://getbible.life/docs), ein anerkann
 
 ## Beteiligung
 Sie können mithelfen, indem Sie OpenBible in Ihre Sprache übersetzen
+
 [![Translation status](https://hosted.weblate.org/widget/openbible/multi-auto.svg)](https://hosted.weblate.org/engage/openbible/)
 
 ## Blidschirmfotos

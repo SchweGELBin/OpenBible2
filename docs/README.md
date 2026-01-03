@@ -32,6 +32,7 @@ Scripture data is being provided by [getBible](https://getbible.life/docs), a re
 
 ## Contribute
 You can help by translating OpenBible into your language
+
 [![Translation status](https://hosted.weblate.org/widget/openbible/multi-auto.svg)](https://hosted.weblate.org/engage/openbible/)
 
 ## Screenshots
