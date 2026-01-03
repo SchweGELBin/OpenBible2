@@ -30,6 +30,9 @@ Your settings, selections and translations are saved and can be backed up for co
 It is written in [Jetpack Compose](https://developer.android.com/compose) and uses [Material You](https://m3.material.io) as its Design.
 Scripture data is being provided by [getBible](https://getbible.life/docs), a recognized [front end](https://wiki.crosswire.org/Frontends:getBible) for Crosswire’s SWORD modules.
 
+## Contribute
+[![Translation status](https://hosted.weblate.org/widget/openbible/multi-auto.svg)](https://hosted.weblate.org/engage/openbible/)
+
 ## Screenshots
 | ![](../metadata/en-US/images/phoneScreenshots/1.png) | ![](../metadata/en-US/images/phoneScreenshots/2.png) | ![](../metadata/en-US/images/phoneScreenshots/3.png) |
 |------------------------------------------------------|------------------------------------------------------|------------------------------------------------------|

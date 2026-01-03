@@ -30,6 +30,9 @@ Ihre Einstellungen, Ausgewähltes und Übersetzungen werden gespeichert und kön
 Die App ist in [Jetpack Compose](https://developer.android.com/compose) geschrieben und nutzt [Material You](https://m3.material.io) für ihre Gestaltung.
 Die Schriftdaten werden von [getBible](https://getbible.life/docs), ein anerkanntes [Frontend](https://wiki.crosswire.org/Frontends:getBible) für Crosswires SWORD Module, bereitgestellt.
 
+## Beteiligung
+[![Translation status](https://hosted.weblate.org/widget/openbible/multi-auto.svg)](https://hosted.weblate.org/engage/openbible/)
+
 ## Blidschirmfotos
 | ![](../metadata/en-US/images/phoneScreenshots/1.png) | ![](../metadata/en-US/images/phoneScreenshots/2.png) | ![](../metadata/en-US/images/phoneScreenshots/3.png) |
 |------------------------------------------------------|------------------------------------------------------|------------------------------------------------------|
