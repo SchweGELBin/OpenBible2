@@ -1,32 +1,28 @@
 ---
 name: Bug report
 about: Create a report to help us improve
-title: "[BUG]"
+title: "[BUG] "
 labels: bug
-assignees: SchweGELBin
 
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+**Description**
+<!-- A clear and concise description of what the bug is -->
 
 **To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+<!-- Steps to reproduce the behavior -->
 
 **Expected behavior**
-A clear and concise description of what you expected to happen.
+<!-- A clear and concise description of what you expected to happen -->
 
 **Screenshots**
-If applicable, add screenshots to help explain your problem.
+<!-- If applicable, add screenshots to help explain your problem -->
 
-**Smartphone (please complete the following information):**
- - Device: [e.g. Google Pixel 9]
- - OS: [e.g. Android 15]
- - Version [e.g. v1.5.0]
+**Logs**
+<!-- If possible, add the logs that were produced, when an error occured -->
+
+**Device and App information**
+<!-- If it's required, add information about your Operating System, Language, App Version... -->
 
 **Additional context**
-Add any other context about the problem here.
+<!-- Any other context about the problem -->
