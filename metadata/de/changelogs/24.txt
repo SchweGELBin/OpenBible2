@@ -1,6 +1,6 @@
 Fehlerkorrektur:
-- Die Zuruecktaste schliesst jetzt die Anwendung im Lesebereich
-- Schutz vor Absturz bei Uebersetzungen mit weniger Buechern
+- Die Zurücktaste schließt jetzt die Anwendung im Lesebereich
+- Schutz vor Absturz bei Übersetzungen mit weniger Büchern
 
 Verbesserungen:
 - Aktualisieren der Bibliotheken

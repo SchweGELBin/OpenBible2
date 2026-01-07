@@ -1,2 +1,2 @@
 Aktualisiere Hauptbildschirm UI (Titel und Lesesymbol)
-Aktualisiere Abhaengige Bibliotheken
+Aktualisiere Abhängige Bibliotheken

@@ -1,2 +1,2 @@
-Verbesserte UI beim Auswaehlen der Uebersetzung
+Verbesserte UI beim Auswählen der Übersetzung
 Option, herunterladene Dateien als Benachrichtigung anzuzeigen

@@ -1,7 +1,7 @@
 Funktionen:
 - Neues statisches Farb-Design
 - Play Store Link in den Einstellungen
-- Interne Aenderungen
+- Interne Änderungen
 
 Fehlerbehebungen:
 - Einstellungen schlossen bei der ersten Farbthemenauswahl

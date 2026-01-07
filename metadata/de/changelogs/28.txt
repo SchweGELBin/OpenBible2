@@ -1,8 +1,8 @@
 Funktionen
-- Zeige Uebersetzungsinformationen
+- Zeige Übersetzungsinformationen
 - Daten-Backup
 - Geteilter Bildschirm Modus: Horizontal
-- Wechsel zum naechsten/vorherigen Kapitel
+- Wechsel zum nächsten/vorherigen Kapitel
 
 Fehlerbehebungen
 - Wiederherstellung des Herunterladen-Prozesses bei Unterbrechungen
