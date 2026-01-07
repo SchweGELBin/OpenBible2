@@ -1,3 +1,3 @@
-Aktualisieren von Abhaengigkeiten
+Aktualisieren von Abhängigkeiten
 Verbessern des Bauablaufs
 Automatisches Herausgeben

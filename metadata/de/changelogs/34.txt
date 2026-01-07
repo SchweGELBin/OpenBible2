@@ -1,15 +1,15 @@
 Funktionen
-- Hinzufuegen eines Knopfes zur Kontaktaufnahme
-- Uebersetzungen koennen nun im Auswaehlbereich verwaltet werden, anstelle von in den Einstellungen
-- Verbesserte Uebersetzungsverwaltung
+- Hinzufügen eines Knopfes zur Kontaktaufnahme
+- Übersetzungen können nun im Auswählbereich verwaltet werden, anstelle von in den Einstellungen
+- Verbesserte Übersetzungsverwaltung
 
 Fehlerkorrigierungen
-- Die letzte Uebersetzung kann nicht mehr geloescht werden
-- Verbessertes Ruecklagesystem von kaputten Uebersetzungen (z.B. nicht vollstaendig heruntergeladen)
+- Die letzte Übersetzung kann nicht mehr gelöscht werden
+- Verbessertes Rücklagesystem von kaputten Übersetzungen (z.B. nicht vollständig heruntergeladen)
 
 Dokumentation
 - Aktualisieren der kurzen und langen Beschreibung
 
 Weitere Aufgaben
-- Aktualisieren von Abhaengigkeiten
+- Aktualisieren von Abhängigkeiten
 - Aktualisieren der getBible Links

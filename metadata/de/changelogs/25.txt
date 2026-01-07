@@ -1,1 +1,1 @@
-HOTFIX: Auswahlen einer kleineren Uebersetzung beim ersten Start
+HOTFIX: Auswählen einer kleineren Übersetzung beim ersten Start
