@@ -69,3 +69,8 @@ fun deserializeTranslations(path: String): Map<String, Translation>? {
         null
     }
 }
+
+fun Map<String, Translation>?.removeApocrypha(): Map<String, Translation>? {
+    val apocryphaList = listOf("kjva", "statenvertalinga")
+    return this?.filterKeys { key -> key !in apocryphaList }
+}

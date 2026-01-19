@@ -12,7 +12,7 @@ import java.security.MessageDigest
 import java.util.Locale
 
 fun getTranslations(context: Context): Map<String, List<Translation>>? {
-    val map = deserializeTranslations(getIndexPath(context)) ?: return null
+    val map = deserializeTranslations(getIndexPath(context)).removeApocrypha() ?: return null
     return map.values.groupBy { it.lang }.toSortedMap()
 }
 
