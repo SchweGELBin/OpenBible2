@@ -1,3 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="about_us">O nas</string>
+    <string name="book">Księga</string>
+    <string name="bookmarks">Zakładki</string>
+    <string name="chapter">Rozdział</string>
+    <string name="check_at_startup">Aktualizuj przy starcie</string>
+    <string name="close">Zamknij</string>
+    <string name="colors">Kolory</string>
+    <string name="color_scheme">Kolorystyka</string>
+    <string name="contact">Kontakt</string>
+    <string name="continue_button">Kontynuuj</string>
+    <string name="delete">Usuń</string>
+    <string name="delete_translation">Usuń tłumaczenie</string>
+    <string name="documents">Dokumenty</string>
+    <string name="download">Pobierz</string>
+    <string name="download_translation">Pobierz tłumaczenie</string>
+    <string name="downloading_index">Pobieranie indeksu, proszę czekać…</string>
+    <string name="downloading_translation">Pobieranie tłumaczenia, proszę czekać…</string>
+    <string name="error">BŁĄD</string>
+    <string name="font_size">Rozmiar czcionki</string>
 </resources>
