@@ -12,8 +12,8 @@ android {
         applicationId = android.namespace
         minSdk = 27
         targetSdk = android.compileSdk
-        versionCode = 37
-        versionName = "2.1.2"
+        versionCode = 38
+        versionName = "3.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

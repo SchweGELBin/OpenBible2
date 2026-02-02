@@ -1,0 +1,10 @@
+Neue App-Übersetzungen nach:
+- Holländisch (von Thomas Boom)
+- Estnisch (von Priit Jõerüüt)
+- Polnisch (von TC0452)
+
+Sie können beim Übersetzen über Weblate helfen
+
+---
+Sie können jetzt Übersetzungen von Dateien importieren
+Übersetzungen, welche Apokryphen beinhalten, wurden entfernt

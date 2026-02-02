@@ -1,0 +1,10 @@
+Added app translations for:
+- Dutch (by Thomas Boom)
+- Estonian (by Priit Jõerüüt)
+- Polish (by TC0452)
+
+You can help translating via weblate
+
+---
+Now you can import translations via files
+Translations that include apocrypha have been removed

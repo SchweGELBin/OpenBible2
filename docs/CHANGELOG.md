@@ -2,6 +2,52 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.0.0] - 2026-02-02
+
+### 🚀 Features
+
+- Added Dutch translations (#103)
+- Added agents.md file (#100)
+- [**breaking**] Remove apocrypha
+- Import translations via files
+
+### 🐛 Bug Fixes
+
+- Remove kotlin-android plugin
+
+### 🚜 Refactor
+
+- Delete unnecessary files
+- *(metadata)* Cleanup nl
+
+### 📚 Documentation
+
+- *(readme)* Add dutch translation
+- *(license)* Update copyright year
+- *(readme)* Remove dutch version
+- *(readme)* Add contribution and translation section
+- *(readme)* Add translation note
+- *(readme)* Fix syntax
+
+### ⚙️ Miscellaneous Tasks
+
+- Update .gitignores
+- Update .gitignore
+- *(codeql)* Scan without building
+- *(translations)* Translate using Weblate (German) (#114)
+- *(translations)* Update OpenBible/Application (#113)
+- *(translations)* Update OpenBible/Application (#115)
+- *(templates)* Update issue templates
+- *(translations)* Update OpenBible/Application (#116)
+- *(translations)* Translate using Weblate (Estonian) (#117)
+- *(translations)* Translate using Weblate (German) (#118)
+- *(gitignore)* Add .idea/deviceManager.xml
+- *(translations)* Update OpenBible/Application (#120)
+
+### ◀️ Revert
+
+- Ci(codeql): scan without building
+
 ## [2.1.2] - 2025-11-24
 
 ### 🐛 Bug Fixes
@@ -15,6 +61,10 @@ All notable changes to this project will be documented in this file.
 ### 🎨 Styling
 
 - Cleanup app/build.gradle.kts
+
+### ⚙️ Miscellaneous Tasks
+
+- Bump to 2.1.2
 
 ## [2.1.1] - 2025-11-20
 
