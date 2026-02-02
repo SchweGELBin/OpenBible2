@@ -23,11 +23,14 @@
     <string name="downloading_index">Downloading Index, please wait…</string>
     <string name="downloading_translation">Downloading Translation, please wait…</string>
     <string name="error">ERROR</string>
+    <string name="file">File</string>
     <string name="font_size">Font Size</string>
     <string name="horizontal">Horizontal</string>
+    <string name="import_additional">Import additional</string>
     <string name="index">Index</string>
     <string name="infinite_scroll">Infinite Scroll</string>
     <string name="information">Information</string>
+    <string name="link">Link</string>
     <string name="menu">Menu</string>
     <string name="name">Name</string>
     <string name="needs_files">This application needs an index, checksums and translations to work.</string>

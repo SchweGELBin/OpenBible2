@@ -24,18 +24,22 @@ data class Book(
 
 @Serializable
 data class Bible(
-    val books: List<Book>, val translation: String
+    val abbreviation: String,
+    @SerialName("distribution_about") val about: String,
+    @SerialName("distribution_license") val license: String,
+    val translation: String,
+    val books: List<Book>,
 )
 
 @Serializable
 data class Translation(
-    val translation: String,
     val abbreviation: String,
-    val lang: String,
-    val language: String,
     @SerialName("distribution_about") val about: String,
     @SerialName("distribution_license") val license: String,
-    val sha: String
+    val translation: String,
+    val lang: String,
+    val language: String,
+    val sha: String,
 )
 
 fun deserializeBible(path: String): Bible? {

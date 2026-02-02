@@ -22,13 +22,18 @@ fun getLanguageName(code: String, locale: Locale = Locale.getDefault()): String 
 
 fun getTranslationInfo(context: Context, abbrev: String): String {
     val map = deserializeTranslations(getIndexPath(context)) ?: return ""
-    map.values.forEach { (translation, abbreviation, _, _, about, license) ->
+    var info = ""
+    map.values.forEach { (abbreviation, about, license, translation, _, _, _) ->
         if (abbreviation == abbrev) {
-            val newAbout = about.replace("\\par ", "\n").replace("\\par", "\n")
-            return "$translation\n\n$newAbout\n\n$license"
+            info = "$translation\n\n$about\n\n$license"
+            return@forEach
         }
     }
-    return ""
+    if (info == "") {
+        val map = deserializeBible(getTranslationPath(context, abbrev)) ?: return ""
+        info = "${map.translation}\n\n${map.about}\n\n${map.license}"
+    }
+    return info.replace("\\par ", "\n").replace("\\par", "\n")
 }
 
 fun getCount(
@@ -111,9 +116,13 @@ fun getList(context: Context, relPath: String = ""): Array<File> {
     return File(getExternalPath(context, relPath)).listFiles() ?: return emptyArray()
 }
 
-fun getTranslationList(context: Context): Array<File> {
-    return getList(context).filter { file -> (file.name != "translations.json" && file.isFile) }
-        .toTypedArray()
+fun getTranslationList(context: Context, showCustom: Boolean? = null): Array<File> {
+    val list = getList(context).filter { file -> (file.name != "translations.json" && file.isFile) }
+    return when(showCustom) {
+        null -> list
+        true -> list.filter { file -> (file.name.startsWith("ex-")) }
+        false -> list.filter { file -> (!file.name.startsWith("ex-")) }
+    }.toTypedArray()
 }
 
 fun File.getChecksum(): String? {
@@ -154,9 +163,9 @@ fun getExternalPath(context: Context, relPath: String = ""): String {
 
 fun getUpdateList(context: Context, install: Boolean, translation: String? = null): List<String> {
     val updates = mutableListOf<String>()
-    val installed = getTranslationList(context).map { it.nameWithoutExtension }
+    val installed = getTranslationList(context, showCustom = false).map { it.nameWithoutExtension }
     val index = deserializeTranslations(getIndexPath(context)) ?: return emptyList()
-    index.values.forEach { (_, abbrev, _, _, _, _, sha) ->
+    index.values.forEach { (abbrev, _, _, _, _, _, sha) ->
         if (installed.contains(abbrev) && (translation == null || abbrev == translation)) {
             if (getTranslation(context, abbrev).getChecksum() != sha) {
                 if (install) downloadTranslation(context, abbrev)

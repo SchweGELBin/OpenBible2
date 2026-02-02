@@ -24,11 +24,14 @@
     <string name="downloading_index">Lädt Index herunter, bitte warten Sie…</string>
     <string name="downloading_translation">Lädt Übersetzung herunter, bitte warten Sie…</string>
     <string name="error">ERROR</string>
+    <string name="file">Datei</string>
     <string name="font_size">Schriftgröße</string>
     <string name="horizontal">Horizontal</string>
+    <string name="import_additional">Weitere importieren</string>
     <string name="index">Index</string>
     <string name="infinite_scroll">Unendliches Scrollen</string>
     <string name="information">Information</string>
+    <string name="link">Link</string>
     <string name="menu">Menü</string>
     <string name="name">Name</string>
     <string name="needs_files">Diese Applikation benötigt einen Index, Checksums and Übersetzungen um zu funktionieren.</string>

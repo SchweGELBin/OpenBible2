@@ -1,6 +1,8 @@
 package com.schwegelbin.openbible.ui.screens
 
 import android.content.Context
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -18,6 +20,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Update
+import androidx.compose.material.icons.filled.Upload
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -46,6 +49,7 @@ import androidx.compose.ui.unit.dp
 import com.schwegelbin.openbible.R
 import com.schwegelbin.openbible.logic.SelectMode
 import com.schwegelbin.openbible.logic.Translation
+import com.schwegelbin.openbible.logic.deserializeBible
 import com.schwegelbin.openbible.logic.downloadTranslation
 import com.schwegelbin.openbible.logic.getBookNames
 import com.schwegelbin.openbible.logic.getCount
@@ -54,9 +58,13 @@ import com.schwegelbin.openbible.logic.getSelection
 import com.schwegelbin.openbible.logic.getTranslation
 import com.schwegelbin.openbible.logic.getTranslationInfo
 import com.schwegelbin.openbible.logic.getTranslationList
+import com.schwegelbin.openbible.logic.getTranslationPath
 import com.schwegelbin.openbible.logic.getTranslations
 import com.schwegelbin.openbible.logic.getUpdateList
 import com.schwegelbin.openbible.logic.saveSelection
+import com.schwegelbin.openbible.logic.setTranslation
+import java.io.File
+import java.io.FileOutputStream
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -94,6 +102,29 @@ fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean, initialIndex
     val options = SelectMode.entries
     val selectMode = remember { mutableStateOf(options[selectedIndex.intValue]) }
 
+    fun select(abbrev: String) {
+        val newSelection = setTranslation(context, abbrev, isSplitScreen)
+        translation.value = newSelection.first
+        book.intValue = newSelection.second
+        chapter.intValue = newSelection.third
+    }
+
+    val custom = remember { getTranslationList(context, true) }
+    val documentLauncher = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+        uri?.let {
+            val temp = getTranslation(context, "ex-tmp")
+            context.contentResolver.openInputStream(uri)?.use { inputStream ->
+                FileOutputStream(temp).use { outputStream -> inputStream.copyTo(outputStream) }
+            }
+            val name = deserializeBible(temp.path)?.abbreviation
+            if (name != null) {
+                temp.copyTo(getTranslation(context, "/ex-$name"), overwrite = true)
+                select(name)
+            }
+            temp.delete()
+        }
+    }
+
     SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
         options.forEachIndexed { index, option ->
             val label = when (option) {
@@ -120,34 +151,52 @@ fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean, initialIndex
                     .fillMaxHeight(0.65f)
             ) {
                 Column(Modifier.verticalScroll(rememberScrollState())) {
-                    val translationList =
-                        getTranslationList(context).map { it.nameWithoutExtension }
-
                     ListTranslations(onSelect = { abbrev ->
                         if (!getTranslation(context, abbrev).exists())
                             downloadTranslation(context, abbrev)
-                        translation.value = abbrev
+                        select(abbrev)
+                    })
 
-                        val (bookCount, chapterCount) = getCount(
-                            context,
-                            translation.value,
-                            book.intValue
+                    HorizontalDivider(Modifier.padding(12.dp))
+                    Row(
+                        Modifier
+                            .fillMaxWidth()
+                            .horizontalScroll(rememberScrollState())
+                    ) {
+                        Text(
+                            stringResource(R.string.import_additional),
+                            style = MaterialTheme.typography.titleMedium,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.weight(1f).padding(top = 12.dp)
                         )
-                        if (book.intValue > bookCount) {
-                            book.intValue = 0
-                            chapter.intValue = 0
+                        /* TODO: Import translations via link
+                        IconButton(onClick = {
+                            val url = "https://example-link.to/custom.json" // Input Dialog
+                            downloadFile(
+                                context = context,
+                                url = url,
+                                name = "ex-tmp.json",
+                                title = "Downloading Translation"
+                            )
+                            val temp = getTranslation(context, "ex-tmp")
+                            val name = deserializeBible(temp.path)?.abbreviation
+                            if (name != null) {
+                                temp.copyTo(getTranslation(context, "/ex-$name"), overwrite = true)
+                                File(getExternalPath(context)+"/custom-links.txt").appendText("$name->$url\n")
+                                select(name)
+                            }
+                            temp.delete()
+                        }) {
+                            Icon(Icons.Filled.Download, stringResource(R.string.link))
                         }
-                        if (chapter.intValue > chapterCount) {
-                            chapter.intValue = 0
+                        */
+                        IconButton(onClick = {
+                            documentLauncher.launch(arrayOf("application/json"))
+                        }) {
+                            Icon(Icons.Filled.Upload, stringResource(R.string.file))
                         }
-                        saveSelection(
-                            context,
-                            translation.value,
-                            book.intValue,
-                            chapter.intValue,
-                            isSplitScreen
-                        )
-                    }, translationList, true)
+                    }
+                    ListTranslationsPart(context, onSelect = {abbrev -> select(abbrev)}, custom, null)
                 }
             }
             ElevatedCard(
@@ -266,74 +315,88 @@ fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean, initialIndex
 }
 
 @Composable
-fun ListTranslations(
-    onSelect: (String) -> Unit,
-    list: List<String>? = null,
-    listAll: Boolean = false
-) {
+fun ListTranslations(onSelect: (String) -> Unit) {
     val context = LocalContext.current
     val translations = remember { getTranslations(context) }
+    val installed = remember { getTranslationList(context, false) }
 
-    ListTranslationsPart(context, translations, onSelect, list, true)
-    if (!list.isNullOrEmpty() && listAll) {
-        HorizontalDivider(Modifier.padding(12.dp))
-        ListTranslationsPart(context, translations, onSelect, list, false)
-    }
+    ListTranslationsPart(context, onSelect, installed, translations, true)
+    HorizontalDivider(Modifier.padding(12.dp))
+    ListTranslationsPart(context, onSelect, installed, translations, false)
 }
 
 @Composable
 fun ListTranslationsPart(
     context: Context,
-    translations: Map<String, List<Translation>>?,
     onSelect: (String) -> Unit,
-    list: List<String>? = null,
-    showInstalled: Boolean
+    list: Array<File>,
+    translations: Map<String, List<Translation>>? = mapOf(),
+    showInstalled: Boolean = true
 ) {
-    val updateList = getUpdateList(context, false)
-    translations?.forEach { (lang, translations) ->
-        if (list.isNullOrEmpty() || !showInstalled ||
-            translations.any { list.contains(it.abbreviation) }
-        ) {
-            val language = getLanguageName(lang)
-            Text(
-                text = "$lang - $language",
-                style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 10.dp),
-                textAlign = TextAlign.Center
-            )
-            translations.forEach { translation ->
-                val abbrev = translation.abbreviation
-                if (list.isNullOrEmpty() ||
-                    (showInstalled && list.contains(abbrev)) ||
-                    (!showInstalled && !list.contains(abbrev))
-                ) {
-                    val name = translation.translation
-                    Row(
-                        Modifier
-                            .fillMaxWidth()
-                            .horizontalScroll(rememberScrollState())
+    val names = list.map { it.nameWithoutExtension }
+    if (translations != null) {
+        translations.forEach { (lang, translations) ->
+            if ((showInstalled && translations.any { names.contains(it.abbreviation)}) || !showInstalled) {
+                Text(
+                    text = "$lang - ${getLanguageName(lang)}",
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 10.dp),
+                    textAlign = TextAlign.Center
+                )
+                translations.forEach { translation ->
+                    val abbrev = translation.abbreviation
+                    if ((showInstalled && names.contains(abbrev)) ||
+                        (!showInstalled && !names.contains(abbrev))
                     ) {
-                        TextButton(
-                            onClick = { onSelect(abbrev) },
-                            modifier = Modifier.weight(1f)
-                        )
-                        { Text("$abbrev | $name") }
-                        if (list != null && list.contains(abbrev)) {
-                            if (updateList.contains(abbrev)) {
-                                IconButton(onClick = { downloadTranslation(context, abbrev) }) {
-                                    Icon(Icons.Filled.Update, stringResource(R.string.update))
+                        val name = translation.translation
+                        Row(
+                            Modifier
+                                .fillMaxWidth()
+                                .horizontalScroll(rememberScrollState())
+                        ) {
+                            TextButton(
+                                onClick = { onSelect(abbrev) },
+                                modifier = Modifier.weight(1f)
+                            )
+                            { Text("$abbrev | $name") }
+                            if (names.contains(abbrev)) {
+                                if (getUpdateList(context, false).contains(abbrev)) {
+                                    IconButton(onClick = { downloadTranslation(context, abbrev) }) {
+                                        Icon(Icons.Filled.Update, stringResource(R.string.update))
+                                    }
                                 }
-                            }
-                            IconButton(onClick = {
-                                if (getTranslationList(context).size > 1)
-                                    getTranslation(context, abbrev).delete()
-                            }) {
-                                Icon(Icons.Filled.Delete, stringResource(R.string.delete))
+                                IconButton(onClick = {
+                                    if (getTranslationList(context, false).size > 1)
+                                        getTranslation(context, abbrev).delete()
+                                }) {
+                                    Icon(Icons.Filled.Delete, stringResource(R.string.delete))
+                                }
                             }
                         }
                     }
+                }
+            }
+        }
+    } else {
+        names.forEach { abbrev ->
+            val name = deserializeBible(getTranslationPath(context, abbrev))?.translation
+            Row(
+                Modifier
+                    .fillMaxWidth()
+                    .horizontalScroll(rememberScrollState())
+            ) {
+                TextButton(
+                    onClick = { onSelect(abbrev) },
+                    modifier = Modifier.weight(1f)
+                )
+                { Text("$abbrev | $name") }
+                IconButton(onClick = {
+                    if (getTranslationList(context, false).size > 1)
+                        getTranslation(context, abbrev).delete()
+                }) {
+                    Icon(Icons.Filled.Delete, stringResource(R.string.delete))
                 }
             }
         }

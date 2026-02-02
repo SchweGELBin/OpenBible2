@@ -230,3 +230,29 @@ fun saveDeepLink(context: Context, book: String?, chapter: String?) {
     if (chapterInt == null) chapterInt = 0 else if (chapterInt > 0) chapterInt--
     saveSelection(context, book = bookInt, chapter = chapterInt, isSplitScreen = false)
 }
+
+fun setTranslation(context: Context, abbrev: String, isSplitScreen: Boolean): Triple<String, Int, Int> {
+    var (translation, book, chapter) = getSelection(context, isSplitScreen)
+    translation = abbrev
+
+    val (bookCount, chapterCount) = getCount(
+        context,
+        translation,
+        book
+    )
+    if (book > bookCount) {
+        book = 0
+        chapter = 0
+    }
+    if (chapter > chapterCount) {
+        chapter = 0
+    }
+    saveSelection(
+        context,
+        translation,
+        book,
+        chapter,
+        isSplitScreen
+    )
+    return Triple(translation, book, chapter)
+}
