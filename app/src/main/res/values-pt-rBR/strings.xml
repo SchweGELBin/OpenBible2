@@ -62,4 +62,7 @@
     <string name="infinite_scroll"></string>
     <string name="app_name" translatable="false"></string>
     <string name="bookmarks"></string>
+    <string name="link"></string>
+    <string name="import_additional"></string>
+    <string name="file"></string>
 </resources>
