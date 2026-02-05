@@ -46,7 +46,7 @@
     <string name="screen_read">Читать</string>
     <string name="search">Поиск</string>
     <string name="search_for_text">Поиск по тексту</string>
-    <string name="selection">Выделение</string>
+    <string name="selection">выбор</string>
     <string name="settings">Настройки</string>
     <string name="show_verse_number">Показывать номер стиха</string>
     <string name="skip">Пропустить</string>
@@ -60,9 +60,9 @@
     <string name="vertical">Вертикально</string>
     <string name="downloading_index">Идёт загрузка индекса, пожалуйста, подождите…</string>
     <string name="downloading_translation">Идёт загрузка перевода, пожалуйста, подождите…</string>
-    <string name="google_play" translatable="false"></string>
-    <string name="source_repo" translatable="false"></string>
-    <string name="source_getbible" translatable="false"></string>
-    <string name="theme_amoled" translatable="false"></string>
-    <string name="app_name" translatable="false"></string>
+    <string name="google_play" translatable="false"/>
+    <string name="source_repo" translatable="false"/>
+    <string name="source_getbible" translatable="false"/>
+    <string name="theme_amoled" translatable="false"/>
+    <string name="app_name" translatable="false"/>
 </resources>
