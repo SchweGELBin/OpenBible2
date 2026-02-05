@@ -62,4 +62,7 @@
     <string name="source_getbible" translatable="false"></string>
     <string name="theme_amoled" translatable="false"></string>
     <string name="app_name" translatable="false"></string>
+    <string name="link"></string>
+    <string name="import_additional"></string>
+    <string name="file"></string>
 </resources>
