@@ -60,4 +60,9 @@
     <string name="vertical">Вертикально</string>
     <string name="downloading_index">Идёт загрузка индекса, пожалуйста, подождите…</string>
     <string name="downloading_translation">Идёт загрузка перевода, пожалуйста, подождите…</string>
+    <string name="google_play" translatable="false"></string>
+    <string name="source_repo" translatable="false"></string>
+    <string name="source_getbible" translatable="false"></string>
+    <string name="theme_amoled" translatable="false"></string>
+    <string name="app_name" translatable="false"></string>
 </resources>
