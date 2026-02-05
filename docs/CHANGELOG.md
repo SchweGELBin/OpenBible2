@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.0.1] - 2026-02-05
+
+### ⚙️ Miscellaneous Tasks
+
+- *(translations)* Translate using Weblate (Estonian) (#123)
+- *(translations)* Add translation using Weblate (Russian) (#124)
+- *(translations)* Translate using Weblate (Russian) (#125)
+- *(translations)* Update OpenBible/Application (#126)
+- *(translations)* Translate using Weblate (Russian) (#127)
+- *(translations)* Translate using Weblate (Russian) (#129)
+- *(translations)* Translate using Weblate (Russian) (#128)
+
 ## [3.0.0] - 2026-02-02
 
 ### 🚀 Features
@@ -43,6 +55,7 @@ All notable changes to this project will be documented in this file.
 - *(translations)* Translate using Weblate (German) (#118)
 - *(gitignore)* Add .idea/deviceManager.xml
 - *(translations)* Update OpenBible/Application (#120)
+- Bump to 3.0.0
 
 ### ◀️ Revert
 

@@ -1,0 +1,5 @@
+Added translations:
+- Russian (by Xapitonov)
+
+Updated translations:
+- Estonian (by Priit Jõerüüt)
