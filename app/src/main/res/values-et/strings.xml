@@ -57,11 +57,11 @@
     <string name="vertical">Püstloodis</string>
     <string name="show_verse_number">Näita salmi numbrit</string>
     <string name="verse_of_the_day">Tänase päeva salm</string>
-    <string name="google_play" translatable="false"/>
-    <string name="source_repo" translatable="false"/>
-    <string name="source_getbible" translatable="false"/>
-    <string name="theme_amoled" translatable="false"/>
-    <string name="app_name" translatable="false"/>
+    <string name="google_play" translatable="false"></string>
+    <string name="source_repo" translatable="false"></string>
+    <string name="source_getbible" translatable="false"></string>
+    <string name="theme_amoled" translatable="false"></string>
+    <string name="app_name" translatable="false"></string>
     <string name="file">Fail</string>
     <string name="import_additional">Impordi täiendavat sisu</string>
     <string name="link">Link</string>
