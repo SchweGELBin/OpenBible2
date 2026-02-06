@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.0.3] - 2026-02-06
+
+### ⚡ Performance
+
+- Deprecate fixLegacy function
+
+### ◀️ Revert
+
+- Fix: move startup file I/O off the main thread
+
 ## [3.0.2] - 2026-02-06
 
 ### 🐛 Bug Fixes
@@ -20,6 +30,7 @@ All notable changes to this project will be documented in this file.
 ### ⚙️ Miscellaneous Tasks
 
 - *(translations)* Translate using Weblate (Russian) (#135)
+- Bump to 3.0.2
 
 ## [3.0.1] - 2026-02-05
 
