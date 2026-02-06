@@ -161,10 +161,6 @@ fun getExternalPath(context: Context, relPath: String = ""): String {
     return context.getExternalFilesDir(relPath).toString()
 }
 
-fun sanitizeAbbrev(abbrev: String): String {
-    return abbrev.replace(Regex("[^a-zA-Z0-9_-]"), "")
-}
-
 fun getUpdateList(context: Context, install: Boolean, translation: String? = null): List<String> {
     val updates = mutableListOf<String>()
     val installed = getTranslationList(context, showCustom = false).map { it.nameWithoutExtension }
