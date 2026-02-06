@@ -1,0 +1,2 @@
+Fixed potential crashes and security vulnerabilities (by EthnTuttle)
+Updated Russian translation (by Xapitonov)

@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.0.2] - 2026-02-06
+
+### 🐛 Bug Fixes
+
+- Move startup file I/O off the main thread (#134)
+- Validate zip entry paths before extraction (Zip Slip) (#130)
+- Close FileInputStream on exception in getChecksum() (#131)
+- Add network security config to block cleartext traffic (#132)
+- Sanitize translation abbreviation in file path construction (#133)
+
+### 🚜 Refactor
+
+- Sanitize importing translations, move sanitizeAbbrev to logic/Main.kt
+- *(gradle)* Remove kotlin's jvmTarget option
+
+### ⚙️ Miscellaneous Tasks
+
+- *(translations)* Translate using Weblate (Russian) (#135)
+
 ## [3.0.1] - 2026-02-05
 
 ### ⚙️ Miscellaneous Tasks
@@ -13,6 +32,7 @@ All notable changes to this project will be documented in this file.
 - *(translations)* Translate using Weblate (Russian) (#127)
 - *(translations)* Translate using Weblate (Russian) (#129)
 - *(translations)* Translate using Weblate (Russian) (#128)
+- Bump to 3.0.1
 
 ## [3.0.0] - 2026-02-02
 

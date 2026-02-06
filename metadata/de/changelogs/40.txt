@@ -1,0 +1,2 @@
+Beheben von möglichen Abstürzungen und Sicherheitsrisiken (von EthnTuttle)
+Aktualisieren der russischen Übersetzung (von Xapitonov)
