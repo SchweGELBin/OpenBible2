@@ -125,6 +125,7 @@ fun backupData(context: Context, user: Boolean = false, data: Boolean = false) {
 fun restoreBackup(context: Context, uri: Uri, user: Boolean, onFinished: () -> Unit) {
     if (user) {
         val dir = getExternalPath(context)
+        val canonicalDir = File(dir).canonicalPath
         context.contentResolver.openInputStream(uri)?.use { inputStream ->
             val temp = File(dir, "temp.zip")
             FileOutputStream(temp).use { outputStream ->
@@ -132,15 +133,23 @@ fun restoreBackup(context: Context, uri: Uri, user: Boolean, onFinished: () -> U
             }
             try {
                 val zip = ZipFile(temp)
-                zip.extractAll(File(dir).absolutePath)
+                zip.fileHeaders.forEach { header ->
+                    val targetFile = File(dir, header.fileName).canonicalFile
+                    if (!targetFile.path.startsWith(canonicalDir)) {
+                        throw SecurityException("Zip entry outside target dir: ${header.fileName}")
+                    }
+                }
+                zip.extractAll(canonicalDir)
             } catch (e: ZipException) {
+                e.printStackTrace()
+            } catch (e: SecurityException) {
                 e.printStackTrace()
             } finally {
                 temp.delete()
                 onFinished()
             }
         } ?: run {
-            println("Failed to open input stream.")
+            android.util.Log.e("OpenBible", "Failed to open input stream for restore.")
         }
     }
 
