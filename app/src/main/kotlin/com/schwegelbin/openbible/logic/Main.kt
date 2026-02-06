@@ -191,6 +191,10 @@ fun bytesToHex(bytes: ByteArray): String {
     return String(hexChars)
 }
 
+fun sanitizeAbbrev(abbrev: String?): String {
+    return abbrev?.replace(Regex("[^a-zA-Z0-9_-]"), "") ?: return ""
+}
+
 fun fixLegacy(context: Context) {
     val path = getExternalPath(context)
     File("${path}/Index/translations.json").renameTo(File("${path}/translations.json"))
