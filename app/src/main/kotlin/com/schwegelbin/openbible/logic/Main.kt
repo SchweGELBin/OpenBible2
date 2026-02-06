@@ -36,10 +36,11 @@ fun downloadFile(
 }
 
 fun downloadTranslation(context: Context, abbrev: String) {
+    val safe = sanitizeAbbrev(abbrev)
     downloadFile(
         context = context,
-        url = "https://api.getbible.life/v2/${abbrev}.json",
-        name = "${abbrev}.json",
+        url = "https://api.getbible.life/v2/${safe}.json",
+        name = "${safe}.json",
         title = "Downloading Translation"
     )
 }
