@@ -204,17 +204,6 @@ fun sanitizeAbbrev(abbrev: String?): String {
     return abbrev?.replace(Regex("[^a-zA-Z0-9_-]"), "") ?: return ""
 }
 
-fun fixLegacy(context: Context) {
-    val path = getExternalPath(context)
-    File("${path}/Index/translations.json").renameTo(File("${path}/translations.json"))
-    File("${path}/Translations").listFiles()?.forEach { translation ->
-        translation.renameTo(File("${path}/${translation.name}"))
-    }
-    File("${path}/Checksums").deleteRecursively()
-    File("${path}/Index").deleteRecursively()
-    File("${path}/Translations").deleteRecursively()
-}
-
 fun searchText(context: Context, abbrev: String, query: String): List<Triple<String, Int, Int>> {
     val result = mutableListOf(Triple("", -1, -1))
     val bible = deserializeBible(getTranslationPath(context, abbrev)) ?: return result

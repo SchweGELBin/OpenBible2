@@ -11,7 +11,6 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navDeepLink
 import androidx.navigation.toRoute
 import com.schwegelbin.openbible.logic.checkForUpdates
-import com.schwegelbin.openbible.logic.fixLegacy
 import com.schwegelbin.openbible.logic.getCheckAtStartup
 import com.schwegelbin.openbible.logic.getIndex
 import com.schwegelbin.openbible.logic.getTranslationList
@@ -46,9 +45,6 @@ fun App(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
     val startDestination = remember { mutableStateOf<Any?>(null) }
 
     LaunchedEffect(Unit) {
-        withContext(Dispatchers.IO) {
-            fixLegacy(context)
-        }
         val dest: Any = withContext(Dispatchers.IO) {
             if (!getIndex(context).exists() ||
                 getTranslationList(context).isEmpty() ||
