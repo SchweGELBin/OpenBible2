@@ -128,13 +128,13 @@ fun getTranslationList(context: Context, showCustom: Boolean? = null): Array<Fil
 fun File.getChecksum(): String? {
     return try {
         val md = MessageDigest.getInstance("SHA-1")
-        val fis = FileInputStream(this)
-        val buffer = ByteArray(1024)
-        var bytesRead: Int
-        while (fis.read(buffer).also { bytesRead = it } != -1) {
-            md.update(buffer, 0, bytesRead)
+        FileInputStream(this).use { fis ->
+            val buffer = ByteArray(1024)
+            var bytesRead: Int
+            while (fis.read(buffer).also { bytesRead = it } != -1) {
+                md.update(buffer, 0, bytesRead)
+            }
         }
-        fis.close()
         bytesToHex(md.digest())
     } catch (_: Exception) {
         null
