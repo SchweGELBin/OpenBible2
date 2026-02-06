@@ -154,11 +154,15 @@ fun getTranslation(context: Context, abbrev: String): File {
 }
 
 fun getTranslationPath(context: Context, abbrev: String): String {
-    return "${getExternalPath(context)}/${abbrev}.json"
+    return "${getExternalPath(context)}/${sanitizeAbbrev(abbrev)}.json"
 }
 
 fun getExternalPath(context: Context, relPath: String = ""): String {
     return context.getExternalFilesDir(relPath).toString()
+}
+
+fun sanitizeAbbrev(abbrev: String): String {
+    return abbrev.replace(Regex("[^a-zA-Z0-9_-]"), "")
 }
 
 fun getUpdateList(context: Context, install: Boolean, translation: String? = null): List<String> {
