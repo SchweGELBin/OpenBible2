@@ -61,6 +61,7 @@ import com.schwegelbin.openbible.logic.getTranslationList
 import com.schwegelbin.openbible.logic.getTranslationPath
 import com.schwegelbin.openbible.logic.getTranslations
 import com.schwegelbin.openbible.logic.getUpdateList
+import com.schwegelbin.openbible.logic.sanitizeAbbrev
 import com.schwegelbin.openbible.logic.saveSelection
 import com.schwegelbin.openbible.logic.setTranslation
 import java.io.File
@@ -116,8 +117,8 @@ fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean, initialIndex
             context.contentResolver.openInputStream(uri)?.use { inputStream ->
                 FileOutputStream(temp).use { outputStream -> inputStream.copyTo(outputStream) }
             }
-            val name = deserializeBible(temp.path)?.abbreviation
-            if (name != null) {
+            val name = sanitizeAbbrev(deserializeBible(temp.path)?.abbreviation)
+            if (name.isNotEmpty()) {
                 temp.copyTo(getTranslation(context, "/ex-$name"), overwrite = true)
                 select(name)
             }
@@ -179,8 +180,8 @@ fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean, initialIndex
                                 title = "Downloading Translation"
                             )
                             val temp = getTranslation(context, "ex-tmp")
-                            val name = deserializeBible(temp.path)?.abbreviation
-                            if (name != null) {
+                            val name = sanitizeAbbrev(deserializeBible(temp.path)?.abbreviation)
+                            if (name.isNotEmpty()) {
                                 temp.copyTo(getTranslation(context, "/ex-$name"), overwrite = true)
                                 File(getExternalPath(context)+"/custom-links.txt").appendText("$name->$url\n")
                                 select(name)
