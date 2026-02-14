@@ -59,7 +59,7 @@ fun SearchScreen(onNavigateToRead: () -> Unit) {
             TextSearchBar(
                 query.value,
                 { s -> query.value = s },
-                { results.value = searchText(context, selection.value.first, query.value) },
+                { results.value = searchText(context, query.value, selection.value.first) },
                 stringResource(R.string.search_for_text)
             )
             TextSearchResults(
