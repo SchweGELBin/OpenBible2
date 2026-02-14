@@ -228,12 +228,13 @@ fun searchText(context: Context, query: String, abbrev: String, exact: Boolean =
 fun splitSearchQuery(query: String, exact: Boolean): Pair<List<String>, List<String>> {
     val inclusions = mutableListOf<String>()
     val exclusions = mutableListOf<String>()
-    val pattern = Regex("([+-])?([^+-]+)")
+    val prefixes = Pair("+", "~")
+    val pattern = Regex("([${prefixes.first}${prefixes.second}])?([^${prefixes.first}${prefixes.second}]+)")
     for (groups in pattern.findAll(query)) {
         val prefix = groups.groupValues[1]
         var frag = groups.groupValues[2]
         if (!exact) frag = frag.lowercase().trim()
-        if (prefix == "-") exclusions.add(frag) else inclusions.add(frag)
+        if (prefix == prefixes.second) exclusions.add(frag) else inclusions.add(frag)
     }
     return Pair(inclusions, exclusions)
 }
