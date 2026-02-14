@@ -204,15 +204,16 @@ fun sanitizeAbbrev(abbrev: String?): String {
     return abbrev?.replace(Regex("[^a-zA-Z0-9_-]"), "") ?: return ""
 }
 
-fun searchText(context: Context, query: String, abbrev: String): List<Triple<String, Int, Int>> {
+fun searchText(context: Context, query: String, abbrev: String, exact: Boolean = true): List<Triple<String, Int, Int>> {
     val result = mutableListOf(Triple("", -1, -1))
     val bible = deserializeBible(getTranslationPath(context, abbrev)) ?: return result
-    val (inclusions, exclusions) = splitSearchQuery(query)
+    val (inclusions, exclusions) = splitSearchQuery(query, exact)
     bible.books.forEachIndexed { bookIndex, book ->
         book.chapters.forEachIndexed { chapterIndex, chapter ->
             chapter.verses.forEach { (name, _, text) ->
-                val includes = inclusions.all { text.contains(it) }
-                val excludes = exclusions.any { text.contains(it) }
+                val newText = if (exact) text else text.lowercase()
+                val includes = inclusions.all { newText.contains(it) }
+                val excludes = exclusions.any { newText.contains(it) }
                 if (includes && !excludes) result += Triple(
                     "${name}\n${text}",
                     bookIndex,
@@ -224,13 +225,14 @@ fun searchText(context: Context, query: String, abbrev: String): List<Triple<Str
     return result
 }
 
-fun splitSearchQuery(query: String): Pair<List<String>, List<String>> {
+fun splitSearchQuery(query: String, exact: Boolean): Pair<List<String>, List<String>> {
     val inclusions = mutableListOf<String>()
     val exclusions = mutableListOf<String>()
     val pattern = Regex("([+-])?([^+-]+)")
     for (groups in pattern.findAll(query)) {
         val prefix = groups.groupValues[1]
-        val frag = groups.groupValues[2]
+        var frag = groups.groupValues[2]
+        if (!exact) frag = frag.lowercase().trim()
         if (prefix == "-") exclusions.add(frag) else inclusions.add(frag)
     }
     return Pair(inclusions, exclusions)
