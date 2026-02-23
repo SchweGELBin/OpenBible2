@@ -19,50 +19,50 @@
     <string name="downloading_translation">Pobieranie tłumaczenia, proszę czekać…</string>
     <string name="error">BŁĄD</string>
     <string name="font_size">Rozmiar czcionki</string>
-    <string name="alignment_justify"></string>
-    <string name="horizontal"></string>
-    <string name="alignment_start"></string>
-    <string name="theme_light"></string>
-    <string name="theme_dark"></string>
-    <string name="google_play" translatable="false"></string>
-    <string name="screen_home"></string>
-    <string name="link"></string>
-    <string name="next"></string>
-    <string name="source_repo" translatable="false"></string>
-    <string name="theme_system"></string>
-    <string name="information"></string>
-    <string name="restore"></string>
-    <string name="scheme_dynamic"></string>
-    <string name="update"></string>
-    <string name="search_for_text"></string>
-    <string name="new_files"></string>
-    <string name="verse_of_the_day"></string>
-    <string name="source_getbible" translatable="false"></string>
-    <string name="name"></string>
-    <string name="preferences"></string>
-    <string name="off"></string>
-    <string name="needs_files"></string>
-    <string name="menu"></string>
-    <string name="notifications"></string>
-    <string name="skip"></string>
-    <string name="show_verse_number"></string>
-    <string name="previous"></string>
-    <string name="backup"></string>
-    <string name="bible_text"></string>
-    <string name="translation"></string>
-    <string name="import_additional"></string>
-    <string name="index"></string>
-    <string name="split_screen"></string>
-    <string name="vertical"></string>
-    <string name="search"></string>
-    <string name="screen_read"></string>
-    <string name="theme_amoled" translatable="false"></string>
-    <string name="infinite_scroll"></string>
-    <string name="settings"></string>
-    <string name="selection"></string>
-    <string name="app_name" translatable="false"></string>
-    <string name="color_theme"></string>
-    <string name="file"></string>
-    <string name="scheme_static"></string>
-    <string name="alignment"></string>
+    <string name="alignment_justify">Wyrównaj do obu krawędzi</string>
+    <string name="horizontal">Poziomy</string>
+    <string name="alignment_start"/>
+    <string name="theme_light">Jasny</string>
+    <string name="theme_dark">Ciemny</string>
+    <string name="google_play" translatable="false"/>
+    <string name="screen_home">Strona główna</string>
+    <string name="link">Link</string>
+    <string name="next">Następny</string>
+    <string name="source_repo" translatable="false"/>
+    <string name="theme_system">System</string>
+    <string name="information">Informacja</string>
+    <string name="restore">Przywróć</string>
+    <string name="scheme_dynamic"/>
+    <string name="update">Aktualizuj</string>
+    <string name="search_for_text">Szukaj tekstu</string>
+    <string name="new_files">Znaleziono aktualizacje tłumaczeń. Czy chcesz je zainstalować?</string>
+    <string name="verse_of_the_day">Werset dnia</string>
+    <string name="source_getbible" translatable="false"/>
+    <string name="name"/>
+    <string name="preferences">Preferencje</string>
+    <string name="off">Wyłączony</string>
+    <string name="needs_files">Ta aplikacja potrzebuje indeksu, sum kontrolnych oraz tłumaczeń, aby działać.</string>
+    <string name="menu">Menu</string>
+    <string name="notifications">Powiadomienia</string>
+    <string name="skip">Pomiń</string>
+    <string name="show_verse_number">Pokaż numer wersetu</string>
+    <string name="previous">Poprzedni</string>
+    <string name="backup"/>
+    <string name="bible_text">Tekst Biblii</string>
+    <string name="translation">Tłumaczenie</string>
+    <string name="import_additional">Importuj dodatkowe</string>
+    <string name="index">Indeks</string>
+    <string name="split_screen"/>
+    <string name="vertical">Pionowy</string>
+    <string name="search">Szukaj</string>
+    <string name="screen_read"/>
+    <string name="theme_amoled" translatable="false"/>
+    <string name="infinite_scroll">Nieskończone przewijanie</string>
+    <string name="settings">Ustawienia</string>
+    <string name="selection"/>
+    <string name="app_name" translatable="false"/>
+    <string name="color_theme"/>
+    <string name="file">Plik</string>
+    <string name="scheme_static">Statyczne</string>
+    <string name="alignment">Wyrównanie</string>
 </resources>
