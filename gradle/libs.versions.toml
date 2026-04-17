@@ -1,6 +1,6 @@
 [versions]
 activityCompose = "1.12.4"
-agp = "9.1.0"
+agp = "9.1.1"
 composeBom = "2026.03.01"
 coreKtx = "1.18.0"
 espressoCore = "3.7.0"
