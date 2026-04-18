@@ -353,6 +353,6 @@ fun BackupButton(isUser: Boolean = false, isData: Boolean = false, text: String)
     OutlinedButton(onClick = { clicked.value = true }) { Text(text) }
     if (clicked.value) {
         clicked.value = false
-        backupData(context, user = isUser, data = isData)
+        backupData(context, user = isUser, data = isData, stringResource(R.string.backup_completed))
     }
 }

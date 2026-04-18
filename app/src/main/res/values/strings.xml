@@ -4,6 +4,7 @@
     <string name="alignment_start">Start</string>
     <string name="alignment_justify">Justify</string>
     <string name="backup">Backup</string>
+    <string name="backup_completed">Backup completed</string>
     <string name="bible_text">Bible Text</string>
     <string name="book">Book</string>
     <string name="bookmarks">Bookmarks</string>

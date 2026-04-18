@@ -5,6 +5,7 @@
     <string name="alignment_start">Start</string>
     <string name="alignment_justify">Blocksatz</string>
     <string name="backup">Backup</string>
+    <string name="backup_completed">Backup fertiggestellt</string>
     <string name="bible_text">Bibeltext</string>
     <string name="book">Buch</string>
     <string name="bookmarks">Lesezeichen</string>

@@ -4,6 +4,7 @@ import android.app.DownloadManager
 import android.content.Context
 import android.net.Uri
 import android.os.Environment
+import android.widget.Toast
 import androidx.core.net.toUri
 import net.lingala.zip4j.ZipFile
 import net.lingala.zip4j.exception.ZipException
@@ -99,7 +100,12 @@ fun checkSelection(
     return Triple(abbrev, book, chapter)
 }
 
-fun backupData(context: Context, user: Boolean = false, data: Boolean = false) {
+fun backupData(
+    context: Context,
+    user: Boolean = false,
+    data: Boolean = false,
+    completed: String? = null
+) {
     val userDir = getExternalPath(context)
     val dataDir = "${context.dataDir}/shared_prefs"
     val download = Environment.getExternalStoragePublicDirectory("Download")
@@ -121,6 +127,8 @@ fun backupData(context: Context, user: Boolean = false, data: Boolean = false) {
         val zip = ZipFile("$download/OpenBible-Preferences.zip")
         zip.addFiles(File(dataDir).listFiles()?.toList(), parameters)
     }
+
+    if (completed != null) Toast.makeText(context, completed, Toast.LENGTH_SHORT).show()
 }
 
 fun restoreBackup(context: Context, uri: Uri, user: Boolean, onFinished: () -> Unit) {
