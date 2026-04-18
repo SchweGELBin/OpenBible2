@@ -33,7 +33,7 @@ Scripture data is being provided by [getBible](https://getbible.life/docs), a re
 ## Contribute
 You can help by translating OpenBible into your language
 
-[![Translation status](https://hosted.weblate.org/widget/openbible/multi-auto.svg)](https://hosted.weblate.org/engage/openbible/)
+[![Translation status](https://hosted.weblate.org/widget/openbible/application/multi-auto.svg)](https://hosted.weblate.org/engage/openbible/)
 
 ## Screenshots
 | ![](../metadata/en-US/images/phoneScreenshots/1.png) | ![](../metadata/en-US/images/phoneScreenshots/2.png) | ![](../metadata/en-US/images/phoneScreenshots/3.png) |

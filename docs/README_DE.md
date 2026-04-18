@@ -33,7 +33,7 @@ Die Schriftdaten werden von [getBible](https://getbible.life/docs), ein anerkann
 ## Beteiligung
 Sie können mithelfen, indem Sie OpenBible in Ihre Sprache übersetzen
 
-[![Translation status](https://hosted.weblate.org/widget/openbible/multi-auto.svg)](https://hosted.weblate.org/engage/openbible/)
+[![Translation status](https://hosted.weblate.org/widget/openbible/application/multi-auto.svg)](https://hosted.weblate.org/engage/openbible/)
 
 ## Blidschirmfotos
 | ![](../metadata/en-US/images/phoneScreenshots/1.png) | ![](../metadata/en-US/images/phoneScreenshots/2.png) | ![](../metadata/en-US/images/phoneScreenshots/3.png) |
