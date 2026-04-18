@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.schwegelbin.openbible"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         applicationId = android.namespace
