@@ -60,4 +60,5 @@
     <string name="update">Uuenda</string>
     <string name="verse_of_the_day">Tänase päeva salm</string>
     <string name="vertical">Püstloodis</string>
+    <string name="backup_completed">Varukoopia on tehtud</string>
 </resources>
