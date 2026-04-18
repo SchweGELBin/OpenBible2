@@ -1,17 +1,43 @@
-# Changelog
+## [3.1.0] - 2026-04-18
 
-All notable changes to this project will be documented in this file.
+### 🚀 Features
 
+- Improve search with seperated inclusion and exclusion patterns
+- Allow search to be non case-sensitive and to be trimmed
+- Show `Backup Completed` toast
+
+### 🐛 Bug Fixes
+
+- Replace search prefix "-" with "~"
+- Fall back to english for untranslated strings
+
+### 📚 Documentation
+
+- Update cliff.toml
+
+### ⚙️ Miscellaneous Tasks
+
+- *(translations)* Update OpenBible/Metadata (Russian) (#137)
+- *(translations)* Translate using Weblate (Polish) (#139)
+- Remove workflow auto-merge.yml
+- Target sdk 37
+
+### ◀️ Revert
+
+- Feat: added agents.md file
 ## [3.0.3] - 2026-02-06
 
 ### ⚡ Performance
 
 - Deprecate fixLegacy function
 
+### ⚙️ Miscellaneous Tasks
+
+- Bump to 3.0.3
+
 ### ◀️ Revert
 
 - Fix: move startup file I/O off the main thread
-
 ## [3.0.2] - 2026-02-06
 
 ### 🐛 Bug Fixes
@@ -31,7 +57,6 @@ All notable changes to this project will be documented in this file.
 
 - *(translations)* Translate using Weblate (Russian) (#135)
 - Bump to 3.0.2
-
 ## [3.0.1] - 2026-02-05
 
 ### ⚙️ Miscellaneous Tasks
@@ -44,7 +69,6 @@ All notable changes to this project will be documented in this file.
 - *(translations)* Translate using Weblate (Russian) (#129)
 - *(translations)* Translate using Weblate (Russian) (#128)
 - Bump to 3.0.1
-
 ## [3.0.0] - 2026-02-02
 
 ### 🚀 Features
@@ -91,7 +115,6 @@ All notable changes to this project will be documented in this file.
 ### ◀️ Revert
 
 - Ci(codeql): scan without building
-
 ## [2.1.2] - 2025-11-24
 
 ### 🐛 Bug Fixes
@@ -109,7 +132,6 @@ All notable changes to this project will be documented in this file.
 ### ⚙️ Miscellaneous Tasks
 
 - Bump to 2.1.2
-
 ## [2.1.1] - 2025-11-20
 
 ### 🐛 Bug Fixes
@@ -125,7 +147,6 @@ All notable changes to this project will be documented in this file.
 ### ⚙️ Miscellaneous Tasks
 
 - Bump to 2.1.1
-
 ## [2.1.0] - 2025-11-19
 
 ### 🚀 Features
@@ -147,7 +168,6 @@ All notable changes to this project will be documented in this file.
 - Use droplast instead of substring in getChapter
 - Remove unused imports
 - Bump to 2.1.0
-
 ## [2.0.0] - 2025-09-18
 
 ### 🚀 Features
@@ -181,7 +201,6 @@ All notable changes to this project will be documented in this file.
 - Remove unnecessary val
 - Update getbible link (getbible.net -> getbible.life)
 - Bump to 2.0.0
-
 ## [1.9.2] - 2025-08-20
 
 ### ⚙️ Miscellaneous Tasks
@@ -191,7 +210,6 @@ All notable changes to this project will be documented in this file.
 ### ◀️ Revert
 
 - Chore(deps): bump com.android.application from 8.11.1 to 8.12.0 (#63)
-
 ## [1.9.1] - 2025-08-18
 
 ### 🐛 Bug Fixes
@@ -206,7 +224,6 @@ All notable changes to this project will be documented in this file.
 ### ⚙️ Miscellaneous Tasks
 
 - Bump to 1.9.1
-
 ## [1.9.0] - 2025-07-18
 
 ### 🚀 Features
@@ -232,7 +249,6 @@ All notable changes to this project will be documented in this file.
 
 - Update deprecated kotlin compilerOptions
 - Bump to 1.9.0
-
 ## [1.8.1] - 2025-06-12
 
 ### 📚 Documentation
@@ -255,7 +271,6 @@ All notable changes to this project will be documented in this file.
 - *(build)* Inherit secret
 - *(release)* Fix release body
 - Bump to 1.8.1
-
 ## [1.8.0] - 2025-05-09
 
 ### 🚀 Features
@@ -293,7 +308,6 @@ All notable changes to this project will be documented in this file.
 - Close menu on click
 - Finish search todo
 - Bump to 1.8.0
-
 ## [1.7.0] - 2025-03-24
 
 ### 🚀 Features
@@ -325,7 +339,6 @@ All notable changes to this project will be documented in this file.
 
 - Use ktx functions
 - Bump to 1.7.0
-
 ## [1.6.1] - 2025-03-11
 
 ### 📚 Documentation
@@ -336,7 +349,6 @@ All notable changes to this project will be documented in this file.
 ### ⚙️ Miscellaneous Tasks
 
 - Bump to 1.6.1
-
 ## [1.6.0] - 2025-02-25
 
 ### 🚀 Features
@@ -362,7 +374,6 @@ All notable changes to this project will be documented in this file.
 ### ◀️ Revert
 
 - Ci(codeql): disable for dependabot
-
 ## [1.5.2] - 2025-01-22
 
 ### 🐛 Bug Fixes
@@ -372,7 +383,6 @@ All notable changes to this project will be documented in this file.
 ### ⚙️ Miscellaneous Tasks
 
 - Bump to 1.5.2
-
 ## [1.5.1] - 2025-01-22
 
 ### 🐛 Bug Fixes
@@ -397,7 +407,6 @@ All notable changes to this project will be documented in this file.
 - Add codeql.yml
 - Dont schedule codeql
 - Bump to 1.5.1
-
 ## [1.5.0] - 2024-12-19
 
 ### 🚀 Features
@@ -417,7 +426,6 @@ All notable changes to this project will be documented in this file.
 ### ⚙️ Miscellaneous Tasks
 
 - Bump to 1.5.0
-
 ## [1.4.2] - 2024-12-15
 
 ### ⚙️ Miscellaneous Tasks
@@ -428,13 +436,11 @@ All notable changes to this project will be documented in this file.
 - Bump to 1.4.2
 - Bump to 1.4.2
 - Bump to 1.4.2
-
 ## [1.4.1] - 2024-12-14
 
 ### ⚙️ Miscellaneous Tasks
 
 - Bump to 1.4.1
-
 ## [1.4.0] - 2024-12-13
 
 ### 🚀 Features
@@ -473,7 +479,6 @@ All notable changes to this project will be documented in this file.
 ### ⚙️ Miscellaneous Tasks
 
 - Bump to 1.4.0
-
 ## [1.3.0] - 2024-12-11
 
 ### 🚀 Features
@@ -495,7 +500,6 @@ All notable changes to this project will be documented in this file.
 - Restructure metadata
 - Update dependencies
 - Bump to 1.3.0
-
 ## [1.2.2] - 2024-12-08
 
 ### 🐛 Bug Fixes
@@ -514,7 +518,6 @@ All notable changes to this project will be documented in this file.
 
 - Bump to 1.2.2
 - Bump to 1.2.2
-
 ## [1.2.1] - 2024-12-07
 
 ### 🐛 Bug Fixes
@@ -525,7 +528,6 @@ All notable changes to this project will be documented in this file.
 
 - Update dependencies
 - Bump to 1.2.1
-
 ## [1.2.0] - 2024-12-03
 
 ### 🚀 Features
@@ -545,7 +547,6 @@ All notable changes to this project will be documented in this file.
 
 - Remove redundant if statement
 - Bump to 1.2.0
-
 ## [1.1.0] - 2024-12-02
 
 ### 🚀 Features
@@ -573,7 +574,6 @@ All notable changes to this project will be documented in this file.
 - Remove unused function
 - Remove redundant if statement
 - Bump to 1.1.0
-
 ## [1.0.0] - 2024-12-01
 
 ### 🚀 Features
@@ -598,7 +598,6 @@ All notable changes to this project will be documented in this file.
 ### ⚙️ Miscellaneous Tasks
 
 - Bump to 1.0.0
-
 ## [0.7.0] - 2024-11-23
 
 ### 🚀 Features
@@ -622,13 +621,11 @@ All notable changes to this project will be documented in this file.
 ### ⚙️ Miscellaneous Tasks
 
 - Bump to 0.7.0
-
 ## [0.6.1] - 2024-11-20
 
 ### ⚙️ Miscellaneous Tasks
 
 - Bump to 0.6.1
-
 ## [0.6.0] - 2024-11-19
 
 ### 🚀 Features
@@ -642,7 +639,6 @@ All notable changes to this project will be documented in this file.
 ### ⚙️ Miscellaneous Tasks
 
 - Bump to 0.6.0
-
 ## [0.5.0] - 2024-11-18
 
 ### 🚀 Features
@@ -660,7 +656,6 @@ All notable changes to this project will be documented in this file.
 - *(metadata)* Update screenshots
 - Add androidx.navigation dependency
 - Bump to 0.5.0
-
 ## [0.4.0] - 2024-11-14
 
 ### 🚀 Features
@@ -680,7 +675,6 @@ All notable changes to this project will be documented in this file.
 
 - Update dependencies
 - Bump to 0.4.0
-
 ## [0.3.0] - 2024-11-10
 
 ### 🚀 Features
@@ -696,7 +690,6 @@ All notable changes to this project will be documented in this file.
 ### ⚙️ Miscellaneous Tasks
 
 - Bump to 0.3.0
-
 ## [0.2.1] - 2024-11-07
 
 ### ⚡ Performance
@@ -706,7 +699,6 @@ All notable changes to this project will be documented in this file.
 ### ⚙️ Miscellaneous Tasks
 
 - Bump to 0.2.1
-
 ## [0.2.0] - 2024-11-07
 
 ### 🚀 Features
@@ -736,7 +728,6 @@ All notable changes to this project will be documented in this file.
 - *(metadata)* Update screenshots
 - Bump to 0.1.5
 - Bump to 0.2.0
-
 ## [0.1.4] - 2024-11-05
 
 ### 📚 Documentation
@@ -749,8 +740,11 @@ All notable changes to this project will be documented in this file.
 - Initial fastlane data from IzzyOnDroid
 - Restructure repository
 - Bump to 0.1.4
-
 ## [0.1.3] - 2024-11-04
+
+### 💼 Other
+
+- Remove dependenciesInfo from apk/bundle
 
 ### 📚 Documentation
 
@@ -767,19 +761,17 @@ All notable changes to this project will be documented in this file.
 
 - Remove app/release from repo
 - Bump to 0.1.3
-
-### Build
-
-- Remove dependenciesInfo from apk/bundle
-
 ## [0.1.2] - 2024-10-23
 
 ### ⚙️ Miscellaneous Tasks
 
 - Release 0.1.2
 - Release 0.1.2
-
 ## [0.1.1] - 2024-10-23
+
+### 💼 Other
+
+- Add aab
 
 ### 📚 Documentation
 
@@ -788,11 +780,6 @@ All notable changes to this project will be documented in this file.
 ### ⚙️ Miscellaneous Tasks
 
 - Release 0.1.1
-
-### Build
-
-- Add aab
-
 ## [0.1.0] - 2024-10-22
 
 ### 🚀 Features
@@ -819,6 +806,18 @@ All notable changes to this project will be documented in this file.
 - Overflow of old selected Items to new ones
 - Crash when using a downloading file
 - First time launch without internet
+
+### 💼 Other
+
+- Update apk
+- Update apk
+- Update apk
+- Update apk
+- Update apk
+- Update apk
+- Update apk
+- Update apk
+- Update apk
 
 ### 🚜 Refactor
 
@@ -859,17 +858,3 @@ All notable changes to this project will be documented in this file.
 - Init
 - Add license
 - Remove todos
-
-### Build
-
-- Update apk
-- Update apk
-- Update apk
-- Update apk
-- Update apk
-- Update apk
-- Update apk
-- Update apk
-- Update apk
-
-<!-- generated by git-cliff -->

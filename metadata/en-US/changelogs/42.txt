@@ -1,0 +1,12 @@
+- Initial support for Android 17
+- Shows a toast/popup message after a completed backup
+- Fixes inclomplete app translations to fall back to english
+- Updated translations (Russian, Polish)
+
+Improved search functionality:
+- Search for multiple queries, seperated by a "+"
+- Filter out searches with a "~" instead
+- Prepend queries with a "_" to ignore lower-/uppercase letters
+- Prepend queries with a "=" to force exact searches
+- Default set to inexact searches
+--> For simple searches, it's enough to type out some words in the wanted order
