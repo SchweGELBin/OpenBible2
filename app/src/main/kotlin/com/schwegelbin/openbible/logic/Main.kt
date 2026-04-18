@@ -204,16 +204,15 @@ fun sanitizeAbbrev(abbrev: String?): String {
     return abbrev?.replace(Regex("[^a-zA-Z0-9_-]"), "") ?: return ""
 }
 
-fun searchText(context: Context, query: String, abbrev: String, exact: Boolean = true): List<Triple<String, Int, Int>> {
+fun searchText(context: Context, query: String, abbrev: String): List<Triple<String, Int, Int>> {
     val result = mutableListOf(Triple("", -1, -1))
     val bible = deserializeBible(getTranslationPath(context, abbrev)) ?: return result
-    val (inclusions, exclusions) = splitSearchQuery(query, exact)
+    val (inclusions, exclusions) = splitSearchQuery(query)
     bible.books.forEachIndexed { bookIndex, book ->
         book.chapters.forEachIndexed { chapterIndex, chapter ->
             chapter.verses.forEach { (name, _, text) ->
-                val newText = if (exact) text else text.lowercase()
-                val includes = inclusions.all { newText.contains(it) }
-                val excludes = exclusions.any { newText.contains(it) }
+                val includes = inclusions.all { matchSearchQuery(text, it) }
+                val excludes = exclusions.any { matchSearchQuery(text, it) }
                 if (includes && !excludes) result += Triple(
                     "${name}\n${text}",
                     bookIndex,
@@ -225,18 +224,30 @@ fun searchText(context: Context, query: String, abbrev: String, exact: Boolean =
     return result
 }
 
-fun splitSearchQuery(query: String, exact: Boolean): Pair<List<String>, List<String>> {
+fun splitSearchQuery(query: String): Pair<List<String>, List<String>> {
     val inclusions = mutableListOf<String>()
     val exclusions = mutableListOf<String>()
     val prefixes = Pair("+", "~")
-    val pattern = Regex("([${prefixes.first}${prefixes.second}])?([^${prefixes.first}${prefixes.second}]+)")
+    val pattern =
+        Regex("([${prefixes.first}${prefixes.second}])?([^${prefixes.first}${prefixes.second}]+)")
     for (groups in pattern.findAll(query)) {
         val prefix = groups.groupValues[1]
-        var frag = groups.groupValues[2]
-        if (!exact) frag = frag.lowercase().trim()
+        val frag = groups.groupValues[2]
         if (prefix == prefixes.second) exclusions.add(frag) else inclusions.add(frag)
     }
     return Pair(inclusions, exclusions)
+}
+
+fun matchSearchQuery(text: String, query: String): Boolean {
+    return when (query.first()) {
+        '_' -> text.contains(query.drop(1), ignoreCase = true)
+        '=' -> text.contains(query.drop(1), ignoreCase = false)
+        else -> {
+            val cleaner = Regex("[^A-Za-z0-9 ]")
+            text.trim().replace(cleaner, "")
+                .contains(query.trim().replace(cleaner, ""), ignoreCase = true)
+        }
+    }
 }
 
 fun saveDeepLink(context: Context, book: String?, chapter: String?) {
