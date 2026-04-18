@@ -2,23 +2,23 @@
 <resources>
     <string name="about_us">Sobre nós</string>
     <string name="alignment">Alinhamento</string>
-    <string name="alignment_start">Início</string>
     <string name="alignment_justify">Justificado</string>
+    <string name="alignment_start">Início</string>
     <string name="bible_text">Texto Bíblico</string>
     <string name="book">Livro</string>
     <string name="chapter">Capítulo</string>
     <string name="check_at_startup">Atualizar na inicialização</string>
     <string name="close">Fechar</string>
-    <string name="colors">Cores</string>
     <string name="color_scheme">Esquema de Cores</string>
+    <string name="colors">Cores</string>
     <string name="color_theme">Tema de Cores</string>
     <string name="continue_button">Continuar</string>
     <string name="delete">Excluir</string>
     <string name="delete_translation">Excluir Tradução</string>
     <string name="download">Baixar</string>
-    <string name="download_translation">Baixar Tradução</string>
     <string name="downloading_index">Baixando índice, aguarde…</string>
     <string name="downloading_translation">Baixando tradução, aguarde…</string>
+    <string name="download_translation">Baixar Tradução</string>
     <string name="error">ERRO</string>
     <string name="index">Índice</string>
     <string name="needs_files">Este aplicativo precisa baixar um índice, somas de verificação e traduções para funcionar.</string>
@@ -39,30 +39,4 @@
     <string name="theme_system">Sistema</string>
     <string name="translation">Tradução</string>
     <string name="update">Atualizar</string>
-    <string name="horizontal"></string>
-    <string name="font_size"></string>
-    <string name="google_play" translatable="false"></string>
-    <string name="documents"></string>
-    <string name="source_repo" translatable="false"></string>
-    <string name="information"></string>
-    <string name="restore"></string>
-    <string name="search_for_text"></string>
-    <string name="verse_of_the_day"></string>
-    <string name="source_getbible" translatable="false"></string>
-    <string name="name"></string>
-    <string name="preferences"></string>
-    <string name="off"></string>
-    <string name="menu"></string>
-    <string name="contact"></string>
-    <string name="previous"></string>
-    <string name="backup"></string>
-    <string name="vertical"></string>
-    <string name="search"></string>
-    <string name="theme_amoled" translatable="false"></string>
-    <string name="infinite_scroll"></string>
-    <string name="app_name" translatable="false"></string>
-    <string name="bookmarks"></string>
-    <string name="link"></string>
-    <string name="import_additional"></string>
-    <string name="file"></string>
 </resources>

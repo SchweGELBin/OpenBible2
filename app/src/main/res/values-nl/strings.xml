@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="about_us">Over ons</string>
-    <string name="alignment">Uitlijning</string>
-    <string name="alignment_start">Start</string>
     <string name="alignment_justify">Uitvullen</string>
+    <string name="alignment_start">Start</string>
+    <string name="alignment">Uitlijning</string>
     <string name="backup">Back-up</string>
     <string name="bible_text">Bijbeltekst</string>
     <string name="book">Boek</string>
@@ -11,18 +11,18 @@
     <string name="chapter">Hoofdstuk</string>
     <string name="check_at_startup">Bij opstarten bijwerken</string>
     <string name="close">Sluiten</string>
-    <string name="colors">Kleuren</string>
     <string name="color_scheme">Kleurenschema</string>
+    <string name="colors">Kleuren</string>
     <string name="color_theme">Kleurthema</string>
     <string name="contact">Contact</string>
     <string name="continue_button">Doorgaan</string>
-    <string name="delete">Verwijderen</string>
     <string name="delete_translation">Vertaling verwijderen</string>
+    <string name="delete">Verwijderen</string>
     <string name="documents">Documenten</string>
     <string name="download">Downloaden</string>
-    <string name="download_translation">Vertaling downloaden</string>
     <string name="downloading_index">Index wordt gedownload, even geduld…</string>
     <string name="downloading_translation">Vertaling wordt gedownload, even geduld…</string>
+    <string name="download_translation">Vertaling downloaden</string>
     <string name="error">FOUT</string>
     <string name="font_size">Lettergrootte</string>
     <string name="horizontal">Horizontaal</string>
@@ -43,8 +43,8 @@
     <string name="scheme_static">Statisch</string>
     <string name="screen_home">Start</string>
     <string name="screen_read">Lezen</string>
-    <string name="search">Zoeken</string>
     <string name="search_for_text">Zoeken naar tekst</string>
+    <string name="search">Zoeken</string>
     <string name="selection">Selectie</string>
     <string name="settings">Instellingen</string>
     <string name="show_verse_number">Versnummer tonen</string>
@@ -57,12 +57,4 @@
     <string name="update">Bijwerken</string>
     <string name="verse_of_the_day">Vers van de dag</string>
     <string name="vertical">Verticaal</string>
-    <string name="google_play" translatable="false"></string>
-    <string name="source_repo" translatable="false"></string>
-    <string name="source_getbible" translatable="false"></string>
-    <string name="theme_amoled" translatable="false"></string>
-    <string name="app_name" translatable="false"></string>
-    <string name="link"></string>
-    <string name="import_additional"></string>
-    <string name="file"></string>
 </resources>

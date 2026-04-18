@@ -1,8 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="about_us">About us</string>
     <string name="alignment">Alignment</string>
-    <string name="alignment_start">Start</string>
     <string name="alignment_justify">Justify</string>
+    <string name="alignment_start">Start</string>
     <string name="backup">Backup</string>
     <string name="backup_completed">Backup completed</string>
     <string name="bible_text">Bible Text</string>
@@ -11,8 +12,8 @@
     <string name="chapter">Chapter</string>
     <string name="check_at_startup">Update at startup</string>
     <string name="close">Close</string>
-    <string name="colors">Colors</string>
     <string name="color_scheme">Color Scheme</string>
+    <string name="colors">Colors</string>
     <string name="color_theme">Color Theme</string>
     <string name="contact">Contact</string>
     <string name="continue_button">Continue</string>
@@ -20,9 +21,9 @@
     <string name="delete_translation">Delete Translation</string>
     <string name="documents">Documents</string>
     <string name="download">Download</string>
-    <string name="download_translation">Download Translation</string>
     <string name="downloading_index">Downloading Index, please wait…</string>
     <string name="downloading_translation">Downloading Translation, please wait…</string>
+    <string name="download_translation">Download Translation</string>
     <string name="error">ERROR</string>
     <string name="file">File</string>
     <string name="font_size">Font Size</string>
@@ -46,8 +47,8 @@
     <string name="scheme_static">Static</string>
     <string name="screen_home">Home</string>
     <string name="screen_read">Read</string>
-    <string name="search">Search</string>
     <string name="search_for_text">Search for text</string>
+    <string name="search">Search</string>
     <string name="selection">Selection</string>
     <string name="settings">Settings</string>
     <string name="show_verse_number">Show Verse Number</string>

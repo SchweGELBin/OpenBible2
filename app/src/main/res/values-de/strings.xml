@@ -2,8 +2,8 @@
 <resources>
     <string name="about_us">Über uns</string>
     <string name="alignment">Ausrichtung</string>
-    <string name="alignment_start">Start</string>
     <string name="alignment_justify">Blocksatz</string>
+    <string name="alignment_start">Start</string>
     <string name="backup">Backup</string>
     <string name="backup_completed">Backup fertiggestellt</string>
     <string name="bible_text">Bibeltext</string>
@@ -12,8 +12,8 @@
     <string name="chapter">Kapitel</string>
     <string name="check_at_startup">Aktualisiere beim Start</string>
     <string name="close">Schließen</string>
-    <string name="colors">Farben</string>
     <string name="color_scheme">Farbschema</string>
+    <string name="colors">Farben</string>
     <string name="color_theme">Farbthema</string>
     <string name="contact">Kontakt</string>
     <string name="continue_button">Fortfahren</string>
@@ -21,9 +21,9 @@
     <string name="delete_translation">Übersetzung löschen</string>
     <string name="documents">Dokumente</string>
     <string name="download">Herunterladen</string>
-    <string name="download_translation">Übersetzung herunterladen</string>
     <string name="downloading_index">Lädt Index herunter, bitte warten Sie…</string>
     <string name="downloading_translation">Lädt Übersetzung herunter, bitte warten Sie…</string>
+    <string name="download_translation">Übersetzung herunterladen</string>
     <string name="error">ERROR</string>
     <string name="file">Datei</string>
     <string name="font_size">Schriftgröße</string>
@@ -47,8 +47,8 @@
     <string name="scheme_static">Statisch</string>
     <string name="screen_home">Startseite</string>
     <string name="screen_read">Lesen</string>
-    <string name="search">Suchen</string>
     <string name="search_for_text">Nach Text suchen</string>
+    <string name="search">Suchen</string>
     <string name="selection">Auswahl</string>
     <string name="settings">Einstellungen</string>
     <string name="show_verse_number">Zeige Versnummer</string>
@@ -61,9 +61,4 @@
     <string name="update">Aktualisieren</string>
     <string name="verse_of_the_day">Vers des Tages</string>
     <string name="vertical">Vertikal</string>
-    <string name="google_play" translatable="false"></string>
-    <string name="source_repo" translatable="false"></string>
-    <string name="source_getbible" translatable="false"></string>
-    <string name="theme_amoled" translatable="false"></string>
-    <string name="app_name" translatable="false"></string>
 </resources>

@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="about_us">О нас</string>
-    <string name="alignment">Выравнивание</string>
-    <string name="alignment_start">Начать</string>
     <string name="alignment_justify">По ширине</string>
+    <string name="alignment_start">Начать</string>
+    <string name="alignment">Выравнивание</string>
     <string name="backup">Резервная копия</string>
     <string name="bible_text">Текст Библии</string>
-    <string name="book">Книга</string>
     <string name="bookmarks">Закладки</string>
+    <string name="book">Книга</string>
     <string name="chapter">Глава</string>
     <string name="check_at_startup">Обновлять при запуске</string>
     <string name="close">Закрыть</string>
-    <string name="colors">Цвета</string>
     <string name="color_scheme">Цветовая схема</string>
+    <string name="colors">Цвета</string>
     <string name="color_theme">Цветовая тема</string>
     <string name="contact">Контакты</string>
     <string name="continue_button">Продолжить</string>
-    <string name="delete">Удалить</string>
     <string name="delete_translation">Удалить перевод</string>
+    <string name="delete">Удалить</string>
     <string name="documents">Документы</string>
-    <string name="download">Скачать</string>
+    <string name="downloading_index">Идёт загрузка индекса, пожалуйста, подождите…</string>
+    <string name="downloading_translation">Идёт загрузка перевода, пожалуйста, подождите…</string>
     <string name="download_translation">Скачать перевод</string>
+    <string name="download">Скачать</string>
     <string name="error">ОШИБКА</string>
     <string name="file">Файл</string>
     <string name="font_size">Размер шрифта</string>
@@ -44,8 +46,8 @@
     <string name="scheme_static">Статический</string>
     <string name="screen_home">Главная</string>
     <string name="screen_read">Читать</string>
-    <string name="search">Поиск</string>
     <string name="search_for_text">Поиск по тексту</string>
+    <string name="search">Поиск</string>
     <string name="selection">выбор</string>
     <string name="settings">Настройки</string>
     <string name="show_verse_number">Показывать номер стиха</string>
@@ -58,11 +60,4 @@
     <string name="update">Обновить</string>
     <string name="verse_of_the_day">Стих дня</string>
     <string name="vertical">Вертикально</string>
-    <string name="downloading_index">Идёт загрузка индекса, пожалуйста, подождите…</string>
-    <string name="downloading_translation">Идёт загрузка перевода, пожалуйста, подождите…</string>
-    <string name="google_play" translatable="false"/>
-    <string name="source_repo" translatable="false"/>
-    <string name="source_getbible" translatable="false"/>
-    <string name="theme_amoled" translatable="false"/>
-    <string name="app_name" translatable="false"/>
 </resources>
