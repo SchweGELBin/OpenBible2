@@ -5,6 +5,7 @@
     <string name="alignment_justify">Joonda rööpselt</string>
     <string name="alignment_start">Alguses</string>
     <string name="backup">Varunda</string>
+    <string name="backup_completed">Varukoopia on tehtud</string>
     <string name="bible_text">Piiblitekst</string>
     <string name="bookmarks">Järjehoidjad</string>
     <string name="book">Raamat</string>
@@ -60,5 +61,4 @@
     <string name="update">Uuenda</string>
     <string name="verse_of_the_day">Tänase päeva salm</string>
     <string name="vertical">Püstloodis</string>
-    <string name="backup_completed">Varukoopia on tehtud</string>
 </resources>
