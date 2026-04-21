@@ -49,11 +49,10 @@ import androidx.compose.ui.unit.sp
 import com.schwegelbin.openbible.R
 import com.schwegelbin.openbible.logic.ReadTextAlignment
 import com.schwegelbin.openbible.logic.SplitScreen
-import com.schwegelbin.openbible.logic.checkTranslation
 import com.schwegelbin.openbible.logic.getAppName
 import com.schwegelbin.openbible.logic.getChapter
 import com.schwegelbin.openbible.logic.getFontSize
-import com.schwegelbin.openbible.logic.getSelection
+import com.schwegelbin.openbible.logic.getReadSelection
 import com.schwegelbin.openbible.logic.getShowVerseNumbers
 import com.schwegelbin.openbible.logic.getSplitScreen
 import com.schwegelbin.openbible.logic.getTextAlignment
@@ -123,14 +122,13 @@ fun ReadCard(
     isSplitScreen: Boolean
 ) {
     val context = LocalContext.current
-    val selection = remember { mutableStateOf(getSelection(context, isSplitScreen)) }
+    val selection = remember { mutableStateOf(getReadSelection(context, onNavigateToStart, isSplitScreen)) }
     val (abbrev, book, chapter) = selection.value
-    val translation = checkTranslation(context, abbrev, onNavigateToStart, isSplitScreen)
     val showVerseNumbers = remember { mutableStateOf(getShowVerseNumbers(context)) }
     val textAlignment = getTextAlignment(context)
     val (translationName, chapterName, text) = getChapter(
         context,
-        translation,
+        abbrev,
         book,
         chapter,
         showVerseNumbers.value,

@@ -63,7 +63,6 @@ import com.schwegelbin.openbible.logic.getTranslations
 import com.schwegelbin.openbible.logic.getUpdateList
 import com.schwegelbin.openbible.logic.sanitizeAbbrev
 import com.schwegelbin.openbible.logic.saveSelection
-import com.schwegelbin.openbible.logic.setTranslation
 import java.io.File
 import java.io.FileOutputStream
 
@@ -104,7 +103,7 @@ fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean, initialIndex
     val selectMode = remember { mutableStateOf(options[selectedIndex.intValue]) }
 
     fun select(abbrev: String) {
-        val newSelection = setTranslation(context, abbrev, isSplitScreen)
+        val newSelection = saveSelection(context, abbrev, isSplitScreen = isSplitScreen)
         translation.value = newSelection.first
         book.intValue = newSelection.second
         chapter.intValue = newSelection.third

@@ -64,39 +64,19 @@ fun checkForUpdates(context: Context, install: Boolean, translation: String? = n
     return getUpdateList(context, install, translation).isNotEmpty()
 }
 
-fun checkTranslation(
-    context: Context,
-    abbrev: String,
-    onNavigateToStart: () -> Unit,
-    isSplitScreen: Boolean
-): String {
-    if (!getTranslation(context, abbrev).exists() ||
-        deserializeBible(getTranslationPath(context, abbrev)) == null
-    ) {
-        val list = getTranslationList(context).map { it.nameWithoutExtension }
-        if (list.isNotEmpty()) {
-            var newTranslation = abbrev
-            for (item in list) {
-                if (deserializeBible(getTranslationPath(context, item)) != null) {
-                    newTranslation = item
-                    break
-                }
-            }
-            saveSelection(context, newTranslation, isSplitScreen = isSplitScreen)
-            return newTranslation
-        } else onNavigateToStart()
-    }
-    return abbrev
-}
-
 fun checkSelection(
     context: Context,
     selection: Triple<String, Int, Int>
 ): Triple<String, Int, Int> {
     var (abbrev, book, chapter) = selection
     val (books, chapters) = getCount(context, abbrev, book)
-    book = book.coerceIn(0, books)
-    chapter = chapter.coerceIn(0, chapters)
+    if (book > books) {
+        book = 0
+        chapter = 0
+    }
+    if (chapter > chapters) {
+        chapter = 0
+    }
     return Triple(abbrev, book, chapter)
 }
 
@@ -269,30 +249,4 @@ fun saveDeepLink(context: Context, book: String?, chapter: String?) {
     var chapterInt = chapter?.toIntOrNull()
     if (chapterInt == null) chapterInt = 0 else if (chapterInt > 0) chapterInt--
     saveSelection(context, book = bookInt, chapter = chapterInt, isSplitScreen = false)
-}
-
-fun setTranslation(context: Context, abbrev: String, isSplitScreen: Boolean): Triple<String, Int, Int> {
-    var (translation, book, chapter) = getSelection(context, isSplitScreen)
-    translation = abbrev
-
-    val (bookCount, chapterCount) = getCount(
-        context,
-        translation,
-        book
-    )
-    if (book > bookCount) {
-        book = 0
-        chapter = 0
-    }
-    if (chapter > chapterCount) {
-        chapter = 0
-    }
-    saveSelection(
-        context,
-        translation,
-        book,
-        chapter,
-        isSplitScreen
-    )
-    return Triple(translation, book, chapter)
 }

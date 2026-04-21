@@ -246,3 +246,28 @@ fun getBookAbbreviations(): Array<List<String>> {
         listOf("rev", "off")
     )
 }
+
+fun getReadSelection(
+    context: Context,
+    onNavigateToStart: () -> Unit,
+    isSplitScreen: Boolean
+): Triple<String, Int, Int> {
+    val selection = getSelection(context, isSplitScreen)
+    val abbrev = selection.first
+    if (!getTranslation(context, abbrev).exists() ||
+        deserializeBible(getTranslationPath(context, abbrev)) == null
+    ) {
+        val list = getTranslationList(context).map { it.nameWithoutExtension }
+        if (list.isNotEmpty()) {
+            var newTranslation = abbrev
+            for (item in list) {
+                if (deserializeBible(getTranslationPath(context, item)) != null) {
+                    newTranslation = item
+                    break
+                }
+            }
+            return saveSelection(context, newTranslation, isSplitScreen = isSplitScreen)
+        } else onNavigateToStart()
+    }
+    return selection
+}
