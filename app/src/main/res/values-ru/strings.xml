@@ -4,6 +4,7 @@
     <string name="alignment_justify">По ширине</string>
     <string name="alignment_start">Начать</string>
     <string name="alignment">Выравнивание</string>
+    <string name="backup_completed">Резервная копия создана</string>
     <string name="backup">Резервная копия</string>
     <string name="bible_text">Текст Библии</string>
     <string name="bookmarks">Закладки</string>
@@ -60,5 +61,4 @@
     <string name="update">Обновить</string>
     <string name="verse_of_the_day">Стих дня</string>
     <string name="vertical">Вертикально</string>
-    <string name="backup_completed">Резервная копия создана</string>
 </resources>

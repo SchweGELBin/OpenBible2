@@ -4,8 +4,8 @@
     <string name="alignment">Joondumine</string>
     <string name="alignment_justify">Joonda rööpselt</string>
     <string name="alignment_start">Alguses</string>
-    <string name="backup">Varunda</string>
     <string name="backup_completed">Varukoopia on tehtud</string>
+    <string name="backup">Varunda</string>
     <string name="bible_text">Piiblitekst</string>
     <string name="bookmarks">Järjehoidjad</string>
     <string name="book">Raamat</string>

@@ -11,6 +11,7 @@
     <string name="close">Zamknij</string>
     <string name="color_scheme">Kolorystyka</string>
     <string name="colors">Kolory</string>
+    <string name="color_theme">Motyw kolorów</string>
     <string name="contact">Kontakt</string>
     <string name="continue_button">Kontynuuj</string>
     <string name="delete_translation">Usuń tłumaczenie</string>
@@ -30,6 +31,7 @@
     <string name="information">Informacja</string>
     <string name="link">Link</string>
     <string name="menu">Menu</string>
+    <string name="name">Nazwa</string>
     <string name="needs_files">Ta aplikacja potrzebuje indeksu, sum kontrolnych oraz tłumaczeń, aby działać.</string>
     <string name="new_files">Znaleziono aktualizacje tłumaczeń. Czy chcesz je zainstalować?</string>
     <string name="next">Następny</string>
@@ -38,8 +40,10 @@
     <string name="preferences">Preferencje</string>
     <string name="previous">Poprzedni</string>
     <string name="restore">Przywróć</string>
+    <string name="scheme_dynamic">Dynamiczne</string>
     <string name="scheme_static">Statyczne</string>
     <string name="screen_home">Strona główna</string>
+    <string name="screen_read">Czytaj</string>
     <string name="search_for_text">Szukaj tekstu</string>
     <string name="search">Szukaj</string>
     <string name="settings">Ustawienia</string>
@@ -52,8 +56,4 @@
     <string name="update">Aktualizuj</string>
     <string name="verse_of_the_day">Werset dnia</string>
     <string name="vertical">Pionowy</string>
-    <string name="color_theme">Motyw kolorów</string>
-    <string name="name">Nazwa</string>
-    <string name="scheme_dynamic">Dynamiczne</string>
-    <string name="screen_read">Czytaj</string>
 </resources>
