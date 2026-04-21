@@ -54,9 +54,9 @@
     <string name="show_verse_number">Näita salmi numbrit</string>
     <string name="skip">Jäta vahele</string>
     <string name="split_screen">Poolitatud vaade</string>
-    <string name="theme_dark">Tume kujundus</string>
-    <string name="theme_light">Hele kujundus</string>
-    <string name="theme_system">Süsteemi kujundus</string>
+    <string name="theme_dark">Tume</string>
+    <string name="theme_light">Hele</string>
+    <string name="theme_system">Süsteemi</string>
     <string name="translation">Tõlge</string>
     <string name="update">Uuenda</string>
     <string name="verse_of_the_day">Tänase päeva salm</string>
