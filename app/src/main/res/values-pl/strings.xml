@@ -52,4 +52,8 @@
     <string name="update">Aktualizuj</string>
     <string name="verse_of_the_day">Werset dnia</string>
     <string name="vertical">Pionowy</string>
+    <string name="color_theme">Motyw kolorów</string>
+    <string name="name">Nazwa</string>
+    <string name="scheme_dynamic">Dynamiczne</string>
+    <string name="screen_read">Czytaj</string>
 </resources>

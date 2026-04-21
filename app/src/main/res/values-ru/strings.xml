@@ -60,4 +60,5 @@
     <string name="update">Обновить</string>
     <string name="verse_of_the_day">Стих дня</string>
     <string name="vertical">Вертикально</string>
+    <string name="backup_completed">Резервная копия создана</string>
 </resources>
