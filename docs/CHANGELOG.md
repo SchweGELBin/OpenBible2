@@ -1,3 +1,24 @@
+## [3.2.0] - 2026-04-21
+
+### 🚀 Features
+
+- Support per-app language preferences
+
+### 🐛 Bug Fixes
+
+- Out of bounce selection when deleting a translation and switching to a _smaller_ one
+
+### 📚 Documentation
+
+- *(readme)* Use Application component for the translation stats
+
+### ⚙️ Miscellaneous Tasks
+
+- *(translations)* Translate using Weblate (Estonian) (#149)
+- *(translations)* Cleanup color theme strings
+- *(translations)* Update OpenBible/Application (#151)
+- *(translations)* Update OpenBible/Metadata (#152)
+- *(translations)* Sort string values
 ## [3.1.0] - 2026-04-18
 
 ### 🚀 Features
@@ -21,6 +42,7 @@
 - *(translations)* Translate using Weblate (Polish) (#139)
 - Remove workflow auto-merge.yml
 - Target sdk 37
+- Bump to 3.1.0
 
 ### ◀️ Revert
 

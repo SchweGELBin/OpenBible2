@@ -1,0 +1,3 @@
+Support per-app system language
+Update translations (Estonian, Polish, Russian)
+Fix occasionaly crash when deleting a selected translation
