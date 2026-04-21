@@ -1,3 +1,3 @@
 Unterstütze app-spezifische Systemsprache
 Aktualisierte Übersetzungen (Estnisch, Polnisch, Russisch)
-Behebe gelegentlichen Absturz beim löschen einer ausgewählten Übersetzung
+Behebe gelegentlichen Absturz beim Löschen einer ausgewählten Übersetzung
