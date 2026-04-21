@@ -1,0 +1,2 @@
+Aktualizuj tłumaczenia przy uruchomieniu
+Dodaj link do getBible w ustawieniach

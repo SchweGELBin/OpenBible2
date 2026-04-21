@@ -1,0 +1,2 @@
+Opcja zmiany wyrównania tekstu biblijnego
+Dostosowany interfejs użytkownika (odstępy, szerokość itp.)

@@ -1,0 +1,2 @@
+Automatyczne odświeżanie schematu kolorów po zmianie ustawień
+Motyw AMOLED obsługuje już dynamiczne kolory
