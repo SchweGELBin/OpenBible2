@@ -1,0 +1,2 @@
+Przeniesiono ekran główny do ekranu wyboru u góry ekranu czytania
+Dodano sekcję „Pierwsze kroki”
