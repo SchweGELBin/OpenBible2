@@ -252,22 +252,18 @@ fun getReadSelection(
     onNavigateToStart: () -> Unit,
     isSplitScreen: Boolean
 ): Triple<String, Int, Int> {
-    val selection = getSelection(context, isSplitScreen)
-    val abbrev = selection.first
+    var (abbrev, book, chapter) = getSelection(context, isSplitScreen)
     if (!getTranslation(context, abbrev).exists() ||
         deserializeBible(getTranslationPath(context, abbrev)) == null
     ) {
         val list = getTranslationList(context).map { it.nameWithoutExtension }
-        if (list.isNotEmpty()) {
-            var newTranslation = abbrev
-            for (item in list) {
-                if (deserializeBible(getTranslationPath(context, item)) != null) {
-                    newTranslation = item
-                    break
-                }
+        if (list.isEmpty()) onNavigateToStart()
+        for (item in list) {
+            if (deserializeBible(getTranslationPath(context, item)) != null) {
+                abbrev = item
+                break
             }
-            return saveSelection(context, newTranslation, isSplitScreen = isSplitScreen)
-        } else onNavigateToStart()
+        }
     }
-    return selection
+    return saveSelection(context, abbrev, book, chapter, isSplitScreen)
 }
