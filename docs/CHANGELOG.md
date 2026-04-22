@@ -1,3 +1,12 @@
+## [3.2.1] - 2026-04-22
+
+### 🐛 Bug Fixes
+
+- Always fix out of bounce selection
+
+### ⚙️ Miscellaneous Tasks
+
+- *(translations)* Fix typo in metadata/de/changelogs/43.txt
 ## [3.2.0] - 2026-04-21
 
 ### 🚀 Features
@@ -19,6 +28,7 @@
 - *(translations)* Update OpenBible/Application (#151)
 - *(translations)* Update OpenBible/Metadata (#152)
 - *(translations)* Sort string values
+- Bump to 3.2.0
 ## [3.1.0] - 2026-04-18
 
 ### 🚀 Features
