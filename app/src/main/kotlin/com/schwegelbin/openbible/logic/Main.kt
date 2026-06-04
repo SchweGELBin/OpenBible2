@@ -189,7 +189,7 @@ fun bytesToHex(bytes: ByteArray): String {
 }
 
 fun sanitizeAbbrev(abbrev: String?): String {
-    return abbrev?.replace(Regex("[^a-zA-Z0-9_-]"), "") ?: return ""
+    return abbrev?.replace(Regex("[^a-zA-Z0-9_-]"), "") ?: ""
 }
 
 fun searchText(context: Context, query: String, abbrev: String): List<Triple<String, Int, Int>> {

@@ -113,7 +113,7 @@ fun getAppName(name: String, primary: Color, secondary: Color, tertiary: Color):
 }
 
 fun getList(context: Context, relPath: String = ""): Array<File> {
-    return File(getExternalPath(context, relPath)).listFiles() ?: return emptyArray()
+    return File(getExternalPath(context, relPath)).listFiles() ?: emptyArray()
 }
 
 fun getTranslationList(context: Context, showCustom: Boolean? = null): Array<File> {
