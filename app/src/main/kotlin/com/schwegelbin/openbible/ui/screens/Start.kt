@@ -44,6 +44,7 @@ import com.schwegelbin.openbible.logic.restoreBackup
 import com.schwegelbin.openbible.logic.saveIndex
 import com.schwegelbin.openbible.logic.saveSelection
 import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.milliseconds
 
 @Composable
 fun StartScreen(onNavigateToRead: () -> Unit) {
@@ -164,7 +165,7 @@ fun WaitForFile(
     LaunchedEffect(Unit) {
         var counter: Long = 0
         while (counter < maxSeconds * updateInterval) {
-            delay(updateInterval)
+            delay(updateInterval.milliseconds)
             if (deserialize(file) != null) {
                 onLoaded()
                 break
