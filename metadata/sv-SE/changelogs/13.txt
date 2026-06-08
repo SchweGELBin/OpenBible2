@@ -1,0 +1,2 @@
+Refaktorera kod
+Visa/dölj versnummer
