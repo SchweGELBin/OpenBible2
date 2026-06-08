@@ -1,12 +1,12 @@
-- Initiale Unterstützung für Android 17
-- Zeige eine Toast/Pop-Up Nachricht nach der Fertigstellung eines Backups
-- Behebung von unvollständigen App-Übersetzungen durch das Nutzen der englischen Variante
-- Aktualisieren von Übersetzungen (Russisch, Polnisch)
+- Android 17 ist unterstützt
+- Zeigt Toast-/Popup-Nachricht nach erfolgreichem Backup
+- Unvollständige Übersetzungen: Fallback auf Englisch
+- Aktualisierte Sprachen (Russisch, Polnisch)
 
-Verbesserte Such-Funktionalität:
-- Suche nach mehreren Begriffen, seperiert mit einem "+"
-- Begriffe können mithilfe des "~" stattdessen herausgefiltert werden
-- Das Voransetzen eines "_" lässt Groß- und Kleinschreibung ignorieren
-- Das Voransetzen eines "=" lässt eine exakte Suche starten
-- Standardmäßig wird nach ungenauen Ähnlichkeiten gesucht
---> Für einfache Suchen ist es genug, die einzelnen Wörter in der gewünschten Reihenfolge zu schreiben
+Verbesserte Suche:
+- Suchbegriffe sind mit „+“ kombinierbar
+- Mit „~“ lassen sich Begriffe ausschließen
+- Das Voranstellen von „_“ ignoriert Groß-/Kleinschreibung
+- Das Voransetzen eines „=“ erzwingt eine exakte Suche
+- Standard: Ungenaue Suche
+--> Für einfache Suchen reichen Wörter in gewünschter Reihenfolge
