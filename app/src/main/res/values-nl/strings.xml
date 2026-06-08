@@ -57,4 +57,6 @@
     <string name="update">Bijwerken</string>
     <string name="verse_of_the_day">Vers van de dag</string>
     <string name="vertical">Verticaal</string>
+    <string name="backup_completed">Back-up voltooid</string>
+    <string name="file">Bestand</string>
 </resources>
