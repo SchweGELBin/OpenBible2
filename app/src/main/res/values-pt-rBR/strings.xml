@@ -10,15 +10,15 @@
     <string name="check_at_startup">Atualizar na inicialização</string>
     <string name="close">Fechar</string>
     <string name="color_scheme">Esquema de Cores</string>
-    <string name="colors">Cores</string>
     <string name="color_theme">Tema de Cores</string>
+    <string name="colors">Cores</string>
     <string name="continue_button">Continuar</string>
     <string name="delete">Excluir</string>
     <string name="delete_translation">Excluir Tradução</string>
     <string name="download">Baixar</string>
+    <string name="download_translation">Baixar Tradução</string>
     <string name="downloading_index">Baixando índice, aguarde…</string>
     <string name="downloading_translation">Baixando tradução, aguarde…</string>
-    <string name="download_translation">Baixar Tradução</string>
     <string name="error">ERRO</string>
     <string name="index">Índice</string>
     <string name="needs_files">Este aplicativo precisa baixar um índice, somas de verificação e traduções para funcionar.</string>
