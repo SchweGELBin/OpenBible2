@@ -1,0 +1,8 @@
+Funktioner
+- Visa översättningsinformation
+- Säkerhetskopiera data
+- Horisontell delad skärm
+- Byt till nästa/föregående kapitel
+
+Buggfixar
+- Återgå till nedladdning av översättning vid avbrott

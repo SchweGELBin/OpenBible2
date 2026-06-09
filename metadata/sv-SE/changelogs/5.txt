@@ -1,0 +1,1 @@
+Sänk jdk från version 22 till 21
