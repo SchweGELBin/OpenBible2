@@ -67,7 +67,7 @@ fun getChapter(
         deserializeBible(getTranslationPath(context, abbrev)) ?: return Triple(error, error, "")
     var text = ""
     bible.books[book].chapters[chapter].verses.forEach { verse ->
-        text += if (showVerseNumbers) "${verse.verse} ${verse.text}".trim() + "\n"
+        text += if (showVerseNumbers) "${verse.verse} ${verse.text}".trim() + "<br>"
         else verse.text
     }
     if (showVerseNumbers && text.isNotEmpty()) text = text.dropLast(1)

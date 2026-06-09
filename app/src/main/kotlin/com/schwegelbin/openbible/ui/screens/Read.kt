@@ -42,6 +42,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.fromHtml
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -197,7 +199,7 @@ fun ReadCard(
                 ReadTextAlignment.Start -> {
                     SelectionContainer {
                         Text(
-                            text = text,
+                            text = AnnotatedString.fromHtml(text).toString(),
                             modifier = textMod,
                             fontSize = (textScale.floatValue * textStyle.fontSize.value).sp,
                             lineHeight = (textScale.floatValue * textStyle.lineHeight.value).sp
@@ -207,7 +209,7 @@ fun ReadCard(
 
                 ReadTextAlignment.Justify -> {
                     Text(
-                        text = text,
+                        text = AnnotatedString.fromHtml(text).toString(),
                         modifier = textMod,
                         fontSize = (textScale.floatValue * textStyle.fontSize.value).sp,
                         lineHeight = (textScale.floatValue * textStyle.lineHeight.value).sp,
