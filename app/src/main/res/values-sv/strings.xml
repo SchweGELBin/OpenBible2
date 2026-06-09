@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="about_us">Om oss</string>
-    <string name="information">information</string>
-    <string name="link">länk</string>
-    <string name="name">namn</string>
-    <string name="file">fil</string>
-    <string name="next">nästa</string>
+    <string name="information">Information</string>
+    <string name="link">Länk</string>
+    <string name="name">Namn</string>
+    <string name="file">Fil</string>
+    <string name="next">Nästa</string>
     <string name="download_translation">Ladda ner översättning</string>
-    <string name="chapter">kapitel</string>
+    <string name="chapter">Kapitel</string>
     <string name="book">Bok</string>
     <string name="alignment_start">Börja</string>
     <string name="contact">Kontakt</string>
     <string name="continue_button">Fortsätta</string>
     <string name="delete">Ta bort</string>
-    <string name="bookmarks">bokmärken</string>
+    <string name="bookmarks">Bokmärken</string>
     <string name="bible_text">Bibeltext</string>
     <string name="close">Stäng</string>
     <string name="check_at_startup">Uppdatera vid start</string>
