@@ -1,0 +1,13 @@
+Fehlerbehebungen:
+- Behebung eines Formatfehlers in der Young's Literal Translation
+- Hinzufügen von Leerzeichen nach dem Ende eines Verses, wenn Versnummern nicht angezeigt werden
+
+Aktualisierte Übersetzungen:
+- Polnisch von @Nieznany237
+- Russisch von @Xapitonov
+- Niederländisch von @axelssondaniel
+- Deutsch von @axelssondaniel
+
+Neue Übersetzungen:
+- Portugiesisch von @SantosSi
+- Schwedisch von @axelssondaniel

@@ -1,3 +1,31 @@
+## [3.2.2] - 2026-06-09
+
+### 🐛 Bug Fixes
+
+- Support html in Bible text
+- Add spaces after verses when not showing verse numbers
+
+### 🚜 Refactor
+
+- Exclude v26 from mipmap directory
+- Explicity use milliconds in updateInterval
+- Remove redundant returns
+
+### 📚 Documentation
+
+- *(security)* Format table
+
+### ⚙️ Miscellaneous Tasks
+
+- *(translations)* Translate using Weblate (Polish) (#153)
+- *(translations)* Translate using Weblate (Russian) (#159)
+- *(translations)* Add translation using Weblate (Portuguese) (#164)
+- Add description to sign input
+- *(translations)* Update OpenBible/Application (#165)
+- *(translations)* Update OpenBible/Metadata (#166)
+- *(translations)* Order strings by ASCII
+- *(translations)* Update Swedish translation
+- Use newer onTransformation function
 ## [3.2.1] - 2026-04-22
 
 ### 🐛 Bug Fixes
@@ -7,6 +35,7 @@
 ### ⚙️ Miscellaneous Tasks
 
 - *(translations)* Fix typo in metadata/de/changelogs/43.txt
+- Bump to 3.2.1
 ## [3.2.0] - 2026-04-21
 
 ### 🚀 Features

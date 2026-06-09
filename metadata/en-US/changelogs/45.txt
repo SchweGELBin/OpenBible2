@@ -1,0 +1,13 @@
+Bug Fixes:
+- Fixed formatting issue in Young's Literal Translation
+- Added spaces after verses when not showing verse numbers
+
+Updated Translations:
+- Polish by @Nieznany237
+- Russian by @Xapitonov
+- Dutch by @axelssondaniel
+- German by @axelssondaniel
+
+New Translations:
+- Portuguese by @SantosSi
+- Swedish by @axelssondaniel
