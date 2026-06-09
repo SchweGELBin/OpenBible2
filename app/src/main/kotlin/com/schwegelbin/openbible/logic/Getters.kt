@@ -68,9 +68,9 @@ fun getChapter(
     var text = ""
     bible.books[book].chapters[chapter].verses.forEach { verse ->
         text += if (showVerseNumbers) "${verse.verse} ${verse.text}".trim() + "<br>"
-        else verse.text
+        else verse.text.trim() + " "
     }
-    if (showVerseNumbers && text.isNotEmpty()) text = text.dropLast(1)
+    if (text.isNotEmpty()) text = text.dropLast(1)
     return Triple(bible.translation, bible.books[book].chapters[chapter].name, text)
 }
 
