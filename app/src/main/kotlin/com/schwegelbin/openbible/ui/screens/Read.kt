@@ -140,7 +140,7 @@ fun ReadCard(
     var outer = mod
     val fontSize = getFontSize(context)
     val textScale = remember { mutableFloatStateOf(fontSize.start) }
-    val zoomState = rememberTransformableState { zoomChange, _, _ ->
+    val zoomState = rememberTransformableState { _, zoomChange, _, _ ->
         textScale.floatValue =
             min(max(textScale.floatValue * zoomChange, fontSize.start), fontSize.endInclusive)
     }
