@@ -37,6 +37,7 @@
     <string name="next">Nästa</string>
     <string name="notifications">Aviseringar</string>
     <string name="preferences">Preferenser</string>
+    <string name="previous">Föregående</string>
     <string name="restore">Återställa</string>
     <string name="scheme_dynamic">Dynamisk</string>
     <string name="scheme_static">Statisk</string>
