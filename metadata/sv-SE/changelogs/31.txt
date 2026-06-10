@@ -1,0 +1,8 @@
+Gjorde översättningen på lässkärmen klickbar så att du kan byta översättning direkt
+
+Uppdaterade användargränssnittet i Inställningar och ersatte kryssrutor med reglage
+
+Lade till en möjlighet att ange intervallet för teckenstorlek i Inställningar:
+- Standard: Standardstorlek
+- Min: Minsta teckenstorlek vid zoomning
+- Max: Största teckenstorlek vid zoomning

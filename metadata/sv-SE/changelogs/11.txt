@@ -1,0 +1,2 @@
+Laddar automatiskt om färgschemat när det ändras
+Amoled-temat har nu stöd för dynamiska färger

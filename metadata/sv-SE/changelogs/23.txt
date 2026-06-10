@@ -1,0 +1,2 @@
+Förbättrat användargränssnitt vid val av översättning
+Möjlighet att visa en avisering vid nedladdning av filer

@@ -1,0 +1,3 @@
+- Förbättrad justering av boknamn
+- Menyfärgen matchar nu bakgrundsfärgen
+- Uppdaterade beroenden

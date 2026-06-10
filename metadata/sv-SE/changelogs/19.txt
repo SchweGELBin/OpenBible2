@@ -1,0 +1,2 @@
+Uppdaterar översättningar vid uppstart
+Lade till en länk till getBible i Inställningar

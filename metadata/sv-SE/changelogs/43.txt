@@ -1,0 +1,3 @@
+* Stöd för systemspråk per app
+* Uppdaterade översättningar (estniska, polska, ryska)
+* Åtgärdade en krasch som ibland kunde uppstå när en vald översättning togs bort

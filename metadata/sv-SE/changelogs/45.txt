@@ -1,0 +1,13 @@
+Buggfixar
+- Åtgärdade ett formateringsproblem i Young's Literal Translation
+- Lade till mellanslag efter verser när versnummer inte visas
+
+Uppdaterade översättningar
+- Polska av @Nieznany237
+- Ryska av @Xapitonov
+- Nederländska av @axelssondaniel
+- Tyska av @axelssondaniel
+
+Nya översättningar:
+- Portugisiska av @SantosSi
+- Svenska av @axelssondaniel

@@ -1,0 +1,7 @@
+Felkorrigeringar:
+- Tillbaka-knappen stänger appen på lässkärmen
+- Boken hamnar utanför skärmen vid språkvalsskärmen
+
+Förbättringar:
+- Uppdaterade beroenden
+- Automatisering i repositoriet
