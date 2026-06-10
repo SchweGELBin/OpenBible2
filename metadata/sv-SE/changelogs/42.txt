@@ -1,0 +1,12 @@
+- Inledande stöd för Android 17
+- Visar ett meddelande efter slutförd säkerhetskopiering
+- Ofullständiga appöversättningar faller nu tillbaka till engelska
+- Uppdaterade översättningar (ryska, polska)
+
+Förbättrad sökfunktion:
+- Sök efter flera termer, separerade med "+"
+- Filtrera bort träffar med "~"
+- Inled med "_" för att ignorera versaler/gemener
+- Inled med "=" för exakt sökning
+- Standardsökning är inexakt
+--> För enkla sökningar räcker några ord i önskad ordning

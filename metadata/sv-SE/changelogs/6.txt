@@ -1,0 +1,2 @@
+Uppdatera gränssnittet på huvudskärmen (titel och läsikon)
+Uppdatera beroenden

@@ -1,0 +1,15 @@
+Nya funktioner
+- Lade till en kontaktknapp i Inställningar
+- Flyttade hanteringen av översättningar från Inställningar till urvalsskärmen
+- Förbättrad hantering av översättningar
+
+Buggfixar
+- Det går inte längre att ta bort den sista översättningen
+- Förbättrad reservmekanism för trasiga översättningar (t.ex. ofullständigt nedladdade översättningar)
+
+Dokumentation
+- Uppdaterade den korta och den fullständiga beskrivningen
+
+Övrigt
+- Uppdaterade beroenden
+- Uppdaterade länkar till getBible

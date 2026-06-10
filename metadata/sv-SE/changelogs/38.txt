@@ -1,0 +1,10 @@
+Lade till appöversättningar för:
+- Nederländska (av Thomas Boom)
+- Estniska (av Priit Jõerüüt)
+- Polska (av TC0452)
+
+Du kan hjälpa till med översättningar via Weblate
+
+---
+Du kan nu importera översättningar från filer
+Översättningar som innehåller apokryferna har tagits bort

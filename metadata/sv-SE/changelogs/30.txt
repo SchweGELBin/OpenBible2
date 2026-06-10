@@ -1,0 +1,3 @@
+Uppdaterade beroenden
+Förbättrade byggflödet
+Automatiska releaser

@@ -1,0 +1,8 @@
+Uppdaterade beroenden
+Förbättrad prestanda (uppstartstid och översättningstid)
+
+Nytt:
+- Rullgardinsmeny
+- Sökskärm
+- Nypa för att zooma
+- Dubbelklicka för att zooma

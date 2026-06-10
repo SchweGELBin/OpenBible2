@@ -1,0 +1,3 @@
+Stöd för att öppna en specifik bok och ett specifikt kapitel via djup länkar
+Nya knappfärger
+Övriga buggfixar och förbättringar

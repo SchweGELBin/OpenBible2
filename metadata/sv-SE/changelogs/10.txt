@@ -1,0 +1,2 @@
+Alternativ för att ändra bibeltextens justering
+Förbättrat gränssnitt (padding, bredder m.m.)

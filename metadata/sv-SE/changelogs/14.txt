@@ -1,0 +1,2 @@
+Flyttade startskärmen till urvalsskärmen högst upp på lässkärmen
+Lade till Kom igång

@@ -1,0 +1,8 @@
+OpenBible strävar efter att vara en öppen, enkel och lättviktig Android-app för att läsa Bibeln utan några ytterligare inslag. Det innebär att appen endast innehåller Bibeln och inte sådant som avsnittsrubriker, kommentarer, läsplaner eller tips.
+
+OpenBible låter dig ladda ner Bibeln på många olika språk och i många olika översättningar. Appen strävar efter att hålla dessa översättningar uppdaterade för att åtgärda formateringsproblem och liknande fel.
+Du kan välja översättning, bok och kapitel eller hitta verser genom att söka i deras innehåll.
+Appen låter dig anpassa din läsupplevelse genom färgteman, färgscheman, textjustering, delat skärmläge, teckenstorlek och visning av versnummer.
+Dessa inställningar följer som standard dina systeminställningar för att minska behovet av manuella justeringar.
+När du läser kan du nypa på skärmen eller dubbeltrycka för att tillfälligt ändra teckenstorleken. Du kan även markera text för att kopiera eller dela den.
+Dina inställningar, val och översättningar sparas och kan säkerhetskopieras för extra bekvämlighet.

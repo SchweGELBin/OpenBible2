@@ -1,0 +1,7 @@
+Funktioner:
+- Ny statisk färgdesign
+- Länk till Play Store i inställningarna
+- Interna ändringar
+
+Felkorrigeringar:
+- Inställningarna stängdes när man valde ett färgtema för första gången

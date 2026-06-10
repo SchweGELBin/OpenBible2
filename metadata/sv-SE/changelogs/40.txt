@@ -1,0 +1,2 @@
+Åtgärdat potentiella krascher och säkerhetsbrister (av EthnTuttle)
+Uppdaterad rysk översättning (av Xapitonov)
