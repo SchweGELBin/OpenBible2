@@ -24,10 +24,13 @@
     <string name="download_translation">Ladda ner översättning</string>
     <string name="downloading_index">Laddar ner index, vänta…</string>
     <string name="downloading_translation">Laddar ner översättning, vänta…</string>
+    <string name="error">FEL</string>
     <string name="file">Fil</string>
     <string name="font_size">Teckenstorlek</string>
     <string name="horizontal">Horisontell</string>
+    <string name="import_additional">Importera fler</string>
     <string name="index">Index</string>
+    <string name="infinite_scroll">Oändlig rullning</string>
     <string name="information">Information</string>
     <string name="link">Länk</string>
     <string name="menu">Meny</string>
@@ -36,6 +39,7 @@
     <string name="new_files">Uppdateringar för översättningar har hittats. Vill du installera dem?</string>
     <string name="next">Nästa</string>
     <string name="notifications">Aviseringar</string>
+    <string name="off">Av</string>
     <string name="preferences">Preferenser</string>
     <string name="previous">Föregående</string>
     <string name="restore">Återställa</string>
@@ -45,20 +49,16 @@
     <string name="screen_read">Läsa</string>
     <string name="search">Sök</string>
     <string name="search_for_text">Sök efter text</string>
+    <string name="selection">Urval</string>
     <string name="settings">Inställningar</string>
+    <string name="show_verse_number">Visa versnummer</string>
     <string name="skip">Hoppa över</string>
     <string name="split_screen">Delad skärm</string>
     <string name="theme_dark">Mörkt</string>
     <string name="theme_light">Ljust</string>
+    <string name="theme_system">System</string>
     <string name="translation">Översättning</string>
     <string name="update">Uppdatera</string>
-    <string name="error">FEL</string>
-    <string name="import_additional">Importera fler</string>
-    <string name="infinite_scroll">Oändlig rullning</string>
-    <string name="off">Av</string>
-    <string name="selection">Urval</string>
-    <string name="show_verse_number">Visa versnummer</string>
-    <string name="theme_system">System</string>
     <string name="verse_of_the_day">Dagens vers</string>
     <string name="vertical">Vertikal</string>
 </resources>
