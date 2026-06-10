@@ -2,7 +2,7 @@
 <resources>
     <string name="about_us">Om oss</string>
     <string name="alignment">Justering</string>
-    <string name="alignment_justify">Blockjustering</string>
+    <string name="alignment_justify">Justera</string>
     <string name="alignment_start">Börja</string>
     <string name="backup">Säkerhetskopia</string>
     <string name="backup_completed">Säkerhetskopiering slutförd</string>
@@ -20,7 +20,7 @@
     <string name="delete">Ta bort</string>
     <string name="delete_translation">Ta bort översättning</string>
     <string name="documents">Dokument</string>
-    <string name="download">Ladda ner</string>
+    <string name="download">Nerladdning</string>
     <string name="download_translation">Ladda ner översättning</string>
     <string name="downloading_index">Laddar ner index, vänta…</string>
     <string name="downloading_translation">Laddar ner översättning, vänta…</string>
@@ -52,4 +52,13 @@
     <string name="theme_light">Ljust</string>
     <string name="translation">Översättning</string>
     <string name="update">Uppdatera</string>
+    <string name="error">FEL</string>
+    <string name="import_additional">Importera fler</string>
+    <string name="infinite_scroll">Oändlig rullning</string>
+    <string name="off">Av</string>
+    <string name="selection">Urval</string>
+    <string name="show_verse_number">Visa versnummer</string>
+    <string name="theme_system">System</string>
+    <string name="verse_of_the_day">Dagens vers</string>
+    <string name="vertical">Vertikal</string>
 </resources>
