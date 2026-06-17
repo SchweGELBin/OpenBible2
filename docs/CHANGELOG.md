@@ -35,7 +35,6 @@
 ### ⚙️ Miscellaneous Tasks
 
 - *(translations)* Fix typo in metadata/de/changelogs/43.txt
-- Bump to 3.2.1
 ## [3.2.0] - 2026-04-21
 
 ### 🚀 Features
@@ -57,7 +56,6 @@
 - *(translations)* Update OpenBible/Application (#151)
 - *(translations)* Update OpenBible/Metadata (#152)
 - *(translations)* Sort string values
-- Bump to 3.2.0
 ## [3.1.0] - 2026-04-18
 
 ### 🚀 Features
@@ -81,7 +79,6 @@
 - *(translations)* Translate using Weblate (Polish) (#139)
 - Remove workflow auto-merge.yml
 - Target sdk 37
-- Bump to 3.1.0
 
 ### ◀️ Revert
 
@@ -91,10 +88,6 @@
 ### ⚡ Performance
 
 - Deprecate fixLegacy function
-
-### ⚙️ Miscellaneous Tasks
-
-- Bump to 3.0.3
 
 ### ◀️ Revert
 
@@ -117,7 +110,6 @@
 ### ⚙️ Miscellaneous Tasks
 
 - *(translations)* Translate using Weblate (Russian) (#135)
-- Bump to 3.0.2
 ## [3.0.1] - 2026-02-05
 
 ### ⚙️ Miscellaneous Tasks
@@ -129,7 +121,6 @@
 - *(translations)* Translate using Weblate (Russian) (#127)
 - *(translations)* Translate using Weblate (Russian) (#129)
 - *(translations)* Translate using Weblate (Russian) (#128)
-- Bump to 3.0.1
 ## [3.0.0] - 2026-02-02
 
 ### 🚀 Features
@@ -171,7 +162,6 @@
 - *(translations)* Translate using Weblate (German) (#118)
 - *(gitignore)* Add .idea/deviceManager.xml
 - *(translations)* Update OpenBible/Application (#120)
-- Bump to 3.0.0
 
 ### ◀️ Revert
 
@@ -189,10 +179,6 @@
 ### 🎨 Styling
 
 - Cleanup app/build.gradle.kts
-
-### ⚙️ Miscellaneous Tasks
-
-- Bump to 2.1.2
 ## [2.1.1] - 2025-11-20
 
 ### 🐛 Bug Fixes
@@ -204,10 +190,6 @@
 ### ⚡ Performance
 
 - Simplify checkSelection
-
-### ⚙️ Miscellaneous Tasks
-
-- Bump to 2.1.1
 ## [2.1.0] - 2025-11-19
 
 ### 🚀 Features
@@ -228,7 +210,6 @@
 - Update tagetApi to match targetSdk
 - Use droplast instead of substring in getChapter
 - Remove unused imports
-- Bump to 2.1.0
 ## [2.0.0] - 2025-09-18
 
 ### 🚀 Features
@@ -244,6 +225,11 @@
 - Selection not showing available translations of installed languages
 - Create fallbacks for fallbacks for translations
 
+### 🎨 Styling
+
+- Cleanup Icon syntax
+- Cleanup elevation syntax
+
 ### 📚 Documentation
 
 - *(metadata)* Update short and full descriptions
@@ -252,21 +238,11 @@
 - *(metadata, readme)* Fix another typo
 - *(readme)* Format table
 
-### 🎨 Styling
-
-- Cleanup Icon syntax
-- Cleanup elevation syntax
-
 ### ⚙️ Miscellaneous Tasks
 
 - Remove unnecessary val
 - Update getbible link (getbible.net -> getbible.life)
-- Bump to 2.0.0
 ## [1.9.2] - 2025-08-20
-
-### ⚙️ Miscellaneous Tasks
-
-- Bump to 1.9.2
 
 ### ◀️ Revert
 
@@ -281,10 +257,6 @@
 ### 📚 Documentation
 
 - *(metadata)* Add one missing but added feature to changelog 31 (1.9.0)
-
-### ⚙️ Miscellaneous Tasks
-
-- Bump to 1.9.1
 ## [1.9.0] - 2025-07-18
 
 ### 🚀 Features
@@ -309,7 +281,6 @@
 ### ⚙️ Miscellaneous Tasks
 
 - Update deprecated kotlin compilerOptions
-- Bump to 1.9.0
 ## [1.8.1] - 2025-06-12
 
 ### 📚 Documentation
@@ -331,7 +302,6 @@
 - *(dependabot)* Add github-actions
 - *(build)* Inherit secret
 - *(release)* Fix release body
-- Bump to 1.8.1
 ## [1.8.0] - 2025-05-09
 
 ### 🚀 Features
@@ -348,15 +318,15 @@
 - Old dirs not deleting
 - Back gesture blocked by search bar
 
-### 🚜 Refactor
-
-- Split shared prefs logic to seperat file
-
 ### ⚡ Performance
 
 - Automatically calculate shasum
 - Improve startup logic
 - Reorder startup checks
+
+### 🚜 Refactor
+
+- Split shared prefs logic to seperat file
 
 ### ⚙️ Miscellaneous Tasks
 
@@ -368,7 +338,6 @@
 - Change dependabot intervall from weekly to monthly
 - Close menu on click
 - Finish search todo
-- Bump to 1.8.0
 ## [1.7.0] - 2025-03-24
 
 ### 🚀 Features
@@ -383,10 +352,6 @@
 
 - Return to download translation screen when no translation found
 
-### 📚 Documentation
-
-- *(license)* Bump copyright date
-
 ### ⚡ Performance
 
 - Improve translation information interface
@@ -396,20 +361,19 @@
 - Reformat and cleanup
 - Reformat
 
+### 📚 Documentation
+
+- *(license)* Bump copyright date
+
 ### ⚙️ Miscellaneous Tasks
 
 - Use ktx functions
-- Bump to 1.7.0
 ## [1.6.1] - 2025-03-11
 
 ### 📚 Documentation
 
 - *(strings)* Add PT-BR (#37)
 - *(strings)* Make some keys untranslatable
-
-### ⚙️ Miscellaneous Tasks
-
-- Bump to 1.6.1
 ## [1.6.0] - 2025-02-25
 
 ### 🚀 Features
@@ -430,7 +394,6 @@
 - *(auto-merge)* Fix last commit
 - *(auto-merge)* Squash instead if merge
 - *(codeql)* Disable for dependabot
-- Bump to 1.6.0
 
 ### ◀️ Revert
 
@@ -440,10 +403,6 @@
 ### 🐛 Bug Fixes
 
 - Selecting smaller translation at first launch
-
-### ⚙️ Miscellaneous Tasks
-
-- Bump to 1.5.2
 ## [1.5.1] - 2025-01-22
 
 ### 🐛 Bug Fixes
@@ -452,22 +411,21 @@
 - Book out of bounce at language selection
 - Return right number of chapters
 
-### 📚 Documentation
-
-- Add issue templates
-- Add SECURITY.md
-
 ### 🎨 Styling
 
 - Reformat and cleanup
 - Reformat and cleanup
+
+### 📚 Documentation
+
+- Add issue templates
+- Add SECURITY.md
 
 ### ⚙️ Miscellaneous Tasks
 
 - Add dependabot.yml
 - Add codeql.yml
 - Dont schedule codeql
-- Bump to 1.5.1
 ## [1.5.0] - 2024-12-19
 
 ### 🚀 Features
@@ -475,33 +433,20 @@
 - Toggle download notification visibility
 - Display language of translations
 
-### 📚 Documentation
-
-- Update changelog
-- Add GitHub badge
-
 ### 🎨 Styling
 
 - Reformat
 
-### ⚙️ Miscellaneous Tasks
+### 📚 Documentation
 
-- Bump to 1.5.0
+- Update changelog
+- Add GitHub badge
 ## [1.4.2] - 2024-12-15
 
 ### ⚙️ Miscellaneous Tasks
 
 - Add build workflow
-- Bump to 1.4.2
 - *(build)* Update apk path
-- Bump to 1.4.2
-- Bump to 1.4.2
-- Bump to 1.4.2
-## [1.4.1] - 2024-12-14
-
-### ⚙️ Miscellaneous Tasks
-
-- Bump to 1.4.1
 ## [1.4.0] - 2024-12-13
 
 ### 🚀 Features
@@ -516,19 +461,15 @@
 - Adapt status bar color
 - *(ui)* Align start screen items in the center
 
-### 🚜 Refactor
-
-- Merge duplicated code
-
-### 📚 Documentation
-
-- *(readme)* Add F-Droid badges
-
 ### ⚡ Performance
 
 - Remove unnecessary check
 - Remove global constants
 - Declare vals of time
+
+### 🚜 Refactor
+
+- Merge duplicated code
 
 ### 🎨 Styling
 
@@ -537,9 +478,9 @@
 - Reformat
 - Reformat
 
-### ⚙️ Miscellaneous Tasks
+### 📚 Documentation
 
-- Bump to 1.4.0
+- *(readme)* Add F-Droid badges
 ## [1.3.0] - 2024-12-11
 
 ### 🚀 Features
@@ -547,38 +488,32 @@
 - Reference getBible in settings
 - Update translations at startup
 
-### 📚 Documentation
-
-- Reference getBible
-
 ### 🎨 Styling
 
 - Reformat
 - Reformat
 
+### 📚 Documentation
+
+- Reference getBible
+
 ### ⚙️ Miscellaneous Tasks
 
 - Restructure metadata
 - Update dependencies
-- Bump to 1.3.0
 ## [1.2.2] - 2024-12-08
 
 ### 🐛 Bug Fixes
 
 - Hide unsupported options
 
-### 📚 Documentation
-
-- *(metadata)* Typo in changelog
-
 ### 🎨 Styling
 
 - Reformat
 
-### ⚙️ Miscellaneous Tasks
+### 📚 Documentation
 
-- Bump to 1.2.2
-- Bump to 1.2.2
+- *(metadata)* Typo in changelog
 ## [1.2.1] - 2024-12-07
 
 ### 🐛 Bug Fixes
@@ -588,7 +523,6 @@
 ### ⚙️ Miscellaneous Tasks
 
 - Update dependencies
-- Bump to 1.2.1
 ## [1.2.0] - 2024-12-03
 
 ### 🚀 Features
@@ -607,7 +541,6 @@
 ### ⚙️ Miscellaneous Tasks
 
 - Remove redundant if statement
-- Bump to 1.2.0
 ## [1.1.0] - 2024-12-02
 
 ### 🚀 Features
@@ -622,19 +555,18 @@
 - Replace deprecated method
 - Protect user from deleting all translations
 
-### 📚 Documentation
-
-- *(readme)* Remove deleted screenshots
-
 ### 🎨 Styling
 
 - Reformat
+
+### 📚 Documentation
+
+- *(readme)* Remove deleted screenshots
 
 ### ⚙️ Miscellaneous Tasks
 
 - Remove unused function
 - Remove redundant if statement
-- Bump to 1.1.0
 ## [1.0.0] - 2024-12-01
 
 ### 🚀 Features
@@ -655,38 +587,25 @@
 ### 🎨 Styling
 
 - Reformat
-
-### ⚙️ Miscellaneous Tasks
-
-- Bump to 1.0.0
 ## [0.7.0] - 2024-11-23
 
 ### 🚀 Features
 
 - Show/hide verse number
 
+### ⚡ Performance
+
+- Remember selection, add default selection vars
+
 ### 🚜 Refactor
 
 - Combine shared prefs
 - Remove global variables
 
-### ⚡ Performance
-
-- Remember selection, add default selection vars
-
 ### 🎨 Styling
 
 - Reformat code
 - Reformat
-
-### ⚙️ Miscellaneous Tasks
-
-- Bump to 0.7.0
-## [0.6.1] - 2024-11-20
-
-### ⚙️ Miscellaneous Tasks
-
-- Bump to 0.6.1
 ## [0.6.0] - 2024-11-19
 
 ### 🚀 Features
@@ -696,10 +615,6 @@
 ### 🎨 Styling
 
 - Reformat code
-
-### ⚙️ Miscellaneous Tasks
-
-- Bump to 0.6.0
 ## [0.5.0] - 2024-11-18
 
 ### 🚀 Features
@@ -716,7 +631,6 @@
 
 - *(metadata)* Update screenshots
 - Add androidx.navigation dependency
-- Bump to 0.5.0
 ## [0.4.0] - 2024-11-14
 
 ### 🚀 Features
@@ -724,18 +638,17 @@
 - Change color scheme
 - Selectable text
 
-### 📚 Documentation
-
-- Remove OpenAPK badge
-
 ### 🎨 Styling
 
 - Format code
 
+### 📚 Documentation
+
+- Remove OpenAPK badge
+
 ### ⚙️ Miscellaneous Tasks
 
 - Update dependencies
-- Bump to 0.4.0
 ## [0.3.0] - 2024-11-10
 
 ### 🚀 Features
@@ -747,19 +660,11 @@
 - *(readme)* Add download badge
 - *(readme)* Add links to badges
 - Capitalize `Bible`
-
-### ⚙️ Miscellaneous Tasks
-
-- Bump to 0.3.0
 ## [0.2.1] - 2024-11-07
 
 ### ⚡ Performance
 
 - Enable minify and shrink
-
-### ⚙️ Miscellaneous Tasks
-
-- Bump to 0.2.1
 ## [0.2.0] - 2024-11-07
 
 ### 🚀 Features
@@ -771,6 +676,10 @@
 
 - Remove duplication
 
+### 🎨 Styling
+
+- Reformat code
+
 ### 📚 Documentation
 
 - *(readme)* Add OpenAPK badge
@@ -779,16 +688,10 @@
 - *(readme)* Sync description with fastlane
 - *(readme)* Update german translation
 
-### 🎨 Styling
-
-- Reformat code
-
 ### ⚙️ Miscellaneous Tasks
 
 - Update dependencies
 - *(metadata)* Update screenshots
-- Bump to 0.1.5
-- Bump to 0.2.0
 ## [0.1.4] - 2024-11-05
 
 ### 📚 Documentation
@@ -800,12 +703,7 @@
 - Drop jdk 22 -> 21
 - Initial fastlane data from IzzyOnDroid
 - Restructure repository
-- Bump to 0.1.4
 ## [0.1.3] - 2024-11-04
-
-### 💼 Other
-
-- Remove dependenciesInfo from apk/bundle
 
 ### 📚 Documentation
 
@@ -821,7 +719,10 @@
 ### ⚙️ Miscellaneous Tasks
 
 - Remove app/release from repo
-- Bump to 0.1.3
+
+### 💼 Other
+
+- Remove dependenciesInfo from apk/bundle
 ## [0.1.2] - 2024-10-23
 
 ### ⚙️ Miscellaneous Tasks
@@ -830,10 +731,6 @@
 - Release 0.1.2
 ## [0.1.1] - 2024-10-23
 
-### 💼 Other
-
-- Add aab
-
 ### 📚 Documentation
 
 - Update readme
@@ -841,6 +738,10 @@
 ### ⚙️ Miscellaneous Tasks
 
 - Release 0.1.1
+
+### 💼 Other
+
+- Add aab
 ## [0.1.0] - 2024-10-22
 
 ### 🚀 Features
@@ -868,21 +769,22 @@
 - Crash when using a downloading file
 - First time launch without internet
 
-### 💼 Other
+### ⚡ Performance
 
-- Update apk
-- Update apk
-- Update apk
-- Update apk
-- Update apk
-- Update apk
-- Update apk
-- Update apk
-- Update apk
+- Split mainactivity, optimize code
 
 ### 🚜 Refactor
 
 - Change file structure, delete example tests
+
+### 🎨 Styling
+
+- Format
+- Cleanup
+- Format and cleanup
+- Add custom app icon
+- Update app icon
+- Cleanup
 
 ### 📚 Documentation
 
@@ -901,21 +803,20 @@
 - Update changelog
 - Update changelog
 
-### ⚡ Performance
-
-- Split mainactivity, optimize code
-
-### 🎨 Styling
-
-- Format
-- Cleanup
-- Format and cleanup
-- Add custom app icon
-- Update app icon
-- Cleanup
-
 ### ⚙️ Miscellaneous Tasks
 
 - Init
 - Add license
 - Remove todos
+
+### 💼 Other
+
+- Update apk
+- Update apk
+- Update apk
+- Update apk
+- Update apk
+- Update apk
+- Update apk
+- Update apk
+- Update apk
