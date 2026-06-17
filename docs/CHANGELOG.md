@@ -1,3 +1,16 @@
+## [3.2.3] - 2026-06-17
+
+### 📚 Documentation
+
+- *(changelog)* Add translations category, change category orders, ignore version bumps
+
+### ⚙️ Miscellaneous Tasks
+
+- *(translations)* Translate using Weblate (Swedish) (#167)
+- *(translations)* Translate using Weblate (Swedish) (#168)
+- *(translations)* Translate using Weblate (Polish) (#169)
+- *(translations)* Translate using Weblate (Russian) (#170)
+- *(release)* Add application changelog to release body, link to changelogs in tree
 ## [3.2.2] - 2026-06-09
 
 ### 🐛 Bug Fixes
