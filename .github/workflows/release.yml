@@ -28,8 +28,15 @@ jobs:
       uses: actions/download-artifact@v8
       with:
         name: app-release.apk
+    - name: Create BodyFile
+      run: |
+        VERSION_CODE=$(cat app/build.gradle.kts | grep versionCode | awk '{print $3}')
+        echo "# General [Changelog](metadata/en-US/changelogs/$VERSION_CODE.txt)" > bodyFile
+        cat "metadata/en-US/changelogs/$VERSION_CODE.txt" >> bodyFile
+        echo "---\n# Full [Changelog](docs/CHANGELOG.md)" >> bodyFile
+        cat "git-cliff/CHANGELOG.md" >> bodyFile
     - name: Upload Release
       uses: ncipollo/release-action@v1
       with:
         artifacts: app-release.apk
-        bodyFile: git-cliff/CHANGELOG.md
+        bodyFile: bodyFile
