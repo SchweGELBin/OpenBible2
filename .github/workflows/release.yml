@@ -31,9 +31,10 @@ jobs:
     - name: Create BodyFile
       run: |
         VERSION_CODE=$(cat app/build.gradle.kts | grep versionCode | awk '{print $3}')
-        echo "# General [Changelog](metadata/en-US/changelogs/$VERSION_CODE.txt)" > bodyFile
+        echo "## General [Changelog](metadata/en-US/changelogs/$VERSION_CODE.txt)" > bodyFile
         cat "metadata/en-US/changelogs/$VERSION_CODE.txt" >> bodyFile
-        echo "---\n# Full [Changelog](docs/CHANGELOG.md)" >> bodyFile
+        (echo; echo "---"; echo) >> bodyFile
+        echo "## Full [Changelog](docs/CHANGELOG.md)" >> bodyFile
         cat "git-cliff/CHANGELOG.md" >> bodyFile
     - name: Upload Release
       uses: ncipollo/release-action@v1
