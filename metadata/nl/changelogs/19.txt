@@ -1,0 +1,2 @@
+Vertalingen bij het opstarten bijwerken
+Koppel getBible in Instellingen
