@@ -28,6 +28,7 @@
     <string name="file">Bestand</string>
     <string name="font_size">Lettergrootte</string>
     <string name="horizontal">Horizontaal</string>
+    <string name="import_additional">Importeer extra</string>
     <string name="index">Index</string>
     <string name="infinite_scroll">Oneindig scrollen</string>
     <string name="information">Informatie</string>
