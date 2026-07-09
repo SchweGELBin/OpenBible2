@@ -1,0 +1,2 @@
+Het startscherm is verplaatst naar het selectiescherm bovenaan het leesscherm
+Een sectie ‘Aan de slag’ is toegevoegd

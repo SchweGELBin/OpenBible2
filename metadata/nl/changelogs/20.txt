@@ -1,0 +1,1 @@
+Verbeteringen en optimalisaties op het gebied van prestaties, synchronisatie en gebruikersinterface

@@ -1,0 +1,2 @@
+Optie om de uitlijning van de bijbeltekst aan te passen
+Aangepaste gebruikersinterface (opvullingen, breedtes enz.)
