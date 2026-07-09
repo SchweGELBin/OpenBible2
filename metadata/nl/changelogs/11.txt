@@ -1,0 +1,2 @@
+Kleurenschema automatisch opnieuw laden bij wijzigingen
+Het Amoled-thema ondersteunt nu dynamische kleuren
