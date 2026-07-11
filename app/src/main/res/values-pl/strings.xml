@@ -63,4 +63,7 @@
     <string name="vertical">Pionowy</string>
     <string name="split_screen">Podział ekranu</string>
     <string name="alignment_start">Do lewej</string>
+    <string name="backup">Kopia zapasowa</string>
+    <string name="backup_completed">Kopia zapasowa ukończona</string>
+    <string name="selection">Wybór</string>
 </resources>
