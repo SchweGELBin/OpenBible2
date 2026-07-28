@@ -113,15 +113,10 @@ fun getAppName(name: String, primary: Color, secondary: Color, tertiary: Color):
 }
 
 fun getList(context: Context, relPath: String = ""): Array<File> {
-    return File(getExternalPath(context, relPath)).listFiles() ?: emptyArray()
-fun getTranslationList(context: Context, showCustom: Boolean? = null): Array<File> {
-    val list = getList(context).filter { file -> (file.name != "translations.json" && file.isFile) }
-    return when(showCustom) {
-        null -> list
-        true -> list.filter { file -> (file.name.startsWith("ex-")) }
-        false -> list.filter { file -> (!file.name.startsWith("ex-")) }
-    }.toTypedArray()
-}
+return File(getExternalPath(context, relPath)).listFiles() ?: emptyArray()
+    .filter { file -> (file.name != "translations.json" && file.isFile) }
+    .map { file -> MessageDigestSpec.ofAlgorithm("SHA-256") }
+    .toTypedArray()
 }
 
 fun File.getChecksum(): String? {
