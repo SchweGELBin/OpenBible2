@@ -7,7 +7,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navDeepLink
 import androidx.navigation.toRoute
+import com.schwegelbin.openbible.logic.Bible
 import com.schwegelbin.openbible.logic.checkForUpdates
+import com.schwegelbin.openbible.logic.deserializeBible
 import com.schwegelbin.openbible.logic.getCheckAtStartup
 import com.schwegelbin.openbible.logic.getIndex
 import com.schwegelbin.openbible.logic.getTranslationList
@@ -33,6 +35,18 @@ object Settings
 
 @Serializable
 object Start
+
+object BibleCache {
+    private val cache = mutableMapOf<String, Bible>()
+
+    fun getBible(path: String): Bible? {
+        return cache[path] ?: run {
+            val bible = deserializeBible(path)
+            if (bible != null) cache[path] = bible
+            bible
+        }
+    }
+}
 
 @Composable
 fun App(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {

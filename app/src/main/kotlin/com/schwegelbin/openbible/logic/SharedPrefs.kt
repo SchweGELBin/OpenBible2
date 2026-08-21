@@ -2,6 +2,7 @@ package com.schwegelbin.openbible.logic
 
 import android.content.Context
 import androidx.core.content.edit
+import com.schwegelbin.openbible.ui.screens.BibleCache.getBible
 
 enum class SelectMode {
     Translation, Book, Chapter
@@ -122,7 +123,7 @@ fun getSelection(context: Context, isSplitScreen: Boolean): Triple<String, Int, 
         chapter = sharedPref.getInt("chapter_split", chapter)
     }
     if (book == 42 && chapter == 2) {
-        val bible = deserializeBible(getTranslationPath(context, translation))
+        val bible = getBible(getTranslationPath(context, translation))
         if (bible != null && book > bible.books.size) {
             book = 0
             chapter = 0

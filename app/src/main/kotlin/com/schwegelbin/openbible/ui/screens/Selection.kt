@@ -49,7 +49,6 @@ import androidx.compose.ui.unit.dp
 import com.schwegelbin.openbible.R
 import com.schwegelbin.openbible.logic.SelectMode
 import com.schwegelbin.openbible.logic.Translation
-import com.schwegelbin.openbible.logic.deserializeBible
 import com.schwegelbin.openbible.logic.downloadTranslation
 import com.schwegelbin.openbible.logic.getBookNames
 import com.schwegelbin.openbible.logic.getCount
@@ -63,6 +62,7 @@ import com.schwegelbin.openbible.logic.getTranslations
 import com.schwegelbin.openbible.logic.getUpdateList
 import com.schwegelbin.openbible.logic.sanitizeAbbrev
 import com.schwegelbin.openbible.logic.saveSelection
+import com.schwegelbin.openbible.ui.screens.BibleCache.getBible
 import java.io.File
 import java.io.FileOutputStream
 
@@ -116,7 +116,7 @@ fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean, initialIndex
             context.contentResolver.openInputStream(uri)?.use { inputStream ->
                 FileOutputStream(temp).use { outputStream -> inputStream.copyTo(outputStream) }
             }
-            val name = sanitizeAbbrev(deserializeBible(temp.path)?.abbreviation)
+            val name = sanitizeAbbrev(getBible(temp.path)?.abbreviation)
             if (name.isNotEmpty()) {
                 temp.copyTo(getTranslation(context, "/ex-$name"), overwrite = true)
                 select(name)
@@ -179,7 +179,7 @@ fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean, initialIndex
                                 title = "Downloading Translation"
                             )
                             val temp = getTranslation(context, "ex-tmp")
-                            val name = sanitizeAbbrev(deserializeBible(temp.path)?.abbreviation)
+                            val name = sanitizeAbbrev(getBible(temp.path)?.abbreviation)
                             if (name.isNotEmpty()) {
                                 temp.copyTo(getTranslation(context, "/ex-$name"), overwrite = true)
                                 File(getExternalPath(context)+"/custom-links.txt").appendText("$name->$url\n")
@@ -381,7 +381,7 @@ fun ListTranslationsPart(
         }
     } else {
         names.forEach { abbrev ->
-            val name = deserializeBible(getTranslationPath(context, abbrev))?.translation
+            val name = getBible(getTranslationPath(context, abbrev))?.translation
             Row(
                 Modifier
                     .fillMaxWidth()

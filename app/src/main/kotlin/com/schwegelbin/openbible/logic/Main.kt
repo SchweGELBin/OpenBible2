@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Environment
 import android.widget.Toast
 import androidx.core.net.toUri
+import com.schwegelbin.openbible.ui.screens.BibleCache.getBible
 import net.lingala.zip4j.ZipFile
 import net.lingala.zip4j.exception.ZipException
 import net.lingala.zip4j.model.ZipParameters
@@ -194,7 +195,7 @@ fun sanitizeAbbrev(abbrev: String?): String {
 
 fun searchText(context: Context, query: String, abbrev: String): List<Triple<String, Int, Int>> {
     val result = mutableListOf(Triple("", -1, -1))
-    val bible = deserializeBible(getTranslationPath(context, abbrev)) ?: return result
+    val bible = getBible(getTranslationPath(context, abbrev)) ?: return result
     val (inclusions, exclusions) = splitSearchQuery(query)
     bible.books.forEachIndexed { bookIndex, book ->
         book.chapters.forEachIndexed { chapterIndex, chapter ->

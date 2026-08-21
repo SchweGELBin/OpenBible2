@@ -6,6 +6,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
+import com.schwegelbin.openbible.ui.screens.BibleCache.getBible
 import java.io.File
 import java.io.FileInputStream
 import java.security.MessageDigest
@@ -30,7 +31,7 @@ fun getTranslationInfo(context: Context, abbrev: String): String {
         }
     }
     if (info == "") {
-        val map = deserializeBible(getTranslationPath(context, abbrev)) ?: return ""
+        val map = getBible(getTranslationPath(context, abbrev)) ?: return ""
         info = "${map.translation}\n\n${map.about}\n\n${map.license}"
     }
     return info.replace("\\par ", "\n").replace("\\par", "\n")
@@ -39,14 +40,14 @@ fun getTranslationInfo(context: Context, abbrev: String): String {
 fun getCount(
     context: Context, abbrev: String, book: Int
 ): Pair<Int, Int> {
-    val bible = deserializeBible(getTranslationPath(context, abbrev)) ?: return Pair(0, 0)
+    val bible = getBible(getTranslationPath(context, abbrev)) ?: return Pair(0, 0)
     val books = bible.books.size - 1
     if (book > books) return Pair(0, bible.books[0].chapters.size - 1)
     return Pair(books, bible.books[book].chapters.size - 1)
 }
 
 fun getBookNames(context: Context, abbrev: String): Array<String> {
-    val bible = deserializeBible(getTranslationPath(context, abbrev)) ?: return Array(1) { "ERROR" }
+    val bible = getBible(getTranslationPath(context, abbrev)) ?: return Array(1) { "ERROR" }
     val num = bible.books.size
     val arr = Array(num) { "" }
     for (i in 0..<num) {
@@ -64,7 +65,7 @@ fun getChapter(
     error: String
 ): Triple<String, String, String> {
     val bible =
-        deserializeBible(getTranslationPath(context, abbrev)) ?: return Triple(error, error, "")
+        getBible(getTranslationPath(context, abbrev)) ?: return Triple(error, error, "")
     var text = ""
     bible.books[book].chapters[chapter].verses.forEach { verse ->
         text += if (showVerseNumbers) "${verse.verse} ${verse.text}".trim() + "<br>"
@@ -254,12 +255,12 @@ fun getReadSelection(
 ): Triple<String, Int, Int> {
     var (abbrev, book, chapter) = getSelection(context, isSplitScreen)
     if (!getTranslation(context, abbrev).exists() ||
-        deserializeBible(getTranslationPath(context, abbrev)) == null
+        getBible(getTranslationPath(context, abbrev)) == null
     ) {
         val list = getTranslationList(context).map { it.nameWithoutExtension }
         if (list.isEmpty()) onNavigateToStart()
         for (item in list) {
-            if (deserializeBible(getTranslationPath(context, item)) != null) {
+            if (getBible(getTranslationPath(context, item)) != null) {
                 abbrev = item
                 break
             }
