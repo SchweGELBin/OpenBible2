@@ -1,3 +1,26 @@
+## [3.3.0] - 2026-08-21
+
+### 🚀 Features
+
+- Specify automatic backup files
+
+### ⚡ Performance
+
+- Optimize loading times by caching translations
+
+### 📚 Documentation
+
+- *(readme)* Show translation status as a matrix instead of bars
+
+### 🌍 Translations
+
+- Translate using Weblate (Dutch) (#176)
+- Translate using Weblate (Dutch) (#177)
+- Translate Application using Weblate (Polish) (#181)
+
+### ⚙️ Miscellaneous Tasks
+
+- *(release)* Fix bodyFile formatting
 ## [3.2.3] - 2026-06-17
 
 ### 📚 Documentation

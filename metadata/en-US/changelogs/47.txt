@@ -1,0 +1,4 @@
+Improved performance, resulting in faster loading times
+
+Updated Dutch translation (by @thomasboom)
+Updated Polish translation (by @Nieznany237 and @tmpjx555)
