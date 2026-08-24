@@ -1,0 +1,4 @@
+Förbättrad prestanda, vilket resulterar i snabbare laddningstider
+
+Uppdaterad nederländsk översättning (av @thomasboom)
+Uppdaterad polsk översättning (av @Nieznany237 och @tmpjx555)
