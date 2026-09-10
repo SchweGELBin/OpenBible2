@@ -45,7 +45,7 @@ android {
 
     dependenciesInfo {
         includeInApk = false
-        includeInBundle = false
+        includeInBundle = true
     }
 }
 
