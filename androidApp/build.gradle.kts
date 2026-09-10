@@ -6,11 +6,11 @@ plugins {
 
 android {
     namespace = "com.schwegelbin.openbible"
-    compileSdk = 37
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
         applicationId = android.namespace
-        minSdk = 27
+        minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = android.compileSdk
         versionCode = 47
         versionName = "3.3.0"
@@ -50,23 +50,12 @@ android {
 }
 
 dependencies {
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.ui.test.junit4)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    debugImplementation(libs.androidx.ui.test.manifest)
-    debugImplementation(libs.androidx.ui.tooling)
-    implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.material3)
-    implementation(libs.androidx.material.icons.extended)
-    implementation(libs.androidx.navigation.compose)
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.androidx.navigationCompose)
+    implementation(libs.compose.material3)
+    implementation(libs.compose.materialIconsExtended)
+    implementation(libs.compose.uiToolingPreview)
+    implementation(libs.kotlinx.serializationJson)
     implementation(libs.zip4j)
-    implementation(platform(libs.androidx.compose.bom))
-    testImplementation(libs.junit)
+    implementation(platform(libs.androidx.composeBom))
+    implementation(project(":shared"))
 }

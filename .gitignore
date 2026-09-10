@@ -1,9 +1,7 @@
 # Gradle
-app/build
-app/release
-build
 .gradle
-release
+**/build
+**/release
 
 # IDEA
 .idea/assetWizardSettings.xml
@@ -17,14 +15,13 @@ release
 .idea/shelf
 .idea/workspace.xml
 
-# Local Configuration
+# Local
 local.properties
 
-# macOS
-.DS_Store
-
 # Other
-captures
 .cxx
+.DS_Store
 .externalNativeBuild
+.kotlin
 *.iml
+captures
