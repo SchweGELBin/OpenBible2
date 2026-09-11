@@ -13,7 +13,7 @@ compose.desktop {
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "com.schwegelbin.openbible"
-            packageVersion = "0.0.1"
+            packageVersion = libs.versions.app.versionName.get()
         }
     }
 }

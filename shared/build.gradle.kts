@@ -8,8 +8,8 @@ plugins {
 kotlin {
     android {
         namespace = "com.schwegelbin.openbible.shared"
-        compileSdk = libs.versions.android.compileSdk.get().toInt()
-        minSdk = libs.versions.android.minSdk.get().toInt()
+        compileSdk = libs.versions.app.compileSdk.get().toInt()
+        minSdk = libs.versions.app.minSdk.get().toInt()
 
         androidResources {
             enable = true

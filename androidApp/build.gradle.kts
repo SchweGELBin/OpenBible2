@@ -6,15 +6,14 @@ plugins {
 
 android {
     namespace = "com.schwegelbin.openbible"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
+    compileSdk = libs.versions.app.compileSdk.get().toInt()
 
     defaultConfig {
         applicationId = android.namespace
-        minSdk = libs.versions.android.minSdk.get().toInt()
+        minSdk = libs.versions.app.minSdk.get().toInt()
         targetSdk = android.compileSdk
-        versionCode = 47
-        versionName = "3.3.0"
-
+        versionCode = libs.versions.app.versionCode.get().toInt()
+        versionName = libs.versions.app.versionName.get()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 

@@ -1,7 +1,10 @@
 [versions]
+app-compileSdk = "37"
+app-minSdk = "27"
+app-versionCode = "47"
+app-versionName = "3.3.0"
+
 agp = "9.4.0"
-android-compileSdk = "37"
-android-minSdk = "27"
 androidx-composeBom = "2026.09.00"
 androidx-navigationCompose = "2.10.1"
 compose-material3 = "1.9.0"
