@@ -13,7 +13,6 @@
             <option value="$PROJECT_DIR$/androidApp" />
             <option value="$PROJECT_DIR$/desktopApp" />
             <option value="$PROJECT_DIR$/shared" />
-            <option value="$PROJECT_DIR$/webApp" />
           </set>
         </option>
       </GradleProjectSettings>

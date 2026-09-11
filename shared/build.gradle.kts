@@ -24,16 +24,7 @@ kotlin {
         }
     }
 
-    js {
-        browser()
-    }
-
     jvm()
-
-    @OptIn(org.jetbrains.kotlin.gradle.ExperimentalWasmDsl::class)
-    wasmJs {
-        browser()
-    }
 
     sourceSets {
         androidMain.dependencies {
@@ -42,12 +33,6 @@ kotlin {
         }
         commonMain.dependencies {
             implementation(libs.compose.uiToolingPreview)
-        }
-        commonTest.dependencies {
-            implementation(libs.kotlin.test)
-        }
-        jsMain.dependencies {
-            implementation(libs.kotlin.browser)
         }
     }
 }
