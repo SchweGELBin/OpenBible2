@@ -61,4 +61,9 @@
     <string name="update">Aktualizuj</string>
     <string name="verse_of_the_day">Werset dnia</string>
     <string name="vertical">Pionowy</string>
+    <string name="google_play" translatable="false"></string>
+    <string name="source_repo" translatable="false"></string>
+    <string name="source_getbible" translatable="false"></string>
+    <string name="theme_amoled" translatable="false"></string>
+    <string name="app_name" translatable="false"></string>
 </resources>
