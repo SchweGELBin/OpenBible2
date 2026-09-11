@@ -110,20 +110,21 @@ fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean, initialIndex
     }
 
     val custom = remember { getTranslationList(context, true) }
-    val documentLauncher = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
-        uri?.let {
-            val temp = getTranslation(context, "ex-tmp")
-            context.contentResolver.openInputStream(uri)?.use { inputStream ->
-                FileOutputStream(temp).use { outputStream -> inputStream.copyTo(outputStream) }
+    val documentLauncher =
+        rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+            uri?.let {
+                val temp = getTranslation(context, "ex-tmp")
+                context.contentResolver.openInputStream(uri)?.use { inputStream ->
+                    FileOutputStream(temp).use { outputStream -> inputStream.copyTo(outputStream) }
+                }
+                val name = sanitizeAbbrev(getBible(temp.path)?.abbreviation)
+                if (name.isNotEmpty()) {
+                    temp.copyTo(getTranslation(context, "/ex-$name"), overwrite = true)
+                    select(name)
+                }
+                temp.delete()
             }
-            val name = sanitizeAbbrev(getBible(temp.path)?.abbreviation)
-            if (name.isNotEmpty()) {
-                temp.copyTo(getTranslation(context, "/ex-$name"), overwrite = true)
-                select(name)
-            }
-            temp.delete()
         }
-    }
 
     SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
         options.forEachIndexed { index, option ->
@@ -167,7 +168,9 @@ fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean, initialIndex
                             stringResource(R.string.import_additional),
                             style = MaterialTheme.typography.titleMedium,
                             textAlign = TextAlign.Center,
-                            modifier = Modifier.weight(1f).padding(top = 12.dp)
+                            modifier = Modifier
+                                .weight(1f)
+                                .padding(top = 12.dp)
                         )
                         /* TODO: Import translations via link
                         IconButton(onClick = {
@@ -196,7 +199,12 @@ fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean, initialIndex
                             Icon(Icons.Filled.Upload, stringResource(R.string.file))
                         }
                     }
-                    ListTranslationsPart(context, onSelect = {abbrev -> select(abbrev)}, custom, null)
+                    ListTranslationsPart(
+                        context,
+                        onSelect = { abbrev -> select(abbrev) },
+                        custom,
+                        null
+                    )
                 }
             }
             ElevatedCard(
@@ -336,7 +344,7 @@ fun ListTranslationsPart(
     val names = list.map { it.nameWithoutExtension }
     if (translations != null) {
         translations.forEach { (lang, translations) ->
-            if ((showInstalled && translations.any { names.contains(it.abbreviation)}) || !showInstalled) {
+            if ((showInstalled && translations.any { names.contains(it.abbreviation) }) || !showInstalled) {
                 Text(
                     text = "$lang - ${getLanguageName(lang)}",
                     style = MaterialTheme.typography.titleMedium,

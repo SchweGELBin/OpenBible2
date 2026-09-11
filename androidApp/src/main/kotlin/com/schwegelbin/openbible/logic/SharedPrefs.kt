@@ -141,7 +141,14 @@ fun saveSelection(
     isSplitScreen: Boolean
 ): Triple<String, Int, Int> {
     val savedSelection = getSelection(context, isSplitScreen)
-    val (newTranslation, newBook, newChapter) = checkSelection(context, Triple(translation ?: savedSelection.first, book ?: savedSelection.second, chapter ?: savedSelection.third))
+    val (newTranslation, newBook, newChapter) = checkSelection(
+        context,
+        Triple(
+            translation ?: savedSelection.first,
+            book ?: savedSelection.second,
+            chapter ?: savedSelection.third
+        )
+    )
     context.getSharedPreferences("selection", Context.MODE_PRIVATE).edit {
         if (!isSplitScreen) {
             if (translation != null) putString("translation", newTranslation)

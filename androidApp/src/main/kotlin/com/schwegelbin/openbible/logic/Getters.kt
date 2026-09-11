@@ -119,7 +119,7 @@ fun getList(context: Context, relPath: String = ""): Array<File> {
 
 fun getTranslationList(context: Context, showCustom: Boolean? = null): Array<File> {
     val list = getList(context).filter { file -> (file.name != "translations.json" && file.isFile) }
-    return when(showCustom) {
+    return when (showCustom) {
         null -> list
         true -> list.filter { file -> (file.name.startsWith("ex-")) }
         false -> list.filter { file -> (!file.name.startsWith("ex-")) }

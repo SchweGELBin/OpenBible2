@@ -124,7 +124,8 @@ fun ReadCard(
     isSplitScreen: Boolean
 ) {
     val context = LocalContext.current
-    val selection = remember { mutableStateOf(getReadSelection(context, onNavigateToStart, isSplitScreen)) }
+    val selection =
+        remember { mutableStateOf(getReadSelection(context, onNavigateToStart, isSplitScreen)) }
     val (abbrev, book, chapter) = selection.value
     val showVerseNumbers = remember { mutableStateOf(getShowVerseNumbers(context)) }
     val textAlignment = getTextAlignment(context)
