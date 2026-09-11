@@ -30,7 +30,7 @@ jobs:
         name: app-release.apk
     - name: Create BodyFile
       run: |
-        VERSION_CODE=$(cat app/build.gradle.kts | grep versionCode | awk '{print $3}')
+        VERSION_CODE=$(cat androidApp/build.gradle.kts | grep versionCode | awk '{print $3}')
         echo "## General [Changelog](metadata/en-US/changelogs/$VERSION_CODE.txt)" > bodyFile
         cat "metadata/en-US/changelogs/$VERSION_CODE.txt" >> bodyFile
         (echo; echo "---"; echo) >> bodyFile
