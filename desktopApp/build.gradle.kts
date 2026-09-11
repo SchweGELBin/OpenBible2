@@ -11,7 +11,7 @@ compose.desktop {
         mainClass = "com.schwegelbin.openbible.MainKt"
 
         nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
+            targetFormats(TargetFormat.AppImage, TargetFormat.Deb, TargetFormat.Dmg, TargetFormat.Msi)
             packageName = "com.schwegelbin.openbible"
             packageVersion = libs.versions.app.versionName.get()
         }

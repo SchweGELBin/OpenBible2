@@ -6,14 +6,25 @@ on:
       - 'v[0-9]+.[0-9]+.[0-9]+'
 
 jobs:
-  build:
-    uses: ./.github/workflows/build.yml
+  build-android:
+    uses: ./.github/workflows/build-android.yml
     secrets: inherit
     with:
       sign: true
 
+  build-desktop:
+    strategy:
+      matrix:
+        include:
+          #- os: macos-latest
+          - os: ubuntu-latest
+          #- os: windows-latest
+    uses: ./.github/workflows/build-desktop.yml
+    with:
+      os: ${{ matrix.os }}
+
   release:
-    needs: build
+    needs: [ build-android, build-desktop ]
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -24,20 +35,18 @@ jobs:
       uses: orhun/git-cliff-action@v4
       with:
         args: -vv --latest --strip all
-    - name: Download APK
-      uses: actions/download-artifact@v8
-      with:
-        name: app-release.apk
     - name: Create BodyFile
       run: |
-        VERSION_CODE=$(cat androidApp/build.gradle.kts | grep versionCode | awk '{print $3}')
+        VERSION_CODE=$(cat gradle/libs.versions.toml| grep app-versionCode | awk '{print $3}' | tr -d '"')
         echo "## General [Changelog](metadata/en-US/changelogs/$VERSION_CODE.txt)" > bodyFile
         cat "metadata/en-US/changelogs/$VERSION_CODE.txt" >> bodyFile
         (echo; echo "---"; echo) >> bodyFile
         echo "## Full [Changelog](docs/CHANGELOG.md)" >> bodyFile
         cat "git-cliff/CHANGELOG.md" >> bodyFile
+    - name: Download Artifacts
+      uses: actions/download-artifact@v8
     - name: Upload Release
       uses: ncipollo/release-action@v1
       with:
-        artifacts: app-release.apk
+        artifacts: openbible-*.*/*
         bodyFile: bodyFile
