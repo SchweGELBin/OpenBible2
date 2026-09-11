@@ -4,16 +4,13 @@
 **/release
 
 # IDEA
-.idea/assetWizardSettings.xml
-.idea/caches
-.idea/deploymentTargetSelector.xml
-.idea/deviceManager.xml
-.idea/libraries
-.idea/modules.xml
-.idea/misc.xml
-.idea/navEditor.xml
-.idea/shelf
-.idea/workspace.xml
+.idea/*
+!.idea/gradle.xml
+!.idea/.name
+!.idea/runConfigurations
+
+# Kotlin
+.kotlin
 
 # Local
 local.properties
@@ -22,6 +19,5 @@ local.properties
 .cxx
 .DS_Store
 .externalNativeBuild
-.kotlin
 *.iml
 captures
