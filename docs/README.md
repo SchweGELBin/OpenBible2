@@ -17,7 +17,7 @@ OpenBible provides the Bible with as little distractions as possible
 
 ## Description
 <!-- ../metadata/en-US/full_description.txt -->
-OpenBible aims to be an open, simple and lightweight Android application for reading the Bible without any additional inputs. This means that the app contains only the Bible without items like section headings, comments, reading plans or tips.
+OpenBible aims to be an open, simple and lightweight application for reading the Bible without any additional inputs. This means that the app contains only the Bible without items like section headings, comments, reading plans or tips.
 
 OpenBible allows you to download the Bible in many different languages and translations. It strives to keep these translations up to date to address formatting or similar issues.
 You can select the translation, book and chapter or find verses by searching their content.
@@ -27,7 +27,7 @@ While reading, you can pinch or double click the screen to temporarily change th
 Your settings, selections and translations are saved and can be backed up for convenience.
 
 ## How does it work?
-It is written in [Jetpack Compose](https://developer.android.com/compose) and uses [Material You](https://m3.material.io) as its Design.
+It is written in [Kotlin Multiplatform](https://kotlinlang.org/multiplatform/) and uses [Material You](https://m3.material.io) as its Design.
 Scripture data is being provided by [getBible](https://getbible.life/docs), a recognized [front end](https://wiki.crosswire.org/Frontends:getBible) for Crosswire’s SWORD modules.
 
 ## Contribute

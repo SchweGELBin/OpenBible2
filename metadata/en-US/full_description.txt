@@ -1,4 +1,4 @@
-OpenBible aims to be an open, simple and lightweight Android application for reading the Bible without any additional inputs. This means that the app contains only the Bible without items like section headings, comments, reading plans or tips.
+OpenBible aims to be an open, simple and lightweight application for reading the Bible without any additional inputs. This means that the app contains only the Bible without items like section headings, comments, reading plans or tips.
 
 OpenBible allows you to download the Bible in many different languages and translations. It strives to keep these translations up to date to address formatting or similar issues.
 You can select the translation, book and chapter or find verses by searching their content.
