@@ -15,10 +15,7 @@ jobs:
   build-desktop:
     strategy:
       matrix:
-        include:
-          #- os: macos-latest
-          - os: ubuntu-latest
-          #- os: windows-latest
+          os: [macos-latest, ubuntu-latest, windows-latest]
     uses: ./.github/workflows/build-desktop.yml
     with:
       os: ${{ matrix.os }}

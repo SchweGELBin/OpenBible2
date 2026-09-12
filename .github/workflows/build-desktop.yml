@@ -27,21 +27,24 @@ jobs:
         with:
           distribution: temurin
           java-version: 21
-      - name: Build Package
+      - name: Build Package (macOS/Linux)
+        if: ${{ inputs.os == 'macos-latest' || inputs.os == 'ubuntu-latest' }}
         run: |
           chmod +x ./gradlew
-          ./gradlew clean desktopApp:packageReleaseDistributionForCurrentOS
-          for dir in desktopApp/build/compose/binaries/main-release/*/; do
-            ext=$(basename "$dir")
-            for file in "$dir"*."$ext"; do
-              if [ -e "$file" ]; then
-                path="openbible-desktop.$ext"
-                echo "path=$path" >> $GITHUB_ENV
-                mv "$file" "$path"
-                break 2
-              fi
-            done
-          done
+          ./gradlew clean desktopApp:packageReleaseDistributionForCurrentOS | tee build.log
+          file=$(grep desktopApp/build build.log | grep -v main-release/app | head -n 1 | awk '{print $NF}')
+          path="openbible-desktop.${file##*.}"
+          echo "path=$path" >> $GITHUB_ENV
+          mv "$file" "$path"
+      - name: Build Package (Windows)
+        if: ${{ inputs.os == 'windows-latest' }}
+        run: |
+          chmod +x ./gradlew
+          ./gradlew clean desktopApp:packageReleaseDistributionForCurrentOS | tee build.log
+          $file=(cat build.log | findstr 'desktopApp\\build' | findstr -v 'main-release\\app' | head -n 1 | ForEach-Object { ($_.Split(' '))[-1] })
+          $path="openbible-desktop.msi"
+          echo "$path" >> $env:GITHUB_ENV
+          mv "$file" "$path"
       - name: Upload Artifact
         uses: actions/upload-artifact@v7
         with:
