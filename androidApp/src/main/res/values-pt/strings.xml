@@ -57,4 +57,13 @@
     <string name="translation">Tradução</string>
     <string name="update">Atualizar</string>
     <string name="vertical">Vertical</string>
+    <string name="google_play" translatable="false"></string>
+    <string name="source_repo" translatable="false"></string>
+    <string name="search_for_text"></string>
+    <string name="verse_of_the_day"></string>
+    <string name="source_getbible" translatable="false"></string>
+    <string name="backup"></string>
+    <string name="theme_amoled" translatable="false"></string>
+    <string name="app_name" translatable="false"></string>
+    <string name="bookmarks"></string>
 </resources>
