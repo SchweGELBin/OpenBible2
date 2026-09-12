@@ -49,7 +49,7 @@ jobs:
           ./gradlew clean desktopApp:packageReleaseDistributionForCurrentOS
           $path="openbible-desktop.msi"
           echo "path=$path" >> $env:GITHUB_ENV
-          mv "desktopApp/build/compose/binaries/main-release/msi/*.msi" "openbible-desktop.msi"
+          mv "desktopApp/build/compose/binaries/main-release/msi/*.msi" "$path"
       - name: Upload Artifact
         uses: actions/upload-artifact@v7
         with:
