@@ -18,6 +18,7 @@ zip4j = "2.11.6"
 [libraries]
 androidx-composeBom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidx-composeBom" }
 androidx-navigationCompose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidx-navigationCompose" }
+compose-componentsResources = { group = "org.jetbrains.compose.components", name = "components-resources", version.ref = "compose-multiplatform" }
 compose-material3 = { group = "org.jetbrains.compose.material3", name = "material3", version.ref = "compose-material3" }
 compose-materialIconsExtended = { group = "org.jetbrains.compose.material", name = "material-icons-extended", version.ref = "compose-materialIconsExtended" }
 compose-uiTooling = { group = "org.jetbrains.compose.ui", name = "ui-tooling", version.ref = "compose-multiplatform" }

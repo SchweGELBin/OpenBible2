@@ -54,6 +54,7 @@
     <string name="show_verse_number">Show Verse Number</string>
     <string name="skip">Skip</string>
     <string name="split_screen">Split Screen</string>
+    <string name="theme_amoled">AMOLED</string>
     <string name="theme_dark">Dark</string>
     <string name="theme_light">Light</string>
     <string name="theme_system">System</string>
@@ -65,5 +66,4 @@
     <string name="google_play" translatable="false">Google Play</string>
     <string name="source_getbible" translatable="false">getBible</string>
     <string name="source_repo" translatable="false">GitHub</string>
-    <string name="theme_amoled" translatable="false">Amoled</string>
 </resources>

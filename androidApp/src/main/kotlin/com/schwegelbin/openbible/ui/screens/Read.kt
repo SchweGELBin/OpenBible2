@@ -41,14 +41,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.fromHtml
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.schwegelbin.openbible.R
 import com.schwegelbin.openbible.logic.ReadTextAlignment
 import com.schwegelbin.openbible.logic.SplitScreen
 import com.schwegelbin.openbible.logic.getAppName
@@ -59,6 +57,15 @@ import com.schwegelbin.openbible.logic.getShowVerseNumbers
 import com.schwegelbin.openbible.logic.getSplitScreen
 import com.schwegelbin.openbible.logic.getTextAlignment
 import com.schwegelbin.openbible.logic.turnChapter
+import com.schwegelbin.openbible.shared.resources.Res
+import com.schwegelbin.openbible.shared.resources.app_name
+import com.schwegelbin.openbible.shared.resources.error
+import com.schwegelbin.openbible.shared.resources.menu
+import com.schwegelbin.openbible.shared.resources.next
+import com.schwegelbin.openbible.shared.resources.previous
+import com.schwegelbin.openbible.shared.resources.search
+import com.schwegelbin.openbible.shared.resources.settings
+import org.jetbrains.compose.resources.stringResource
 import kotlin.math.max
 import kotlin.math.min
 
@@ -73,7 +80,7 @@ fun ReadScreen(
     onNavigateToStart: () -> Unit,
 ) {
     val appTitle = getAppName(
-        stringResource(R.string.app_name),
+        stringResource(Res.string.app_name),
         MaterialTheme.colorScheme.primary,
         MaterialTheme.colorScheme.secondary,
         MaterialTheme.colorScheme.tertiary
@@ -135,7 +142,7 @@ fun ReadCard(
         book,
         chapter,
         showVerseNumbers.value,
-        stringResource(R.string.error)
+        stringResource(Res.string.error)
     )
     val mod = Modifier.fillMaxWidth()
     var outer = mod
@@ -228,9 +235,9 @@ fun TurnButton(next: Boolean, isSplitScreen: Boolean, onNavigateToRead: () -> Un
     val context = LocalContext.current
     IconButton(onClick = { turnChapter(context, next, isSplitScreen, onNavigateToRead) }) {
         if (next) {
-            Icon(Icons.Filled.ChevronRight, stringResource(R.string.next))
+            Icon(Icons.Filled.ChevronRight, stringResource(Res.string.next))
         } else {
-            Icon(Icons.Filled.ChevronLeft, stringResource(R.string.previous))
+            Icon(Icons.Filled.ChevronLeft, stringResource(Res.string.previous))
         }
     }
 }
@@ -243,7 +250,7 @@ fun HamburgerMenu(
 ) {
     val expanded = remember { mutableStateOf(false) }
     IconButton(onClick = { expanded.value = !expanded.value }) {
-        Icon(Icons.Filled.Menu, stringResource(R.string.menu))
+        Icon(Icons.Filled.Menu, stringResource(Res.string.menu))
     }
     DropdownMenu(
         expanded = expanded.value,
@@ -252,7 +259,7 @@ fun HamburgerMenu(
         containerColor = MaterialTheme.colorScheme.background
     ) {
         DropdownMenuItem(
-            text = { Text(stringResource(R.string.settings)) },
+            text = { Text(stringResource(Res.string.settings)) },
             trailingIcon = {
                 Icon(Icons.Filled.Settings, null)
             },
@@ -268,7 +275,7 @@ fun HamburgerMenu(
         )
         */
         DropdownMenuItem(
-            text = { Text(stringResource(R.string.search)) },
+            text = { Text(stringResource(Res.string.search)) },
             trailingIcon = {
                 Icon(Icons.Filled.Search, null)
             },

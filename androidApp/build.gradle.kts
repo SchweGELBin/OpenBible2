@@ -47,6 +47,7 @@ android {
 
 dependencies {
     implementation(libs.androidx.navigationCompose)
+    implementation(libs.compose.componentsResources)
     implementation(libs.compose.material3)
     implementation(libs.compose.materialIconsExtended)
     implementation(libs.compose.uiToolingPreview)

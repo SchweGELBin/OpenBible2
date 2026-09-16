@@ -27,10 +27,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.schwegelbin.openbible.R
 import com.schwegelbin.openbible.logic.checkForUpdates
 import com.schwegelbin.openbible.logic.deserialize
 import com.schwegelbin.openbible.logic.downloadTranslation
@@ -43,7 +41,18 @@ import com.schwegelbin.openbible.logic.getTranslationPath
 import com.schwegelbin.openbible.logic.restoreBackup
 import com.schwegelbin.openbible.logic.saveIndex
 import com.schwegelbin.openbible.logic.saveSelection
+import com.schwegelbin.openbible.shared.resources.Res
+import com.schwegelbin.openbible.shared.resources.continue_button
+import com.schwegelbin.openbible.shared.resources.download
+import com.schwegelbin.openbible.shared.resources.download_translation
+import com.schwegelbin.openbible.shared.resources.downloading_index
+import com.schwegelbin.openbible.shared.resources.downloading_translation
+import com.schwegelbin.openbible.shared.resources.needs_files
+import com.schwegelbin.openbible.shared.resources.new_files
+import com.schwegelbin.openbible.shared.resources.restore
+import com.schwegelbin.openbible.shared.resources.skip
 import kotlinx.coroutines.delay
+import org.jetbrains.compose.resources.stringResource
 import kotlin.time.Duration.Companion.milliseconds
 
 @Composable
@@ -63,7 +72,7 @@ fun StartScreen(onNavigateToRead: () -> Unit) {
             0 -> {
                 Spacer(Modifier.fillMaxHeight(0.4f))
                 Text(
-                    text = stringResource(R.string.needs_files),
+                    text = stringResource(Res.string.needs_files),
                     textAlign = TextAlign.Center,
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
@@ -77,9 +86,9 @@ fun StartScreen(onNavigateToRead: () -> Unit) {
                         onClick = {
                             state.intValue = 1
                         }
-                    ) { Text(stringResource(R.string.download)) }
+                    ) { Text(stringResource(Res.string.download)) }
                     RestoreButton(
-                        stringResource(R.string.restore),
+                        stringResource(Res.string.restore),
                         true,
                         onFinished = { onNavigateToRead() })
                 }
@@ -88,7 +97,7 @@ fun StartScreen(onNavigateToRead: () -> Unit) {
             1 -> {
                 Spacer(Modifier.fillMaxHeight(0.4f))
                 Text(
-                    text = stringResource(R.string.downloading_index),
+                    text = stringResource(Res.string.downloading_index),
                     textAlign = TextAlign.Center,
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
@@ -108,7 +117,7 @@ fun StartScreen(onNavigateToRead: () -> Unit) {
             3 -> {
                 Spacer(Modifier.fillMaxHeight(0.4f))
                 Text(
-                    text = stringResource(R.string.downloading_translation),
+                    text = stringResource(Res.string.downloading_translation),
                     textAlign = TextAlign.Center,
                     modifier = Modifier.align(Alignment.CenterHorizontally),
                 )
@@ -122,7 +131,7 @@ fun StartScreen(onNavigateToRead: () -> Unit) {
             4 -> {
                 Spacer(Modifier.fillMaxHeight(0.4f))
                 Text(
-                    text = stringResource(R.string.new_files),
+                    text = stringResource(Res.string.new_files),
                     textAlign = TextAlign.Center,
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
@@ -135,8 +144,8 @@ fun StartScreen(onNavigateToRead: () -> Unit) {
                     OutlinedButton(onClick = {
                         checkForUpdates(context, true)
                         state.intValue = 3
-                    }) { Text(stringResource(R.string.continue_button)) }
-                    OutlinedButton(onClick = { onNavigateToRead() }) { Text(stringResource(R.string.skip)) }
+                    }) { Text(stringResource(Res.string.continue_button)) }
+                    OutlinedButton(onClick = { onNavigateToRead() }) { Text(stringResource(Res.string.skip)) }
                 }
             }
         }
@@ -180,7 +189,7 @@ fun TranslationCard(onSelected: () -> Unit) {
     val context = LocalContext.current
 
     Text(
-        text = stringResource(R.string.download_translation),
+        text = stringResource(Res.string.download_translation),
         style = MaterialTheme.typography.titleLarge,
         modifier = Modifier.fillMaxWidth(),
         textAlign = TextAlign.Center

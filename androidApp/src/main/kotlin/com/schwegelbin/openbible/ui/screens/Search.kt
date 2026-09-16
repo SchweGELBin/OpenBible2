@@ -27,22 +27,25 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.traversalIndex
 import androidx.compose.ui.unit.dp
-import com.schwegelbin.openbible.R
 import com.schwegelbin.openbible.logic.getSelection
 import com.schwegelbin.openbible.logic.saveSelection
 import com.schwegelbin.openbible.logic.searchText
+import com.schwegelbin.openbible.shared.resources.Res
+import com.schwegelbin.openbible.shared.resources.close
+import com.schwegelbin.openbible.shared.resources.search
+import com.schwegelbin.openbible.shared.resources.search_for_text
+import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchScreen(onNavigateToRead: () -> Unit) {
     Scaffold(topBar = {
-        TopAppBar(title = { Text(stringResource(R.string.search)) }, navigationIcon = {
+        TopAppBar(title = { Text(stringResource(Res.string.search)) }, navigationIcon = {
             IconButton(onClick = { onNavigateToRead() }) {
-                Icon(Icons.Filled.Close, stringResource(R.string.close))
+                Icon(Icons.Filled.Close, stringResource(Res.string.close))
             }
         })
     }) { innerPadding ->
@@ -60,7 +63,7 @@ fun SearchScreen(onNavigateToRead: () -> Unit) {
                 query.value,
                 { s -> query.value = s },
                 { results.value = searchText(context, query.value, selection.value.first) },
-                stringResource(R.string.search_for_text)
+                stringResource(Res.string.search_for_text)
             )
             TextSearchResults(
                 results.value,
@@ -96,7 +99,7 @@ fun TextSearchBar(
                 onExpandedChange = { },
                 placeholder = { Text(placeholderText) },
                 leadingIcon = {
-                    Icon(Icons.Filled.Search, stringResource(R.string.search))
+                    Icon(Icons.Filled.Search, stringResource(Res.string.search))
                 },
                 colors = TextFieldDefaults.colors(
                     focusedContainerColor = Color.Transparent,

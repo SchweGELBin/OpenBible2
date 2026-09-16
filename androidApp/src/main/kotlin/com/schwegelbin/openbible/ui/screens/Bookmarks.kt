@@ -13,17 +13,19 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.schwegelbin.openbible.R
+import com.schwegelbin.openbible.shared.resources.Res
+import com.schwegelbin.openbible.shared.resources.bookmarks
+import com.schwegelbin.openbible.shared.resources.close
+import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BookmarksScreen(onNavigateToRead: () -> Unit) {
     Scaffold(topBar = {
-        TopAppBar(title = { Text(stringResource(R.string.bookmarks)) }, navigationIcon = {
+        TopAppBar(title = { Text(stringResource(Res.string.bookmarks)) }, navigationIcon = {
             IconButton(onClick = { onNavigateToRead() }) {
-                Icon(Icons.Filled.Close, stringResource(R.string.close))
+                Icon(Icons.Filled.Close, stringResource(Res.string.close))
             }
         })
     }) { innerPadding ->

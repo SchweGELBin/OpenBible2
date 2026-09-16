@@ -42,11 +42,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.schwegelbin.openbible.R
 import com.schwegelbin.openbible.logic.SelectMode
 import com.schwegelbin.openbible.logic.Translation
 import com.schwegelbin.openbible.logic.downloadTranslation
@@ -62,7 +60,18 @@ import com.schwegelbin.openbible.logic.getTranslations
 import com.schwegelbin.openbible.logic.getUpdateList
 import com.schwegelbin.openbible.logic.sanitizeAbbrev
 import com.schwegelbin.openbible.logic.saveSelection
+import com.schwegelbin.openbible.shared.resources.Res
+import com.schwegelbin.openbible.shared.resources.book
+import com.schwegelbin.openbible.shared.resources.chapter
+import com.schwegelbin.openbible.shared.resources.close
+import com.schwegelbin.openbible.shared.resources.delete
+import com.schwegelbin.openbible.shared.resources.file
+import com.schwegelbin.openbible.shared.resources.import_additional
+import com.schwegelbin.openbible.shared.resources.selection
+import com.schwegelbin.openbible.shared.resources.translation
+import com.schwegelbin.openbible.shared.resources.update
 import com.schwegelbin.openbible.ui.screens.BibleCache.getBible
+import org.jetbrains.compose.resources.stringResource
 import java.io.File
 import java.io.FileOutputStream
 
@@ -74,9 +83,9 @@ fun SelectionScreen(
     initialIndex: Int = 1
 ) {
     Scaffold(topBar = {
-        TopAppBar(title = { Text(stringResource(R.string.selection)) }, navigationIcon = {
+        TopAppBar(title = { Text(stringResource(Res.string.selection)) }, navigationIcon = {
             IconButton(onClick = { onNavigateToRead() }) {
-                Icon(Icons.Filled.Close, stringResource(R.string.close))
+                Icon(Icons.Filled.Close, stringResource(Res.string.close))
             }
         })
     }) { innerPadding ->
@@ -129,9 +138,9 @@ fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean, initialIndex
     SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
         options.forEachIndexed { index, option ->
             val label = when (option) {
-                SelectMode.Translation -> stringResource(R.string.translation)
-                SelectMode.Book -> stringResource(R.string.book)
-                SelectMode.Chapter -> stringResource(R.string.chapter)
+                SelectMode.Translation -> stringResource(Res.string.translation)
+                SelectMode.Book -> stringResource(Res.string.book)
+                SelectMode.Chapter -> stringResource(Res.string.chapter)
             }
             SegmentedButton(
                 shape = SegmentedButtonDefaults.itemShape(index = index, count = options.size),
@@ -165,7 +174,7 @@ fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean, initialIndex
                             .horizontalScroll(rememberScrollState())
                     ) {
                         Text(
-                            stringResource(R.string.import_additional),
+                            stringResource(Res.string.import_additional),
                             style = MaterialTheme.typography.titleMedium,
                             textAlign = TextAlign.Center,
                             modifier = Modifier
@@ -196,7 +205,7 @@ fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean, initialIndex
                         IconButton(onClick = {
                             documentLauncher.launch(arrayOf("application/json"))
                         }) {
-                            Icon(Icons.Filled.Upload, stringResource(R.string.file))
+                            Icon(Icons.Filled.Upload, stringResource(Res.string.file))
                         }
                     }
                     ListTranslationsPart(
@@ -372,14 +381,14 @@ fun ListTranslationsPart(
                             if (names.contains(abbrev)) {
                                 if (getUpdateList(context, false).contains(abbrev)) {
                                     IconButton(onClick = { downloadTranslation(context, abbrev) }) {
-                                        Icon(Icons.Filled.Update, stringResource(R.string.update))
+                                        Icon(Icons.Filled.Update, stringResource(Res.string.update))
                                     }
                                 }
                                 IconButton(onClick = {
                                     if (getTranslationList(context, false).size > 1)
                                         getTranslation(context, abbrev).delete()
                                 }) {
-                                    Icon(Icons.Filled.Delete, stringResource(R.string.delete))
+                                    Icon(Icons.Filled.Delete, stringResource(Res.string.delete))
                                 }
                             }
                         }
@@ -404,7 +413,7 @@ fun ListTranslationsPart(
                     if (getTranslationList(context, false).size > 1)
                         getTranslation(context, abbrev).delete()
                 }) {
-                    Icon(Icons.Filled.Delete, stringResource(R.string.delete))
+                    Icon(Icons.Filled.Delete, stringResource(Res.string.delete))
                 }
             }
         }

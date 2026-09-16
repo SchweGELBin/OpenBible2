@@ -5,6 +5,11 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform)
 }
 
+compose.resources {
+    packageOfResClass = "com.schwegelbin.openbible.shared.resources"
+    publicResClass = true
+}
+
 kotlin {
     android {
         namespace = "com.schwegelbin.openbible.shared"
@@ -32,6 +37,7 @@ kotlin {
             implementation(libs.compose.uiToolingPreview)
         }
         commonMain.dependencies {
+            implementation(libs.compose.componentsResources)
             implementation(libs.compose.uiToolingPreview)
         }
     }
