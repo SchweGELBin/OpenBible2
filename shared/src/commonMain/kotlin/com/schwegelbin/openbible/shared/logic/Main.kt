@@ -83,7 +83,10 @@ fun backupData(
 
     if (data) {
         val zip = ZipFile("$download/OpenBible-Preferences.zip")
-        zip.addFiles(File(dataDir).listFiles()?.toList(), parameters)
+        File(dataDir).listFiles()?.forEach {
+            if (it.isDirectory) zip.addFolder(it, parameters)
+            else zip.addFile(it, parameters)
+        }
     }
 
     if (completed != null) showToast(context, completed)

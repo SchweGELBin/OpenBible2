@@ -12,13 +12,13 @@ import java.net.http.HttpResponse
 import java.util.prefs.Preferences
 import javax.swing.JFileChooser
 
-private enum class Platform {
+enum class Platform {
     Linux,
     MacOS,
     Windows
 }
 
-private fun getPlatform(): Platform {
+fun getPlatform(): Platform {
     val system = System.getProperty("os.name").lowercase()
     return if (system.contains("win")) Platform.Windows
     else if (system.contains("mac")) Platform.MacOS
@@ -62,7 +62,7 @@ actual fun openUrl(context: Any?, url: String) =
     java.awt.Desktop.getDesktop().browse(URI(url))
 
 actual fun getExternalPath(context: Any?, relPath: String): String {
-    val projects = when (getPlatform()) {
+    val dataDir = when (getPlatform()) {
         Platform.Linux -> System.getenv("XDG_DATA_HOME")
             ?: "${System.getProperty("user.home")}/.local/share"
 
@@ -72,13 +72,13 @@ actual fun getExternalPath(context: Any?, relPath: String): String {
         Platform.Windows -> System.getenv("LOCALAPPDATA")
             ?: "${System.getProperty("user.home")}/AppData/Local"
     }
-    val path = "${projects}/openbible/${relPath}"
+    val path = "${dataDir}/openbible/${relPath}"
     File(path).mkdirs()
     return path
 }
 
-actual fun getPrefsDir(context: Any?): String {
-    val projects = when (getPlatform()) {
+fun getConfigDir(platform: Platform): String {
+    val configDir = when (platform) {
         Platform.Linux -> System.getenv("XDG_CONFIG_HOME")
             ?: "${System.getProperty("user.home")}/.config"
 
@@ -88,9 +88,19 @@ actual fun getPrefsDir(context: Any?): String {
         Platform.Windows -> System.getenv("APPDATA")
             ?: "${System.getProperty("user.home")}/AppData/Roaming"
     }
-    val path = "${projects}/openbible"
+    val path = "${configDir}/openbible"
     File(path).mkdirs()
     return path
+}
+
+actual fun getPrefsDir(context: Any?): String {
+    val platform = getPlatform()
+    val configDir = getConfigDir(platform)
+    return when (platform) {
+        Platform.Linux -> "${configDir}/.java/.userPrefs"
+        Platform.Windows -> configDir
+        Platform.MacOS -> configDir
+    }
 }
 
 actual fun getDownloadsDir(): File = File(System.getProperty("user.home"), "Downloads")
