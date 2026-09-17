@@ -5,8 +5,7 @@ app-versionCode = "47"
 app-versionName = "3.3.0"
 
 agp = "9.4.0"
-androidx-composeBom = "2026.09.00"
-androidx-navigationCompose = "2.10.1"
+androidx-navigationCompose = "2.9.2"
 compose-material3 = "1.9.0"
 compose-materialIconsExtended = "1.7.3"
 compose-multiplatform = "1.12.0"
@@ -16,9 +15,9 @@ kotlinx-serializationJson = "1.11.0"
 zip4j = "2.11.6"
 
 [libraries]
-androidx-composeBom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidx-composeBom" }
-androidx-navigationCompose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidx-navigationCompose" }
+androidx-navigationCompose = { group = "org.jetbrains.androidx.navigation", name = "navigation-compose", version.ref = "androidx-navigationCompose" }
 compose-componentsResources = { group = "org.jetbrains.compose.components", name = "components-resources", version.ref = "compose-multiplatform" }
+compose-foundation = { group = "org.jetbrains.compose.foundation", name = "foundation", version.ref = "compose-multiplatform" }
 compose-material3 = { group = "org.jetbrains.compose.material3", name = "material3", version.ref = "compose-material3" }
 compose-materialIconsExtended = { group = "org.jetbrains.compose.material", name = "material-icons-extended", version.ref = "compose-materialIconsExtended" }
 compose-uiTooling = { group = "org.jetbrains.compose.ui", name = "ui-tooling", version.ref = "compose-multiplatform" }

@@ -1,4 +1,4 @@
-package com.schwegelbin.openbible.ui.screens
+package com.schwegelbin.openbible.shared.ui.screens
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -26,13 +26,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.traversalIndex
 import androidx.compose.ui.unit.dp
-import com.schwegelbin.openbible.logic.getSelection
-import com.schwegelbin.openbible.logic.saveSelection
-import com.schwegelbin.openbible.logic.searchText
+import com.schwegelbin.openbible.shared.getContext
+import com.schwegelbin.openbible.shared.logic.getSelection
+import com.schwegelbin.openbible.shared.logic.saveSelection
+import com.schwegelbin.openbible.shared.logic.searchText
 import com.schwegelbin.openbible.shared.resources.Res
 import com.schwegelbin.openbible.shared.resources.close
 import com.schwegelbin.openbible.shared.resources.search
@@ -55,7 +55,7 @@ fun SearchScreen(onNavigateToRead: () -> Unit) {
                 .padding(start = 20.dp, end = 20.dp, bottom = 20.dp),
             verticalArrangement = Arrangement.spacedBy(15.dp)
         ) {
-            val context = LocalContext.current
+            val context = getContext()
             val selection = remember { mutableStateOf(getSelection(context, false)) }
             val query = remember { mutableStateOf("") }
             val results = remember { mutableStateOf(listOf(Triple("", -1, -1))) }

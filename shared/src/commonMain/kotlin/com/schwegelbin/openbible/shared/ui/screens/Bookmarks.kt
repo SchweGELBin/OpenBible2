@@ -1,4 +1,4 @@
-package com.schwegelbin.openbible.ui.screens
+package com.schwegelbin.openbible.shared.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

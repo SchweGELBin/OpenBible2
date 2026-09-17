@@ -1,26 +1,30 @@
-package com.schwegelbin.openbible.ui.screens
+package com.schwegelbin.openbible.shared.ui.screens
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navDeepLink
 import androidx.navigation.toRoute
-import com.schwegelbin.openbible.logic.Bible
-import com.schwegelbin.openbible.logic.checkForUpdates
-import com.schwegelbin.openbible.logic.deserializeBible
-import com.schwegelbin.openbible.logic.getCheckAtStartup
-import com.schwegelbin.openbible.logic.getIndex
-import com.schwegelbin.openbible.logic.getTranslationList
-import com.schwegelbin.openbible.logic.saveDeepLink
+import com.schwegelbin.openbible.shared.getContext
+import com.schwegelbin.openbible.shared.logic.Bible
+import com.schwegelbin.openbible.shared.logic.checkForUpdates
+import com.schwegelbin.openbible.shared.logic.deserializeBible
+import com.schwegelbin.openbible.shared.logic.getCheckAtStartup
+import com.schwegelbin.openbible.shared.logic.getIndex
+import com.schwegelbin.openbible.shared.logic.getTranslationList
+import com.schwegelbin.openbible.shared.logic.saveDeepLink
 import kotlinx.serialization.Serializable
 
 @Serializable
 object Bookmarks
 
 @Serializable
-object Read
+data class Read(
+    val book: String? = null,
+    val chapter: String? = null,
+    val verse: String? = null
+)
 
 @Serializable
 object Search
@@ -50,17 +54,17 @@ object BibleCache {
 
 @Composable
 fun App(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
-    val context = LocalContext.current
+    val context = getContext()
     val startDestination = if (!getIndex(context).exists() ||
         getTranslationList(context).isEmpty() ||
         (getCheckAtStartup(context) && checkForUpdates(context, false))
-    ) Start else Read
+    ) Start else Read()
 
     val navController = rememberNavController()
     NavHost(navController, startDestination = startDestination) {
         composable<Bookmarks> {
             BookmarksScreen(onNavigateToRead = {
-                navController.navigate(Read) {
+                navController.navigate(Read()) {
                     popUpTo(0) { inclusive = true }
                 }
             })
@@ -72,17 +76,16 @@ fun App(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
                 navDeepLink { uriPattern = "openbible://{book}/{chapter}/{verse}" }
             )
         ) { backStackEntry ->
-            val book = backStackEntry.arguments?.getString("book")
-            val chapter = backStackEntry.arguments?.getString("chapter")
-            if (book != null) saveDeepLink(
+            val route = backStackEntry.toRoute<Read>()
+            if (route.book != null) saveDeepLink(
                 context,
-                book = book,
-                chapter = chapter
+                book = route.book,
+                chapter = route.chapter
             )
             ReadScreen(
                 onNavigateToBookmarks = { navController.navigate(Bookmarks) },
                 onNavigateToRead = {
-                    navController.navigate(Read) {
+                    navController.navigate(Read()) {
                         popUpTo(0) { inclusive = true }
                     }
                 },
@@ -99,7 +102,7 @@ fun App(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
         }
         composable<Search> {
             SearchScreen(onNavigateToRead = {
-                navController.navigate(Read) {
+                navController.navigate(Read()) {
                     popUpTo(0) { inclusive = true }
                 }
             })
@@ -108,7 +111,7 @@ fun App(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
             val route = backStackEntry.toRoute<Selection>()
             SelectionScreen(
                 onNavigateToRead = {
-                    navController.navigate(Read) {
+                    navController.navigate(Read()) {
                         popUpTo(0) { inclusive = true }
                     }
                 }, route.isSplitScreen, route.initialIndex
@@ -117,7 +120,7 @@ fun App(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
         composable<Settings> {
             SettingsScreen(
                 onNavigateToRead = {
-                    navController.navigate(Read) {
+                    navController.navigate(Read()) {
                         popUpTo(0) { inclusive = true }
                     }
                 }, onThemeChange = onThemeChange
@@ -125,7 +128,7 @@ fun App(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
         }
         composable<Start> {
             StartScreen(onNavigateToRead = {
-                navController.navigate(Read) {
+                navController.navigate(Read()) {
                     popUpTo(0) { inclusive = true }
                 }
             })

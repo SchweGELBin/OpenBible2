@@ -1,4 +1,4 @@
-package com.schwegelbin.openbible.ui.theme
+package com.schwegelbin.openbible.shared.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

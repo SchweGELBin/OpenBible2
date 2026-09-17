@@ -1,4 +1,4 @@
-package com.schwegelbin.openbible.logic
+package com.schwegelbin.openbible.shared.logic
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

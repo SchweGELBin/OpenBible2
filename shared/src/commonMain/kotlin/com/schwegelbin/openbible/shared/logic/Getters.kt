@@ -1,27 +1,26 @@
-package com.schwegelbin.openbible.logic
+package com.schwegelbin.openbible.shared.logic
 
-import android.content.Context
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
-import com.schwegelbin.openbible.ui.screens.BibleCache.getBible
+import com.schwegelbin.openbible.shared.getExternalPath
+import com.schwegelbin.openbible.shared.ui.screens.BibleCache.getBible
 import java.io.File
 import java.io.FileInputStream
 import java.security.MessageDigest
 import java.util.Locale
 
-fun getTranslations(context: Context): Map<String, List<Translation>>? {
+fun getTranslations(context: Any?): Map<String, List<Translation>>? {
     val map = deserializeTranslations(getIndexPath(context)).removeApocrypha() ?: return null
     return map.values.groupBy { it.lang }.toSortedMap()
 }
 
-fun getLanguageName(code: String, locale: Locale = Locale.getDefault()): String {
-    return Locale.forLanguageTag(code).getDisplayLanguage(locale)
-}
+fun getLanguageName(code: String, locale: Locale = Locale.getDefault()): String =
+    Locale.forLanguageTag(code).getDisplayLanguage(locale)
 
-fun getTranslationInfo(context: Context, abbrev: String): String {
+fun getTranslationInfo(context: Any?, abbrev: String): String {
     val map = deserializeTranslations(getIndexPath(context)) ?: return ""
     var info = ""
     map.values.forEach { (abbreviation, about, license, translation, _, _, _) ->
@@ -38,7 +37,7 @@ fun getTranslationInfo(context: Context, abbrev: String): String {
 }
 
 fun getCount(
-    context: Context, abbrev: String, book: Int
+    context: Any?, abbrev: String, book: Int
 ): Pair<Int, Int> {
     val bible = getBible(getTranslationPath(context, abbrev)) ?: return Pair(0, 0)
     val books = bible.books.size - 1
@@ -46,7 +45,7 @@ fun getCount(
     return Pair(books, bible.books[book].chapters.size - 1)
 }
 
-fun getBookNames(context: Context, abbrev: String): Array<String> {
+fun getBookNames(context: Any?, abbrev: String): Array<String> {
     val bible = getBible(getTranslationPath(context, abbrev)) ?: return Array(1) { "ERROR" }
     val num = bible.books.size
     val arr = Array(num) { "" }
@@ -57,7 +56,7 @@ fun getBookNames(context: Context, abbrev: String): Array<String> {
 }
 
 fun getChapter(
-    context: Context,
+    context: Any?,
     abbrev: String,
     book: Int,
     chapter: Int,
@@ -68,7 +67,7 @@ fun getChapter(
         getBible(getTranslationPath(context, abbrev)) ?: return Triple(error, error, "")
     var text = ""
     bible.books[book].chapters[chapter].verses.forEach { verse ->
-        text += if (showVerseNumbers) "${verse.verse} ${verse.text}".trim() + "<br>"
+        text += if (showVerseNumbers) "${verse.verse} ${verse.text}".trim() + "\n"
         else verse.text.trim() + " "
     }
     if (text.isNotEmpty()) text = text.dropLast(1)
@@ -76,7 +75,7 @@ fun getChapter(
 }
 
 fun getMainThemeOptions(
-    context: Context, themeOption: ThemeOption? = null, schemeOption: SchemeOption? = null
+    context: Any?, themeOption: ThemeOption? = null, schemeOption: SchemeOption? = null
 ): Triple<Boolean?, Boolean, Boolean> {
     var (theme, scheme) = getColorScheme(context)
 
@@ -113,11 +112,10 @@ fun getAppName(name: String, primary: Color, secondary: Color, tertiary: Color):
     return title
 }
 
-fun getList(context: Context, relPath: String = ""): Array<File> {
-    return File(getExternalPath(context, relPath)).listFiles() ?: emptyArray()
-}
+fun getList(context: Any?, relPath: String = ""): Array<File> =
+    File(getExternalPath(context, relPath)).listFiles() ?: emptyArray()
 
-fun getTranslationList(context: Context, showCustom: Boolean? = null): Array<File> {
+fun getTranslationList(context: Any?, showCustom: Boolean? = null): Array<File> {
     val list = getList(context).filter { file -> (file.name != "translations.json" && file.isFile) }
     return when (showCustom) {
         null -> list
@@ -142,27 +140,16 @@ fun File.getChecksum(): String? {
     }
 }
 
-fun getIndex(context: Context): File {
-    return File(getIndexPath(context))
-}
+fun getIndex(context: Any?): File = File(getIndexPath(context))
 
-fun getIndexPath(context: Context): String {
-    return "${getExternalPath(context)}/translations.json"
-}
+fun getIndexPath(context: Any?): String = "${getExternalPath(context)}/translations.json"
 
-fun getTranslation(context: Context, abbrev: String): File {
-    return File(getTranslationPath(context, abbrev))
-}
+fun getTranslation(context: Any?, abbrev: String): File = File(getTranslationPath(context, abbrev))
 
-fun getTranslationPath(context: Context, abbrev: String): String {
-    return "${getExternalPath(context)}/${sanitizeAbbrev(abbrev)}.json"
-}
+fun getTranslationPath(context: Any?, abbrev: String): String =
+    "${getExternalPath(context)}/${sanitizeAbbrev(abbrev)}.json"
 
-fun getExternalPath(context: Context, relPath: String = ""): String {
-    return context.getExternalFilesDir(relPath).toString()
-}
-
-fun getUpdateList(context: Context, install: Boolean, translation: String? = null): List<String> {
+fun getUpdateList(context: Any?, install: Boolean, translation: String? = null): List<String> {
     val updates = mutableListOf<String>()
     val installed = getTranslationList(context, showCustom = false).map { it.nameWithoutExtension }
     val index = deserializeTranslations(getIndexPath(context)) ?: return emptyList()
@@ -249,7 +236,7 @@ fun getBookAbbreviations(): Array<List<String>> {
 }
 
 fun getReadSelection(
-    context: Context,
+    context: Any?,
     onNavigateToStart: () -> Unit,
     isSplitScreen: Boolean
 ): Triple<String, Int, Int> {

@@ -1,72 +1,49 @@
-package com.schwegelbin.openbible.logic
+package com.schwegelbin.openbible.shared.logic
 
-import android.app.DownloadManager
-import android.content.Context
-import android.net.Uri
-import android.os.Environment
-import android.widget.Toast
-import androidx.core.net.toUri
-import com.schwegelbin.openbible.ui.screens.BibleCache.getBible
+import com.schwegelbin.openbible.shared.PlatformFile
+import com.schwegelbin.openbible.shared.copyUriToFile
+import com.schwegelbin.openbible.shared.downloadFile
+import com.schwegelbin.openbible.shared.getDownloadsDir
+import com.schwegelbin.openbible.shared.getExternalPath
+import com.schwegelbin.openbible.shared.getPrefsDir
+import com.schwegelbin.openbible.shared.showToast
+import com.schwegelbin.openbible.shared.ui.screens.BibleCache.getBible
 import net.lingala.zip4j.ZipFile
 import net.lingala.zip4j.exception.ZipException
 import net.lingala.zip4j.model.ZipParameters
 import net.lingala.zip4j.model.enums.CompressionLevel
 import net.lingala.zip4j.model.enums.CompressionMethod
 import java.io.File
-import java.io.FileOutputStream
 
-fun downloadFile(
-    context: Context,
-    url: String,
-    name: String,
-    relPath: String = "",
-    replace: Boolean = true,
-    title: String = "Downloading File"
-): Long {
-    if (replace) File("${getExternalPath(context, relPath)}/${name}").delete()
-    val notify =
-        if (getDownloadNotification(context)) DownloadManager.Request.VISIBILITY_VISIBLE
-        else DownloadManager.Request.VISIBILITY_HIDDEN
-    val request = DownloadManager.Request(url.toUri()).apply {
-        setTitle(title)
-        setDescription("Downloading $name")
-        setNotificationVisibility(notify)
-        setDestinationInExternalFilesDir(context, relPath, name)
-    }
-    val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-    return downloadManager.enqueue(request)
-}
-
-fun downloadTranslation(context: Context, abbrev: String) {
+fun downloadTranslation(context: Any?, abbrev: String) {
     val safe = sanitizeAbbrev(abbrev)
     downloadFile(
         context = context,
-        url = "https://api.getbible.life/v2/${safe}.json",
+        url = "https://api.getbible.net/v2/${safe}.json",
         name = "${safe}.json",
         title = "Downloading Translation"
     )
 }
 
-fun saveIndex(context: Context) {
+fun saveIndex(context: Any?) {
     val file = getIndex(context)
     val currentTime = System.currentTimeMillis()
     val dayTime = 86_400_000L
     if (!file.exists() || currentTime - file.lastModified() > dayTime) {
         downloadFile(
             context = context,
-            url = "https://api.getbible.life/v2/translations.json",
+            url = "https://api.getbible.net/v2/translations.json",
             name = "translations.json",
             title = "Downloading Index"
         )
     }
 }
 
-fun checkForUpdates(context: Context, install: Boolean, translation: String? = null): Boolean {
-    return getUpdateList(context, install, translation).isNotEmpty()
-}
+fun checkForUpdates(context: Any?, install: Boolean, translation: String? = null): Boolean =
+    getUpdateList(context, install, translation).isNotEmpty()
 
 fun checkSelection(
-    context: Context,
+    context: Any?,
     selection: Triple<String, Int, Int>
 ): Triple<String, Int, Int> {
     var (abbrev, book, chapter) = selection
@@ -82,14 +59,14 @@ fun checkSelection(
 }
 
 fun backupData(
-    context: Context,
+    context: Any?,
     user: Boolean = false,
     data: Boolean = false,
     completed: String? = null
 ) {
     val userDir = getExternalPath(context)
-    val dataDir = "${context.dataDir}/shared_prefs"
-    val download = Environment.getExternalStoragePublicDirectory("Download")
+    val dataDir = getPrefsDir(context)
+    val download = getDownloadsDir()
 
     val parameters = ZipParameters().apply {
         compressionMethod = CompressionMethod.DEFLATE
@@ -109,37 +86,31 @@ fun backupData(
         zip.addFiles(File(dataDir).listFiles()?.toList(), parameters)
     }
 
-    if (completed != null) Toast.makeText(context, completed, Toast.LENGTH_SHORT).show()
+    if (completed != null) showToast(context, completed)
 }
 
-fun restoreBackup(context: Context, uri: Uri, user: Boolean, onFinished: () -> Unit) {
+fun restoreBackup(context: Any?, uri: PlatformFile, user: Boolean, onFinished: () -> Unit) {
     if (user) {
         val dir = getExternalPath(context)
         val canonicalDir = File(dir).canonicalPath
-        context.contentResolver.openInputStream(uri)?.use { inputStream ->
-            val temp = File(dir, "temp.zip")
-            FileOutputStream(temp).use { outputStream ->
-                inputStream.copyTo(outputStream)
-            }
-            try {
-                val zip = ZipFile(temp)
-                zip.fileHeaders.forEach { header ->
-                    val targetFile = File(dir, header.fileName).canonicalFile
-                    if (!targetFile.path.startsWith(canonicalDir)) {
-                        throw SecurityException("Zip entry outside target dir: ${header.fileName}")
-                    }
+        val temp = File(dir, "temp.zip")
+        copyUriToFile(context, uri, temp)
+        try {
+            val zip = ZipFile(temp)
+            zip.fileHeaders.forEach { header ->
+                val targetFile = File(dir, header.fileName).canonicalFile
+                if (!targetFile.path.startsWith(canonicalDir)) {
+                    throw SecurityException("Zip entry outside target dir: ${header.fileName}")
                 }
-                zip.extractAll(canonicalDir)
-            } catch (e: ZipException) {
-                e.printStackTrace()
-            } catch (e: SecurityException) {
-                e.printStackTrace()
-            } finally {
-                temp.delete()
-                onFinished()
             }
-        } ?: run {
-            android.util.Log.e("OpenBible", "Failed to open input stream for restore.")
+            zip.extractAll(canonicalDir)
+        } catch (e: ZipException) {
+            e.printStackTrace()
+        } catch (e: SecurityException) {
+            e.printStackTrace()
+        } finally {
+            temp.delete()
+            onFinished()
         }
     }
 
@@ -150,7 +121,7 @@ fun restoreBackup(context: Context, uri: Uri, user: Boolean, onFinished: () -> U
 }
 
 fun turnChapter(
-    context: Context,
+    context: Any?,
     next: Boolean,
     isSplitScreen: Boolean,
     onNavigateToRead: () -> Unit
@@ -189,11 +160,9 @@ fun bytesToHex(bytes: ByteArray): String {
     return String(hexChars)
 }
 
-fun sanitizeAbbrev(abbrev: String?): String {
-    return abbrev?.replace(Regex("[^a-zA-Z0-9_-]"), "") ?: ""
-}
+fun sanitizeAbbrev(abbrev: String?): String = abbrev?.replace(Regex("[^a-zA-Z0-9_-]"), "") ?: ""
 
-fun searchText(context: Context, query: String, abbrev: String): List<Triple<String, Int, Int>> {
+fun searchText(context: Any?, query: String, abbrev: String): List<Triple<String, Int, Int>> {
     val result = mutableListOf(Triple("", -1, -1))
     val bible = getBible(getTranslationPath(context, abbrev)) ?: return result
     val (inclusions, exclusions) = splitSearchQuery(query)
@@ -239,7 +208,7 @@ fun matchSearchQuery(text: String, query: String): Boolean {
     }
 }
 
-fun saveDeepLink(context: Context, book: String?, chapter: String?) {
+fun saveDeepLink(context: Any?, book: String?, chapter: String?) {
     var bookInt = book?.toIntOrNull()
     if (bookInt != null && bookInt > 0) bookInt--
     val bookCount = getBookNames(context, getSelection(context, false).first).size

@@ -1,7 +1,5 @@
-package com.schwegelbin.openbible.ui.screens
+package com.schwegelbin.openbible.shared.ui.screens
 
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -26,21 +24,22 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.schwegelbin.openbible.logic.checkForUpdates
-import com.schwegelbin.openbible.logic.deserialize
-import com.schwegelbin.openbible.logic.downloadTranslation
-import com.schwegelbin.openbible.logic.getCheckAtStartup
-import com.schwegelbin.openbible.logic.getIndex
-import com.schwegelbin.openbible.logic.getIndexPath
-import com.schwegelbin.openbible.logic.getSelection
-import com.schwegelbin.openbible.logic.getTranslationList
-import com.schwegelbin.openbible.logic.getTranslationPath
-import com.schwegelbin.openbible.logic.restoreBackup
-import com.schwegelbin.openbible.logic.saveIndex
-import com.schwegelbin.openbible.logic.saveSelection
+import com.schwegelbin.openbible.shared.FilePicker
+import com.schwegelbin.openbible.shared.getContext
+import com.schwegelbin.openbible.shared.logic.checkForUpdates
+import com.schwegelbin.openbible.shared.logic.deserialize
+import com.schwegelbin.openbible.shared.logic.downloadTranslation
+import com.schwegelbin.openbible.shared.logic.getCheckAtStartup
+import com.schwegelbin.openbible.shared.logic.getIndex
+import com.schwegelbin.openbible.shared.logic.getIndexPath
+import com.schwegelbin.openbible.shared.logic.getSelection
+import com.schwegelbin.openbible.shared.logic.getTranslationList
+import com.schwegelbin.openbible.shared.logic.getTranslationPath
+import com.schwegelbin.openbible.shared.logic.restoreBackup
+import com.schwegelbin.openbible.shared.logic.saveIndex
+import com.schwegelbin.openbible.shared.logic.saveSelection
 import com.schwegelbin.openbible.shared.resources.Res
 import com.schwegelbin.openbible.shared.resources.continue_button
 import com.schwegelbin.openbible.shared.resources.download
@@ -57,7 +56,7 @@ import kotlin.time.Duration.Companion.milliseconds
 
 @Composable
 fun StartScreen(onNavigateToRead: () -> Unit) {
-    val context = LocalContext.current
+    val context = getContext()
     Column(
         modifier = Modifier
             .padding(horizontal = 20.dp, vertical = 80.dp),
@@ -186,7 +185,7 @@ fun WaitForFile(
 
 @Composable
 fun TranslationCard(onSelected: () -> Unit) {
-    val context = LocalContext.current
+    val context = getContext()
 
     Text(
         text = stringResource(Res.string.download_translation),
@@ -212,18 +211,14 @@ fun TranslationCard(onSelected: () -> Unit) {
 
 @Composable
 fun RestoreButton(label: String, user: Boolean, onFinished: () -> Unit) {
-    val context = LocalContext.current
+    val context = getContext()
     val clicked = remember { mutableStateOf(false) }
-
-    val getContentLauncher = rememberLauncherForActivityResult(
-        ActivityResultContracts.GetContent()
-    ) { result ->
-        result?.let { restoreBackup(context, it, user, onFinished) }
-    }
 
     OutlinedButton(onClick = { clicked.value = true }) { Text(label) }
     if (clicked.value) {
         clicked.value = false
-        getContentLauncher.launch("application/zip")
+        FilePicker("zip", true) { result ->
+            result?.let { restoreBackup(context, it, user, onFinished) }
+        }
     }
 }

@@ -1,8 +1,5 @@
-package com.schwegelbin.openbible.ui.screens
+package com.schwegelbin.openbible.shared.ui.screens
 
-import android.content.Context
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -41,25 +38,27 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.schwegelbin.openbible.logic.SelectMode
-import com.schwegelbin.openbible.logic.Translation
-import com.schwegelbin.openbible.logic.downloadTranslation
-import com.schwegelbin.openbible.logic.getBookNames
-import com.schwegelbin.openbible.logic.getCount
-import com.schwegelbin.openbible.logic.getLanguageName
-import com.schwegelbin.openbible.logic.getSelection
-import com.schwegelbin.openbible.logic.getTranslation
-import com.schwegelbin.openbible.logic.getTranslationInfo
-import com.schwegelbin.openbible.logic.getTranslationList
-import com.schwegelbin.openbible.logic.getTranslationPath
-import com.schwegelbin.openbible.logic.getTranslations
-import com.schwegelbin.openbible.logic.getUpdateList
-import com.schwegelbin.openbible.logic.sanitizeAbbrev
-import com.schwegelbin.openbible.logic.saveSelection
+import com.schwegelbin.openbible.shared.FilePicker
+import com.schwegelbin.openbible.shared.copyUriToFile
+import com.schwegelbin.openbible.shared.getContext
+import com.schwegelbin.openbible.shared.logic.SelectMode
+import com.schwegelbin.openbible.shared.logic.Translation
+import com.schwegelbin.openbible.shared.logic.downloadTranslation
+import com.schwegelbin.openbible.shared.logic.getBookNames
+import com.schwegelbin.openbible.shared.logic.getCount
+import com.schwegelbin.openbible.shared.logic.getLanguageName
+import com.schwegelbin.openbible.shared.logic.getSelection
+import com.schwegelbin.openbible.shared.logic.getTranslation
+import com.schwegelbin.openbible.shared.logic.getTranslationInfo
+import com.schwegelbin.openbible.shared.logic.getTranslationList
+import com.schwegelbin.openbible.shared.logic.getTranslationPath
+import com.schwegelbin.openbible.shared.logic.getTranslations
+import com.schwegelbin.openbible.shared.logic.getUpdateList
+import com.schwegelbin.openbible.shared.logic.sanitizeAbbrev
+import com.schwegelbin.openbible.shared.logic.saveSelection
 import com.schwegelbin.openbible.shared.resources.Res
 import com.schwegelbin.openbible.shared.resources.book
 import com.schwegelbin.openbible.shared.resources.chapter
@@ -70,10 +69,9 @@ import com.schwegelbin.openbible.shared.resources.import_additional
 import com.schwegelbin.openbible.shared.resources.selection
 import com.schwegelbin.openbible.shared.resources.translation
 import com.schwegelbin.openbible.shared.resources.update
-import com.schwegelbin.openbible.ui.screens.BibleCache.getBible
+import com.schwegelbin.openbible.shared.ui.screens.BibleCache.getBible
 import org.jetbrains.compose.resources.stringResource
 import java.io.File
-import java.io.FileOutputStream
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -102,7 +100,7 @@ fun SelectionScreen(
 
 @Composable
 fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean, initialIndex: Int) {
-    val context = LocalContext.current
+    val context = getContext()
     val selection = getSelection(context, isSplitScreen)
     val translation = remember { mutableStateOf(selection.first) }
     val book = remember { mutableIntStateOf(selection.second) }
@@ -110,6 +108,7 @@ fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean, initialIndex
     val selectedIndex = remember { mutableIntStateOf(initialIndex) }
     val options = SelectMode.entries
     val selectMode = remember { mutableStateOf(options[selectedIndex.intValue]) }
+    val openDocumentLauncher = remember { mutableStateOf(false) }
 
     fun select(abbrev: String) {
         val newSelection = saveSelection(context, abbrev, isSplitScreen = isSplitScreen)
@@ -119,13 +118,12 @@ fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean, initialIndex
     }
 
     val custom = remember { getTranslationList(context, true) }
-    val documentLauncher =
-        rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+    if (openDocumentLauncher.value) {
+        openDocumentLauncher.value = false
+        FilePicker("json", true) { uri ->
             uri?.let {
                 val temp = getTranslation(context, "ex-tmp")
-                context.contentResolver.openInputStream(uri)?.use { inputStream ->
-                    FileOutputStream(temp).use { outputStream -> inputStream.copyTo(outputStream) }
-                }
+                copyUriToFile(context, it, temp)
                 val name = sanitizeAbbrev(getBible(temp.path)?.abbreviation)
                 if (name.isNotEmpty()) {
                     temp.copyTo(getTranslation(context, "/ex-$name"), overwrite = true)
@@ -134,6 +132,7 @@ fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean, initialIndex
                 temp.delete()
             }
         }
+    }
 
     SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
         options.forEachIndexed { index, option ->
@@ -203,7 +202,7 @@ fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean, initialIndex
                         }
                         */
                         IconButton(onClick = {
-                            documentLauncher.launch(arrayOf("application/json"))
+                            openDocumentLauncher.value = true
                         }) {
                             Icon(Icons.Filled.Upload, stringResource(Res.string.file))
                         }
@@ -333,7 +332,7 @@ fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean, initialIndex
 
 @Composable
 fun ListTranslations(onSelect: (String) -> Unit) {
-    val context = LocalContext.current
+    val context = getContext()
     val translations = remember { getTranslations(context) }
     val installed = remember { getTranslationList(context, false) }
 
@@ -344,7 +343,7 @@ fun ListTranslations(onSelect: (String) -> Unit) {
 
 @Composable
 fun ListTranslationsPart(
-    context: Context,
+    context: Any?,
     onSelect: (String) -> Unit,
     list: Array<File>,
     translations: Map<String, List<Translation>>? = mapOf(),

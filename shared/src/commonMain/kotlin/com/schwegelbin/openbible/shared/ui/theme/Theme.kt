@@ -1,17 +1,14 @@
-package com.schwegelbin.openbible.ui.theme
+package com.schwegelbin.openbible.shared.ui.theme
 
-import android.app.Activity
-import android.os.Build
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalView
-import androidx.core.view.WindowCompat
+import com.schwegelbin.openbible.shared.getContext
+import com.schwegelbin.openbible.shared.getDynamicColorScheme
+import com.schwegelbin.openbible.shared.getView
+import com.schwegelbin.openbible.shared.setWindowDecorations
 
 private val DarkColorScheme = darkColorScheme(
     primary = primaryDark,
@@ -89,7 +86,7 @@ private val LightColorScheme = lightColorScheme(
     surfaceContainerHighest = surfaceContainerHighestLight
 )
 
-private val AmoledColorScheme = darkColorScheme(
+val AmoledColorScheme = darkColorScheme(
     primary = primaryDark,
     onPrimary = onPrimaryDark,
     primaryContainer = primaryContainerDark,
@@ -140,17 +137,8 @@ fun OpenBibleTheme(
         else -> LightColorScheme
     }
 
-    if (dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-        val context = LocalContext.current
-        colorScheme =
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        if (amoled) colorScheme = colorScheme.copy(
-            background = AmoledColorScheme.background,
-            surface = AmoledColorScheme.surface,
-            surfaceContainer = AmoledColorScheme.surfaceContainer,
-            surfaceContainerLow = AmoledColorScheme.surfaceContainerLow
-        )
-    }
+    if (dynamicColor) colorScheme =
+        getDynamicColorScheme(getContext(), darkTheme, amoled) ?: colorScheme
 
     MaterialTheme(
         colorScheme = colorScheme,
@@ -158,9 +146,5 @@ fun OpenBibleTheme(
         content = content
     )
 
-    val view = LocalView.current
-    if (!view.isInEditMode) {
-        val window = (view.context as Activity).window
-        WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
-    }
+    setWindowDecorations(getView(), darkTheme)
 }

@@ -1,4 +1,4 @@
-package com.schwegelbin.openbible.ui.screens
+package com.schwegelbin.openbible.shared.ui.screens
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
@@ -40,23 +40,21 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.fromHtml
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.schwegelbin.openbible.logic.ReadTextAlignment
-import com.schwegelbin.openbible.logic.SplitScreen
-import com.schwegelbin.openbible.logic.getAppName
-import com.schwegelbin.openbible.logic.getChapter
-import com.schwegelbin.openbible.logic.getFontSize
-import com.schwegelbin.openbible.logic.getReadSelection
-import com.schwegelbin.openbible.logic.getShowVerseNumbers
-import com.schwegelbin.openbible.logic.getSplitScreen
-import com.schwegelbin.openbible.logic.getTextAlignment
-import com.schwegelbin.openbible.logic.turnChapter
+import com.schwegelbin.openbible.shared.getContext
+import com.schwegelbin.openbible.shared.logic.ReadTextAlignment
+import com.schwegelbin.openbible.shared.logic.SplitScreen
+import com.schwegelbin.openbible.shared.logic.getAppName
+import com.schwegelbin.openbible.shared.logic.getChapter
+import com.schwegelbin.openbible.shared.logic.getFontSize
+import com.schwegelbin.openbible.shared.logic.getReadSelection
+import com.schwegelbin.openbible.shared.logic.getShowVerseNumbers
+import com.schwegelbin.openbible.shared.logic.getSplitScreen
+import com.schwegelbin.openbible.shared.logic.getTextAlignment
+import com.schwegelbin.openbible.shared.logic.turnChapter
 import com.schwegelbin.openbible.shared.resources.Res
 import com.schwegelbin.openbible.shared.resources.app_name
 import com.schwegelbin.openbible.shared.resources.error
@@ -85,7 +83,7 @@ fun ReadScreen(
         MaterialTheme.colorScheme.secondary,
         MaterialTheme.colorScheme.tertiary
     )
-    val split = getSplitScreen(LocalContext.current)
+    val split = getSplitScreen(getContext())
 
     Scaffold(topBar = {
         TopAppBar(
@@ -130,7 +128,7 @@ fun ReadCard(
     split: SplitScreen,
     isSplitScreen: Boolean
 ) {
-    val context = LocalContext.current
+    val context = getContext()
     val selection =
         remember { mutableStateOf(getReadSelection(context, onNavigateToStart, isSplitScreen)) }
     val (abbrev, book, chapter) = selection.value
@@ -207,7 +205,7 @@ fun ReadCard(
                 ReadTextAlignment.Start -> {
                     SelectionContainer {
                         Text(
-                            text = AnnotatedString.fromHtml(text).toString(),
+                            text = text,
                             modifier = textMod,
                             fontSize = (textScale.floatValue * textStyle.fontSize.value).sp,
                             lineHeight = (textScale.floatValue * textStyle.lineHeight.value).sp
@@ -217,7 +215,7 @@ fun ReadCard(
 
                 ReadTextAlignment.Justify -> {
                     Text(
-                        text = AnnotatedString.fromHtml(text).toString(),
+                        text = text,
                         modifier = textMod,
                         fontSize = (textScale.floatValue * textStyle.fontSize.value).sp,
                         lineHeight = (textScale.floatValue * textStyle.lineHeight.value).sp,
@@ -232,7 +230,7 @@ fun ReadCard(
 
 @Composable
 fun TurnButton(next: Boolean, isSplitScreen: Boolean, onNavigateToRead: () -> Unit) {
-    val context = LocalContext.current
+    val context = getContext()
     IconButton(onClick = { turnChapter(context, next, isSplitScreen, onNavigateToRead) }) {
         if (next) {
             Icon(Icons.Filled.ChevronRight, stringResource(Res.string.next))

@@ -1,7 +1,5 @@
-package com.schwegelbin.openbible.ui.screens
+package com.schwegelbin.openbible.shared.ui.screens
 
-import android.content.Intent
-import android.os.Build
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -31,29 +29,30 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.core.net.toUri
-import com.schwegelbin.openbible.logic.ReadTextAlignment
-import com.schwegelbin.openbible.logic.SchemeOption
-import com.schwegelbin.openbible.logic.SplitScreen
-import com.schwegelbin.openbible.logic.ThemeOption
-import com.schwegelbin.openbible.logic.backupData
-import com.schwegelbin.openbible.logic.getCheckAtStartup
-import com.schwegelbin.openbible.logic.getColorSchemeInt
-import com.schwegelbin.openbible.logic.getDownloadNotification
-import com.schwegelbin.openbible.logic.getFontSize
-import com.schwegelbin.openbible.logic.getMainThemeOptions
-import com.schwegelbin.openbible.logic.getShowVerseNumbers
-import com.schwegelbin.openbible.logic.getSplitScreenInt
-import com.schwegelbin.openbible.logic.getTextAlignmentInt
-import com.schwegelbin.openbible.logic.saveCheckAtStartup
-import com.schwegelbin.openbible.logic.saveColorScheme
-import com.schwegelbin.openbible.logic.saveDownloadNotification
-import com.schwegelbin.openbible.logic.saveFontSize
-import com.schwegelbin.openbible.logic.saveShowVerseNumbers
-import com.schwegelbin.openbible.logic.saveSplitScreen
-import com.schwegelbin.openbible.logic.saveTextAlignment
+import com.schwegelbin.openbible.shared.checkMaterialYouSupport
+import com.schwegelbin.openbible.shared.getContext
+import com.schwegelbin.openbible.shared.logic.ReadTextAlignment
+import com.schwegelbin.openbible.shared.logic.SchemeOption
+import com.schwegelbin.openbible.shared.logic.SplitScreen
+import com.schwegelbin.openbible.shared.logic.ThemeOption
+import com.schwegelbin.openbible.shared.logic.backupData
+import com.schwegelbin.openbible.shared.logic.getCheckAtStartup
+import com.schwegelbin.openbible.shared.logic.getColorSchemeInt
+import com.schwegelbin.openbible.shared.logic.getDownloadNotification
+import com.schwegelbin.openbible.shared.logic.getFontSize
+import com.schwegelbin.openbible.shared.logic.getMainThemeOptions
+import com.schwegelbin.openbible.shared.logic.getShowVerseNumbers
+import com.schwegelbin.openbible.shared.logic.getSplitScreenInt
+import com.schwegelbin.openbible.shared.logic.getTextAlignmentInt
+import com.schwegelbin.openbible.shared.logic.saveCheckAtStartup
+import com.schwegelbin.openbible.shared.logic.saveColorScheme
+import com.schwegelbin.openbible.shared.logic.saveDownloadNotification
+import com.schwegelbin.openbible.shared.logic.saveFontSize
+import com.schwegelbin.openbible.shared.logic.saveShowVerseNumbers
+import com.schwegelbin.openbible.shared.logic.saveSplitScreen
+import com.schwegelbin.openbible.shared.logic.saveTextAlignment
+import com.schwegelbin.openbible.shared.openUrl
 import com.schwegelbin.openbible.shared.resources.Res
 import com.schwegelbin.openbible.shared.resources.about_us
 import com.schwegelbin.openbible.shared.resources.alignment
@@ -97,7 +96,7 @@ fun SettingsScreen(
     onNavigateToRead: () -> Unit,
     onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit
 ) {
-    val context = LocalContext.current
+    val context = getContext()
     Scaffold(topBar = {
         TopAppBar(title = { Text(stringResource(Res.string.settings)) }, navigationIcon = {
             IconButton(onClick = { onNavigateToRead() }) {
@@ -137,7 +136,7 @@ fun SettingsScreen(
             Text(stringResource(Res.string.colors), style = styleLarge, modifier = modLarge)
             Text(stringResource(Res.string.color_theme), style = styleMedium)
             ThemeButton(onThemeChange)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            if (checkMaterialYouSupport()) {
                 Text(stringResource(Res.string.color_scheme), style = styleMedium)
                 SchemeButton(onThemeChange)
             }
@@ -252,17 +251,13 @@ fun SettingsField(text: String, initialState: Boolean, saveFunction: (Boolean) -
 
 @Composable
 fun LinkButton(text: String, url: String) {
-    val context = LocalContext.current
-    OutlinedButton(onClick = {
-        val intent =
-            Intent(Intent.ACTION_VIEW, url.toUri())
-        context.startActivity(intent)
-    }) { Text(text) }
+    val context = getContext()
+    OutlinedButton(onClick = { openUrl(context, url) }) { Text(text) }
 }
 
 @Composable
 fun ReadTextAlignmentButton() {
-    val context = LocalContext.current
+    val context = getContext()
     val selectedIndex = remember { mutableIntStateOf(getTextAlignmentInt(context)) }
     val options = ReadTextAlignment.entries
 
@@ -286,7 +281,7 @@ fun ReadTextAlignmentButton() {
 
 @Composable
 fun SplitScreenButton() {
-    val context = LocalContext.current
+    val context = getContext()
     val selectedIndex = remember { mutableIntStateOf(getSplitScreenInt(context)) }
     val options = SplitScreen.entries
 
@@ -311,7 +306,7 @@ fun SplitScreenButton() {
 
 @Composable
 fun ThemeButton(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
-    val context = LocalContext.current
+    val context = getContext()
     val selectedIndex = remember { mutableIntStateOf(getColorSchemeInt(context, true)) }
     val options = ThemeOption.entries
 
@@ -341,7 +336,7 @@ fun ThemeButton(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
 
 @Composable
 fun SchemeButton(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
-    val context = LocalContext.current
+    val context = getContext()
     val selectedIndex = remember { mutableIntStateOf(getColorSchemeInt(context, false)) }
     val options = SchemeOption.entries
 
@@ -369,7 +364,7 @@ fun SchemeButton(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
 
 @Composable
 fun FontSizeSlider() {
-    val context = LocalContext.current
+    val context = getContext()
     val sliderPosition = remember { mutableStateOf(getFontSize(context)) }
     RangeSlider(
         value = sliderPosition.value,
@@ -382,7 +377,7 @@ fun FontSizeSlider() {
 
 @Composable
 fun BackupButton(isUser: Boolean = false, isData: Boolean = false, text: String) {
-    val context = LocalContext.current
+    val context = getContext()
     val clicked = remember { mutableStateOf(false) }
     OutlinedButton(onClick = { clicked.value = true }) { Text(text) }
     if (clicked.value) {
