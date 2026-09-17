@@ -54,6 +54,7 @@
     <string name="show_verse_number">Visa versnummer</string>
     <string name="skip">Hoppa över</string>
     <string name="split_screen">Delad skärm</string>
+    <string name="theme_amoled">AMOLED</string>
     <string name="theme_dark">Mörkt</string>
     <string name="theme_light">Ljust</string>
     <string name="theme_system">System</string>
