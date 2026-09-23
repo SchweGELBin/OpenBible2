@@ -54,6 +54,7 @@
     <string name="show_verse_number">Показывать номер стиха</string>
     <string name="skip">Пропустить</string>
     <string name="split_screen">Разделить экран</string>
+    <string name="theme_amoled">AMOLED</string>
     <string name="theme_dark">Тёмная</string>
     <string name="theme_light">Светлая</string>
     <string name="theme_system">Системная</string>
