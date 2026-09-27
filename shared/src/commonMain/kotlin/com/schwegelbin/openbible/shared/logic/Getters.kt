@@ -16,17 +16,12 @@ import java.util.Locale
 fun getLanguageName(code: String, locale: Locale = Locale.getDefault()): String =
     Locale.forLanguageTag(code).getDisplayLanguage(locale)
 
-fun getTranslationInfo(context: Any?, abbrev: String): String {
-    val info = getTranslations(context).values.find { it.abbreviation == abbrev }
-        ?.let { (_, about, license, translation, _, _, _) ->
-            "$translation\n\n$about\n\n$license"
-        }
-        ?: getBible(getTranslationPath(context, abbrev))?.let {
-            "${it.translation}\n\n${it.about}\n\n${it.license}"
-        }
-        ?: ""
-    return info.replace("\\par", "\n")
-}
+fun getTranslationInfo(context: Any?, abbrev: String): String =
+    (getTranslations(context)[abbrev]?.let {
+        "${it.translation}\n\n${it.about}\n\n${it.license}"
+    } ?: getBible(getTranslationPath(context, abbrev))?.let {
+        "${it.translation}\n\n${it.about}\n\n${it.license}"
+    } ?: "").replace("\\par", "\n")
 
 fun getCount(
     context: Any?, abbrev: String, book: Int
