@@ -8,11 +8,15 @@ import androidx.navigation.navDeepLink
 import androidx.navigation.toRoute
 import com.schwegelbin.openbible.shared.getContext
 import com.schwegelbin.openbible.shared.logic.Bible
+import com.schwegelbin.openbible.shared.logic.Translation
 import com.schwegelbin.openbible.shared.logic.checkForUpdates
 import com.schwegelbin.openbible.shared.logic.deserializeBible
+import com.schwegelbin.openbible.shared.logic.deserializeTranslations
 import com.schwegelbin.openbible.shared.logic.getCheckAtStartup
 import com.schwegelbin.openbible.shared.logic.getIndex
-import com.schwegelbin.openbible.shared.logic.getTranslationList
+import com.schwegelbin.openbible.shared.logic.getIndexPath
+import com.schwegelbin.openbible.shared.logic.getInstalledTranslations
+import com.schwegelbin.openbible.shared.logic.removeApocrypha
 import com.schwegelbin.openbible.shared.logic.saveDeepLink
 import kotlinx.serialization.Serializable
 
@@ -41,14 +45,25 @@ object Settings
 object Start
 
 object BibleCache {
-    private val cache = mutableMapOf<String, Bible>()
+    private val bibleCache = mutableMapOf<String, Bible>()
+    private val translationsCache = mutableMapOf<String, Translation>()
 
     fun getBible(path: String): Bible? {
-        return cache[path] ?: run {
+        return bibleCache[path] ?: run {
             val bible = deserializeBible(path)
-            if (bible != null) cache[path] = bible
+            if (bible != null) bibleCache[path] = bible
             bible
         }
+    }
+
+    fun getTranslations(context: Any?): Map<String, Translation> {
+        if (translationsCache.isEmpty()) {
+            val translations = deserializeTranslations(getIndexPath(context))?.removeApocrypha()
+            if (translations != null) {
+                translationsCache.putAll(translations)
+            }
+        }
+        return translationsCache
     }
 }
 
@@ -56,7 +71,7 @@ object BibleCache {
 fun App(onThemeChange: (Boolean?, Boolean?, Boolean?) -> Unit) {
     val context = getContext()
     val startDestination = if (!getIndex(context).exists() ||
-        getTranslationList(context).isEmpty() ||
+        getInstalledTranslations(context).isEmpty() ||
         (getCheckAtStartup(context) && checkForUpdates(context, false))
     ) Start else Read()
 

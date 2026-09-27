@@ -47,15 +47,15 @@ import com.schwegelbin.openbible.shared.getContext
 import com.schwegelbin.openbible.shared.logic.SelectMode
 import com.schwegelbin.openbible.shared.logic.Translation
 import com.schwegelbin.openbible.shared.logic.downloadTranslation
+import com.schwegelbin.openbible.shared.logic.getAvailableTranslations
 import com.schwegelbin.openbible.shared.logic.getBookNames
 import com.schwegelbin.openbible.shared.logic.getCount
+import com.schwegelbin.openbible.shared.logic.getInstalledTranslations
 import com.schwegelbin.openbible.shared.logic.getLanguageName
 import com.schwegelbin.openbible.shared.logic.getSelection
 import com.schwegelbin.openbible.shared.logic.getTranslation
 import com.schwegelbin.openbible.shared.logic.getTranslationInfo
-import com.schwegelbin.openbible.shared.logic.getTranslationList
 import com.schwegelbin.openbible.shared.logic.getTranslationPath
-import com.schwegelbin.openbible.shared.logic.getTranslations
 import com.schwegelbin.openbible.shared.logic.getUpdateList
 import com.schwegelbin.openbible.shared.logic.sanitizeAbbrev
 import com.schwegelbin.openbible.shared.logic.saveSelection
@@ -117,7 +117,7 @@ fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean, initialIndex
         chapter.intValue = newSelection.third
     }
 
-    val custom = remember { getTranslationList(context, true) }
+    val custom = remember { getInstalledTranslations(context, true) }
     if (openDocumentLauncher.value) {
         openDocumentLauncher.value = false
         FilePicker("json", true) { uri ->
@@ -333,8 +333,8 @@ fun Selection(onNavigateToRead: () -> Unit, isSplitScreen: Boolean, initialIndex
 @Composable
 fun ListTranslations(onSelect: (String) -> Unit) {
     val context = getContext()
-    val translations = remember { getTranslations(context) }
-    val installed = remember { getTranslationList(context, false) }
+    val translations = remember { getAvailableTranslations(context) }
+    val installed = remember { getInstalledTranslations(context, false) }
 
     ListTranslationsPart(context, onSelect, installed, translations, true)
     HorizontalDivider(Modifier.padding(12.dp))
@@ -384,7 +384,7 @@ fun ListTranslationsPart(
                                     }
                                 }
                                 IconButton(onClick = {
-                                    if (getTranslationList(context, false).size > 1)
+                                    if (getInstalledTranslations(context, false).size > 1)
                                         getTranslation(context, abbrev).delete()
                                 }) {
                                     Icon(Icons.Filled.Delete, stringResource(Res.string.delete))
@@ -409,7 +409,7 @@ fun ListTranslationsPart(
                 )
                 { Text("$abbrev | $name") }
                 IconButton(onClick = {
-                    if (getTranslationList(context, false).size > 1)
+                    if (getInstalledTranslations(context, false).size > 1)
                         getTranslation(context, abbrev).delete()
                 }) {
                     Icon(Icons.Filled.Delete, stringResource(Res.string.delete))

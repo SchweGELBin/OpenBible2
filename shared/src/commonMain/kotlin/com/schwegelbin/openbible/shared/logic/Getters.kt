@@ -7,21 +7,17 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import com.schwegelbin.openbible.shared.getExternalPath
 import com.schwegelbin.openbible.shared.ui.screens.BibleCache.getBible
+import com.schwegelbin.openbible.shared.ui.screens.BibleCache.getTranslations
 import java.io.File
 import java.io.FileInputStream
 import java.security.MessageDigest
 import java.util.Locale
 
-fun getTranslations(context: Any?): Map<String, List<Translation>>? {
-    val map = deserializeTranslations(getIndexPath(context)).removeApocrypha() ?: return null
-    return map.values.groupBy { it.lang }.toSortedMap()
-}
-
 fun getLanguageName(code: String, locale: Locale = Locale.getDefault()): String =
     Locale.forLanguageTag(code).getDisplayLanguage(locale)
 
 fun getTranslationInfo(context: Any?, abbrev: String): String {
-    val map = deserializeTranslations(getIndexPath(context)) ?: return ""
+    val map = getTranslations(context)
     var info = ""
     map.values.forEach { (abbreviation, about, license, translation, _, _, _) ->
         if (abbreviation == abbrev) {
@@ -115,13 +111,18 @@ fun getAppName(name: String, primary: Color, secondary: Color, tertiary: Color):
 fun getList(context: Any?, relPath: String = ""): Array<File> =
     File(getExternalPath(context, relPath)).listFiles() ?: emptyArray()
 
-fun getTranslationList(context: Any?, showCustom: Boolean? = null): Array<File> {
+fun getInstalledTranslations(context: Any?, showCustom: Boolean? = null): Array<File> {
     val list = getList(context).filter { file -> (file.name != "translations.json" && file.isFile) }
     return when (showCustom) {
         null -> list
         true -> list.filter { file -> (file.name.startsWith("ex-")) }
         false -> list.filter { file -> (!file.name.startsWith("ex-")) }
     }.toTypedArray()
+}
+
+fun getAvailableTranslations(context: Any?): Map<String, List<Translation>> {
+    val map = getTranslations(context)
+    return map.values.groupBy { it.lang }.toSortedMap()
 }
 
 fun File.getChecksum(): String? {
@@ -151,8 +152,9 @@ fun getTranslationPath(context: Any?, abbrev: String): String =
 
 fun getUpdateList(context: Any?, install: Boolean, translation: String? = null): List<String> {
     val updates = mutableListOf<String>()
-    val installed = getTranslationList(context, showCustom = false).map { it.nameWithoutExtension }
-    val index = deserializeTranslations(getIndexPath(context)) ?: return emptyList()
+    val installed =
+        getInstalledTranslations(context, showCustom = false).map { it.nameWithoutExtension }
+    val index = getTranslations(context)
     index.values.forEach { (abbrev, _, _, _, _, _, sha) ->
         if (installed.contains(abbrev) && (translation == null || abbrev == translation)) {
             if (getTranslation(context, abbrev).getChecksum() != sha) {
@@ -244,7 +246,7 @@ fun getReadSelection(
     if (!getTranslation(context, abbrev).exists() ||
         getBible(getTranslationPath(context, abbrev)) == null
     ) {
-        val list = getTranslationList(context).map { it.nameWithoutExtension }
+        val list = getInstalledTranslations(context).map { it.nameWithoutExtension }
         if (list.isEmpty()) onNavigateToStart()
         for (item in list) {
             if (getBible(getTranslationPath(context, item)) != null) {

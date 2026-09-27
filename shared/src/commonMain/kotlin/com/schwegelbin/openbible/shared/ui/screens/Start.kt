@@ -34,8 +34,8 @@ import com.schwegelbin.openbible.shared.logic.downloadTranslation
 import com.schwegelbin.openbible.shared.logic.getCheckAtStartup
 import com.schwegelbin.openbible.shared.logic.getIndex
 import com.schwegelbin.openbible.shared.logic.getIndexPath
+import com.schwegelbin.openbible.shared.logic.getInstalledTranslations
 import com.schwegelbin.openbible.shared.logic.getSelection
-import com.schwegelbin.openbible.shared.logic.getTranslationList
 import com.schwegelbin.openbible.shared.logic.getTranslationPath
 import com.schwegelbin.openbible.shared.logic.restoreBackup
 import com.schwegelbin.openbible.shared.logic.saveIndex
@@ -64,7 +64,7 @@ fun StartScreen(onNavigateToRead: () -> Unit) {
     ) {
         val state = remember { mutableIntStateOf(0) }
         if (state.intValue == 0) {
-            if (getTranslationList(context).isNotEmpty()) state.intValue = 1
+            if (getInstalledTranslations(context).isNotEmpty()) state.intValue = 1
             else if (getIndex(context).exists()) state.intValue = 2
         }
         when (state.intValue) {
@@ -102,7 +102,7 @@ fun StartScreen(onNavigateToRead: () -> Unit) {
                 )
                 saveIndex(context)
                 Loading(onLoaded = {
-                    if (getTranslationList(context).isEmpty()) state.intValue = 2
+                    if (getInstalledTranslations(context).isEmpty()) state.intValue = 2
                     else if (getCheckAtStartup(context) && checkForUpdates(context, false))
                         state.intValue = 4
                     else onNavigateToRead()
