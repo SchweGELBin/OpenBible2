@@ -18,6 +18,7 @@ compose.desktop {
             linux {
                 appCategory = "EDUCATION"
                 iconFile.set(project.file("src/main/res/drawable/app-icon.png"))
+                menuGroup = "SchweGELBin"
             }
             macOS {
                 appCategory = "public.app-category.education"
@@ -25,6 +26,7 @@ compose.desktop {
             }
             windows {
                 iconFile.set(project.file("src/main/res/drawable/app-icon.ico"))
+                menuGroup = "SchweGELBin"
             }
         }
     }
