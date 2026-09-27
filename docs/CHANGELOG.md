@@ -1,3 +1,53 @@
+## [3.4.0] - 2026-09-27
+
+### 🚀 Features
+
+- Share code and ui with other platforms
+
+### 🐛 Bug Fixes
+
+- Remove more apocrypha
+- Use correct config dir
+- *(desktop)* Add menu groups
+
+### ⚡ Performance
+
+- Use new android release optimization
+- Optimize loading times by caching the index
+- Speed up getTranslationInfo function
+
+### 🚜 Refactor
+
+- Prepare support for multiple platforms
+- Cleanup .idea directory
+- Share app and sdk versions
+- Share resources, set app icons
+- Cleanup getTranslationInfo function
+
+### 🎨 Styling
+
+- Reformat code
+
+### 📚 Documentation
+
+- Refer to Multiplatform
+
+### 🌍 Translations
+
+- Translate Metadata using Weblate (Swedish) (#191)
+- Translate Metadata using Weblate (Russian) (#197)
+- Update translations of Application (#201)
+- Update translations of Application (#203)
+
+### ⚙️ Miscellaneous Tasks
+
+- Include dependencies info in app bundle
+- Update release worklow for new directory structure
+- Remove webApp
+- Add desktop build workflow
+- Fix macOS and Windows builds
+- Cleanup desktop builds
+- Cleanup desktop builds again
 ## [3.3.0] - 2026-08-21
 
 ### 🚀 Features

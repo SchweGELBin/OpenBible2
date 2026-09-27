@@ -1,0 +1,9 @@
+Added desktop support
+
+Performance improvements and optimizations
+
+Removed more apocrypha
+
+Updated Estonian translation (by Priit Jõerüüt)
+Updated Russian translation (by @Xapitonov)
+Updated Swedish translation (by @bittin)

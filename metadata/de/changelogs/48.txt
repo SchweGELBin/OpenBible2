@@ -1,0 +1,9 @@
+Unterstützung für Desktop-Anwendungen
+
+Verbesserte Leistung und Optimierungen
+
+Entfernung weiterer Apokryphen
+
+Aktualisierte Estnische Übersetzung (von Priit Jõerüüt)
+Aktualisierte Russische Übersetzung (von @Xapitonov)
+Aktualisierte Schwedische Übersetzung (von @bittin)
