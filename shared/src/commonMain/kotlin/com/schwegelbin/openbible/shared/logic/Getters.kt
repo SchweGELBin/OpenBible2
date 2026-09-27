@@ -17,19 +17,15 @@ fun getLanguageName(code: String, locale: Locale = Locale.getDefault()): String 
     Locale.forLanguageTag(code).getDisplayLanguage(locale)
 
 fun getTranslationInfo(context: Any?, abbrev: String): String {
-    val map = getTranslations(context)
-    var info = ""
-    map.values.forEach { (abbreviation, about, license, translation, _, _, _) ->
-        if (abbreviation == abbrev) {
-            info = "$translation\n\n$about\n\n$license"
-            return@forEach
+    val info = getTranslations(context).values.find { it.abbreviation == abbrev }
+        ?.let { (_, about, license, translation, _, _, _) ->
+            "$translation\n\n$about\n\n$license"
         }
-    }
-    if (info == "") {
-        val map = getBible(getTranslationPath(context, abbrev)) ?: return ""
-        info = "${map.translation}\n\n${map.about}\n\n${map.license}"
-    }
-    return info.replace("\\par ", "\n").replace("\\par", "\n")
+        ?: getBible(getTranslationPath(context, abbrev))?.let {
+            "${it.translation}\n\n${it.about}\n\n${it.license}"
+        }
+        ?: ""
+    return info.replace("\\par", "\n")
 }
 
 fun getCount(
