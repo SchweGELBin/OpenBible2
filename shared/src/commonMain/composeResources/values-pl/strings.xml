@@ -54,6 +54,7 @@
     <string name="show_verse_number">Pokaż numer wersetu</string>
     <string name="skip">Pomiń</string>
     <string name="split_screen">Podział ekranu</string>
+    <string name="theme_amoled">AMOLED</string>
     <string name="theme_dark">Ciemny</string>
     <string name="theme_light">Jasny</string>
     <string name="theme_system">System</string>
