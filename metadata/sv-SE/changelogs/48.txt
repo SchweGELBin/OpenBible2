@@ -1,0 +1,9 @@
+Stöd för datorer har lagts till
+
+Prestandaförbättringar och optimeringar
+
+Tog bort mer av de apokryfiska böckerna
+
+Uppdaterad estnisk översättning (av Priit Jõerüüt)
+Uppdaterad rysk översättning (av @Xapitonov)
+Uppdaterad svensk översättning (av @bittin)
