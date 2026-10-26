@@ -29,6 +29,8 @@ compose.desktop {
                 menuGroup = "SchweGELBin"
             }
         }
+
+        buildTypes.release.proguard.optimize.set(true)
     }
 }
 
