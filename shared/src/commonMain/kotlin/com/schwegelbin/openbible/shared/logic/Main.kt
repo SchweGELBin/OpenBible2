@@ -215,8 +215,9 @@ fun saveDeepLink(context: Any?, book: String?, chapter: String?) {
     var bookInt = book?.toIntOrNull()
     if (bookInt != null && bookInt > 0) bookInt--
     val bookCount = getBookNames(context, getSelection(context, false).first).size
+    val bookSanitized = book?.lowercase()?.replace(Regex("[^a-z0-9]"), "")
     val bookIndex =
-        if (bookCount == 66) getBookAbbreviations().indexOfFirst { list -> list.contains(book) }
+        if (bookCount == 66) getBookAbbreviations().indexOfFirst { list -> list.contains(bookSanitized) }
         else -1
     if (bookIndex >= 0) bookInt = bookIndex
     var chapterInt = chapter?.toIntOrNull()
