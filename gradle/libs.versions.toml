@@ -4,7 +4,7 @@ app-minSdk = "27"
 app-versionCode = "48"
 app-versionName = "3.4.0"
 
-agp = "9.4.1"
+agp = "9.5.0"
 androidx-navigationCompose = "2.9.2"
 compose-material3 = "1.9.0"
 compose-materialIconsExtended = "1.7.3"
